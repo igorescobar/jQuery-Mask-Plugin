@@ -15,6 +15,7 @@
   $(function() {
     $('.date').mask('99/99/9999');
     $('.time').mask('99:99:99');
+    $('.date_time').mask('99/99/9999 99:99:99');
     $('.cep').mask('99999-999');
     $('.phone').mask('9999-9999');
     $('.phone_with_ddd').mask('(99)9999-9999');
@@ -23,7 +24,7 @@
 </head>
 <body>
   <div id="content">
-  <h1>Mask jQuery Plugin</h1>
+  <h1>jQuery Mask Plugin</h1>
   <h2>Demo</h2>
 
   <form>
@@ -31,6 +32,8 @@
     <input type="text" maxlength="10" class="date"/>
     <label>Hora</label>
     <input type="text" maxlength="8" class="time"/>
+    <label>Data e Hora</label>
+    <input type="text" maxlength="20" class="date_time"/>
     <label>CEP</label>
     <input type="text" maxlength="9" class="cep"/>
     <label>Telefone</label>
@@ -44,6 +47,7 @@
 $(document).ready(function(){
   $('.date').mask('99/99/9999');
   $('.time').mask('99:99:99');
+  $('.date_time').mask('99/99/9999 99:99:99');
   $('.cep').mask('99999-999');
   $('.phone').mask('9999-9999');
   $('.phone_with_ddd').mask('(99)9999-9999');

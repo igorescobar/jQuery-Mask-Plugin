@@ -14,9 +14,8 @@ $(function () {
   "use strict";
 
   jQuery.fn.extend({
-    specialChars: {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189},
+    specialChars: {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32},
     mask: function (Mascara) {
-
       var mask_pattern = Mascara;
       $(this).keydown(function (e){
         $(this).preventSpecialKeys(e);
@@ -33,6 +32,7 @@ $(function () {
 
     },
     apply_mask: function (e, Mascara) {
+      console.log(e.keyCode);
       var SpecialChars = $(this).specialChars,
         byPassKeys = [8],
         keyCode = e.keyCode? e.keyCode : e.charCode,
