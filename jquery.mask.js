@@ -44,7 +44,7 @@ $(function () {
 
       if ($.inArray(keyCode, byPassKeys) > -1) return true;
 
-      if (typeof SpecialChars[nowMask] === "number" && pressedKeyChar != nowMask) {
+      if (typeof SpecialChars[nowMask] === "number" && pressedKeyChar !== nowMask) {
         $(this).val(replacePattern);
       }
     }
