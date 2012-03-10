@@ -1,39 +1,52 @@
-/**
-* Formata o campo de acordo com a mascara informada.
-* Ex: $('.date_fields').mask('99/99/9999')
-* @author Igor Escobar (blog@igorescobar.com)
-* @param Mascara String que possui a mascara de formatação do campo.
-* @returns {void}
-*/
+/*!
+ * jQuery Mask Plugin
+ *
+ * http://blog.igorescobar.com/
+ *
+ * Copyright 2012, Igor Escobar
+ *
+ * Date: Sat Mar 10 03:50:23 2012
+ */
+
+/*jslint undef: false, browser: false, es5: true, maxerr: 50, indent: 2 */
 
 $(function () {
   "use strict";
-  var mask_pattern = null;
+
   jQuery.fn.extend({
+    specialChars: {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189},
     mask: function (Mascara) {
-      mask_pattern = Mascara
-      $(this).keyup(function (){
-        $(this).apply_mask();
+
+      var mask_pattern = Mascara;
+      $(this).keydown(function (e){
+        $(this).preventSpecialKeys(e);
+        $(this).apply_mask(e, mask_pattern);
       });
     },
-    apply_mask: function () {
-
-      if (event.keyCode == 8) return true;
-
-      var SpecialChars = [':', '-', '.', '(',')', '/', ',', '_'],
+    preventSpecialKeys: function (e){
+      var SpecialChars = $(this).specialChars,
         oValue = $(this).val(),
-        novo_valor = '';
+        lastTypedChar = oValue.substring(oValue.length-1);
 
-      for (i = 0 ; i <= oValue.length; i++) {
-        var nowMask = mask_pattern.charAt(i),
-          nowLetter = oValue.charAt(i),
-          DuplicatedMask = new RegExp(nowMask + "{2,}");
+      if (typeof SpecialChars[lastTypedChar] === "number" && e.keyCode == SpecialChars[lastTypedChar])
+        e.preventDefault();
 
-        novo_valor += ($.inArray(nowMask, SpecialChars) > -1 && nowLetter != nowMask) ? (nowMask + '' + nowLetter) : nowLetter;
-        novo_valor = novo_valor.replace(DuplicatedMask, nowMask);
+    },
+    apply_mask: function (e, Mascara) {
+      var SpecialChars = $(this).specialChars,
+        byPassKeys = [8],
+        keyCode = e.keyCode? e.keyCode : e.charCode,
+        oValue = $(this).val(),
+        lastTypedChar = oValue.substring(oValue.length-1),
+        pressedKeyChar = String.fromCharCode(lastTypedChar.charCodeAt(0)),
+        nowMask = Mascara.charAt(oValue.length-1),
+        replacePattern = oValue.substring(0, oValue.length-1) + '' + nowMask + pressedKeyChar;
+
+      if ($.inArray(keyCode, byPassKeys) > -1) return true;
+
+      if (typeof SpecialChars[nowMask] === "number" && pressedKeyChar != nowMask) {
+        $(this).val(replacePattern);
       }
-
-      $(this).val(novo_valor);
     }
   });
 });
