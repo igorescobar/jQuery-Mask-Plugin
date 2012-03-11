@@ -18,7 +18,9 @@
     $('.date_time').mask('99/99/9999 99:99:99');
     $('.cep').mask('99999-999');
     $('.phone').mask('9999-9999');
-    $('.phone_with_ddd').mask('(99)9999-9999');
+    $('.phone_with_ddd').mask('(99) 9999-9999');
+    $('.phone_us').mask('(999) 999-9999');
+    $('.cpf').mask('999.999.999-06');
   });
   </script>
 </head>
@@ -39,7 +41,11 @@
     <label>Telefone</label>
     <input type="text" maxlength="9" class="phone"/>
     <label>Telefone com DDD</label>
-    <input type="text" maxlength="13" class="phone_with_ddd"/>
+    <input type="text" maxlength="14" class="phone_with_ddd"/>
+    <label>Telefone Estrangeiro</label>
+    <input type="text" maxlength="14" class="phone_us"/>
+    <label>CPF</label>
+    <input type="text" maxlength="14" class="cpf"/>
   </form>
 
   <h2>Usage Example</h2>
@@ -50,7 +56,8 @@ $(document).ready(function(){
   $('.date_time').mask('99/99/9999 99:99:99');
   $('.cep').mask('99999-999');
   $('.phone').mask('9999-9999');
-  $('.phone_with_ddd').mask('(99)9999-9999');
+  $('.phone_with_ddd').mask('(99) 9999-9999');
+  $('.phone_us').mask('(999) 999-9999');
 });
   </pre>
   </code>
