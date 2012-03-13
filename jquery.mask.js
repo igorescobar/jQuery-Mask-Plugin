@@ -15,7 +15,7 @@
 
   var byPassKeys = [8,9,17,37,38,39,40,91],
     specialChars = {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
-    integerDigit = /\d/, stringDigit = /\w/, alphaDigit = /\d|\D/,
+    integerDigit = /\d/, stringDigit = /\w/, alphaDigit = /\w|\d/,
     specialCharsValues = [191,189,190,57,48,191,188,189,32,187],
     e, fieldObject, oNewValue, keyCode, keyPressedString, options, oValue;
 
