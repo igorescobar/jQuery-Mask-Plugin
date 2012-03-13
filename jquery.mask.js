@@ -15,7 +15,6 @@
 
   var byPassKeys = [8,9,17,37,38,39,40,91],
     specialChars = {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
-    integerDigit = /\d/, stringDigit = /\w/, alphaDigit = /\d|\D/,
     specialCharsValues = [191,189,190,57,48,191,188,189,32,187],
     e, fieldObject, oNewValue, keyCode, keyPressedString, options, oValue;
 
@@ -29,11 +28,11 @@
       var nowMask = Mascara.charAt(oValue.length-1);
       var cleanedValue = oValue.substring(0,oValue.length-1);
 
-      if (isNaN(parseInt(nowMask, 10)) === false && integerDigit.test(lastDigit) === false) {
+      if (isNaN(parseInt(nowMask, 10)) === false && /\d/.test(lastDigit) === false) {
         $(this).val(cleanedValue);
-      } else if(nowMask === 'A' && alphaDigit.test(lastDigit) === false) {
+      } else if(nowMask === 'A' && /\w/.test(lastDigit) === false) {
         $(this).val(cleanedValue);
-      } else if(nowMask === 'S' && stringDigit.test(lastDigit) === false) {
+      } else if(nowMask === 'S' && /[a-zA-Z]/.test(lastDigit) === false) {
         $(this).val(cleanedValue);
       }
     });
