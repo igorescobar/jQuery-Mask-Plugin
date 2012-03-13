@@ -1,9 +1,8 @@
 /*!
  * jQuery Mask Plugin
+ * https://github.com/igorescobar/jQuery-Mask-Plugin
  *
- * http://blog.igorescobar.com/
- *
- * Copyright 2012, Igor Escobar
+ * Copyright 2012, Igor Escobar (blog.igorescobar.com)
  *
  * Date: Sat Mar 10 03:50:23 2012
  */
