@@ -22,4 +22,5 @@ $(document).ready(function(){
   
 
 In progress
-  - Callbacks
+  - OnComplete Callback
+  - DigitByDigit Callback
