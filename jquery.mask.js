@@ -30,9 +30,9 @@
 
       if (isNaN(parseInt(nowMask, 10)) === false && /\d/.test(lastDigit) === false) {
         $(this).val(cleanedValue);
-      } else if(nowMask === 'A' && /\w|\d/.test(lastDigit) === false) {
+      } else if(nowMask === 'A' && /\w/.test(lastDigit) === false) {
         $(this).val(cleanedValue);
-      } else if(nowMask === 'S' && /\w/.test(lastDigit) === false) {
+      } else if(nowMask === 'S' && /[a-zA-Z]/.test(lastDigit) === false) {
         $(this).val(cleanedValue);
       }
     });
