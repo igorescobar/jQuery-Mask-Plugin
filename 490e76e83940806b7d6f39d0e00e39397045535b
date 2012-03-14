@@ -1,0 +1,1 @@
+- Corrigindo ctrl+v com mascara errada. - Cortando dados que exceder a mascara no ctrl+v ou se segurar alguma tecla. - Refatorando algumas partes do código.
