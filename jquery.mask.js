@@ -38,21 +38,29 @@
     specialChars = {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
     e, m, fieldObject, oValue, oNewValue, oCleanedValue, keyCode, keyPressedString;
 
-  $.fn.mask = function (Mascara) {
-    $(this).attr('maxlength', Mascara.length);
-    $(this).live('keyup', function(e){
+  $.fn.mask = function (Mask, options) {
+    options = options || {};
+
+    $(this).attr('maxlength', Mask.length);
+    $(this).die('keyup.jquerymask');
+    $(this).live('keyup.jquerymask', function(e){
       e = e || window.event;
       keyCode = e.keyCode || e.which;
 
       if ($.inArray(keyCode, byPassKeys) >= 0) return true;
 
-      applyMask(e, $(this), Mascara);
-    });
+      oNewValue = applyMask(e, $(this), Mask, options);
+
+      if (oNewValue !== $(this).val()){
+        $(this).val(oNewValue);
+      }
+
+    }).trigger('keyup');
   };
 
-  var validateDigit = function (oNewValue, Mascara, bufferedMasks) {
+  var validateDigit = function (oNewValue, Mask, bufferedMasks) {
     var oNewValueSize = oNewValue.length-1,
-        nowMask = Mascara.charAt(oNewValueSize);
+        nowMask = Mask.charAt(oNewValueSize);
 
     if (isNaN(parseInt(nowMask, 10)) === false && /\d/.test(keyPressedString) === false) {
       return oNewValue.substring(0, oNewValueSize);
