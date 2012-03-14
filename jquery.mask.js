@@ -73,27 +73,38 @@
     }
   };
 
-  var applyMask = function (e, fieldObject, Mascara) {
+  var seekCallbacks = function (e, options, oNewValue, Mask) {
+    if (options.onKeyPress && e.isTrigger === undefined && typeof options.onKeyPress == "function") {
+      options.onKeyPress(oNewValue, e, keyCode);
+    }
+
+    if (options.onComplete && e.isTrigger === undefined &&
+        oNewValue.length === Mask.length && typeof options.onComplete == "function") {
+      options.onComplete(oNewValue);
+    }
+  };
+
+  var applyMask = function (e, fieldObject, Mask, options) {
     oValue = fieldObject.val();
     oNewValue = '';
-    oCleanedValue = oValue.replace(/\W/g, '').substring(0, Mascara.replace(/\W/g, '').length);
+    oCleanedValue = oValue.replace(/\W/g, '').substring(0, Mask.replace(/\W/g, '').length);
     m = 0;
 
     for (var i = 0; i < oCleanedValue.length; i++) {
       keyPressedString = oCleanedValue.charAt(i);
 
       var bufferedMasks  = '';
-      while (typeof specialChars[Mascara.charAt(m)] === "number") {
-        bufferedMasks += Mascara.charAt(m);
+      while (typeof specialChars[Mask.charAt(m)] === "number") {
+        bufferedMasks += Mask.charAt(m);
         m++;
       }
       m++;
 
       oNewValue += (bufferedMasks !== '') ? (bufferedMasks + keyPressedString) : keyPressedString;
-      oNewValue = validateDigit(oNewValue, Mascara, bufferedMasks);
+      oNewValue = validateDigit(oNewValue, Mask, bufferedMasks);
     }
 
-    if (oNewValue !== fieldObject.val())
-      fieldObject.val(oNewValue);
+    seekCallbacks(e, options, oNewValue, Mask);
+    return oNewValue;
   };
 })(jQuery);
