@@ -49,16 +49,10 @@
 
       if ($.inArray(keyCode, byPassKeys) >= 0) return true;
 
-      if (typeof options.reverse == "boolean" && options.reverse === true){
-        oNewValue = applyReverseMask(e, $(this), Mask, options);
-      } else {
-        oNewValue = applyMask(e, $(this), Mask, options);
-      }
+      oNewValue = (typeof options.reverse == "boolean" && options.reverse === true) ? applyReverseMask(e, $(this), Mask, options) : applyMask(e, $(this), Mask, options);
 
-
-      if (oNewValue !== $(this).val()){
+      if (oNewValue !== $(this).val())
         $(this).val(oNewValue);
-      }
 
     }).trigger('keyup');
   };
