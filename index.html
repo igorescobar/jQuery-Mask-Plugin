@@ -35,7 +35,8 @@
                     $('.crazy_cep').mask(mask, this);
                   }};
 
-  $('.crazy_cep').mask('00000-000', options);
+    $('.crazy_cep').mask('00000-000', options);
+    $('.cpf').mask('999.999.999-99', {reverse: true});
 
   });
   </script>
@@ -66,6 +67,8 @@
     <input type="text" class="phone_us"/>
     <label>Mixed Type Mask</label>
     <input type="text" class="mixed"/>
+    <label>CPF</label>
+    <input type="text" class="cpf"/>
 
   </form>
 
@@ -80,6 +83,7 @@ $(document).ready(function(){
   $('.phone_with_ddd').mask('(99) 9999-9999');
   $('.phone_us').mask('(999) 999-9999');
   $('.mixed').mask('AAA 000-S0S');
+  $('.cpf').mask('999.999.999-99', {reverse: true});
 });
   </pre>
   </code>
@@ -92,7 +96,7 @@ $(document).ready(function(){
                     alert('An key was pressed!:' + cep + ' event: ' + event + ' keyCode: ' + keyCode);
                   }};
 
-  $('.cep_with_callback'.mask('00000-000', options);
+  $('.cep_with_callback').mask('00000-000', options);
   </pre></code>
 
   <h2>On-the-fly mask change</h2>
@@ -103,7 +107,7 @@ $(document).ready(function(){
                     $('.crazy_cep').mask(mask, this);
                   }};
 
-  $('.crazy_cep', '00000-000', options);
+  $('.crazy_cep').mask('00000-000', options);
   </pre></code>
 
   <h3>Mask Legend</h3>

@@ -49,7 +49,12 @@
 
       if ($.inArray(keyCode, byPassKeys) >= 0) return true;
 
-      oNewValue = applyMask(e, $(this), Mask, options);
+      if (typeof options.reverse == "boolean" && options.reverse === true){
+        oNewValue = applyReverseMask(e, $(this), Mask, options);
+      } else {
+        oNewValue = applyMask(e, $(this), Mask, options);
+      }
+
 
       if (oNewValue !== $(this).val()){
         $(this).val(oNewValue);
@@ -82,6 +87,25 @@
         oNewValue.length === Mask.length && typeof options.onComplete == "function") {
       options.onComplete(oNewValue);
     }
+  };
+
+  var applyReverseMask = function (e,fieldObject, Mask, options) {
+    oValue = fieldObject.val();
+    oCleanedValue = oValue.replace(/\W/g, '').substring(0, Mask.replace(/\W/g, '').length);
+
+    var typedDigits = oCleanedValue.split('');
+    Mask = Mask.split("").reverse().join("");
+
+    var m = 0;
+    for (var i = oCleanedValue.length; i > 0 ; i--){
+      if (typeof specialChars[Mask.charAt(m)] === "number"){
+        typedDigits[i] = Mask.charAt(m) + typedDigits[i];
+        m++;
+      }
+      m++;
+    }
+
+    return typedDigits.join('');
   };
 
   var applyMask = function (e, fieldObject, Mask, options) {
