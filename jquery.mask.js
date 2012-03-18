@@ -36,12 +36,12 @@
 
   var byPassKeys = [8,9,37,38,39,40],
     specialChars = {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
-    e, m, fieldObject, oValue, oNewValue, oCleanedValue, keyCode, keyPressedString;
+    e, m, fieldObject, oValue, oNewValue, oCleanedValue, keyCode, keyPressedString, pMask;
 
   $.fn.mask = function (Mask, options) {
     options = options || {};
 
-    $(this).attr('maxlength', Mask.length);
+    $(this).attr('maxlength', Mask.replace(/\W/g, '').length);
     $(this).die('keyup.jquerymask');
     $(this).live('keyup.jquerymask', function(e){
       e = e || window.event;
