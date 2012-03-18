@@ -76,7 +76,6 @@
       delete arguments[total_arguments-1];
       delete arguments[total_arguments-2];
 
-      console.log(arguments);
       var oNewValue = '';
       for (var i in arguments) {
         if (typeof arguments[i] == "undefined" || arguments[i] === ""){
