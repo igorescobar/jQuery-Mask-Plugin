@@ -77,7 +77,7 @@
 
       var oNewValue = '';
       for (var i in arguments) {
-        if (typeof arguments[i] == "undefined"){
+        if (typeof arguments[i] == "undefined" || arguments[i] === ""){
           arguments[i] = Mask[i-1];
         }
 
