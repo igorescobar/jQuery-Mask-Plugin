@@ -49,7 +49,15 @@
 
       if ($.inArray(keyCode, byPassKeys) >= 0) return true;
 
-      oNewValue = (typeof options.reverse == "boolean" && options.reverse === true) ? applyReverseMask(e, $(this), Mask, options) : applyMask(e, $(this), Mask, options);
+      oCleanedValue = $(this).val().replace(/\W/g, '');
+
+      pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
+      getProportionalReverseMask(oCleanedValue, Mask) :
+      getProportionalMask(oCleanedValue, Mask);
+
+      oNewValue = applyMask(e, $(this), pMask, options);
+
+      seekCallbacks(e, options, oNewValue, Mask);
 
       if (oNewValue !== $(this).val())
         $(this).val(oNewValue);
