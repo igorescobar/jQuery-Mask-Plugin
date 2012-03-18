@@ -66,7 +66,8 @@
   };
 
   var applyMask = function (e, fieldObject, Mask, options) {
-    oValue = fieldObject.val().replace(/\W/g, '');
+
+    oValue = fieldObject.val().replace(/\W/g, '').substring(0, Mask.replace(/\W/g, '').length);
 
     return oValue.replace(new RegExp(maskToRegex(Mask)), function () {
       var total_arguments = arguments.length;
