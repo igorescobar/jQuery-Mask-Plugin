@@ -41,7 +41,7 @@
   $.fn.mask = function (Mask, options) {
     options = options || {};
 
-    $(this).attr('maxlength', Mask.replace(/\W/g, '').length);
+    $(this).attr('maxlength', Mask.length);
     $(this).die('keyup.jquerymask');
     $(this).live('keyup.jquerymask', function(e){
       e = e || window.event;
