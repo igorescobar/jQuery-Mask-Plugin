@@ -36,12 +36,12 @@
 
   var byPassKeys = [8,9,37,38,39,40],
     specialChars = {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
-    e, m, fieldObject, oValue, oNewValue, oCleanedValue, keyCode, keyPressedString;
+    e, m, fieldObject, oValue, oNewValue, oCleanedValue, keyCode, keyPressedString, pMask;
 
   $.fn.mask = function (Mask, options) {
     options = options || {};
 
-    $(this).attr('maxlength', Mask.length);
+    $(this).attr('maxlength', Mask.replace(/\W/g, '').length);
     $(this).die('keyup.jquerymask');
     $(this).live('keyup.jquerymask', function(e){
       e = e || window.event;
@@ -49,7 +49,15 @@
 
       if ($.inArray(keyCode, byPassKeys) >= 0) return true;
 
-      oNewValue = (typeof options.reverse == "boolean" && options.reverse === true) ? applyReverseMask(e, $(this), Mask, options) : applyMask(e, $(this), Mask, options);
+      oCleanedValue = $(this).val().replace(/\W/g, '');
+
+      pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
+      getProportionalReverseMask(oCleanedValue, Mask) :
+      getProportionalMask(oCleanedValue, Mask);
+
+      oNewValue = applyMask(e, $(this), pMask, options);
+
+      seekCallbacks(e, options, oNewValue, Mask);
 
       if (oNewValue !== $(this).val())
         $(this).val(oNewValue);
@@ -57,19 +65,92 @@
     }).trigger('keyup');
   };
 
-  var validateDigit = function (oNewValue, Mask, bufferedMasks) {
-    var oNewValueSize = oNewValue.length-1,
-        nowMask = Mask.charAt(oNewValueSize);
+  var applyMask = function (e, fieldObject, Mask, options) {
+    oValue = fieldObject.val().replace(/\W/g, '');
 
-    if (isNaN(parseInt(nowMask, 10)) === false && /\d/.test(keyPressedString) === false) {
-      return oNewValue.substring(0, oNewValueSize);
-    } else if (nowMask === 'A' && /[a-zA-Z0-9]/.test(keyPressedString) === false) {
-      return oNewValue.substring(0, oNewValueSize);
-    } else if (nowMask === 'S' && /[a-zA-Z]/.test(keyPressedString) === false) {
-      return oNewValue.substring(0, oNewValueSize);
-    } else {
-      return oNewValue;
+    return oValue.replace(new RegExp(maskToRegex(Mask)), function () {
+      var total_arguments = arguments.length;
+
+      delete arguments[0];
+      delete arguments[total_arguments-1];
+      delete arguments[total_arguments-2];
+
+      var oNewValue = '';
+      for (var i in arguments) {
+        if (typeof arguments[i] == "undefined"){
+          arguments[i] = Mask[i-1];
+        }
+
+        oNewValue += arguments[i];
+      }
+
+      return cleanBullShit(oNewValue, Mask);
+    });
+  };
+
+  var getProportionalMask = function (oValue, Mask) {
+    var endMask = 0, m = 0;
+
+    while (m <= oValue.length-1){
+      while(typeof specialChars[Mask.charAt(endMask)] === "number")
+        endMask++;
+      endMask++;
+      m++;
     }
+
+    return Mask.substring(0, endMask);
+  };
+
+  var getProportionalReverseMask = function (oValue, Mask) {
+    var startMask = 0, endMask = 0, m = 0;
+    startMask = (Mask.length >= 1) ? Mask.length : Mask.length-1;
+    endMask = startMask;
+
+    while (m <= oValue.length-1) {
+      while (typeof specialChars[Mask.charAt(endMask-1)] === "number")
+        endMask--;
+      endMask--;
+      m++;
+    }
+
+    endMask = (Mask.length >= 1) ? endMask : endMask-1;
+    return Mask.substring(startMask, endMask);
+  };
+
+  var maskToRegex = function (mask) {
+    var translation = { 0: '(.)', 1: '(.)', 2: '(.)', 3: '(.)', 4: '(.)', 5: '(.)', 6: '(.)', 7: '(.)',
+      8: '(.)', 9: '(.)', 'A': '(.)', 'S': '(.)',':': '(:)?', '-': '(-)?', '.': '(\\.)?', '(': '(\\()?',
+      ')': '(\\))?', '/': '(/)?', ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(+)?'};
+
+    var regex = '';
+    for (var i = 0; i < mask.length; i ++){
+      if (translation[mask[i]])
+        regex += translation[mask[i]];
+    }
+
+    return regex;
+  };
+
+  var validDigit = function (nowMask, nowDigit) {
+    if (isNaN(parseInt(nowMask, 10)) === false && /\d/.test(nowDigit) === false) {
+      return false;
+    } else if (nowMask === 'A' && /[a-zA-Z0-9]/.test(nowDigit) === false) {
+      return false;
+    } else if (nowMask === 'S' && /[a-zA-Z]/.test(nowDigit) === false) {
+      return false;
+    } else if (typeof specialChars[nowDigit] === "number" && nowMask !== nowDigit) {
+      return false;
+    }
+    return true;
+  };
+
+  var cleanBullShit = function (oNewValue, Mask) {
+    oNewValue = oNewValue.split('');
+    for(var i = 0; i < Mask.length; i++){
+      if(validDigit(Mask.charAt(i), oNewValue[i]) === false)
+        oNewValue[i] = '';
+    }
+    return oNewValue.join('');
   };
 
   var seekCallbacks = function (e, options, oNewValue, Mask) {
@@ -81,48 +162,5 @@
         oNewValue.length === Mask.length && typeof options.onComplete == "function") {
       options.onComplete(oNewValue);
     }
-  };
-
-  var applyReverseMask = function (e,fieldObject, Mask, options) {
-    oValue = fieldObject.val();
-    oCleanedValue = oValue.replace(/\W/g, '').substring(0, Mask.replace(/\W/g, '').length);
-
-    var typedDigits = oCleanedValue.split('');
-    Mask = Mask.split("").reverse().join("");
-
-    var m = 0;
-    for (var i = oCleanedValue.length; i > 0 ; i--){
-      if (typeof specialChars[Mask.charAt(m)] === "number"){
-        typedDigits[i] = Mask.charAt(m) + typedDigits[i];
-        m++;
-      }
-      m++;
-    }
-
-    return typedDigits.join('');
-  };
-
-  var applyMask = function (e, fieldObject, Mask, options) {
-    oValue = fieldObject.val();
-    oNewValue = '';
-    oCleanedValue = oValue.replace(/\W/g, '').substring(0, Mask.replace(/\W/g, '').length);
-    m = 0;
-
-    for (var i = 0; i < oCleanedValue.length; i++) {
-      keyPressedString = oCleanedValue.charAt(i);
-
-      var bufferedMasks  = '';
-      while (typeof specialChars[Mask.charAt(m)] === "number") {
-        bufferedMasks += Mask.charAt(m);
-        m++;
-      }
-      m++;
-
-      oNewValue += (bufferedMasks !== '') ? (bufferedMasks + keyPressedString) : keyPressedString;
-      oNewValue = validateDigit(oNewValue, Mask, bufferedMasks);
-    }
-
-    seekCallbacks(e, options, oNewValue, Mask);
-    return oNewValue;
   };
 })(jQuery);
