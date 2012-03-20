@@ -66,6 +66,7 @@
   };
 
   var applyMask = function (e, fieldObject, Mask, options) {
+
     oValue = fieldObject.val().replace(/\W/g, '').substring(0, Mask.replace(/\W/g, '').length);
 
     return oValue.replace(new RegExp(maskToRegex(Mask)), function () {
@@ -119,8 +120,8 @@
 
   var maskToRegex = function (mask) {
     var translation = { 0: '(.)', 1: '(.)', 2: '(.)', 3: '(.)', 4: '(.)', 5: '(.)', 6: '(.)', 7: '(.)',
-      8: '(.)', 9: '(.)', 'A': '(.)', 'S': '(.)',':': '(:)?', '-': '(-)?', '.': '(\\.)?', '(': '(\\()?',
-      ')': '(\\))?', '/': '(/)?', ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(+)?'};
+      8: '(.)', 9: '(.)', 'A': '(.)', 'S': '(.)',':': '(:)?', '-': '(-)?', '.': '(\\\.)?', '(': '(\\()?',
+      ')': '(\\))?', '/': '(/)?', ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(\\\+)?'};
 
     var regex = '';
     for (var i = 0; i < mask.length; i ++){
