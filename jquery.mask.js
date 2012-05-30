@@ -70,14 +70,8 @@
     oValue = fieldObject.val().replace(/\W/g, '').substring(0, Mask.replace(/\W/g, '').length);
 
     return oValue.replace(new RegExp(maskToRegex(Mask)), function () {
-      var total_arguments = arguments.length;
-
-      delete arguments[0];
-      delete arguments[total_arguments-1];
-      delete arguments[total_arguments-2];
-
       var oNewValue = '';
-      for (var i in arguments) {
+      for (var i = 1; i < arguments.length - 2; i++) {
         if (typeof arguments[i] == "undefined" || arguments[i] === ""){
           arguments[i] = Mask[i-1];
         }
