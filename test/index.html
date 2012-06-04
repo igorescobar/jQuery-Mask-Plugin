@@ -1,0 +1,111 @@
+<html>
+<head>
+	<title>jQuery-Mask-Plugin UnitTesting</title>
+	<script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
+  <script type="text/javascript" src="../jquery.mask.js"></script>
+	<script type="text/javascript" src="qunit.js"></script>
+  <link rel="stylesheet" href="qunit.css" type="text/css" media="all">
+</head>
+<script>
+  $(document).ready(function(){
+
+    $('body').append('<input class="simple-field" type="text" />');
+    var testfield = $('.simple-field');
+
+    var typeTest = function (typedValue) {
+      return testfield.val(typedValue).trigger('keyup.jquerymask').val()
+    }
+
+    module('Setting Up');
+    test("test if the mask method exists after plugin insertion", function() {
+      ok( $().mask('') === undefined , "should return undefined, don't worry :)" );
+    });
+
+    module("Automatic Maxlength");
+    test("maxlength should be 10", function(){
+      testfield.mask('999-9990-99');
+      equal( testfield.attr('maxlength'), 11)
+    });
+
+    module('Simple Masks');
+
+    test("Masks with only numbers.", function(){
+      testfield.mask('000000');
+
+      equal( typeTest("1."), "1");
+      equal( typeTest('1éáa2aaaaqwo'), "12");
+      equal( typeTest('1234567'), "123456");
+
+    });
+
+    module('Masks with numbers and especial characters');
+
+    test("Masks with numbers and special characters.", function(){
+      testfield.mask('(123) 456-7899');
+
+      equal( typeTest("1"), "(1");
+      equal( typeTest('12'), "(12");
+      equal( typeTest('123'), "(123");
+      equal( typeTest('1234'), "(123) 4");
+      equal( typeTest('12345'), "(123) 45");
+      equal( typeTest('123456'), "(123) 456");
+      equal( typeTest('1234567'), "(123) 456-7");
+      equal( typeTest('12345678'), "(123) 456-78");
+      equal( typeTest('123456789'), "(123) 456-789");
+      equal( typeTest('1234567899'), "(123) 456-7899");
+      equal( typeTest('12345678999'), "(123) 456-7899");
+
+    });
+
+    test("Masks with numbers, strings e special characters", function(){
+      testfield.mask('(999) A99-SSSS');
+
+      equal( typeTest("1"), "(1");
+      equal( typeTest('12'), "(12");
+      equal( typeTest('123'), "(123");
+      equal( typeTest('1234'), "(123) 4");
+      equal( typeTest('123A'), "(123) A");
+      equal( typeTest('123.'), "(123");
+      equal( typeTest('12345'), "(123) 45");
+      equal( typeTest('123456'), "(123) 456");
+      equal( typeTest('123456A'), "(123) 456-A");
+      equal( typeTest('123456AB'), "(123) 456-AB");
+      equal( typeTest('123456ABC'), "(123) 456-ABC");
+      equal( typeTest('123456ABCD'), "(123) 456-ABCD");
+      equal( typeTest('123456ABCDE'), "(123) 456-ABCD");
+
+    });
+
+    module("Testing Reversible Masks");
+
+    test("Testing a CPF Mask", function(){
+      testfield.mask('000.000.000-00', {reverse: true});
+
+      equal( typeTest("1"), "1");
+      equal( typeTest("12"), "12");
+      equal( typeTest("123"), "1-23");
+      equal( typeTest("1234"), "12-34");
+      equal( typeTest("12345"), "123-45");
+      equal( typeTest("123456"), "1.234-56");
+      equal( typeTest("1234567"), "12.345-67");
+      equal( typeTest("12345678"), "123.456-78");
+      equal( typeTest("123456789"), "1.234.567-89");
+      equal( typeTest("1234567890"), "12.345.678-90");
+      equal( typeTest("12345678900"), "123.456.789-00");
+      equal( typeTest("123456789000"), "123.456.789-00");
+
+    });
+
+  });
+  </script>
+
+</head>
+<body>
+  <h1 id="qunit-header">QUnit example</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+  <div id="qunit-fixture">test markup, will be hidden</div>
+</body>
+</html>
