@@ -10,11 +10,10 @@
   $(document).ready(function(){
 
     $('body').append('<input class="simple-field" type="text" />');
-    var testfield = $('.simple-field');
-
-    var typeTest = function (typedValue) {
-      return testfield.val(typedValue).trigger('keyup.jquerymask').val()
-    }
+    var testfield = $('.simple-field'),
+      typeTest = function (typedValue) {
+      return testfield.val(typedValue).trigger('keyup.jquerymask').val();
+    };
 
     module('Setting Up');
     test("test if the mask method exists after plugin insertion", function() {
