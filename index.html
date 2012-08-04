@@ -22,10 +22,10 @@
     $('.phone_us').mask('(999) 999-9999');
     $('.mixed').mask('AAA 000-S0S');
     var options =  {onComplete: function(cep) {
-                      alert('Mask is done!:' + cep);
+                      console.log('Mask is done!:', cep);
                     },
-                     onKeyPress: function(cep, event, keyCode){
-                      alert('An key was pressed!:' + cep + ' event: ' + event + ' keyCode: ' + keyCode);
+                     onKeyPress: function(cep, event, currentField, options){
+                      console.log('An key was pressed!:', cep, ' event: ', event, 'currentField: ', currentField.attr('class'), ' options: ', options);
                     }};
 
     $('.cep_with_callback').mask('00000-000', options);
@@ -40,6 +40,16 @@
 
     $('.cpf').mask('999.999.999-99', {reverse: true});
     $('.money').mask('000.000.000.000.000,00', {reverse: true});
+
+    $('.sp_celphones').mask('(00) 0000-0000', 
+      {onKeyPress: function(phone, event, currentField, options){
+        if(/(\(11\) 9?(9|8|7)).+/i.test(phone)){
+          $(currentField).mask('(00) 00000-0000', options);
+        } else {
+          $(currentField).mask('(00) 0000-0000', options);         
+        }
+      }}
+    );
 
   });
   </script>
@@ -69,6 +79,8 @@
     <input type="text" class="phone_with_ddd"/>
     <label>US Telephone</label>
     <input type="text" class="phone_us"/>
+    <label>São Paulo Celphones</label>
+    <input type="text" class="sp_celphones"/>
     <label>Mixed Type Mask</label>
     <input type="text" class="mixed"/>
     <label>CPF</label>
@@ -97,8 +109,8 @@
       var options =  { onComplete: function(cep) {
                         alert('Mask is done!:' + cep);
                       },
-                      onKeyPress: function(cep, event, keyCode){
-                        alert('An key was pressed!:' + cep + ' event: ' + event + ' keyCode: ' + keyCode);
+                      onKeyPress: function(cep, event, currentField, options){
+                        console.log('An key was pressed!:', cep, ' event: ', event, 'currentField: ', currentField, ' options: ', options);
                       }};
 
       $('.cep_with_callback').mask('00000-000', options);</pre>

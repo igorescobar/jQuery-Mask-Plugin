@@ -40,29 +40,42 @@
 
   $.fn.mask = function (Mask, options) {
     options = options || {};
+    
+    this.each(function() {
 
-    $(this).attr('maxlength', Mask.length);
-    $(this).die('keyup.jquerymask');
-    $(this).live('keyup.jquerymask', function(e){
-      e = e || window.event;
-      keyCode = e.keyCode || e.which;
+      var _this = this,
+          $element = $(this),
+          jMaskData = $element.data('jquerymask');
 
-      if ($.inArray(keyCode, byPassKeys) >= 0) return true;
+      if (jMaskData && jMaskData.mask == Mask && jMaskData.options == options)
+        return true;
 
-      oCleanedValue = $(this).val().replace(/\W/g, '');
+      $element.data('jquerymask', {'mask': Mask, 'options': options});
+      $element.attr('maxlength', Mask.length);
+      $element.unbind('keyup').die('keyup');
 
-      pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
-      getProportionalReverseMask(oCleanedValue, Mask) :
-      getProportionalMask(oCleanedValue, Mask);
+      $element.live('keyup', function(e){
+        e = e || window.event;
+        keyCode = e.keyCode || e.which;
 
-      oNewValue = applyMask(e, $(this), pMask, options);
+        if ($.inArray(keyCode, byPassKeys) >= 0) return true;
 
-      seekCallbacks(e, options, oNewValue, Mask);
+        oCleanedValue = $element.val().replace(/\W/g, '');
 
-      if (oNewValue !== $(this).val())
-        $(this).val(oNewValue);
+        pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
+        getProportionalReverseMask(oCleanedValue, Mask) :
+        getProportionalMask(oCleanedValue, Mask);
 
-    }).trigger('keyup');
+        oNewValue = applyMask(e, $element, pMask, options);
+
+        seekCallbacks(e, options, oNewValue, Mask, $element);
+
+        if (oNewValue !== $element.val())
+          $element.val(oNewValue);
+
+      }).trigger('keyup');
+    });
+    
   };
 
   var applyMask = function (e, fieldObject, Mask, options) {
@@ -149,14 +162,14 @@
     return oNewValue.join('');
   };
 
-  var seekCallbacks = function (e, options, oNewValue, Mask) {
+  var seekCallbacks = function (e, options, oNewValue, Mask, currentField) {
     if (options.onKeyPress && e.isTrigger === undefined && typeof options.onKeyPress == "function") {
-      options.onKeyPress(oNewValue, e, keyCode);
+      options.onKeyPress(oNewValue, e, currentField, options);
     }
 
     if (options.onComplete && e.isTrigger === undefined &&
         oNewValue.length === Mask.length && typeof options.onComplete == "function") {
-      options.onComplete(oNewValue);
+      options.onComplete(oNewValue, e, currentField, options);
     }
   };
 })(jQuery);
