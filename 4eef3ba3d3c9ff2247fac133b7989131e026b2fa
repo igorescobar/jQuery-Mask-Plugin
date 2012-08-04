@@ -1,0 +1,3 @@
+- improving support to complex jquery selectors
+- performance improvement.
+- callback handling improvement
