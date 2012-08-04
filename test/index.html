@@ -12,7 +12,7 @@
     $('body').append('<input class="simple-field" type="text" />');
     var testfield = $('.simple-field'),
       typeTest = function (typedValue) {
-      return testfield.val(typedValue).trigger('keyup.jquerymask').val();
+      return testfield.val(typedValue).trigger('keyup').val();
     };
 
     module('Setting Up');
