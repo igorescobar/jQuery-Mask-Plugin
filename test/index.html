@@ -17,7 +17,7 @@
 
     module('Setting Up');
     test("test if the mask method exists after plugin insertion", function() {
-      ok( $().mask('') === undefined , "should return undefined, don't worry :)" );
+      equal( typeof testfield.mask , "function" , "mask function should exists" );
     });
 
     module("Automatic Maxlength");
