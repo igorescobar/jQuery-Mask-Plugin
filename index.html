@@ -21,22 +21,20 @@
     $('.phone_with_ddd').mask('(99) 9999-9999');
     $('.phone_us').mask('(999) 999-9999');
     $('.mixed').mask('AAA 000-S0S');
-    var options =  {onComplete: function(cep) {
-                      console.log('Mask is done!:', cep);
-                    },
-                     onKeyPress: function(cep, event, currentField, options){
-                      console.log('An key was pressed!:', cep, ' event: ', event, 'currentField: ', currentField.attr('class'), ' options: ', options);
-                    }};
 
-    $('.cep_with_callback').mask('00000-000', options);
+    $('.cep_with_callback').mask('00000-000', {onComplete: function(cep) {
+        console.log('Mask is done!:', cep);
+      },
+       onKeyPress: function(cep, event, currentField, options){
+        console.log('An key was pressed!:', cep, ' event: ', event, 'currentField: ', currentField.attr('class'), ' options: ', options);
+      }
+    });
 
-    var options =  {onKeyPress: function(cep){
-                    var masks = ['00000-000', '0-00-00-00'];
-                      mask = (cep.length>7) ? masks[1] : masks[0];
-                    $('.crazy_cep').mask(mask, this);
-                  }};
-
-    $('.crazy_cep').mask('00000-000', options);
+    $('.crazy_cep').mask('00000-000', {onKeyPress: function(cep){
+      var masks = ['00000-000', '0-00-00-00'];
+        mask = (cep.length>7) ? masks[1] : masks[0];
+      $('.crazy_cep').mask(mask, this);
+    }});
 
     $('.cpf').mask('999.999.999-99', {reverse: true});
     $('.money').mask('000.000.000.000.000,00', {reverse: true});
@@ -124,6 +122,10 @@
                   }};
 
   $('.crazy_cep').mask('00000-000', options);</pre>
+
+  <h2>Removing the mask</h2>
+  <pre>
+    $('.date').data('mask').remove();</pre>
 
   <h3>Mask Legend</h3>
   <ul>
