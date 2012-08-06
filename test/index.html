@@ -95,6 +95,18 @@
 
     });
 
+    module('Removing mask');
+
+    test("when disabing a simple mask", function(){
+      testfield.mask('(00) 0000-0000');
+
+      equal( typeTest("1299999999"), "(12) 9999-9999");
+
+      testfield.data('mask').remove();
+      equal( testfield.val(), "1299999999");
+
+    });
+
   });
   </script>
 
