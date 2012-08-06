@@ -1,0 +1,3 @@
+- better OOP design
+- implementing the jquery data object on each mask field
+- implementing the public method .remove to disable and remove the mask
