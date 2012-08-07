@@ -93,7 +93,7 @@
 
     // private methods
     var onlyNumbers = function(string) {
-      return string.replace(/\D/g, '');
+      return string.replace(/\W/g, '');
     };
 
     var destroyEvents = function(){
