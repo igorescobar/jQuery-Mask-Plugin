@@ -35,12 +35,12 @@
 
   var  e, oValue, oNewValue, keyCode, pMask;
 
-  $.mask = function(element, Mask, options) {
+  var Mask = function(element, mask, options) {
 
     var defaults = {
       byPassKeys: [8,9,37,38,39,40],
       specialChars: {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
-      mask: Mask
+      mask: mask
     };
 
     var plugin = this;
@@ -57,8 +57,8 @@
       $element.each(function() {
 
         destroyEvents();
-        $element.data('mask', {'mask': Mask, 'options': options});
-        $element.attr('maxlength', Mask.length);
+        $element.data('mask', {'mask': mask, 'options': options});
+        $element.attr('maxlength', mask.length);
 
         $element.live('keyup', function(e){
           e = e || window.event;
@@ -66,15 +66,15 @@
 
           if ($.inArray(keyCode, plugin.settings.byPassKeys) >= 0) return true;
 
-          var oCleanedValue = $element.val().onlyNumbers();
+          var oCleanedValue = onlyNumbers($element.val());
 
           pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
-          getProportionalReverseMask(oCleanedValue, Mask) :
-          getProportionalMask(oCleanedValue, Mask);
+          getProportionalReverseMask(oCleanedValue, mask) :
+          getProportionalMask(oCleanedValue, mask);
 
           oNewValue = applyMask(e, $element, pMask, options);
 
-          seekCallbacks(e, options, oNewValue, Mask, $element);
+          seekCallbacks(e, options, oNewValue, mask, $element);
 
           if (oNewValue !== $element.val())
             $element.val(oNewValue);
@@ -85,68 +85,67 @@
 
     }
 
-    // prototypes
-    String.prototype.onlyNumbers = function(){
-      return this.replace(/\W/g, '');
-    };
-
     // public methods
     plugin.remove = function() {
       destroyEvents();
-      $element.val($element.val().onlyNumbers());
+      $element.val(onlyNumbers($element.val()));
     };
 
     // private methods
+    var onlyNumbers = function(string) {
+      return string.replace(/\W/g, '');
+    };
+
     var destroyEvents = function(){
       $element.unbind('keyup').die('keyup');
     };
 
-    var applyMask = function (e, fieldObject, Mask, options) {
+    var applyMask = function (e, fieldObject, mask, options) {
 
-      oValue = fieldObject.val().replace(/\W/g, '').substring(0, Mask.replace(/\W/g, '').length);
+      oValue = fieldObject.val().replace(/\W/g, '').substring(0, mask.replace(/\W/g, '').length);
 
-      return oValue.replace(new RegExp(maskToRegex(Mask)), function () {
+      return oValue.replace(new RegExp(maskToRegex(mask)), function () {
         oNewValue = '';
 
         for (var i = 1; i < arguments.length - 2; i++) {
           if (typeof arguments[i] == "undefined" || arguments[i] === ""){
-            arguments[i] = Mask[i-1];
+            arguments[i] = mask[i-1];
           }
 
           oNewValue += arguments[i];
         }
 
-        return cleanBullShit(oNewValue, Mask);
+        return cleanBullShit(oNewValue, mask);
       });
     };
 
-    var getProportionalMask = function (oValue, Mask) {
+    var getProportionalMask = function (oValue, mask) {
       var endMask = 0, m = 0;
 
       while (m <= oValue.length-1){
-        while(typeof plugin.settings.specialChars[Mask.charAt(endMask)] === "number")
+        while(typeof plugin.settings.specialChars[mask.charAt(endMask)] === "number")
           endMask++;
         endMask++;
         m++;
       }
 
-      return Mask.substring(0, endMask);
+      return mask.substring(0, endMask);
     };
 
-    var getProportionalReverseMask = function (oValue, Mask) {
+    var getProportionalReverseMask = function (oValue, mask) {
       var startMask = 0, endMask = 0, m = 0;
-      startMask = (Mask.length >= 1) ? Mask.length : Mask.length-1;
+      startMask = (mask.length >= 1) ? mask.length : mask.length-1;
       endMask = startMask;
 
       while (m <= oValue.length-1) {
-        while (typeof plugin.settings.specialChars[Mask.charAt(endMask-1)] === "number")
+        while (typeof plugin.settings.specialChars[mask.charAt(endMask-1)] === "number")
           endMask--;
         endMask--;
         m++;
       }
 
-      endMask = (Mask.length >= 1) ? endMask : endMask-1;
-      return Mask.substring(startMask, endMask);
+      endMask = (mask.length >= 1) ? endMask : endMask-1;
+      return mask.substring(startMask, endMask);
     };
 
     var maskToRegex = function (mask) {
@@ -176,22 +175,22 @@
       return true;
     };
 
-    var cleanBullShit = function (oNewValue, Mask) {
+    var cleanBullShit = function (oNewValue, mask) {
       oNewValue = oNewValue.split('');
-      for(var i = 0; i < Mask.length; i++){
-        if(validDigit(Mask.charAt(i), oNewValue[i]) === false)
+      for(var i = 0; i < mask.length; i++){
+        if(validDigit(mask.charAt(i), oNewValue[i]) === false)
           oNewValue[i] = '';
       }
       return oNewValue.join('');
     };
 
-    var seekCallbacks = function (e, options, oNewValue, Mask, currentField) {
+    var seekCallbacks = function (e, options, oNewValue, mask, currentField) {
       if (options.onKeyPress && e.isTrigger === undefined && typeof options.onKeyPress == "function") {
         options.onKeyPress(oNewValue, e, currentField, options);
       }
 
       if (options.onComplete && e.isTrigger === undefined &&
-          oNewValue.length === Mask.length && typeof options.onComplete == "function") {
+          oNewValue.length === mask.length && typeof options.onComplete == "function") {
         options.onComplete(oNewValue, e, currentField, options);
       }
     };
@@ -200,9 +199,9 @@
 
   }
 
-  $.fn.mask = function(Mask, options) {
+  $.fn.mask = function(mask, options) {
     return this.each(function() {
-      var plugin = new $.mask(this, Mask, options);
+      var plugin = new Mask(this, mask, options);
       $(this).data('mask', plugin);
     });
   }
