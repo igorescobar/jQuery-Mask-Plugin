@@ -56,20 +56,7 @@
         $element.data('mask', {'mask': mask, 'options': options});
         $element.attr('maxlength', mask.length);
 
-        $element.live('keyup', function(e){
-          e = e || window.event;
-          keyCode = e.keyCode || e.which;
-
-          if ($.inArray(keyCode, plugin.settings.byPassKeys) >= 0) return true;
-
-          oNewValue = applyMask(plugin);
-
-          seekCallbacks(plugin, e, oNewValue);
-
-          if (oNewValue !== $element.val())
-            $element.val(oNewValue);
-
-        }).trigger('keyup');
+        bindEvent(plugin, true);
 
       });
 
@@ -102,6 +89,20 @@
   });
 
   // Context Functions
+
+  function bindEvent(context, trigger) {
+    var element = $(context.element);
+    element.live('keyup', function (event) {
+      var e = event || window.event,
+        keyCode = e.keyCode || e.which,
+        oNewValue;
+      if ( $.inArray(keyCode, context.settings.byPassKeys) >= 0 ) return true;
+      oNewValue = applyMask(context);
+      seekCallbacks(context, e, oNewValue);
+      if ( oNewValue !== element.val() ) element.val(oNewValue);
+    });
+    if ( trigger ) element.trigger('keyup');
+  }
 
   function destroyEvents(context){
     $(context.element).unbind('keyup').die('keyup');
