@@ -48,15 +48,16 @@
          element = element;
 
     plugin.init = function() {
-        
-      options = options || {};
+      var context = this,
+        settings = context.settings,
+        mask = settings.mask,
+        element = $(context.element);
 
-      destroyEvents(plugin);
-      $element.data('mask', {'mask': mask, 'options': options});
-      $element.attr('maxlength', mask.length);
+      destroyEvents(context);
+      element.attr('maxlength', mask.length);
 
-      bindEvent(plugin, true);
-    }
+      bindEvent(context, true);
+    };
 
     plugin.init();
 
