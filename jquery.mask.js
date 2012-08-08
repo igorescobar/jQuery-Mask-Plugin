@@ -85,10 +85,6 @@
     };
 
     // private methods
-    var onlyNumbers = function(string) {
-      return string.replace(/\W/g, '');
-    };
-
     var destroyEvents = function(){
       $element.unbind('keyup').die('keyup');
     };
@@ -201,6 +197,10 @@
       mask: mask
     };
   }
+
+  function onlyNumbers(string) {
+    return string.replace(/\W/g, '');
+  };
 
   // Public API
 
