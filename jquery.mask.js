@@ -40,8 +40,9 @@
     var defaults = {
       byPassKeys: [8,9,37,38,39,40],
       specialChars: {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
-      mask: mask
-    };
+      translation: { 0: '(.)', 1: '(.)', 2: '(.)', 3: '(.)', 4: '(.)', 5: '(.)', 6: '(.)', 7: '(.)', 8: '(.)', 9: '(.)', 
+                     'A': '(.)', 'S': '(.)',':': '(:)?', '-': '(-)?', '.': '(\\\.)?', '(': '(\\()?', ')': '(\\))?', '/': '(/)?', 
+                     ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(\\\+)?'}};
 
     var plugin = this;
 
@@ -50,17 +51,15 @@
     var $element = $(element),
          element = element;
 
-    plugin.init = function() {
+    plugin.init = function(){
       plugin.settings = $.extend({}, defaults, options);
         
       options = options || {};
       $element.each(function() {
 
         destroyEvents();
-        $element.data('mask', {'mask': mask, 'options': options});
         $element.attr('maxlength', mask.length);
-
-        $element.live('keyup', function(e){
+        $element.keyup(function(e){
           e = e || window.event;
           keyCode = e.keyCode || e.which;
 
@@ -74,10 +73,10 @@
 
           oNewValue = applyMask(e, $element, pMask, options);
 
-          seekCallbacks(e, options, oNewValue, mask, $element);
-
           if (oNewValue !== $element.val())
             $element.val(oNewValue);
+
+          seekCallbacks(e, options, oNewValue, mask, $element);
 
         }).trigger('keyup');
 
@@ -97,16 +96,15 @@
     };
 
     var destroyEvents = function(){
-      $element.unbind('keyup').die('keyup');
+      $element.unbind('keyup');
     };
 
     var applyMask = function (e, fieldObject, mask, options) {
 
-      oValue = fieldObject.val().replace(/\W/g, '').substring(0, mask.replace(/\W/g, '').length);
+      oValue = onlyNumbers(fieldObject.val()).substring(0, onlyNumbers(mask).length);
 
-      return oValue.replace(new RegExp(maskToRegex(mask)), function () {
+      return oValue.replace(new RegExp(maskToRegex(mask)), function(){
         oNewValue = '';
-
         for (var i = 1; i < arguments.length - 2; i++) {
           if (typeof arguments[i] == "undefined" || arguments[i] === ""){
             arguments[i] = mask[i-1];
@@ -149,16 +147,11 @@
     };
 
     var maskToRegex = function (mask) {
-      var translation = { 0: '(.)', 1: '(.)', 2: '(.)', 3: '(.)', 4: '(.)', 5: '(.)', 6: '(.)', 7: '(.)',
-        8: '(.)', 9: '(.)', 'A': '(.)', 'S': '(.)',':': '(:)?', '-': '(-)?', '.': '(\\\.)?', '(': '(\\()?',
-        ')': '(\\))?', '/': '(/)?', ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(\\\+)?'};
-
       var regex = '';
       for (var i = 0; i < mask.length; i ++){
-        if (translation[mask[i]])
-          regex += translation[mask[i]];
+        if (plugin.settings.translation[mask[i]])
+          regex += plugin.settings.translation[mask[i]];
       }
-
       return regex;
     };
 
@@ -197,12 +190,11 @@
 
     plugin.init();
 
-  }
+  };
 
   $.fn.mask = function(mask, options) {
     return this.each(function() {
-      var plugin = new Mask(this, mask, options);
-      $(this).data('mask', plugin);
+      $(this).data('mask', new Mask(this, mask, options));
     });
   }
 
