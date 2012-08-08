@@ -50,16 +50,12 @@
     plugin.init = function() {
         
       options = options || {};
-      $element.each(function() {
 
-        destroyEvents(plugin);
-        $element.data('mask', {'mask': mask, 'options': options});
-        $element.attr('maxlength', mask.length);
+      destroyEvents(plugin);
+      $element.data('mask', {'mask': mask, 'options': options});
+      $element.attr('maxlength', mask.length);
 
-        bindEvent(plugin, true);
-
-      });
-
+      bindEvent(plugin, true);
     }
 
     plugin.init();
