@@ -137,20 +137,6 @@
       return mask.substring(startMask, endMask);
     };
 
-    var maskToRegex = function (mask) {
-      var translation = { 0: '(.)', 1: '(.)', 2: '(.)', 3: '(.)', 4: '(.)', 5: '(.)', 6: '(.)', 7: '(.)',
-        8: '(.)', 9: '(.)', 'A': '(.)', 'S': '(.)',':': '(:)?', '-': '(-)?', '.': '(\\\.)?', '(': '(\\()?',
-        ')': '(\\))?', '/': '(/)?', ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(\\\+)?'};
-
-      var regex = '';
-      for (var i = 0; i < mask.length; i ++){
-        if (translation[mask[i]])
-          regex += translation[mask[i]];
-      }
-
-      return regex;
-    };
-
     var validDigit = function (nowMask, nowDigit) {
       if (isNaN(parseInt(nowMask, 10)) === false && /\d/.test(nowDigit) === false) {
         return false;
@@ -200,6 +186,20 @@
 
   function onlyNumbers(string) {
     return string.replace(/\W/g, '');
+  };
+
+  function maskToRegex(mask) {
+    var translation = { 0: '(.)', 1: '(.)', 2: '(.)', 3: '(.)', 4: '(.)', 5: '(.)', 6: '(.)', 7: '(.)',
+      8: '(.)', 9: '(.)', 'A': '(.)', 'S': '(.)',':': '(:)?', '-': '(-)?', '.': '(\\\.)?', '(': '(\\()?',
+      ')': '(\\))?', '/': '(/)?', ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(\\\+)?'};
+
+    var regex = '';
+    for (var i = 0; i < mask.length; i ++){
+      if (translation[mask[i]])
+        regex += translation[mask[i]];
+    }
+
+    return regex;
   };
 
   // Public API
