@@ -63,7 +63,7 @@
 
           pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
           getProportionalReverseMask(oCleanedValue, mask) :
-          getProportionalMask(oCleanedValue, mask);
+          getProportionalMask(plugin, oCleanedValue);
 
           oNewValue = applyMask(e, $element, pMask, options);
 
@@ -106,19 +106,6 @@
 
         return cleanBullShit(plugin, oNewValue, mask);
       });
-    };
-
-    var getProportionalMask = function (oValue, mask) {
-      var endMask = 0, m = 0;
-
-      while (m <= oValue.length-1){
-        while(typeof plugin.settings.specialChars[mask.charAt(endMask)] === "number")
-          endMask++;
-        endMask++;
-        m++;
-      }
-
-      return mask.substring(0, endMask);
     };
 
     var getProportionalReverseMask = function (oValue, mask) {
@@ -168,6 +155,20 @@
   });
 
   // Context Functions
+
+  function getProportionalMask(context, oValue) {
+    var endMask = 0, m = 0, len = oValue.length - 1,
+      settings = context.settings,
+      specialChars = settings.specialChars,
+      mask = settings.mask;
+    while (m <= len){
+      while(typeof specialChars[mask.charAt(endMask)] === "number")
+        endMask++;
+      endMask++;
+      m++;
+    }
+    return mask.substring(0, endMask);
+  }
 
   function cleanBullShit(context, oNewValue, mask) {
     oNewValue = oNewValue.split('');
