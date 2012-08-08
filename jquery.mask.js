@@ -62,7 +62,7 @@
           var oCleanedValue = onlyNumbers($element.val());
 
           pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
-          getProportionalReverseMask(oCleanedValue, mask) :
+          getProportionalReverseMask(plugin, oCleanedValue) :
           getProportionalMask(plugin, oCleanedValue);
 
           oNewValue = applyMask(e, $element, pMask, options);
@@ -108,22 +108,6 @@
       });
     };
 
-    var getProportionalReverseMask = function (oValue, mask) {
-      var startMask = 0, endMask = 0, m = 0;
-      startMask = (mask.length >= 1) ? mask.length : mask.length-1;
-      endMask = startMask;
-
-      while (m <= oValue.length-1) {
-        while (typeof plugin.settings.specialChars[mask.charAt(endMask-1)] === "number")
-          endMask--;
-        endMask--;
-        m++;
-      }
-
-      endMask = (mask.length >= 1) ? endMask : endMask-1;
-      return mask.substring(startMask, endMask);
-    };
-
     var seekCallbacks = function (e, options, oNewValue, mask, currentField) {
       if (options.onKeyPress && e.isTrigger === undefined && typeof options.onKeyPress == "function") {
         options.onKeyPress(oNewValue, e, currentField, options);
@@ -155,6 +139,24 @@
   });
 
   // Context Functions
+
+  function getProportionalReverseMask(context, oValue) {
+    var m = 0, len = oValue.length - 1,
+      settings = context.settings,
+      specialChars = settings.specialChars,
+      mask = settings.mask,
+      mlen = mask.length,
+      startMask = mlen - (mlen >= 1 ? 0 : 1),
+      endMask = startMask;
+    while (m <= len) {
+      while (typeof specialChars[mask.charAt(endMask-1)] === "number")
+        endMask--;
+      endMask--;
+      m++;
+    }
+    endMask = endMask - (mlen >= 1 ? 0 : 1);
+    return mask.substring(startMask, endMask);
+  }
 
   function getProportionalMask(context, oValue) {
     var endMask = 0, m = 0, len = oValue.length - 1,
