@@ -36,16 +36,10 @@
   var  e, oValue, oNewValue, keyCode, pMask;
 
   var Mask = function(element, mask, options) {
-
-    var plugin = this;
-
     $.extend(this, {
       element: element,
       settings: $.extend(getDefaults(mask), options || {})
     });
-
-    plugin.init();
-
   }
 
   // Public Functions
@@ -216,6 +210,7 @@
   $.fn.mask = function(mask, options) {
     return this.each(function() {
       var plugin = new Mask(this, mask, options);
+      plugin.init();
       $(this).data('mask', plugin);
     });
   }
