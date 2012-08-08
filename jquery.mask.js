@@ -44,10 +44,14 @@
       settings: $.extend(getDefaults(mask), options || {})
     });
 
-    var $element = $(element),
-         element = element;
+    plugin.init();
 
-    plugin.init = function() {
+  }
+
+  // Public Functions
+
+  $.extend(Mask.prototype, {
+    init: function() {
       var context = this,
         settings = context.settings,
         mask = settings.mask,
@@ -57,15 +61,7 @@
       element.attr('maxlength', mask.length);
 
       bindEvent(context, true);
-    };
-
-    plugin.init();
-
-  }
-
-  // Public Functions
-
-  $.extend(Mask.prototype, {
+    },
     remove: function() {
       var context = this, element = $(context.element);
       destroyEvents(context);
