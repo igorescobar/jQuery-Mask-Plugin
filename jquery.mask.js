@@ -60,18 +60,6 @@
       var context = this, element = $(context.element);
       destroyEvents(context);
       element.val(onlyNumbers(element.val()));
-    },
-    validDigit: function (nowMask, nowDigit) {
-      if (isNaN(parseInt(nowMask, 10)) === false && /\d/.test(nowDigit) === false) {
-        return false;
-      } else if (nowMask === 'A' && /[a-zA-Z0-9]/.test(nowDigit) === false) {
-        return false;
-      } else if (nowMask === 'S' && /[a-zA-Z]/.test(nowDigit) === false) {
-        return false;
-      } else if (typeof this.settings.specialChars[nowDigit] === "number" && nowMask !== nowDigit) {
-        return false;
-      }
-      return true;
     }
   });
 
@@ -164,10 +152,23 @@
     return mask.substring(0, endMask);
   }
 
+  function validDigit(context, nowMask, nowDigit) {
+    if (isNaN(parseInt(nowMask, 10)) === false && /\d/.test(nowDigit) === false) {
+      return false;
+    } else if (nowMask === 'A' && /[a-zA-Z0-9]/.test(nowDigit) === false) {
+      return false;
+    } else if (nowMask === 'S' && /[a-zA-Z]/.test(nowDigit) === false) {
+      return false;
+    } else if (typeof context.settings.specialChars[nowDigit] === "number" && nowMask !== nowDigit) {
+      return false;
+    }
+    return true;
+  }
+
   function cleanBullShit(context, oNewValue, mask) {
     oNewValue = oNewValue.split('');
     for(var i = 0; i < mask.length; i++){
-      if(context.validDigit(mask.charAt(i), oNewValue[i]) === false)
+      if(validDigit(context, mask.charAt(i), oNewValue[i]) === false)
         oNewValue[i] = '';
     }
     return oNewValue.join('');
