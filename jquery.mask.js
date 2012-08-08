@@ -37,21 +37,14 @@
 
   var Mask = function(element, mask, options) {
 
-    var defaults = {
-      byPassKeys: [8,9,37,38,39,40],
-      specialChars: {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
-      mask: mask
-    };
-
     var plugin = this;
 
-    plugin.settings = {}
+    this.settings = $.extend(getDefaults(mask), options || {});
 
     var $element = $(element),
          element = element;
 
     plugin.init = function() {
-      plugin.settings = $.extend({}, defaults, options);
         
       options = options || {};
       $element.each(function() {
@@ -198,6 +191,18 @@
     plugin.init();
 
   }
+
+  // Local Functions
+
+  function getDefaults(mask) {
+    return {
+      byPassKeys: [8,9,37,38,39,40],
+      specialChars: {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
+      mask: mask
+    };
+  }
+
+  // Public API
 
   $.fn.mask = function(mask, options) {
     return this.each(function() {
