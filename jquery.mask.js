@@ -52,7 +52,7 @@
       options = options || {};
       $element.each(function() {
 
-        destroyEvents();
+        destroyEvents(plugin);
         $element.data('mask', {'mask': mask, 'options': options});
         $element.attr('maxlength', mask.length);
 
@@ -75,22 +75,18 @@
 
     }
 
-    // public methods
-    plugin.remove = function() {
-      destroyEvents();
-      $element.val(onlyNumbers($element.val()));
-    };
-
-    // private methods
-    var destroyEvents = function(){
-      $element.unbind('keyup').die('keyup');
-    };
-
     plugin.init();
 
   }
 
+  // Public Functions
+
   $.extend(Mask.prototype, {
+    remove: function() {
+      var context = this, element = $(context.element);
+      destroyEvents(context);
+      element.val(onlyNumbers(element.val()));
+    },
     validDigit: function (nowMask, nowDigit) {
       if (isNaN(parseInt(nowMask, 10)) === false && /\d/.test(nowDigit) === false) {
         return false;
@@ -106,6 +102,10 @@
   });
 
   // Context Functions
+
+  function destroyEvents(context){
+    $(context.element).unbind('keyup').die('keyup');
+  }
 
   function applyMask(context) {
     var settings = context.settings,
