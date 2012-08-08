@@ -39,7 +39,10 @@
 
     var plugin = this;
 
-    this.settings = $.extend(getDefaults(mask), options || {});
+    $.extend(this, {
+      element: element,
+      settings: $.extend(getDefaults(mask), options || {})
+    });
 
     var $element = $(element),
          element = element;
@@ -59,13 +62,7 @@
 
           if ($.inArray(keyCode, plugin.settings.byPassKeys) >= 0) return true;
 
-          var oCleanedValue = onlyNumbers($element.val());
-
-          pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
-          getProportionalReverseMask(plugin, oCleanedValue) :
-          getProportionalMask(plugin, oCleanedValue);
-
-          oNewValue = applyMask(e, $element, pMask, options);
+          oNewValue = applyMask(plugin);
 
           seekCallbacks(e, options, oNewValue, mask, $element);
 
@@ -87,25 +84,6 @@
     // private methods
     var destroyEvents = function(){
       $element.unbind('keyup').die('keyup');
-    };
-
-    var applyMask = function (e, fieldObject, mask, options) {
-
-      oValue = fieldObject.val().replace(/\W/g, '').substring(0, mask.replace(/\W/g, '').length);
-
-      return oValue.replace(maskToRegex(mask), function () {
-        oNewValue = '';
-
-        for (var i = 1; i < arguments.length - 2; i++) {
-          if (typeof arguments[i] == "undefined" || arguments[i] === ""){
-            arguments[i] = mask[i-1];
-          }
-
-          oNewValue += arguments[i];
-        }
-
-        return cleanBullShit(plugin, oNewValue, mask);
-      });
     };
 
     var seekCallbacks = function (e, options, oNewValue, mask, currentField) {
@@ -139,6 +117,29 @@
   });
 
   // Context Functions
+
+  function applyMask(context) {
+    var settings = context.settings,
+      element = $(context.element),
+      mask, oValue,
+      reverse = settings.reverse,
+      oCleanedValue = onlyNumbers(element.val());
+
+    mask = (reverse === true) ?
+      getProportionalReverseMask(context, oCleanedValue) :
+      getProportionalMask(context, oCleanedValue);
+    oValue = oCleanedValue.substring(0, mask.replace(/\W/g, '').length);
+
+    return oValue.replace(maskToRegex(mask), function () {
+      var oNewValue = '', i = 1, arg,
+        args = arguments, len2 = args.length - 2;
+      while ( i < len2 ) {
+        arg = args[i++];
+        oNewValue += ( typeof arg == "undefined" || arg === "" ) ? mask[i-1] : arg;
+      }
+      return cleanBullShit(context, oNewValue, mask);
+    });
+  }
 
   function getProportionalReverseMask(context, oValue) {
     var m = 0, len = oValue.length - 1,
