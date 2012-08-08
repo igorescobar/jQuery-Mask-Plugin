@@ -64,7 +64,7 @@
 
           oNewValue = applyMask(plugin);
 
-          seekCallbacks(e, options, oNewValue, mask, $element);
+          seekCallbacks(plugin, e, oNewValue);
 
           if (oNewValue !== $element.val())
             $element.val(oNewValue);
@@ -84,17 +84,6 @@
     // private methods
     var destroyEvents = function(){
       $element.unbind('keyup').die('keyup');
-    };
-
-    var seekCallbacks = function (e, options, oNewValue, mask, currentField) {
-      if (options.onKeyPress && e.isTrigger === undefined && typeof options.onKeyPress == "function") {
-        options.onKeyPress(oNewValue, e, currentField, options);
-      }
-
-      if (options.onComplete && e.isTrigger === undefined &&
-          oNewValue.length === mask.length && typeof options.onComplete == "function") {
-        options.onComplete(oNewValue, e, currentField, options);
-      }
     };
 
     plugin.init();
@@ -139,6 +128,20 @@
       }
       return cleanBullShit(context, oNewValue, mask);
     });
+  }
+
+  function seekCallbacks(context, event, oNewValue) {
+    var settings = context.settings,
+      element = $(context.element),
+      mask = settings.mask;
+    if (settings.onKeyPress && event.isTrigger === undefined && typeof settings.onKeyPress == "function") {
+      settings.onKeyPress(oNewValue, event, element, settings);
+    }
+
+    if (settings.onComplete && event.isTrigger === undefined &&
+        oNewValue.length === mask.length && typeof settings.onComplete == "function") {
+      settings.onComplete(oNewValue, event, element, settings);
+    }
   }
 
   function getProportionalReverseMask(context, oValue) {
