@@ -19,6 +19,6 @@ jQuery Mask Plugin has been tested with jQuery 1.3+ on all major browsers:
 
  * Firefox 2+ (Win, Mac, Linux);
  * IE7+ (Win);
- * Chrome 6+ (Win, Mac, Linux, Mobile);
- * Safari 3.2+ (Win, Mac);
- * Opera 8+ (Win, Mac, Linux, Mobile).
+ * Chrome 6+ (Win, Mac, Linux, Android, iPhone);
+ * Safari 3.2+ (Win, Mac, iPhone);
+ * Opera 8+ (Win, Mac, Linux, Android, iPhone).
