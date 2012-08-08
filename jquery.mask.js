@@ -104,7 +104,7 @@
           oNewValue += arguments[i];
         }
 
-        return cleanBullShit(oNewValue, mask);
+        return cleanBullShit(plugin, oNewValue, mask);
       });
     };
 
@@ -137,28 +137,6 @@
       return mask.substring(startMask, endMask);
     };
 
-    var validDigit = function (nowMask, nowDigit) {
-      if (isNaN(parseInt(nowMask, 10)) === false && /\d/.test(nowDigit) === false) {
-        return false;
-      } else if (nowMask === 'A' && /[a-zA-Z0-9]/.test(nowDigit) === false) {
-        return false;
-      } else if (nowMask === 'S' && /[a-zA-Z]/.test(nowDigit) === false) {
-        return false;
-      } else if (typeof plugin.settings.specialChars[nowDigit] === "number" && nowMask !== nowDigit) {
-        return false;
-      }
-      return true;
-    };
-
-    var cleanBullShit = function (oNewValue, mask) {
-      oNewValue = oNewValue.split('');
-      for(var i = 0; i < mask.length; i++){
-        if(validDigit(mask.charAt(i), oNewValue[i]) === false)
-          oNewValue[i] = '';
-      }
-      return oNewValue.join('');
-    };
-
     var seekCallbacks = function (e, options, oNewValue, mask, currentField) {
       if (options.onKeyPress && e.isTrigger === undefined && typeof options.onKeyPress == "function") {
         options.onKeyPress(oNewValue, e, currentField, options);
@@ -172,6 +150,32 @@
 
     plugin.init();
 
+  }
+
+  $.extend(Mask.prototype, {
+    validDigit: function (nowMask, nowDigit) {
+      if (isNaN(parseInt(nowMask, 10)) === false && /\d/.test(nowDigit) === false) {
+        return false;
+      } else if (nowMask === 'A' && /[a-zA-Z0-9]/.test(nowDigit) === false) {
+        return false;
+      } else if (nowMask === 'S' && /[a-zA-Z]/.test(nowDigit) === false) {
+        return false;
+      } else if (typeof this.settings.specialChars[nowDigit] === "number" && nowMask !== nowDigit) {
+        return false;
+      }
+      return true;
+    }
+  });
+
+  // Context Functions
+
+  function cleanBullShit(context, oNewValue, mask) {
+    oNewValue = oNewValue.split('');
+    for(var i = 0; i < mask.length; i++){
+      if(context.validDigit(mask.charAt(i), oNewValue[i]) === false)
+        oNewValue[i] = '';
+    }
+    return oNewValue.join('');
   }
 
   // Local Functions
