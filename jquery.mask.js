@@ -107,7 +107,7 @@
         oNewValue = '';
         for (var i = 1; i < arguments.length - 2; i++) {
           if (typeof arguments[i] == "undefined" || arguments[i] === ""){
-            arguments[i] = mask[i-1];
+            arguments[i] = mask.charAt(i-1);
           }
 
           oNewValue += arguments[i];
@@ -149,8 +149,8 @@
     var maskToRegex = function (mask) {
       var regex = '';
       for (var i = 0; i < mask.length; i ++){
-        if (plugin.settings.translation[mask[i]])
-          regex += plugin.settings.translation[mask[i]];
+        if (plugin.settings.translation[mask.charAt(i)])
+          regex += plugin.settings.translation[mask.charAt(i)];
       }
       return regex;
     };
