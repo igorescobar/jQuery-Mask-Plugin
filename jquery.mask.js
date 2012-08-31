@@ -35,7 +35,7 @@
 
   var  e, oValue, oNewValue, keyCode, pMask;
 
-  var Mask = function(element, mask, options) {
+  var Mask = function(el, mask, options) {
 
     var defaults = {
       byPassKeys: [8,9,37,38,39,40],
@@ -48,29 +48,29 @@
 
     plugin.settings = {}
 
-    var $element = $(element),
-         element = element;
+    var $el = $(el),
+         el = el;
 
     plugin.init = function(){
       plugin.settings = $.extend({}, defaults, options);
         
       options = options || {};
-      $element.each(function() {
+      $el.each(function() {
+
+        $el.attr('maxlength', mask.length);
+        $el.attr('autocomplete', 'off');
 
         destroyEvents();
-        $element.attr('maxlength', mask.length);
+        setOnKeyUp();
+        setOnPaste();
         
-        //hasOnSupport ? $element.on("paste", maskFunction) : $element.onpaste = maskFunction;
-        $element.keyup(maskFunction).trigger('keyup');
-
       });
-
-    }
+    };
 
     // public methods
     plugin.remove = function() {
       destroyEvents();
-      $element.val(onlyNumbers($element.val()));
+      $el.val(onlyNumbers($el.val()));
     };
 
     // private methods
@@ -78,32 +78,50 @@
       return string.replace(/\W/g, '');
     };
 
+    var onPasteMethod = function(){
+      setTimeout(function(){
+        $el.trigger('keyup');
+      }, 100);
+    };
+
+    var setOnPaste = function() {
+      if (hasOnSupport)
+        $el.on("paste", onPasteMethod)
+      else
+        $el.onpaste = onPasteMethod;
+    };
+
+    var setOnKeyUp = function(){
+      $el.keyup(maskBehaviour).trigger('keyup');
+    };
+
     var hasOnSupport = function() {
       return $.isFunction($.on);
     };
 
     var destroyEvents = function(){
-      $element.unbind('keyup');
+      $el.unbind('keyup').unbind('onpaste');
     };
 
-    var maskFunction = function(e){
+    var maskBehaviour = function(e){
       e = e || window.event;
       keyCode = e.keyCode || e.which;
 
-      if ($.inArray(keyCode, plugin.settings.byPassKeys) >= 0) return true;
+      if ($.inArray(keyCode, plugin.settings.byPassKeys) >= 0) 
+        return true;
 
-      var oCleanedValue = onlyNumbers($element.val());
+      var oCleanedValue = onlyNumbers($el.val());
 
       pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
       getProportionalReverseMask(oCleanedValue, mask) :
       getProportionalMask(oCleanedValue, mask);
 
-      oNewValue = applyMask(e, $element, pMask, options);
+      oNewValue = applyMask(e, $el, pMask, options);
 
-      if (oNewValue !== $element.val())
-        $element.val(oNewValue);
+      if (oNewValue !== $el.val())
+        $el.val(oNewValue);
 
-      seekCallbacks(e, options, oNewValue, mask, $element);
+      seekCallbacks(e, options, oNewValue, mask, $el);
 
     };
 
