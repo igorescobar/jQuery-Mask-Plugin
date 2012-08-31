@@ -59,26 +59,9 @@
 
         destroyEvents();
         $element.attr('maxlength', mask.length);
-        $element.keyup(function(e){
-          e = e || window.event;
-          keyCode = e.keyCode || e.which;
-
-          if ($.inArray(keyCode, plugin.settings.byPassKeys) >= 0) return true;
-
-          var oCleanedValue = onlyNumbers($element.val());
-
-          pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
-          getProportionalReverseMask(oCleanedValue, mask) :
-          getProportionalMask(oCleanedValue, mask);
-
-          oNewValue = applyMask(e, $element, pMask, options);
-
-          if (oNewValue !== $element.val())
-            $element.val(oNewValue);
-
-          seekCallbacks(e, options, oNewValue, mask, $element);
-
-        }).trigger('keyup');
+        
+        //hasOnSupport ? $element.on("paste", maskFunction) : $element.onpaste = maskFunction;
+        $element.keyup(maskFunction).trigger('keyup');
 
       });
 
@@ -95,8 +78,33 @@
       return string.replace(/\W/g, '');
     };
 
+    var hasOnSupport = function() {
+      return $.isFunction($.on);
+    };
+
     var destroyEvents = function(){
       $element.unbind('keyup');
+    };
+
+    var maskFunction = function(e){
+      e = e || window.event;
+      keyCode = e.keyCode || e.which;
+
+      if ($.inArray(keyCode, plugin.settings.byPassKeys) >= 0) return true;
+
+      var oCleanedValue = onlyNumbers($element.val());
+
+      pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
+      getProportionalReverseMask(oCleanedValue, mask) :
+      getProportionalMask(oCleanedValue, mask);
+
+      oNewValue = applyMask(e, $element, pMask, options);
+
+      if (oNewValue !== $element.val())
+        $element.val(oNewValue);
+
+      seekCallbacks(e, options, oNewValue, mask, $element);
+
     };
 
     var applyMask = function (e, fieldObject, mask, options) {
