@@ -36,21 +36,17 @@
   var  e, oValue, oNewValue, keyCode, pMask;
 
   var Mask = function(el, mask, options) {
+    var plugin = this,
+        $el = $(el),
+        defaults = {
+        byPassKeys: [8,9,37,38,39,40],
+        specialChars: {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
+        translation: { 0: '(.)', 1: '(.)', 2: '(.)', 3: '(.)', 4: '(.)', 5: '(.)', 6: '(.)', 7: '(.)', 8: '(.)', 9: '(.)', 
+                      'A': '(.)', 'S': '(.)',':': '(:)?', '-': '(-)?', '.': '(\\\.)?', '(': '(\\()?', ')': '(\\))?', '/': '(/)?', 
+                      ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(\\\+)?'}};
+        
 
-    var defaults = {
-      byPassKeys: [8,9,37,38,39,40],
-      specialChars: {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
-      translation: { 0: '(.)', 1: '(.)', 2: '(.)', 3: '(.)', 4: '(.)', 5: '(.)', 6: '(.)', 7: '(.)', 8: '(.)', 9: '(.)', 
-                     'A': '(.)', 'S': '(.)',':': '(:)?', '-': '(-)?', '.': '(\\\.)?', '(': '(\\()?', ')': '(\\))?', '/': '(/)?', 
-                     ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(\\\+)?'}};
-
-    var plugin = this;
-
-    plugin.settings = {}
-
-    var $el = $(el),
-         el = el;
-
+    plugin.settings = {};
     plugin.init = function(){
       plugin.settings = $.extend({}, defaults, options);
         
@@ -62,8 +58,7 @@
 
         destroyEvents();
         setOnKeyUp();
-        setOnPaste();
-        
+        setOnPaste();    
       });
     };
 
@@ -85,10 +80,7 @@
     };
 
     var setOnPaste = function() {
-      if (hasOnSupport)
-        $el.on("paste", onPasteMethod)
-      else
-        $el.onpaste = onPasteMethod;
+      (hasOnSupport) ? $el.on("paste", onPasteMethod) : $el.onpaste = onPasteMethod;
     };
 
     var setOnKeyUp = function(){
@@ -122,7 +114,6 @@
         $el.val(oNewValue);
 
       seekCallbacks(e, options, oNewValue, mask, $el);
-
     };
 
     var applyMask = function (e, fieldObject, mask, options) {
@@ -215,13 +206,12 @@
     };
 
     plugin.init();
-
   };
 
   $.fn.mask = function(mask, options) {
     return this.each(function() {
       $(this).data('mask', new Mask(this, mask, options));
     });
-  }
+  };
 
 })(jQuery);
