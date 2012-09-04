@@ -1,0 +1,3 @@
+- event change is not triggered when using the .val() jQuery method
+- workaround to apply the mask when you paste an value with the mouse
+- adding the autocomplete:false on fields with masks.
