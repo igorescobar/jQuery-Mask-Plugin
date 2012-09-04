@@ -110,10 +110,12 @@
 
       oNewValue = applyMask(e, $el, pMask, options);
 
-      if (oNewValue !== $el.val())
-        $el.val(oNewValue);
-
-      seekCallbacks(e, options, oNewValue, mask, $el);
+      if (oNewValue !== $el.val()){
+        // workaround to trigger the change Event when setted
+        $el.val(oNewValue).trigger('change');
+      }
+        
+      return seekCallbacks(e, options, oNewValue, mask, $el);
     };
 
     var applyMask = function (e, fieldObject, mask, options) {
