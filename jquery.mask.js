@@ -168,8 +168,8 @@
     var maskToRegex = function (mask) {
       var regex = '';
       for (var i = 0; i < mask.length; i ++){
-        if (plugin.settings.translation[mask[i]])
-          regex += plugin.settings.translation[mask[i]];
+        if (plugin.settings.translation[mask.charAt(i)])
+          regex += plugin.settings.translation[mask.charAt(i)];
       }
       return regex;
     };
@@ -208,13 +208,12 @@
     };
 
     plugin.init();
-
   };
 
   $.fn.mask = function(mask, options) {
     return this.each(function() {
       $(this).data('mask', new Mask(this, mask, options));
     });
-  }
+  };
 
 })(jQuery);
