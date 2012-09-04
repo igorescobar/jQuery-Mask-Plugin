@@ -35,59 +35,37 @@
 
   var  e, oValue, oNewValue, keyCode, pMask;
 
-  var Mask = function(element, mask, options) {
+  var Mask = function(el, mask, options) {
+    var plugin = this,
+        $el = $(el),
+        defaults = {
+        byPassKeys: [8,9,37,38,39,40],
+        specialChars: {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
+        translation: { 0: '(.)', 1: '(.)', 2: '(.)', 3: '(.)', 4: '(.)', 5: '(.)', 6: '(.)', 7: '(.)', 8: '(.)', 9: '(.)', 
+                      'A': '(.)', 'S': '(.)',':': '(:)?', '-': '(-)?', '.': '(\\\.)?', '(': '(\\()?', ')': '(\\))?', '/': '(/)?', 
+                      ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(\\\+)?'}};
+        
 
-    var defaults = {
-      byPassKeys: [8,9,37,38,39,40],
-      specialChars: {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
-      translation: { 0: '(.)', 1: '(.)', 2: '(.)', 3: '(.)', 4: '(.)', 5: '(.)', 6: '(.)', 7: '(.)', 8: '(.)', 9: '(.)', 
-                     'A': '(.)', 'S': '(.)',':': '(:)?', '-': '(-)?', '.': '(\\\.)?', '(': '(\\()?', ')': '(\\))?', '/': '(/)?', 
-                     ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(\\\+)?'}};
-
-    var plugin = this;
-
-    plugin.settings = {}
-
-    var $element = $(element),
-         element = element;
-
+    plugin.settings = {};
     plugin.init = function(){
       plugin.settings = $.extend({}, defaults, options);
         
       options = options || {};
-      $element.each(function() {
+      $el.each(function() {
+
+        $el.attr('maxlength', mask.length);
+        $el.attr('autocomplete', 'off');
 
         destroyEvents();
-        $element.attr('maxlength', mask.length);
-        $element.keyup(function(e){
-          e = e || window.event;
-          keyCode = e.keyCode || e.which;
-
-          if ($.inArray(keyCode, plugin.settings.byPassKeys) >= 0) return true;
-
-          var oCleanedValue = onlyNumbers($element.val());
-
-          pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
-          getProportionalReverseMask(oCleanedValue, mask) :
-          getProportionalMask(oCleanedValue, mask);
-
-          oNewValue = applyMask(e, $element, pMask, options);
-
-          if (oNewValue !== $element.val())
-            $element.val(oNewValue);
-
-          seekCallbacks(e, options, oNewValue, mask, $element);
-
-        }).trigger('keyup');
-
+        setOnKeyUp();
+        setOnPaste();    
       });
-
-    }
+    };
 
     // public methods
     plugin.remove = function() {
       destroyEvents();
-      $element.val(onlyNumbers($element.val()));
+      $el.val(onlyNumbers($el.val()));
     };
 
     // private methods
@@ -95,8 +73,49 @@
       return string.replace(/\W/g, '');
     };
 
+    var onPasteMethod = function(){
+      setTimeout(function(){
+        $el.trigger('keyup');
+      }, 100);
+    };
+
+    var setOnPaste = function() {
+      (hasOnSupport) ? $el.on("paste", onPasteMethod) : $el.onpaste = onPasteMethod;
+    };
+
+    var setOnKeyUp = function(){
+      $el.keyup(maskBehaviour).trigger('keyup');
+    };
+
+    var hasOnSupport = function() {
+      return $.isFunction($.on);
+    };
+
     var destroyEvents = function(){
-      $element.unbind('keyup');
+      $el.unbind('keyup').unbind('onpaste');
+    };
+
+    var maskBehaviour = function(e){
+      e = e || window.event;
+      keyCode = e.keyCode || e.which;
+
+      if ($.inArray(keyCode, plugin.settings.byPassKeys) >= 0) 
+        return true;
+
+      var oCleanedValue = onlyNumbers($el.val());
+
+      pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
+      getProportionalReverseMask(oCleanedValue, mask) :
+      getProportionalMask(oCleanedValue, mask);
+
+      oNewValue = applyMask(e, $el, pMask, options);
+
+      if (oNewValue !== $el.val()){
+        // workaround to trigger the change Event when setted
+        $el.val(oNewValue).trigger('change');
+      }
+        
+      return seekCallbacks(e, options, oNewValue, mask, $el);
     };
 
     var applyMask = function (e, fieldObject, mask, options) {
@@ -107,7 +126,7 @@
         oNewValue = '';
         for (var i = 1; i < arguments.length - 2; i++) {
           if (typeof arguments[i] == "undefined" || arguments[i] === ""){
-            arguments[i] = mask[i-1];
+            arguments[i] = mask.charAt(i-1);
           }
 
           oNewValue += arguments[i];
