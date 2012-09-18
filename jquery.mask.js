@@ -80,7 +80,7 @@
     };
 
     var setOnPaste = function() {
-      (hasOnSupport) ? $el.on("paste", onPasteMethod) : $el.onpaste = onPasteMethod;
+      (hasOnSupport()) ? $el.on("paste", onPasteMethod) : $el.onpaste = onPasteMethod;
     };
 
     var setOnKeyUp = function(){
