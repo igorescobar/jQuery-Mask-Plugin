@@ -1,0 +1,1 @@
+the first parameter of the .mask() function, now accepts a string or a anonymous function
