@@ -8,6 +8,7 @@ http://igorescobar.github.com/jQuery-Mask-Plugin/
   * Data type validation.
   * Automatic maxlength.
   * Live event's for ajax/realtime apps.
+  * Advanced mask initialization.
   * Callbacks.
   * On-the-fly mask change.
 
@@ -15,7 +16,7 @@ http://igorescobar.github.com/jQuery-Mask-Plugin/
   * Masks with jQuery Mask Plugin - http://www.igorescobar.com/blog/2012/05/06/masks-with-jquery-mask-plugin/
 
 ## Compatibility
-jQuery Mask Plugin has been tested with jQuery 1.3+ on all major browsers:
+jQuery Mask Plugin has been tested with jQuery 1.4+ on all major browsers:
 
  * Firefox 2+ (Win, Mac, Linux);
  * IE7+ (Win);
