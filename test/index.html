@@ -56,6 +56,25 @@
 
     });
 
+    test("Testing masks with a annonymous function", function(){
+      testfield.mask(function(){
+        return "(123) 456-7899"
+      });
+
+      equal( typeTest("1"), "(1");
+      equal( typeTest('12'), "(12");
+      equal( typeTest('123'), "(123");
+      equal( typeTest('1234'), "(123) 4");
+      equal( typeTest('12345'), "(123) 45");
+      equal( typeTest('123456'), "(123) 456");
+      equal( typeTest('1234567'), "(123) 456-7");
+      equal( typeTest('12345678'), "(123) 456-78");
+      equal( typeTest('123456789'), "(123) 456-789");
+      equal( typeTest('1234567899'), "(123) 456-7899");
+      equal( typeTest('12345678999'), "(123) 456-7899");
+
+    });
+
     test("Masks with numbers, strings e special characters", function(){
       testfield.mask('(999) A99-SSSS');
 
@@ -106,6 +125,7 @@
       equal( testfield.val(), "1299999999");
 
     });
+
 
   });
   </script>

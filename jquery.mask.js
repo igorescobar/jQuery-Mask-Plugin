@@ -52,7 +52,7 @@
         
       options = options || {};
       $el.each(function() {
-
+        mask = resolveDynamicMask(mask, $(this).val(), e, $(this), options);
         $el.attr('maxlength', mask.length);
         $el.attr('autocomplete', 'off');
 
@@ -69,6 +69,10 @@
     };
 
     // private methods
+    var resolveDynamicMask = function(mask, oValue, e, currentField, options){
+      return typeof mask == "function" ? mask(oValue, e, currentField, options) : mask;
+    };
+
     var onlyNumbers = function(string) {
       return string.replace(/\W/g, '');
     };
