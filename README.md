@@ -13,7 +13,12 @@ http://igorescobar.github.com/jQuery-Mask-Plugin/
   * On-the-fly mask change.
 
 ##Tutorials
-  * Masks with jQuery Mask Plugin - http://www.igorescobar.com/blog/2012/05/06/masks-with-jquery-mask-plugin/
+### English
+  * Masks with jQuery Mask Plugin - http://bit.ly/masks-with-jquery-mask-plugin
+  
+### Portuguese
+  * Mascaras com JQuery Mask Plugin - http://bit.ly/mascaras-com-jquery-mask-plugin
+  * Mascara Javascript para os novos telefones de São Paulo - http://bit.ly/mascara-javascript-para-os-novos-telefones-de-sao-paulo
 
 ## Compatibility
 jQuery Mask Plugin has been tested with jQuery 1.4+ on all major browsers:
