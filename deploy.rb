@@ -11,7 +11,7 @@ abort("No notes, do deal.") if JMASK_VERSION.empty?
 puts '# PUTTING NEW VERSION INSIDE OF JQUERY MASK FILE'
 unversioned_jmask_file = File.open(JMASK_FILE, 'rb') { |file| file.read }
 File.open(JMASK_FILE, 'w') do |file| 
-  file.write(unversioned_jmask_file.gsub(/"version": "([0-9.+]+)"/, "\"version\": \"#{JMASK_VERSION}\""))
+  file.write(unversioned_jmask_file.gsub(/\* @version: (v[0-9.+]+)/, "\* @version: #{JMASK_VERSION}"))
 end
 
 puts '# UPGRADING JQUERY PLUGINS MANIFEST FILE'
