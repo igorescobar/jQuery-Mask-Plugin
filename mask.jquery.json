@@ -1,11 +1,11 @@
 {
-  "name": "Mask",
+  "name": "mask",
   "title": "jQuery Mask Plugins.",
   "description": "A jQuery plugin to make field mask.",
   "keywords": [
     "mask",
     "masks",
-    "forms",
+    "form",
     "input"
   ],
   "version": "0.5.3",
@@ -13,13 +13,6 @@
     "name": "Igor Escobar",
     "url": "https://github.com/igorescobar/jQuery-Mask-Plugin/blob/master/README.md"
   },
-  "maintainers": [
-    {
-      "name": "Igor Escobar",
-      "email": "blog@igorescobar.com",
-      "url": "http://about.me/igorescobar"
-    }
-  ],
   "licenses": [
     {
       "type": "MIT",
@@ -29,7 +22,7 @@
   "bugs": "https://github.com/igorescobar/jQuery-Mask-Plugin/issues",
   "homepage": "https://github.com/igorescobar/jQuery-Mask-Plugin",
   "docs": "http://igorescobar.github.com/jQuery-Mask-Plugin/",
-  "download": "http://code.jquery.com/#Mask",
+  "download": "http://code.jquery.com/#mask",
   "dependencies": {
     "jquery": ">=1.5"
   }
