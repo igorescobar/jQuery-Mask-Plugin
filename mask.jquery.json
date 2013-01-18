@@ -1,6 +1,6 @@
 {
   "name": "mask",
-  "title": "jQuery Mask Plugins.",
+  "title": "jQuery Mask Plugin",
   "description": "A jQuery plugin to make field mask.",
   "keywords": [
     "mask",
@@ -22,7 +22,6 @@
   "bugs": "https://github.com/igorescobar/jQuery-Mask-Plugin/issues",
   "homepage": "https://github.com/igorescobar/jQuery-Mask-Plugin",
   "docs": "http://igorescobar.github.com/jQuery-Mask-Plugin/",
-  "download": "http://code.jquery.com/#mask",
   "dependencies": {
     "jquery": ">=1.5"
   }
