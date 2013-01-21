@@ -32,6 +32,9 @@ end
 puts '# GENERATING A NEW COMMIT WITH VERSIONED FILEs'
 `git commit -am 'generating jquery mask files #{JMASK_VERSION}'`
 
+puts '# PUSHING CHANGES TO REMOTE'
+`git pull --rebase && git push`
+
 puts '# CREATING NEW VERSION'
 `stepup version create --no-editor`
 
