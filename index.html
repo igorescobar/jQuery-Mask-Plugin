@@ -3,13 +3,24 @@
   <meta charset="utf-8" />
   <meta name="description" content="jQuery-Mask-Plugin - A jQuery plugin to make field masks" />
   <meta name="author" content="Igor Escobar" />
-  <title>jQuery-Mask-Plugin - A jQuery plugin to make field masks.</title>
+  <title>jQuery Mask Plugin - A jQuery plugin to make field masks.</title>
 
   <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen">
-
+  <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
+  
+  <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
   <script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/jquery.mask.js"></script>
+
+  <style>
+  h1 .jq-label {font-size: 40px; color: #CFCFCF; display:block;}
+  h1 .plugin-name {font-size:80px; color: #6BBEC7;}
+  div#examples div.col {width:246px;float:left;}
+
+  div#examples div.col.center {text-align:center;}
+  div#examples div.col.center.banner {border: 1px solid #ccc; padding:15px; margin-top:24px;}
+  </style>
 
   <script type="text/javascript">
   $(function() {
@@ -39,8 +50,6 @@
     $('.cpf').mask('999.999.999-99', {reverse: true});
     $('.money').mask('000.000.000.000.000,00', {reverse: true});
 
-
-
     var SaoPauloCelphoneMask = function(phone, e, currentField, options){
       return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? '(00) 00000-0000' : '(00) 0000-0000';
     };
@@ -49,110 +58,124 @@
       $(currentField).mask(SaoPauloCelphoneMask(phone), options);
     }});
 
+
+    $('pre').each(function(i, e) {hljs.highlightBlock(e)});
+
   });
   </script>
 </head>
 <body>
   <div class="container">
-  <h1>jQuery Mask Plugin</h1>
-  <span> A jQuery Plugin for field masks. </span>
-  <h2>Demos</h2>
+  <h1><span class="jq-label">jQuery</span> <span class="plugin-name">Mask Plugin</span></h1>
+  <span class="subltitle"> A jQuery Plugin for field masks. </span> <br /> <br />
+  <h2>Demonstrations</h2> 
 
   <form>
-    <label>Date</label>
-    <input type="text" class="date"/>
-    <label>Hour</label>
-    <input type="text" class="time"/>
-    <label>Date &amp; Hour</label>
-    <input type="text" class="date_time"/>
-    <label>Zip-Code</label>
-    <input type="text" class="cep"/>
-    <label>Zip-Code With Callbacks</label>
-    <input type="text" class="cep_with_callback"/>
-    <label>Crazy Zip-Code</label>
-    <input type="text" class="crazy_cep"/>
-    <label>Telephone</label>
-    <input type="text" class="phone"/>
-    <label>Telephone with Code Area</label>
-    <input type="text" class="phone_with_ddd"/>
-    <label>US Telephone</label>
-    <input type="text" class="phone_us"/>
-    <label>São Paulo Celphones</label>
-    <input type="text" class="sp_celphones"/>
-    <label>Mixed Type Mask</label>
-    <input type="text" class="mixed"/>
-    <label>CPF</label>
-    <input type="text" class="cpf"/>
-    <label>Money</label>
-    <input type="text" class="money"/>
+    <div id="examples">
+      <div class="col">
+        <label>Date</label>
+        <input type="text" class="date"/>
+        <label>Hour</label>
+        <input type="text" class="time"/>
+        <label>Date &amp; Hour</label>
+        <input type="text" class="date_time"/>
+        <label>Zip-Code</label>
+        <input type="text" class="cep"/>
+        <label>Zip-Code With Callbacks</label>
+        <input type="text" class="cep_with_callback"/>
+        <label>Crazy Zip-Code</label>
+        <input type="text" class="crazy_cep"/>
+        <label>Money</label>
+        <input type="text" class="money"/>
+      </div>
+      <div class="col">
+        <label>Telephone</label>
+        <input type="text" class="phone"/>
+        <label>Telephone with Code Area</label>
+        <input type="text" class="phone_with_ddd"/>
+        <label>US Telephone</label>
+        <input type="text" class="phone_us"/>
+        <label>São Paulo Celphones</label>
+        <input type="text" class="sp_celphones"/>
+        <label>Mixed Type Mask</label>
+        <input type="text" class="mixed"/>
+        <label>CPF</label>
+        <input type="text" class="cpf"/>
+      </div>
+      <div class="col center banner">
+        <p>The <a href="http://igorescobar.github.com/jQuery-Mask-Plugin/">jQuery Mask Plugin</a> was written by <a href="http://www.igorescobar.com/" rel="author" target="_blank">Igor Escobar</a> and the source-code's available in <a href="https://github.com/igorescobar/jQuery-Mask-Plugin" target="_blank">GitHub</a>.</p>
+        <h3>Buy me a beer :)</h3>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+          <input type="hidden" name="cmd" value="_s-xclick">
+          <input type="hidden" name="hosted_button_id" value="4X44QCUAQ7ZP4">
+          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" style="width:147px; height:47px" name="submit" alt="PayPal - The safer, easier way to pay online!">
+          <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
+      </div>
+    </div>
   </form>
+  <br clear="all"/><br clear="all"/><br clear="all"/>
+  <div id="code-samples">
+    <h2>Code Samples</h2>
+    <h3>Basic Examples</h3>
+    <pre>
+      $(document).ready(function(){
+        $('.date').mask('11/11/1111');
+        $('.time').mask('00:00:00');
+        $('.date_time').mask('99/99/9999 00:00:00');
+        $('.cep').mask('99999-999');
+        $('.phone').mask('9999-9999');
+        $('.phone_with_ddd').mask('(99) 9999-9999');
+        $('.phone_us').mask('(999) 999-9999');
+        $('.mixed').mask('AAA 000-S0S');
+        $('.cpf').mask('999.999.999-99', {reverse: true});
+        $('.money').mask('000.000.000.000.000,00', {reverse: true});
+      });</pre>
 
-  <h2>Basic Examples</h2>
-  <pre>
-    $(document).ready(function(){
-      $('.date').mask('11/11/1111');
-      $('.time').mask('00:00:00');
-      $('.date_time').mask('99/99/9999 00:00:00');
-      $('.cep').mask('99999-999');
-      $('.phone').mask('9999-9999');
-      $('.phone_with_ddd').mask('(99) 9999-9999');
-      $('.phone_us').mask('(999) 999-9999');
-      $('.mixed').mask('AAA 000-S0S');
-      $('.cpf').mask('999.999.999-99', {reverse: true});
-      $('.money').mask('000.000.000.000.000,00', {reverse: true});
-    });</pre>
+    <h3>Callback Examples</h3>
+    <pre>
+        var options =  { onComplete: function(cep) {
+                          alert('Mask is done!:' + cep);
+                        },
+                        onKeyPress: function(cep, event, currentField, options){
+                          console.log('An key was pressed!:', cep, ' event: ', event, 'currentField: ', currentField, ' options: ', options);
+                        }};
 
-  <h2>Callback Examples</h2>
-  <pre>
-      var options =  { onComplete: function(cep) {
-                        alert('Mask is done!:' + cep);
-                      },
-                      onKeyPress: function(cep, event, currentField, options){
-                        console.log('An key was pressed!:', cep, ' event: ', event, 'currentField: ', currentField, ' options: ', options);
-                      }};
+        $('.cep_with_callback').mask('00000-000', options);</pre>
 
-      $('.cep_with_callback').mask('00000-000', options);</pre>
+    <h3>On-the-fly mask change</h3>
+    <pre>
+    var options =  {onKeyPress: function(cep){
+                      var masks = ['00000-000', '0-00-00-00'];
+                        mask = (cep.length>7) ? masks[1] : masks[0];
+                      $('.crazy_cep').mask(mask, this);
+                    }};
 
-  <h2>On-the-fly mask change</h2>
-  <pre>
-  var options =  {onKeyPress: function(cep){
-                    var masks = ['00000-000', '0-00-00-00'];
-                      mask = (cep.length>7) ? masks[1] : masks[0];
-                    $('.crazy_cep').mask(mask, this);
-                  }};
+    $('.crazy_cep').mask('00000-000', options);</pre>
 
-  $('.crazy_cep').mask('00000-000', options);</pre>
+    <h3>Mask as a function</h3>
+    <pre>
+      var SaoPauloCelphoneMask = function(phone, e, currentField, options){
+        return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? 
+        '(00) 00000-0000' : '(00) 0000-0000';
+      };
 
-  <h2>Mask as a function</h2>
-  <pre>
-    var SaoPauloCelphoneMask = function(phone, e, currentField, options){
-      return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? 
-      '(00) 00000-0000' : '(00) 0000-0000';
-    };
+      $(".sp_celphones").mask(SaoPauloCelphoneMask);
+    </pre>
+    
+    <h3>Removing the mask</h3>
+    <pre>
+      $('.date').data('mask').remove();</pre>
 
-    $(".sp_celphones").mask(SaoPauloCelphoneMask);
-  </pre>
-  
-  <h2>Removing the mask</h2>
-  <pre>
-    $('.date').data('mask').remove();</pre>
+    <h4>Mask Legend</h4>
+    <ul>
+      <li><strong>0,1,3,4,5,6,7,8 or 9</strong>: Only Numbers</li>
+      <li><strong>A</strong>: Numbers and Letters</li>
+      <li><strong>S</strong>: Only A-Z and a-z characters</li>
+    </ul>
 
-  <h3>Mask Legend</h3>
-  <ul>
-    <li><strong>0,1,3,4,5,6,7,8 or 9</strong>: Only Numbers</li>
-    <li><strong>A</strong>: Numbers and Letters</li>
-    <li><strong>S</strong>: Only A-Z and a-z characters</li>
-  </ul> <br />
-  <h3>Want to buy me a beer?</h3>
-  <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-    <input type="hidden" name="cmd" value="_s-xclick">
-    <input type="hidden" name="hosted_button_id" value="4X44QCUAQ7ZP4">
-    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" style="width:147px; height:47px" name="submit" alt="PayPal - The safer, easier way to pay online!">
-    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-  </form>
-  <br />
-  <p>jQuery Mask Plugin on <a href="https://github.com/igorescobar/jQuery-Mask-Plugin" target="_blank">GitHub</a> & Author <a href="http://blog.igorescobar.com/" rel="author" target="_blank">Igor Escobar</a> </p>
-</div>
+  </div>
+
 <br clear="all" />
 
 </div>
