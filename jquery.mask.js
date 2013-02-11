@@ -104,19 +104,22 @@
       e = e || window.event;
       keyCode = e.keyCode || e.which;
 
-      if ($.inArray(keyCode, plugin.settings.byPassKeys) >= 0) 
-        return true;
+      if ($.inArray(keyCode, plugin.settings.byPassKeys) >= 0)  return true;
 
-      var oCleanedValue = onlyNumbers($el.val());
+      var oCleanedValue = onlyNumbers($el.val()),
+          nowDigitIndex = $el.val().length-1,
+          nowDigitValue = $el.val()[nowDigitIndex] ;
 
       pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
-      getProportionalReverseMask(oCleanedValue, mask) :
-      getProportionalMask(oCleanedValue, mask);
+              getProportionalReverseMask(oCleanedValue, mask) :
+              getProportionalMask(oCleanedValue, mask);
+
+      if (nowDigitValue === mask[nowDigitIndex] && 
+          typeof plugin.settings.specialChars[nowDigitValue] === "number") return true;
 
       oNewValue = applyMask(e, $el, pMask, options);
 
       if (oNewValue !== $el.val()){
-        // workaround to trigger the change Event when setted
         $el.val(oNewValue).trigger('change');
       }
         
@@ -124,15 +127,12 @@
     };
 
     var applyMask = function (e, fieldObject, mask, options) {
-
-      oValue = onlyNumbers(fieldObject.val()).substring(0, onlyNumbers(mask).length);
-
+      
+      var oValue = onlyNumbers(fieldObject.val()).substring(0, onlyNumbers(mask).length);
       return oValue.replace(new RegExp(maskToRegex(mask)), function(){
-        oNewValue = '';
-        for (var i = 1; i < arguments.length - 2; i++) {
-          if (typeof arguments[i] == "undefined" || arguments[i] === ""){
+        for (var i = 1, oNewValue = ''; i < arguments.length - 2; i++) {
+          if (typeof arguments[i] == "undefined" || arguments[i] === "")
             arguments[i] = mask.charAt(i-1);
-          }
 
           oNewValue += arguments[i];
         }
@@ -171,8 +171,7 @@
     };
 
     var maskToRegex = function (mask) {
-      var regex = '';
-      for (var i = 0; i < mask.length; i ++){
+      for (var i = 0, regex = ''; i < mask.length; i ++){
         if (plugin.settings.translation[mask.charAt(i)])
           regex += plugin.settings.translation[mask.charAt(i)];
       }
@@ -205,7 +204,7 @@
       if (options.onKeyPress && e.isTrigger === undefined && typeof options.onKeyPress == "function") {
         options.onKeyPress(oNewValue, e, currentField, options);
       }
-
+      
       if (options.onComplete && e.isTrigger === undefined &&
           oNewValue.length === mask.length && typeof options.onComplete == "function") {
         options.onComplete(oNewValue, e, currentField, options);
