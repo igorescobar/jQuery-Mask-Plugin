@@ -191,11 +191,14 @@
       return true;
     };
 
-    var cleanBullShit = function (oNewValue, mask) {
+    var cleanBullShit = function (oNewValue, mask, index) {
+      index = index || 0;
       oNewValue = oNewValue.split('');
-      for(var i = 0; i < mask.length; i++){
-        if(validDigit(mask.charAt(i), oNewValue[i]) === false)
+      for (var i = index; i < mask.length; i++) {
+        if (validDigit(mask.charAt(i), oNewValue[i]) === false && typeof oNewValue[i] !== "undefined") {
           oNewValue[i] = '';
+          return cleanBullShit(oNewValue.join(''), mask, 0);
+        } 
       }
       return oNewValue.join('');
     };
