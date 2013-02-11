@@ -1,6 +1,6 @@
  /**
  * jquery.mask.js
- * @version: v0.6.2 
+ * @version: v0.6.3 
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -115,7 +115,11 @@
               getProportionalMask(oCleanedValue, mask);
 
       if (nowDigitValue === mask[nowDigitIndex] && 
-          typeof plugin.settings.specialChars[nowDigitValue] === "number") return true;
+          typeof plugin.settings.specialChars[nowDigitValue] === "number"){
+
+        $el.val(cleanBullShit($el.val(), mask));
+        return true;
+      } 
 
       oNewValue = applyMask(e, $el, pMask, options);
 
@@ -191,11 +195,14 @@
       return true;
     };
 
-    var cleanBullShit = function (oNewValue, mask) {
+    var cleanBullShit = function (oNewValue, mask, index) {
+      index = index || 0;
       oNewValue = oNewValue.split('');
-      for(var i = 0; i < mask.length; i++){
-        if(validDigit(mask.charAt(i), oNewValue[i]) === false)
+      for (var i = index; i < mask.length; i++) {
+        if (validDigit(mask.charAt(i), oNewValue[i]) === false && typeof oNewValue[i] !== "undefined") {
           oNewValue[i] = '';
+          return cleanBullShit(oNewValue.join(''), mask, 0);
+        } 
       }
       return oNewValue.join('');
     };
