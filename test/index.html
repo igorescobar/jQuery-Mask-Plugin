@@ -22,13 +22,12 @@
     });
 
     module("Automatic Maxlength");
-    test("maxlength should be 10", function(){
+    test("maxlength should be 11", function(){
       testfield.mask('999-9990-99');
       equal( testfield.attr('maxlength'), 11)
     });
 
     module('Simple Masks');
-
     test("Masks with only numbers.", function(){
       testfield.mask('000000');
 
@@ -37,6 +36,22 @@
       equal( typeTest('1234567'), "123456");
 
     });
+
+    test('When I typed a char thats the same as the mask char', function(){
+      testfield.mask('00/00/0000');
+      equal( typeTest("00/"), "00/");
+    });
+
+    test('When I typed exactly the same as the mask', function(){
+      testfield.mask('00/00/0000');
+      equal( typeTest("00"), "00");
+      equal( typeTest("00/"), "00/");
+      equal( typeTest("00/0"), "00/0");
+      equal( typeTest("00/00"), "00/00");
+      equal( typeTest("00/00/0"), "00/00/0");
+      equal( typeTest("00/00/00"), "00/00/00");
+    });
+
 
     module('Masks with numbers and especial characters');
 
@@ -126,7 +141,6 @@
       equal( testfield.val(), "1299999999");
 
     });
-
 
   });
   </script>
