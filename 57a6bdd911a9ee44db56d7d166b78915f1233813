@@ -1,0 +1,1 @@
+When the user paste a text and the last char is valid sanitize may fail
