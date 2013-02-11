@@ -115,7 +115,11 @@
               getProportionalMask(oCleanedValue, mask);
 
       if (nowDigitValue === mask[nowDigitIndex] && 
-          typeof plugin.settings.specialChars[nowDigitValue] === "number") return true;
+          typeof plugin.settings.specialChars[nowDigitValue] === "number"){
+
+        $el.val(cleanBullShit($el.val(), mask));
+        return true;
+      } 
 
       oNewValue = applyMask(e, $el, pMask, options);
 
