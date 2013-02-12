@@ -1,6 +1,6 @@
  /**
  * jquery.mask.js
- * @version: v0.6.3 
+ * @version: v0.7.0 
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -33,25 +33,27 @@
 
 (function($) {
   "use strict";
-
   var  e, oValue, oNewValue, keyCode, pMask;
 
   var Mask = function(el, mask, options) {
     var plugin = this,
         $el = $(el),
         defaults = {
-        byPassKeys: [8,9,37,38,39,40],
-        specialChars: {':': 191, '-': 189, '.': 190, '(': 57, ')': 48, '/': 191, ',': 188, '_': 189, ' ': 32, '+': 187},
-        translation: { 0: '(.)', 1: '(.)', 2: '(.)', 3: '(.)', 4: '(.)', 5: '(.)', 6: '(.)', 7: '(.)', 8: '(.)', 9: '(.)', 
-                      'A': '(.)', 'S': '(.)',':': '(:)?', '-': '(-)?', '.': '(\\\.)?', '(': '(\\()?', ')': '(\\))?', '/': '(/)?', 
-                      ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(\\\+)?'}};
-        
-
-    plugin.settings = {};
-    plugin.init = function(){
-      plugin.settings = $.extend({}, defaults, options);
-        
+          byPassKeys: [8,9,37,38,39,40],
+          maskChars: {':': '(:)?', '-': '(-)?', '.': '(\\\.)?', '(': '(\\()?', ')': '(\\))?', '/': '(\/)?', ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(\\\+)?'},
+          translationNumbers: {0: '(\\d)', 1: '(\\d)', 2: '(\\d)', 3: '(\\d)', 4: '(\\d)', 5: '(\\d)', 6: '(\\d)', 7: '(\\d)', 8: '(\\d)', 9: '(\\d)'},
+          translation: {'A': '([a-zA-Z0-9])', 'S': '([a-zA-Z])'}
+        };
+    
+    plugin.init = function() {
+      plugin.settings = {};
       options = options || {};
+
+      defaults.translation = $.extend({}, defaults.translation, defaults.translationNumbers)
+      plugin.settings = $.extend(true, {}, defaults, options);
+      plugin.settings.specialChars = $.extend({}, plugin.settings.maskChars, plugin.settings.translation);
+        
+      
       $el.each(function() {
         mask = resolveDynamicMask(mask, $(this).val(), e, $(this), options);
         $el.attr('maxlength', mask.length);
@@ -66,7 +68,7 @@
     // public methods
     plugin.remove = function() {
       destroyEvents();
-      $el.val(onlyNumbers($el.val()));
+      $el.val(onlyNonMaskChars($el.val()));
     };
 
     // private methods
@@ -74,8 +76,11 @@
       return typeof mask == "function" ? mask(oValue, e, currentField, options) : mask;
     };
 
-    var onlyNumbers = function(string) {
-      return string.replace(/\W/g, '');
+    var onlyNonMaskChars = function(string) {
+      $.each(plugin.settings.maskChars, function(k,v){
+        string = string.replace(new RegExp(plugin.settings.maskChars[k], 'g'), '')
+      });
+      return string;
     };
 
     var onPasteMethod = function(){
@@ -104,9 +109,9 @@
       e = e || window.event;
       keyCode = e.keyCode || e.which;
 
-      if ($.inArray(keyCode, plugin.settings.byPassKeys) >= 0)  return true;
+      if ($.inArray(keyCode, plugin.settings.byPassKeys) > -1)  return true;
 
-      var oCleanedValue = onlyNumbers($el.val()),
+      var oCleanedValue = onlyNonMaskChars($el.val()),
           nowDigitIndex = $el.val().length-1,
           nowDigitValue = $el.val()[nowDigitIndex] ;
 
@@ -114,9 +119,7 @@
               getProportionalReverseMask(oCleanedValue, mask) :
               getProportionalMask(oCleanedValue, mask);
 
-      if (nowDigitValue === mask[nowDigitIndex] && 
-          typeof plugin.settings.specialChars[nowDigitValue] === "number"){
-
+      if (nowDigitValue === mask[nowDigitIndex] && plugin.settings.maskChars[nowDigitValue]) {
         $el.val(cleanBullShit($el.val(), mask));
         return true;
       } 
@@ -131,25 +134,23 @@
     };
 
     var applyMask = function (e, fieldObject, mask, options) {
-      
-      var oValue = onlyNumbers(fieldObject.val()).substring(0, onlyNumbers(mask).length);
-      return oValue.replace(new RegExp(maskToRegex(mask)), function(){
+      var oValue = onlyNonMaskChars(fieldObject.val()).substring(0, onlyNonMaskChars(mask).length);
+      return cleanBullShit(oValue.replace(new RegExp(maskToRegex(mask)), function() {
         for (var i = 1, oNewValue = ''; i < arguments.length - 2; i++) {
           if (typeof arguments[i] == "undefined" || arguments[i] === "")
             arguments[i] = mask.charAt(i-1);
-
           oNewValue += arguments[i];
         }
 
-        return cleanBullShit(oNewValue, mask);
-      });
+        return oNewValue;
+      }), mask);
     };
 
     var getProportionalMask = function (oValue, mask) {
       var endMask = 0, m = 0;
 
       while (m <= oValue.length-1){
-        while(typeof plugin.settings.specialChars[mask.charAt(endMask)] === "number")
+        while(plugin.settings.maskChars[mask.charAt(endMask)])
           endMask++;
         endMask++;
         m++;
@@ -164,7 +165,7 @@
       endMask = startMask;
 
       while (m <= oValue.length-1) {
-        while (typeof plugin.settings.specialChars[mask.charAt(endMask-1)] === "number")
+        while (plugin.settings.maskChars[mask.charAt(endMask-1)])
           endMask--;
         endMask--;
         m++;
@@ -176,20 +177,14 @@
 
     var maskToRegex = function (mask) {
       for (var i = 0, regex = ''; i < mask.length; i ++){
-        if (plugin.settings.translation[mask.charAt(i)])
-          regex += plugin.settings.translation[mask.charAt(i)];
+        if (plugin.settings.specialChars[mask.charAt(i)])
+          regex += plugin.settings.specialChars[mask.charAt(i)];
       }
       return regex;
     };
 
     var validDigit = function (nowMask, nowDigit) {
-      if (isNaN(parseInt(nowMask, 10)) === false && /\d/.test(nowDigit) === false) {
-        return false;
-      } else if (nowMask === 'A' && /[a-zA-Z0-9]/.test(nowDigit) === false) {
-        return false;
-      } else if (nowMask === 'S' && /[a-zA-Z]/.test(nowDigit) === false) {
-        return false;
-      } else if (typeof plugin.settings.specialChars[nowDigit] === "number" && nowMask !== nowDigit) {
+      if (new RegExp(plugin.settings.specialChars[nowMask]).test(nowDigit) === false) {
         return false;
       }
       return true;
