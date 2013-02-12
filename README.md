@@ -11,6 +11,7 @@ http://igorescobar.github.com/jQuery-Mask-Plugin/
   * Advanced mask initialization.
   * Callbacks.
   * On-the-fly mask change.
+  * Customization.
 
 ##Tutorials
 ### English
