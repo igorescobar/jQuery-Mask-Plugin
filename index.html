@@ -21,6 +21,8 @@
 
     div#examples div.col.center {text-align:center;}
     div#examples div.col.center.banner {border: 1px solid #ccc; padding:15px; margin-top:24px;}
+
+    pre {overflow-x: auto; white-space:pre; word-wrap:normal; font-size:15px;}
   </style>
 
   <script type="text/javascript">
@@ -120,53 +122,74 @@
     <h2>Code Samples</h2>
     <h3>Basic Examples</h3>
     <pre>
-      $(document).ready(function(){
-        $('.date').mask('11/11/1111');
-        $('.time').mask('00:00:00');
-        $('.date_time').mask('99/99/9999 00:00:00');
-        $('.cep').mask('99999-999');
-        $('.phone').mask('9999-9999');
-        $('.phone_with_ddd').mask('(99) 9999-9999');
-        $('.phone_us').mask('(999) 999-9999');
-        $('.mixed').mask('AAA 000-S0S');
-        $('.cpf').mask('999.999.999-99', {reverse: true});
-        $('.money').mask('000.000.000.000.000,00', {reverse: true});
-      });</pre>
+$(document).ready(function(){
+  $('.date').mask('11/11/1111');
+  $('.time').mask('00:00:00');
+  $('.date_time').mask('99/99/9999 00:00:00');
+  $('.cep').mask('99999-999');
+  $('.phone').mask('9999-9999');
+  $('.phone_with_ddd').mask('(99) 9999-9999');
+  $('.phone_us').mask('(999) 999-9999');
+  $('.mixed').mask('AAA 000-S0S');
+  $('.cpf').mask('999.999.999-99', {reverse: true});
+  $('.money').mask('000.000.000.000.000,00', {reverse: true});
+);</pre>
 
     <h3>Callback Examples</h3>
     <pre>
-        var options =  { onComplete: function(cep) {
-                          alert('Mask is done!:' + cep);
-                        },
-                        onKeyPress: function(cep, event, currentField, options){
-                          console.log('An key was pressed!:', cep, ' event: ', event, 'currentField: ', currentField, ' options: ', options);
-                        }};
+var options =  { onComplete: function(cep) {
+  alert('Mask is done!:' + cep);
+},
+onKeyPress: function(cep, event, currentField, options){
+  console.log('An key was pressed!:', cep, ' event: ', event, 
+              'currentField: ', currentField, ' options: ', options);
+}};
 
-        $('.cep_with_callback').mask('00000-000', options);</pre>
+$('.cep_with_callback').mask('00000-000', options);
+      </pre>
 
     <h3>On-the-fly mask change</h3>
     <pre>
-    var options =  {onKeyPress: function(cep){
-                      var masks = ['00000-000', '0-00-00-00'];
-                        mask = (cep.length>7) ? masks[1] : masks[0];
-                      $('.crazy_cep').mask(mask, this);
-                    }};
+var options =  {onKeyPress: function(cep){
+  var masks = ['00000-000', '0-00-00-00'];
+    mask = (cep.length>7) ? masks[1] : masks[0];
+  $('.crazy_cep').mask(mask, this);
+}};
 
-    $('.crazy_cep').mask('00000-000', options);</pre>
+$('.crazy_cep').mask('00000-000', options);
+  </pre>
 
     <h3>Mask as a function</h3>
     <pre>
-      var SaoPauloCelphoneMask = function(phone, e, currentField, options){
-        return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? 
-        '(00) 00000-0000' : '(00) 0000-0000';
-      };
+var SaoPauloCelphoneMask = function(phone, e, currentField, options){
+  return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? 
+  '(00) 00000-0000' : '(00) 0000-0000';
+};
 
-      $(".sp_celphones").mask(SaoPauloCelphoneMask);
+$(".sp_celphones").mask(SaoPauloCelphoneMask);
     </pre>
     
-    <h3>Removing the mask</h3>
+    <h3>Customization</h3>
+    Teach to jQuery Mask Plugin how to apply your mask:
+
     <pre>
-      $('.date').data('mask').remove();</pre>
+// now the digit 0 on your mask pattern will be interpreted 
+// as valid characters like 0,1,2,3,4,5,6,7,8,9 and *
+$('.your-field').mask('00/00/0000', {'translation': {0: '([0-9*])'}});
+    </pre>
+
+    By default, jQuery Mask Plugin only reconizes the logical digit A (Numbers and Letters) and S (A-Za-z) but
+    you can extend or modify this behaviour by telling to jQuery Mask Plugin how to interpret those logical digits.
+
+    <pre>
+$('.your-field').mask('AA/SS/YYYY', {'translation': 
+                                      {A: '([A-Za-z0-9])', S: '([A-Za-z])',  Y: '([0-9])'}
+                                    });
+    </pre>
+    Now jQuery Mask Plugin knows the logit digit Y and you can create you own pattern.
+
+    <br /><h3>Removing the mask</h3>
+    <pre>$('.date').data('mask').remove();</pre>
 
     <h4>Mask Legend</h4>
     <ul>
