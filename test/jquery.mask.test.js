@@ -1,3 +1,4 @@
+var QUNIT = true;
 $(document).ready(function(){
 
     $('body').append('<input class="simple-field" type="text" />');
@@ -147,5 +148,14 @@ $(document).ready(function(){
 
       equal( typeTest('12/34/5678'), '12/34/5678');
       equal( typeTest('12/**/5678'), '12/**/5678');
+    });
+
+    module('Testing private methods');
+
+    test("#maskToRegex", function(){
+      testfield.mask('(00) 0000-0000');
+      equal(testfield.data('mask').__p.maskToRegex('01/23/4567'), "(\\d)(\\d)(/)?(\\d)(\\d)(/)?(\\d)(\\d)(\\d)(\\d)");
+      equal(testfield.data('mask').__p.maskToRegex('AA/SS'), "([a-zA-Z0-9])([a-zA-Z0-9])(/)?([a-zA-Z])([a-zA-Z])");
+      equal(testfield.data('mask').__p.maskToRegex(':-.()/,_ +'), "(:)?(-)?(\\\.)?(\\()?(\\))?(/)?(,)?(_)?(\\s)?(\\\+)?");
     });
   });
