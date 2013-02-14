@@ -1,7 +1,7 @@
 {
   "name": "mask",
   "title": "jQuery Mask Plugin",
-  "description": "A jQuery plugin to make field mask.",
+  "description": "A jQuery Plugin to make input mask field.",
   "keywords": [
     "mask",
     "masks",
