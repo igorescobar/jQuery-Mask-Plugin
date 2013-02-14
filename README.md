@@ -1,5 +1,5 @@
 #jQuery Mask Plugin
-A jQuery Plugin to make field masks.
+A jQuery Plugin to make input mask field.
 
 [![Build Status](https://travis-ci.org/igorescobar/jQuery-Mask-Plugin.png)](https://travis-ci.org/igorescobar/jQuery-Mask-Plugin)
 
