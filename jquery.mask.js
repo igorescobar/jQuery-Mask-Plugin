@@ -1,7 +1,8 @@
  /**
  * jquery.mask.js
- * @version: v0.7.0 
+ * @version: v0.7.2 
  * @author: Igor Escobar
+ * @modify: Elias Granja
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
  *
@@ -43,7 +44,14 @@
           maskChars: {':': '(:)?', '-': '(-)?', '.': '(\\\.)?', '(': '(\\()?', ')': '(\\))?', '/': '(\/)?', ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(\\\+)?'},
           translationNumbers: {0: '(\\d)', 1: '(\\d)', 2: '(\\d)', 3: '(\\d)', 4: '(\\d)', 5: '(\\d)', 6: '(\\d)', 7: '(\\d)', 8: '(\\d)', 9: '(\\d)'},
           translation: {'A': '([a-zA-Z0-9])', 'S': '([a-zA-Z])'}
-        };
+     };
+
+      if(options.useHTMLMaxLength){
+      	var firstChar = mask;
+      	for(var i = 0; i < parseInt($el.attr('maxlength')); i++)
+      		mask+=String(firstChar);
+      }
+    
     
     plugin.init = function() {
       plugin.settings = {};
@@ -56,7 +64,7 @@
       
       $el.each(function() {
         mask = __p.resolveDynamicMask(mask, $(this).val(), e, $(this), options);
-        $el.attr('maxlength', mask.length);
+        $el.attr('maxlength', options.useHTMLMaxLength ? $el.attr('maxlength') : mask.length);
         $el.attr('autocomplete', 'off');
 
         __p.destroyEvents();
