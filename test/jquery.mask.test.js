@@ -31,6 +31,7 @@ $(document).ready(function(){
     test('When I typed a char thats the same as the mask char', function(){
       testfield.mask('00/00/0000');
       equal( typeTest("00/"), "00/");
+      equal( typeTest("00a"), "00");
     });
 
     test('When I typed exactly the same as the mask', function(){
@@ -157,5 +158,13 @@ $(document).ready(function(){
       equal(testfield.data('mask').__p.maskToRegex('01/23/4567'), "(\\d)(\\d)(/)?(\\d)(\\d)(/)?(\\d)(\\d)(\\d)(\\d)");
       equal(testfield.data('mask').__p.maskToRegex('AA/SS'), "([a-zA-Z0-9])([a-zA-Z0-9])(/)?([a-zA-Z])([a-zA-Z])");
       equal(testfield.data('mask').__p.maskToRegex(':-.()/,_ +'), "(:)?(-)?(\\\.)?(\\()?(\\))?(/)?(,)?(_)?(\\s)?(\\\+)?");
+    });
+
+    test('#validDigit', function (){
+      testfield.mask('(00) 0000-0000');
+        equal(testfield.data('mask').__p.validDigit('0', '0'), true);
+        equal(testfield.data('mask').__p.validDigit('(', 'a'), false);
+        equal(testfield.data('mask').__p.validDigit('(', '('), true);
+        equal(testfield.data('mask').__p.validDigit(' ', ' '), true);
     });
   });
