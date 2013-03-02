@@ -1,6 +1,6 @@
  /**
  * jquery.mask.js
- * @version: v0.7.2
+ * @version: v0.7.3
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -39,9 +39,9 @@
             $el = $(el),
             defaults = {
                 byPassKeys: [8, 9, 37, 38, 39, 40],
-                maskChars: {':': '(:)?', '-': '(-)?', '.': '(\\\.)?', '(': '(\\()?', ')': '(\\))?', '/': '(\/)?', ',': '(,)?', '_': '(_)?', ' ': '(\\s)?', '+': '(\\\+)?'},
-                translationNumbers: {0: '(\\d)', 1: '(\\d)', 2: '(\\d)', 3: '(\\d)', 4: '(\\d)', 5: '(\\d)', 6: '(\\d)', 7: '(\\d)', 8: '(\\d)', 9: '(\\d)'},
-                translation: {'A': '([a-zA-Z0-9])', 'S': '([a-zA-Z])'}
+                maskChars: {':': ':', '-': '-', '.': '\\\.', '(': '\\(', ')': '\\)', '/': '\/', ',': ',', '_': '_', ' ': '\\s', '+': '\\\+'},
+                translationNumbers: {0: '\\d', 1: '\\d', 2: '\\d', 3: '\\d', 4: '\\d', 5: '\\d', 6: '\\d', 7: '\\d', 8: '\\d', 9: '\\d'},
+                translation: {'A': '[a-zA-Z0-9]', 'S': '[a-zA-Z]'}
             };
 
         plugin.init = function() {
@@ -69,7 +69,7 @@
             },
             onlyNonMaskChars: function(string) {
                 $.each(plugin.settings.maskChars, function(k,v){
-                    string = string.replace(new RegExp(plugin.settings.maskChars[k], 'g'), '')
+                    string = string.replace(new RegExp("(" + plugin.settings.maskChars[k] + ")?", 'g'), '')
                 });
                 return string;
             },
@@ -91,7 +91,7 @@
                 $el.unbind('keyup').unbind('onpaste');
             },
             maskBehaviour: function(e) {
-            e = e || window.event;
+                e = e || window.event;
                 var keyCode = e.keyCode || e.which;
 
                 if ($.inArray(keyCode, plugin.settings.byPassKeys) > -1)  return true;
@@ -99,12 +99,12 @@
                 var oCleanedValue = __p.onlyNonMaskChars($el.val()),
                     nowDigitIndex = $el.val().length-1,
                     nowDigitValue = $el.val()[nowDigitIndex],
-                    pMask = (typeof options.reverse == "boolean" && options.reverse === true) ?
-                            __p.getProportionalReverseMask(oCleanedValue, mask) :
-                            __p.getProportionalMask(oCleanedValue, mask);
+                    pMask = __p.getMask(oCleanedValue, mask);
 
                 if (nowDigitValue === mask[nowDigitIndex] && plugin.settings.maskChars[nowDigitValue]) {
-                    $el.val(__p.cleanBullShit($el.val(), mask));
+                    var cleanedValue = __p.cleanBullShit($el.val(), mask);
+                    if (cleanedValue !== "") cleanedValue += nowDigitValue;
+                    $el.val(cleanedValue);
                     return true;
                 } 
 
@@ -117,16 +117,24 @@
                 return __p.seekCallbacks(e, options, oNewValue, mask, $el);
             },
             applyMask: function (e, fieldObject, mask, options) {
-                var oValue = __p.onlyNonMaskChars(fieldObject.val()).substring(0, __p.onlyNonMaskChars(mask).length);
-                return __p.cleanBullShit(oValue.replace(new RegExp(__p.maskToRegex(mask)), function() {
+                if(mask === "") return; 
+
+                var oValue = __p.cleanBullShit(__p.onlyNonMaskChars(fieldObject.val()).substring(0, __p.onlyNonMaskChars(mask).length), mask),
+                    maskRegex = new RegExp(__p.maskToRegex(__p.getMask(oValue, mask)));
+
+                return oValue.replace(maskRegex, function() {
                     for (var i = 1, oNewValue = ''; i < arguments.length - 2; i++) {
-                        if (typeof arguments[i] == "undefined" || arguments[i] === "")
+                        if (typeof arguments[i] === "undefined" || arguments[i] === "")
                             arguments[i] = mask.charAt(i-1);
                         oNewValue += arguments[i];
                     }
-
                   return oNewValue;
-                }), mask);
+                });
+            },
+            getMask: function (oCleanedValue, mask) {
+                return (typeof options.reverse == "boolean" && options.reverse === true) ?
+                        __p.getProportionalReverseMask(oCleanedValue, mask) :
+                        __p.getProportionalMask(oCleanedValue, mask);
             },
             getProportionalMask: function (oValue, mask) {
                 var endMask = 0, m = 0;
@@ -157,23 +165,30 @@
             },
             maskToRegex: function (mask) {
                 for (var i = 0, regex = ''; i < mask.length; i ++){
-                    if (plugin.settings.specialChars[mask.charAt(i)])
-                        regex += plugin.settings.specialChars[mask.charAt(i)];
-                    }
+                    var specialChar = plugin.settings.specialChars[mask.charAt(i)];
+                    if (specialChar)
+                        regex += "(" + specialChar + ")";
+                    if (plugin.settings.maskChars[mask.charAt(i)])
+                        regex += "?"
+                }
+
                 return regex;
             },
             validDigit: function (nowMask, nowDigit) {
-                if (new RegExp(plugin.settings.specialChars[nowMask].replace(/\?$/, '')).test(nowDigit) === false)
-                    return false;
-                return true;
+                var regex = "(" + plugin.settings.specialChars[nowMask] + ")";
+                if (plugin.settings.maskChars[nowMask]) regex += "?";
+                return new RegExp(regex).test(nowDigit);
             },
             cleanBullShit: function (oNewValue, mask, index) {
                 index = index || 0;
                 oNewValue = oNewValue.split('');
-                for (var i = index, mLen = mask.length; i < mLen; i++) {
-                    if (__p.validDigit(mask.charAt(i), oNewValue[i]) === false && typeof oNewValue[i] !== "undefined") {
+                for (var i = index, m = index, mLen = mask.length, valueLen = oNewValue.length; i < mLen; i++, m++) {
+                    while(plugin.settings.maskChars[mask.charAt(m)]) m++;
+
+                    if (!__p.validDigit(mask.charAt(m), oNewValue[i]) && typeof oNewValue[i] !== "undefined") {
                         oNewValue[i] = '';
-                        return __p.cleanBullShit(oNewValue.join(''), mask, 0);
+                        oNewValue = oNewValue.join('');
+                        return __p.cleanBullShit(oNewValue, __p.getMask(oNewValue, mask), 0);
                     } 
                 }
                 return oNewValue.join('');
