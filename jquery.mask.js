@@ -184,8 +184,6 @@
                 oNewValue = oNewValue.split('');
                 for (var i = index, m = index, mLen = mask.length, valueLen = oNewValue.length; i < mLen; i++, m++) {
                     while(plugin.settings.maskChars[mask.charAt(m)]) m++;
-
-                    // console.log("i --> ", i, "m --> ", m,  mask.charAt(m), oNewValue[i], __p.validDigit(mask.charAt(m), oNewValue[i]))
                     
                     if (!__p.validDigit(mask.charAt(m), oNewValue[i]) && typeof oNewValue[i] !== "undefined") {
                         oNewValue[i] = '';
