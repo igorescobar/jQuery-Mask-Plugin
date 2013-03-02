@@ -103,6 +103,19 @@ $(document).ready(function(){
 
     });
 
+    test("Masks with numbers, strings e special characters #2 ", function(){
+      testfield.mask('AAA 000-S0S');
+
+      equal( typeTest("1"), "1");
+      equal( typeTest('12'), "12");
+      equal( typeTest('123'), "123");
+      equal( typeTest('123 4'), "123 4");
+      equal( typeTest('123 45'), "123 45");
+      equal( typeTest('123 456'), "123 456");
+      equal( typeTest('123 456-7'), "123 456");
+
+    });
+
     module("Testing Reversible Masks");
 
     test("Testing a CPF Mask", function(){
@@ -138,14 +151,14 @@ $(document).ready(function(){
     module('testing setting')
 
     test("when adding more itens to the table translation",function(){
-      testfield.mask('00/00/0000', {'translation': {0: '([0-9*])'}});
+      testfield.mask('00/00/0000', {'translation': {0: '[0-9*]'}});
 
       equal( typeTest('12/34/5678'), '12/34/5678');
       equal( typeTest('**/34/5678'), '**/34/5678');
     });
 
     test("when adding more itens to the table translation #2",function(){
-      testfield.mask('11/YY/0000', {'translation': {'Y': '([0-9*])'}});
+      testfield.mask('11/YY/0000', {'translation': {'Y': '[0-9*]'}});
 
       equal( typeTest('12/34/5678'), '12/34/5678');
       equal( typeTest('12/**/5678'), '12/**/5678');
@@ -163,7 +176,7 @@ $(document).ready(function(){
     test('#validDigit', function (){
       testfield.mask('(00) 0000-0000');
         equal(testfield.data('mask').__p.validDigit('0', '0'), true);
-        equal(testfield.data('mask').__p.validDigit('(', 'a'), false);
+        equal(testfield.data('mask').__p.validDigit('0', 'a'), false);
         equal(testfield.data('mask').__p.validDigit('(', '('), true);
         equal(testfield.data('mask').__p.validDigit(' ', ' '), true);
     });
