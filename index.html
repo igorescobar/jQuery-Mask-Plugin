@@ -173,7 +173,7 @@ $(".sp_celphones").mask(SaoPauloCelphoneMask);
     <pre>
 // now the digit 0 on your mask pattern will be interpreted 
 // as valid characters like 0,1,2,3,4,5,6,7,8,9 and *
-$('.your-field').mask('00/00/0000', {'translation': {0: '([0-9*])'}});
+$('.your-field').mask('00/00/0000', {'translation': {0: '[0-9*]'}});
     </pre>
 
     By default, jQuery Mask Plugin only reconizes the logical digit A (Numbers and Letters) and S (A-Za-z) but
@@ -181,7 +181,7 @@ $('.your-field').mask('00/00/0000', {'translation': {0: '([0-9*])'}});
 
     <pre>
 $('.your-field').mask('AA/SS/YYYY', {'translation': 
-                                      {A: '([A-Za-z0-9])', S: '([A-Za-z])',  Y: '([0-9])'}
+                                      {A: '[A-Za-z0-9]', S: '[A-Za-z]',  Y: '[0-9]'}
                                     });
     </pre>
     Now jQuery Mask Plugin knows the logit digit Y and you can create you own pattern.
