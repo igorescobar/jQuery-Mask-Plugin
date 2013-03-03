@@ -194,8 +194,9 @@
                 return oNewValue.join('');
             },
             seekCallbacks: function (e, options, oNewValue, mask, currentField) {
-                if (options.onKeyPress && e.isTrigger === undefined && typeof options.onKeyPress == "function")
-                    options.onKeyPress(oNewValue, e, currentField, options);
+                if (options.onKeyPress && e.isTrigger === undefined && 
+                    typeof options.onKeyPress == "function")
+                        options.onKeyPress(oNewValue, e, currentField, options);
 
                 if (options.onComplete && e.isTrigger === undefined &&
                     oNewValue.length === mask.length && typeof options.onComplete == "function")
