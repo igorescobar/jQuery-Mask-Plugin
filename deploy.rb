@@ -24,7 +24,7 @@ File.open(JMASK_FILE, 'r') do |file|
   minFile = File.open(JMASK_MIN_FILE, 'w')
   minFile.puts("// jQuery Mask Plugin #{JMASK_VERSION}")
   minFile.puts("// github.com/igorescobar/jQuery-Mask-Plugin") 
-  minFile.puts(system("java -jar ../yuicompressor-2.4.7/build/yuicompressor-2.4.7.jar --type js --charset utf-8 #{JMASK_FILE}"))
+  minFile.puts(`java -jar ../yuicompressor-2.4.7/build/yuicompressor-2.4.7.jar --type js --charset utf-8 jquery.mask.min.js`)
   minFile.close
 end
 
