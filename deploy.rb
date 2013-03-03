@@ -1,9 +1,11 @@
 require 'rubygems'
+require 'zlib'
 
 JQUERY_MANIFEST_FILE = 'mask.jquery.json'
 JMASK_FILE = 'jquery.mask.js'
 JMASK_MIN_FILE = 'jquery.mask.min.js'
-JMASK_VERSION = `stepup version --next-release`.delete("\n")
+JMASK_GZIP_FILE = 'jquery.mask.min.js.gz'
+JMASK_VERSION = `stepup version`.delete("\n")
 
 abort("No notes, do deal.") if JMASK_VERSION.empty?
 
@@ -26,6 +28,14 @@ File.open(JMASK_FILE, 'r') do |file|
   minFile.puts("// github.com/igorescobar/jQuery-Mask-Plugin") 
   minFile.puts(`java -jar ../yuicompressor-2.4.7/build/yuicompressor-2.4.7.jar --type js --charset utf-8 jquery.mask.js`)
   minFile.close
+end
+
+puts '# GENERATING GZIP FILE'
+File.open(JMASK_GZIP_FILE, 'w') do |f|
+  minFile = File.open(JMASK_MIN_FILE, 'r').read
+  gz = Zlib::GzipWriter.new(f)
+  gz.write minFile
+  gz.close
 end
 
 puts '# GENERATING A NEW COMMIT WITH VERSIONED FILEs'
