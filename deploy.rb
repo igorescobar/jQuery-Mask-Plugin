@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'jsmin'
 
 JQUERY_MANIFEST_FILE = 'mask.jquery.json'
 JMASK_FILE = 'jquery.mask.js'
@@ -25,7 +24,7 @@ File.open(JMASK_FILE, 'r') do |file|
   minFile = File.new(JMASK_MIN_FILE, 'w')
   minFile.puts("// jQuery Mask Plugin #{JMASK_VERSION}")
   minFile.puts("// github.com/igorescobar/jQuery-Mask-Plugin") 
-  minFile.puts(JSMin.minify(file))
+  minFile.puts(system('java -jar ../yuicompressor-2.4.7/build/yuicompressor-2.4.7.jar --type js --charset utf-8 #{JMASK_FILE}')
   minFile.close
 end
 

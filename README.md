@@ -8,7 +8,7 @@ http://igorescobar.github.com/jQuery-Mask-Plugin/
 
 ##Features
 
-  * Lightweight (~5kb).
+  * Lightweight (~3kb).
   * String/Numeric/Alpha/Mixed masks.
   * Reverse Support for masks on numeric fields.
   * Data type validation.
