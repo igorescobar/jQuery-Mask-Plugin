@@ -5,7 +5,7 @@ JQUERY_MANIFEST_FILE = 'mask.jquery.json'
 JMASK_FILE = 'jquery.mask.js'
 JMASK_MIN_FILE = 'jquery.mask.min.js'
 JMASK_GZIP_FILE = 'jquery.mask.min.js.gz'
-JMASK_VERSION = `stepup version`.delete("\n")
+JMASK_VERSION = `stepup version --next-release`.delete("\n")
 
 abort("No notes, do deal.") if JMASK_VERSION.empty?
 
