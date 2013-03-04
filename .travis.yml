@@ -1,4 +1,5 @@
 before_script:
-  - sudo npm install -g grunt@0.3.17
-
-script: grunt test -d --force
+- sudo npm install -g grunt-cli
+- npm install grunt
+- npm install grunt-contrib-qunit
+script: grunt test -v -d
