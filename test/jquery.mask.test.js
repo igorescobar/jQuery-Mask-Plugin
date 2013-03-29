@@ -133,6 +133,8 @@ $(document).ready(function(){
       equal( typeTest("1234567890"), "12.345.678-90");
       equal( typeTest("12345678900"), "123.456.789-00");
       equal( typeTest("123456789000"), "123.456.789-00");
+      equal( typeTest("123.456.789a00"), "123.456.789-00");
+      equal( typeTest("123-a1"), "12-31");
 
     });
 
