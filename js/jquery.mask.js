@@ -1,6 +1,6 @@
  /**
  * jquery.mask.js
- * @version: v0.7.6
+ * @version: v0.7.7
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -79,13 +79,13 @@
                 }, 100);
             },
             setOnPaste: function() {
-                (__p.hasOnSupport()) ? $el.on("paste", __p.onPasteMethod) : $el.onpaste = __p.onPasteMethod;
+                __p.hasOnSupport() ? $el.on("paste", __p.onPasteMethod) : $el.get(0).addEventListener ("paste", __p.onPasteMethod, false);
             },
             setOnKeyUp: function() {
                 $el.keyup(__p.maskBehaviour).trigger('keyup');
             },
             hasOnSupport: function() {
-                return $.isFunction($.on);
+                return $.isFunction($().on);
             },
             destroyEvents: function() {
                 $el.unbind('keyup').unbind('onpaste');
