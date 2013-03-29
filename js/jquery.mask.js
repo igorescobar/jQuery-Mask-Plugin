@@ -1,6 +1,6 @@
  /**
  * jquery.mask.js
- * @version: v0.7.3
+ * @version: v0.7.6
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -96,15 +96,13 @@
 
                 if ($.inArray(keyCode, plugin.settings.byPassKeys) > -1)  return true;
 
-                var oCleanedValue = __p.onlyNonMaskChars($el.val()),
+                var oCleanedValue = __p.cleanBullShit($el.val(), mask),
                     nowDigitIndex = $el.val().length-1,
                     nowDigitValue = $el.val()[nowDigitIndex],
                     pMask = __p.getMask(oCleanedValue, mask);
 
                 if (nowDigitValue === mask[nowDigitIndex] && plugin.settings.maskChars[nowDigitValue]) {
-                    var cleanedValue = __p.cleanBullShit($el.val(), mask);
-                    if (cleanedValue !== "") cleanedValue += nowDigitValue;
-                    $el.val(cleanedValue);
+                    $el.val(oCleanedValue !== "" ? oCleanedValue += nowDigitValue : oCleanedValue);
                     return true;
                 } 
 
@@ -119,8 +117,8 @@
             applyMask: function (e, fieldObject, mask, options) {
                 if(mask === "") return; 
 
-                var oValue = __p.cleanBullShit(__p.onlyNonMaskChars(fieldObject.val()).substring(0, __p.onlyNonMaskChars(mask).length), mask),
-                    maskRegex = new RegExp(__p.maskToRegex(__p.getMask(oValue, mask)));
+                var oValue = __p.cleanBullShit(fieldObject.val(), mask).substring(0, mask.length),
+                    maskRegex = new RegExp(__p.maskToRegex(mask));
 
                 return oValue.replace(maskRegex, function() {
                     for (var i = 1, oNewValue = ''; i < arguments.length - 2; i++) {
@@ -184,7 +182,7 @@
                 oNewValue = oNewValue.split('');
                 for (var i = index, m = index, mLen = mask.length, valueLen = oNewValue.length; i < mLen; i++, m++) {
                     while(plugin.settings.maskChars[mask.charAt(m)]) m++;
-
+                    
                     if (!__p.validDigit(mask.charAt(m), oNewValue[i]) && typeof oNewValue[i] !== "undefined") {
                         oNewValue[i] = '';
                         oNewValue = oNewValue.join('');
@@ -194,8 +192,9 @@
                 return oNewValue.join('');
             },
             seekCallbacks: function (e, options, oNewValue, mask, currentField) {
-                if (options.onKeyPress && e.isTrigger === undefined && typeof options.onKeyPress == "function")
-                    options.onKeyPress(oNewValue, e, currentField, options);
+                if (options.onKeyPress && e.isTrigger === undefined && 
+                    typeof options.onKeyPress == "function")
+                        options.onKeyPress(oNewValue, e, currentField, options);
 
                 if (options.onComplete && e.isTrigger === undefined &&
                     oNewValue.length === mask.length && typeof options.onComplete == "function")
