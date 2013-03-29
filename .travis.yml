@@ -3,3 +3,6 @@ before_script:
 - sudo npm install grunt
 - sudo npm install grunt-contrib-qunit
 script: grunt test -v -d
+language: node_js
+node_js:
+	- "0.10"
