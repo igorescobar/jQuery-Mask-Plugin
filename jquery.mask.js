@@ -53,7 +53,7 @@
             plugin.settings.specialChars = $.extend({}, plugin.settings.maskChars, plugin.settings.translation);
 
             $el.each(function() {
-                mask = __p.resolveDynamicMask(mask, $(this).val(), e, $(this), options);
+                mask = __p.resolveMask();
                 $el.attr('maxlength', mask.length);
                 $el.attr('autocomplete', 'off');
 
@@ -64,8 +64,8 @@
         };
 
         var __p = {
-            resolveDynamicMask: function(mask, oValue, e, currentField, options) {
-                return typeof mask == "function" ? mask(oValue, e, currentField, options) : mask;
+            resolveMask: function() {
+                return typeof mask == "function" ? mask(__p.getVal(), e, options) : mask;
             },
             onlyNonMaskChars: function(string) {
                 $.each(plugin.settings.maskChars, function(k,v){
@@ -79,10 +79,16 @@
                 }, 100);
             },
             setOnPaste: function() {
-                __p.hasOnSupport() ? $el.on("paste", __p.onPasteMethod) : $el.get(0).addEventListener ("paste", __p.onPasteMethod, false);
+                __p.hasOnSupport() ? $el.on("paste", __p.onPasteMethod) : $el.get(0).addEventListener("paste", __p.onPasteMethod, false);
             },
             setOnKeyUp: function() {
                 $el.keyup(__p.maskBehaviour).trigger('keyup');
+            },
+            setVal: function(v) {
+                return $el.val(v);
+            },
+            getVal: function() {
+                return $el.val();
             },
             hasOnSupport: function() {
                 return $.isFunction($().on);
@@ -92,32 +98,32 @@
             },
             maskBehaviour: function(e) {
                 e = e || window.event;
-                var keyCode = e.keyCode || e.which;
+                var keyCode = e.keyCode || e.which, newVal;
 
                 if ($.inArray(keyCode, plugin.settings.byPassKeys) > -1)  return true;
 
-                var oCleanedValue = __p.cleanBullShit($el.val(), mask),
-                    nowDigitIndex = $el.val().length-1,
-                    nowDigitValue = $el.val()[nowDigitIndex],
-                    pMask = __p.getMask(oCleanedValue, mask);
+                var cleanVal = __p.cleanBullShit(__p.getVal(), mask),
+                    digitIdx = __p.getVal().length-1,
+                    digitVal = __p.getVal()[digitIdx],
+                    pMask = __p.getMask(cleanVal, mask);
 
-                if (nowDigitValue === mask[nowDigitIndex] && plugin.settings.maskChars[nowDigitValue]) {
-                    $el.val(oCleanedValue !== "" ? oCleanedValue += nowDigitValue : oCleanedValue);
+                if (digitVal === mask[digitIdx] && plugin.settings.maskChars[digitVal]) {
+                    __p.setVal(cleanVal !== "" ? cleanVal += digitVal : cleanVal);
                     return true;
                 } 
 
-                var oNewValue = __p.applyMask(e, $el, pMask, options);
+                newVal = __p.applyMask(e, pMask);
 
-                if (oNewValue !== $el.val()){
-                    $el.val(oNewValue).trigger('change');
+                if (newVal !== __p.getVal()){
+                    __p.setVal(newVal).trigger('change');
                 }
                   
-                return __p.seekCallbacks(e, options, oNewValue, mask, $el);
+                return __p.seekCallbacks(e, newVal);
             },
-            applyMask: function (e, fieldObject, mask, options) {
+            applyMask: function (e, mask) {
                 if(mask === "") return; 
 
-                var oValue = __p.cleanBullShit(fieldObject.val(), mask).substring(0, mask.length),
+                var oValue = __p.cleanBullShit(__p.getVal(), mask).substring(0, mask.length),
                     maskRegex = new RegExp(__p.maskToRegex(mask));
 
                 return oValue.replace(maskRegex, function() {
@@ -129,10 +135,10 @@
                   return oNewValue;
                 });
             },
-            getMask: function (oCleanedValue, mask) {
+            getMask: function (cleanVal, mask) {
                 return (typeof options.reverse == "boolean" && options.reverse === true) ?
-                        __p.getProportionalReverseMask(oCleanedValue, mask) :
-                        __p.getProportionalMask(oCleanedValue, mask);
+                        __p.getProportionalReverseMask(cleanVal, mask) :
+                        __p.getProportionalMask(cleanVal, mask);
             },
             getProportionalMask: function (oValue, mask) {
                 var endMask = 0, m = 0;
@@ -162,12 +168,10 @@
                 return mask.substring(startMask, endMask);
             },
             maskToRegex: function (mask) {
-                for (var i = 0, regex = ''; i < mask.length; i ++){
+                for (var i = 0, regex = ''; i < mask.length; i ++) {
                     var specialChar = plugin.settings.specialChars[mask.charAt(i)];
-                    if (specialChar)
-                        regex += "(" + specialChar + ")";
-                    if (plugin.settings.maskChars[mask.charAt(i)])
-                        regex += "?"
+                    if (specialChar) regex += "(" + specialChar + ")";
+                    if (plugin.settings.maskChars[mask.charAt(i)]) regex += "?"
                 }
 
                 return regex;
@@ -191,14 +195,14 @@
                 }
                 return oNewValue.join('');
             },
-            seekCallbacks: function (e, options, oNewValue, mask, currentField) {
+            seekCallbacks: function (e, oNewValue) {
                 if (options.onKeyPress && e.isTrigger === undefined && 
                     typeof options.onKeyPress == "function")
-                        options.onKeyPress(oNewValue, e, currentField, options);
+                        options.onKeyPress(oNewValue, e, $el, options);
 
                 if (options.onComplete && e.isTrigger === undefined &&
                     oNewValue.length === mask.length && typeof options.onComplete == "function")
-                        options.onComplete(oNewValue, e, currentField, options);
+                        options.onComplete(oNewValue, e, $el, options);
             }
         };
 
@@ -208,7 +212,7 @@
         // public methods
         plugin.remove = function() {
           __p.destroyEvents();
-          $el.val(__p.onlyNonMaskChars($el.val()));
+          __p.setVal(__p.onlyNonMaskChars(__p.getVal()));
         };
 
         plugin.init();

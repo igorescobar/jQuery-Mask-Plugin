@@ -177,9 +177,9 @@ $(document).ready(function(){
 
     test('#validDigit', function (){
       testfield.mask('(00) 0000-0000');
-        equal(testfield.data('mask').__p.validDigit('0', '0'), true);
-        equal(testfield.data('mask').__p.validDigit('0', 'a'), false);
-        equal(testfield.data('mask').__p.validDigit('(', '('), true);
-        equal(testfield.data('mask').__p.validDigit(' ', ' '), true);
+      equal(testfield.data('mask').__p.validDigit('0', '0'), true);
+      equal(testfield.data('mask').__p.validDigit('0', 'a'), false);
+      equal(testfield.data('mask').__p.validDigit('(', '('), true);
+      equal(testfield.data('mask').__p.validDigit(' ', ' '), true);
     });
   });
