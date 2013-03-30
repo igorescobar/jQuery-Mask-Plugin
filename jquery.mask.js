@@ -67,12 +67,6 @@
             resolveMask: function() {
                 return typeof mask == "function" ? mask(__p.getVal(), e, options) : mask;
             },
-            onlyNonMaskChars: function(string) {
-                $.each(plugin.settings.maskChars, function(k,v){
-                    string = string.replace(new RegExp("(" + plugin.settings.maskChars[k] + ")?", 'g'), '')
-                });
-                return string;
-            },
             onPasteMethod: function() {
                 setTimeout(function() {
                     $el.trigger('keyup');
@@ -135,36 +129,37 @@
                 });
             },
             getMask: function (cleanVal) {
-                return (typeof options.reverse == "boolean" && options.reverse === true) ?
-                        __p.getProportionalReverseMask(cleanVal) :
-                        __p.getProportionalMask(cleanVal);
-            },
-            getProportionalMask: function (oVal) {
-                var endMask = 0, m = 0;
+                var proportional = function(oVal) {
+                    var endMask = 0, m = 0;
 
-                while (m <= oVal.length-1){
-                    while(plugin.settings.maskChars[mask.charAt(endMask)])
+                    while (m <= oVal.length-1){
+                        while(plugin.settings.maskChars[mask.charAt(endMask)])
+                            endMask++;
                         endMask++;
-                    endMask++;
-                    m++;
-                }
+                        m++;
+                    }
 
-                return mask.substring(0, endMask);
-            },
-            getProportionalReverseMask: function (oVal) {
-                var startMask = 0, endMask = 0, m = 0, mLength = mask.length;
-                startMask = (mLength >= 1) ? mLength : mLength-1;
-                endMask = startMask;
+                    return mask.substring(0, endMask);
+                };
+                var proportionalReverse = function (oVal) {
+                    var startMask = 0, endMask = 0, m = 0, mLength = mask.length;
+                    startMask = (mLength >= 1) ? mLength : mLength-1;
+                    endMask = startMask;
 
-                while (m <= oVal.length-1) {
-                    while (plugin.settings.maskChars[mask.charAt(endMask-1)])
+                    while (m <= oVal.length-1) {
+                        while (plugin.settings.maskChars[mask.charAt(endMask-1)])
+                            endMask--;
                         endMask--;
-                    endMask--;
-                    m++;
-                }
+                        m++;
+                    }
 
-                endMask = (mask.length >= 1) ? endMask : endMask-1;
-                return mask.substring(startMask, endMask);
+                    endMask = (mask.length >= 1) ? endMask : endMask-1;
+                    return mask.substring(startMask, endMask);
+                };
+
+                return (typeof options.reverse == "boolean" && options.reverse === true) ?
+                        proportionalReverse(cleanVal) :
+                        proportional(cleanVal);
             },
             maskToRegex: function (mask) {
                 for (var i = 0, regex = ''; i < mask.length; i ++) {
@@ -211,7 +206,7 @@
         // public methods
         plugin.remove = function() {
           __p.destroyEvents();
-          __p.setVal(__p.onlyNonMaskChars(__p.getVal()));
+          __p.setVal(__p.getVal().replace(/\D+/g, ''));
         };
 
         plugin.init();
