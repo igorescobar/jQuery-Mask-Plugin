@@ -100,7 +100,7 @@
                 e = e || window.event;
                 var keyCode = e.keyCode || e.which, newVal;
 
-                if ($.inArray(keyCode, plugin.settings.byPassKeys) > -1)  return true;
+                if ($.inArray(keyCode, plugin.settings.byPassKeys) > -1) return true;
 
                 var cleanVal = __p.cleanBullShit(__p.getVal(), mask),
                     digitIdx = __p.getVal().length-1,
@@ -114,36 +114,35 @@
 
                 newVal = __p.applyMask(e, pMask);
 
-                if (newVal !== __p.getVal()){
+                if (newVal !== __p.getVal())
                     __p.setVal(newVal).trigger('change');
-                }
-                  
+
                 return __p.seekCallbacks(e, newVal);
             },
             applyMask: function (e, mask) {
                 if(mask === "") return; 
 
-                var oValue = __p.cleanBullShit(__p.getVal(), mask).substring(0, mask.length),
+                var oVal = __p.cleanBullShit(__p.getVal(), mask).substring(0, mask.length),
                     maskRegex = new RegExp(__p.maskToRegex(mask));
 
-                return oValue.replace(maskRegex, function() {
-                    for (var i = 1, oNewValue = ''; i < arguments.length - 2; i++) {
+                return oVal.replace(maskRegex, function() {
+                    for (var i = 1, newVal = ''; i < arguments.length - 2; i++) {
                         if (typeof arguments[i] === "undefined" || arguments[i] === "")
                             arguments[i] = mask.charAt(i-1);
-                        oNewValue += arguments[i];
+                        newVal += arguments[i];
                     }
-                  return oNewValue;
+                  return newVal;
                 });
             },
-            getMask: function (cleanVal, mask) {
+            getMask: function (cleanVal) {
                 return (typeof options.reverse == "boolean" && options.reverse === true) ?
-                        __p.getProportionalReverseMask(cleanVal, mask) :
-                        __p.getProportionalMask(cleanVal, mask);
+                        __p.getProportionalReverseMask(cleanVal) :
+                        __p.getProportionalMask(cleanVal);
             },
-            getProportionalMask: function (oValue, mask) {
+            getProportionalMask: function (oVal) {
                 var endMask = 0, m = 0;
 
-                while (m <= oValue.length-1){
+                while (m <= oVal.length-1){
                     while(plugin.settings.maskChars[mask.charAt(endMask)])
                         endMask++;
                     endMask++;
@@ -152,12 +151,12 @@
 
                 return mask.substring(0, endMask);
             },
-            getProportionalReverseMask: function (oValue, mask) {
+            getProportionalReverseMask: function (oVal) {
                 var startMask = 0, endMask = 0, m = 0, mLength = mask.length;
                 startMask = (mLength >= 1) ? mLength : mLength-1;
                 endMask = startMask;
 
-                while (m <= oValue.length-1) {
+                while (m <= oVal.length-1) {
                     while (plugin.settings.maskChars[mask.charAt(endMask-1)])
                         endMask--;
                     endMask--;
@@ -181,28 +180,28 @@
                 if (plugin.settings.maskChars[nowMask]) regex += "?";
                 return new RegExp(regex).test(nowDigit);
             },
-            cleanBullShit: function (oNewValue, mask, index) {
+            cleanBullShit: function (newVal, mask, index) {
                 index = index || 0;
-                oNewValue = oNewValue.split('');
-                for (var i = index, m = index, mLen = mask.length, valueLen = oNewValue.length; i < mLen; i++, m++) {
+                newVal = newVal.split('');
+                for (var i = index, m = index, mLen = mask.length, valueLen = newVal.length; i < mLen; i++, m++) {
                     while(plugin.settings.maskChars[mask.charAt(m)]) m++;
                     
-                    if (!__p.validDigit(mask.charAt(m), oNewValue[i]) && typeof oNewValue[i] !== "undefined") {
-                        oNewValue[i] = '';
-                        oNewValue = oNewValue.join('');
-                        return __p.cleanBullShit(oNewValue, __p.getMask(oNewValue, mask), 0);
+                    if (!__p.validDigit(mask.charAt(m), newVal[i]) && typeof newVal[i] !== "undefined") {
+                        newVal[i] = '';
+                        newVal = newVal.join('');
+                        return __p.cleanBullShit(newVal, __p.getMask(newVal, mask), 0);
                     } 
                 }
-                return oNewValue.join('');
+                return newVal.join('');
             },
-            seekCallbacks: function (e, oNewValue) {
+            seekCallbacks: function (e, newVal) {
                 if (options.onKeyPress && e.isTrigger === undefined && 
                     typeof options.onKeyPress == "function")
-                        options.onKeyPress(oNewValue, e, $el, options);
+                        options.onKeyPress(newVal, e, $el, options);
 
                 if (options.onComplete && e.isTrigger === undefined &&
-                    oNewValue.length === mask.length && typeof options.onComplete == "function")
-                        options.onComplete(oNewValue, e, $el, options);
+                    newVal.length === mask.length && typeof options.onComplete == "function")
+                        options.onComplete(newVal, e, $el, options);
             }
         };
 
