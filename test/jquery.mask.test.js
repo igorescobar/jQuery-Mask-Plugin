@@ -147,10 +147,11 @@ $(document).ready(function(){
 
       testfield.data('mask').remove();
       equal( testfield.val(), "1299999999");
+      equal( testfield.attr('maxlength'), undefined);
 
     });
 
-    module('testing setting')
+    module('personalized settings')
 
     test("when adding more itens to the table translation",function(){
       testfield.mask('00/00/0000', {'translation': {0: '[0-9*]'}});

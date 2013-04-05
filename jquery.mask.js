@@ -206,7 +206,8 @@
         // public methods
         plugin.remove = function() {
           __p.destroyEvents();
-          __p.setVal(__p.getVal().replace(/\D+/g, ''));
+          __p.setVal(__p.onlyNonMaskChars(__p.getVal()));
+          $el.removeAttr('maxlength');
         };
 
         plugin.init();
