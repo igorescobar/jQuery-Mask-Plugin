@@ -10,13 +10,14 @@ http://igorescobar.github.com/jQuery-Mask-Plugin/
 
   * Lightweight (~3kb).
   * String/Numeric/Alpha/Mixed masks.
-  * Reverse Support for masks on numeric fields.
-  * Data type validation.
+  * Reverse mask support for masks on numeric fields.
+  * Sanitization.
+  * Optional digits.
   * Automatic maxlength.
-  * Live event's for ajax/realtime apps.
   * Advanced mask initialization.
   * Callbacks.
   * On-the-fly mask change.
+  * Mask removal.
   * Customization.
 
 ##Tutorials
@@ -39,6 +40,7 @@ jQuery Mask Plugin has been tested with jQuery 1.4+ on all major browsers:
 ## Contributors
  * [Mark Simmons](https://github.com/Markipelago)
  * [Gabriel Schammah](https://github.com/gschammah)
+ * [Marcelo Manzan](https://github.com/kawamanza)
  
 ## Donators (Thanks!)
  * Rinaldo Morato
