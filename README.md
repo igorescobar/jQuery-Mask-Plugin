@@ -24,6 +24,7 @@ http://igorescobar.github.com/jQuery-Mask-Plugin/
 ##Tutorials
 ### English
   * Masks with jQuery Mask Plugin - http://bit.ly/masks-with-jquery-mask-plugin
+  * jQuery Masking Plugins - http://coderbay.com/jquery-masking-plugins/
   
 ### Portuguese
   * Mascaras com JQuery Mask Plugin - http://bit.ly/mascaras-com-jquery-mask-plugin
