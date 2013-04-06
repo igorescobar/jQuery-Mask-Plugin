@@ -1,5 +1,5 @@
 #jQuery Mask Plugin
-A jQuery Plugin to make masks on form fields and html elements.
+A jQuery Plugin to make masks on form fields and HTML elements.
 
 [![Build Status](https://travis-ci.org/igorescobar/jQuery-Mask-Plugin.png)](https://travis-ci.org/igorescobar/jQuery-Mask-Plugin)
 
