@@ -112,14 +112,8 @@
             },
             applyMask: function (e, mask) {
                 if (__p.getVal() === "") return;
-                var hasUndefined = function (entries, i) {
-                    while (i < entries.length) {
-                        if (entries[i] === undefined) return true;
-                        i++;
-                    }
-                    return false;
-                },
-                hasMore = function (entries, i) {
+                
+                var hasMore = function (entries, i) {
                     while (i < entries.length) {
                         if (entries[i] !== undefined) return true;
                         i++;
@@ -134,53 +128,34 @@
                 },
                 mask = __p.getMask(__p.getVal(), mask),
                 oVal = (options.reverse === true) ? __p.removeMaskChars(__p.getVal()) :  __p.getVal(), cDigitCharRegex,
-                matches = getMatches(oVal),
-                verify = 0;
+                matches = getMatches(oVal);
                 
-                console.log(matches);
+                // cleaning
                 while (matches.join("").length < __p.removeMaskChars(oVal).length) {
-                    ++verify;
-                    for (var k = 0; k < matches.length; k++) {
-                        var more = hasMore(oVal.split(""), k);
-                        if (matches[k] == undefined) {
-                            if (__p.maskChar(mask, k)) {
-                                debugger
-                                if(!more) oVal = matches.join("") + oVal.substring(k+1, oVal.length);
-                                break;
-                            } else if (__p.specialChar(mask, k) && __p.maskChar(mask, k) === undefined) {
-                                oVal = __p.removeMaskChars(oVal.substring(0, k) + oVal.substring(k+1, oVal.length));
-                                break;
-                            } else {
-                                break;
-                            }
-                        }
-                    }
-                    
+                    matches = matches.join("").split("");
+                    oVal = __p.removeMaskChars(matches.join("") + oVal.substring(matches.length + 1));
                     mask = __p.getMask(oVal, mask);
                     matches = getMatches(oVal);
-                    if (verify >= mask.length) break;
                 }
-            
-                // while (hasUndefined(matches, 0)) {
-                    for (var k = 0; k < matches.length; k++) {
-                        cDigitCharRegex = __p.specialChar(mask, k);
-                        
-                        if (__p.maskChar(mask, k) && hasMore(matches, k)) {
-                            matches[k] = mask.charAt(k);
-                        } else if (cDigitCharRegex && matches[k] !== undefined) {
-                            if (matches[k].match(new RegExp(cDigitCharRegex)) === null)
-                                break;
-                        } else if (cDigitCharRegex && matches[k] === undefined) {
-                            if ("".match(new RegExp(cDigitCharRegex)) === null) {
-                                matches = matches.slice(0, k);
-                                break;
-                            } 
-                        } else {
-                             break;                         
-                        }
+                
+                // masking
+                for (var k = 0; k < matches.length; k++) {
+                    cDigitCharRegex = __p.specialChar(mask, k);
+                    
+                    if (__p.maskChar(mask, k) && hasMore(matches, k)) {
+                        matches[k] = mask.charAt(k);
+                    } else if (cDigitCharRegex && matches[k] !== undefined) {
+                        if (matches[k].match(new RegExp(cDigitCharRegex)) === null)
+                            break;
+                    } else if (cDigitCharRegex && matches[k] === undefined) {
+                        if ("".match(new RegExp(cDigitCharRegex)) === null) {
+                            matches = matches.slice(0, k);
+                            break;
+                        } 
+                    } else {
+                         break;                         
                     }
-                    matches = getMatches(matches);
-                // }
+                }
                 
                 return matches.join('');
             },

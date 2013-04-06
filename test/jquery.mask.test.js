@@ -30,6 +30,7 @@ $(document).ready(function(){
 
     test('When I typed a char thats the same as the mask char', function(){
       testfield.mask('00/00/0000');
+      
       equal( typeTest("00/"), "00/");
       equal( typeTest("00a"), "00");
       equal( typeTest("00a00/00"), "00/00/00");
@@ -118,35 +119,35 @@ $(document).ready(function(){
     test("Testing a CPF Mask", function(){
       testfield.mask('000.000.000-00', {reverse: true});
 
-      // equal( typeTest("1"), "1");
-      // equal( typeTest("12"), "12");
-      // equal( typeTest("123"), "1-23");
-      // equal( typeTest("12-34"), "12-34");
-      // equal( typeTest("123-45"), "123-45");
-      // equal( typeTest("1.234-56"), "1.234-56");
-      // equal( typeTest("12.345-67"), "12.345-67");
-      // equal( typeTest("123.456-78"), "123.456-78");
-      // equal( typeTest("1.234.567-89"), "1.234.567-89");
-      // equal( typeTest("12.345.678-90"), "12.345.678-90");
-      // equal( typeTest("123.456.789-00"), "123.456.789-00");
-      // equal( typeTest("123.456.789-00"), "123.456.789-00");
+      equal( typeTest("1"), "1");
+      equal( typeTest("12"), "12");
+      equal( typeTest("123"), "1-23");
+      equal( typeTest("12-34"), "12-34");
+      equal( typeTest("123-45"), "123-45");
+      equal( typeTest("1.234-56"), "1.234-56");
+      equal( typeTest("12.345-67"), "12.345-67");
+      equal( typeTest("123.456-78"), "123.456-78");
+      equal( typeTest("1.234.567-89"), "1.234.567-89");
+      equal( typeTest("12.345.678-90"), "12.345.678-90");
+      equal( typeTest("123.456.789-00"), "123.456.789-00");
+      equal( typeTest("123.456.789-00"), "123.456.789-00");
       
       equal( typeTest("123.456.789a00"), "123.456.789-00");
-      // equal( typeTest("123-a5"), "12-35");
+      equal( typeTest("123-a5"), "12-35");
 
-      // equal( typeTest("1"), "1");
-      // equal( typeTest("12"), "12");
-      // equal( typeTest("1-23"), "1-23");
-      // equal( typeTest("12-34"), "12-34");
-      // equal( typeTest("12-345"), "123-45");
-      // equal( typeTest("1.234-56"), "1.234-56");
-      // equal( typeTest("12.345-67"), "12.345-67");
-      // equal( typeTest("123.456-78"), "123.456-78");
-      // equal( typeTest("1.234.567-89"), "1.234.567-89");
-      // equal( typeTest("12.345.678-90"), "12.345.678-90");
-      // equal( typeTest("123.456.789-00"), "123.456.789-00");
-      // equal( typeTest("123.456.789-00"), "123.456.789-00");
-      // equal( typeTest("123.456.789a00"), "123.456.789");
+      equal( typeTest("1"), "1");
+      equal( typeTest("12"), "12");
+      equal( typeTest("1-23"), "1-23");
+      equal( typeTest("12-34"), "12-34");
+      equal( typeTest("12-345"), "123-45");
+      equal( typeTest("1.234-56"), "1.234-56");
+      equal( typeTest("12.345-67"), "12.345-67");
+      equal( typeTest("123.456-78"), "123.456-78");
+      equal( typeTest("1.234.567-89"), "1.234.567-89");
+      equal( typeTest("12.345.678-90"), "12.345.678-90");
+      equal( typeTest("123.456.789-00"), "123.456.789-00");
+      equal( typeTest("123.456.789-00"), "123.456.789-00");
+      equal( typeTest("123.456.789a00"), "123.456.789-00");
 
     });
 
