@@ -2,10 +2,16 @@ var QUNIT = true;
 $(document).ready(function(){
 
     $('body').append('<input class="simple-field" type="text" />');
+    $('body').append('<div class="simple-div"></div>');
+
     var testfield = $('.simple-field'),
-      typeTest = function (typedValue) {
-      return testfield.val(typedValue).trigger('keyup').val();
-    };
+        testdiv = $('.simple-div'),
+        typeTest = function (typedValue) {
+          return testfield.val(typedValue).trigger('keyup').val();
+        },
+        typeDivTest = function(typedValue){
+          return testdiv.text(typedValue).trigger('keyup').text();
+        };
 
     module('Setting Up');
     test("test if the mask method exists after plugin insertion", function() {
@@ -200,6 +206,23 @@ $(document).ready(function(){
       equal( typeTest('00.00.000.0'), '00.00.000.0');
       equal( typeTest('00..'), '00.');
     });
+
+    test("when aplying mask on a element different than a form field",function(){
+      testdiv.mask('000.000.000-00', {reverse: true});
+
+      equal( typeDivTest('12312312312'), '123.123.123-12');
+      equal( typeDivTest('123.123.123-12'), '123.123.123-12');
+      equal( typeDivTest('123.123a123-12'), '123.123.123-12');
+      equal( typeDivTest('191'), '1-91');
+
+      testdiv.mask('00/00/0000');
+      equal( typeDivTest('000000'), '00/00/00');
+      equal( typeDivTest('00000000'), '00/00/0000');
+      equal( typeDivTest('00/00/0000'), '00/00/0000');
+      equal( typeDivTest('0a/00/0000'), '00/00/000');
+    
+    });
+
 
 
     module('Testing private methods');
