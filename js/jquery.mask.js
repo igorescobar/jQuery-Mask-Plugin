@@ -69,10 +69,10 @@
                 return typeof mask == "function" ? mask(__p.getVal(), e, options) : mask;
             },
             setVal: function(v) {
-                return $el.val(v);
+                return $el.get(0).tagName.toLowerCase() === "input" ? $el.val(v) : $el.html(v);
             },
             getVal: function() {
-                return $el.val();
+                return $el.get(0).tagName.toLowerCase() === "input" ? $el.val() : $el.text();
             },
             onPasteMethod: function() {
                 setTimeout(function() {

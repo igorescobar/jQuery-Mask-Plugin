@@ -3,7 +3,7 @@
   <meta charset="utf-8" />
   <meta name="description" content="jQuery-Mask-Plugin - A jQuery plugin to make field masks" />
   <meta name="author" content="Igor Escobar" />
-  <title>jQuery Mask Plugin - A jQuery plugin to make field masks.</title>
+  <title>jQuery Mask Plugin - A jQuery Plugin to make masks on html elements.</title>
 
   <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen">
   <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
@@ -62,6 +62,10 @@
       $(currentField).mask(SaoPauloCelphoneMask(phone), options);
     }});
 
+    $(".bt-mask-it").click(function(){
+      $(".mask-on-div").mask("000.000.000-00");
+      $(".mask-on-div").fadeOut(500).fadeIn(500)
+    })
 
     $('pre').each(function(i, e) {hljs.highlightBlock(e)});
 
@@ -71,7 +75,7 @@
 <body>
   <div class="container">
   <h1><span class="jq-label">jQuery</span> <span class="plugin-name">Mask Plugin</span></h1>
-  <span class="subltitle"> A jQuery Plugin for field masks. </span> <br /> <br />
+  <span class="subltitle">A jQuery Plugin to make masks on html elements.</span> <br /> <br />
   <h2>Demonstrations</h2> 
 
   <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -91,6 +95,8 @@
         <input type="text" class="crazy_cep"/>
         <label>Money</label>
         <input type="text" class="money"/>
+        <label>Masks on div elements!</label>
+        <div class="mask-on-div">12345678909</div> <input type="button" class="bt-mask-it" value="Mask it!"/>
       </div>
       <div class="col">
         <label>Telephone</label>
