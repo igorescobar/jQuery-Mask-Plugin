@@ -14,6 +14,7 @@ http://igorescobar.github.com/jQuery-Mask-Plugin/
   * Reverse mask support for masks on numeric fields.
   * Sanitization.
   * Optional digits.
+  * Digits by range.
   * Automatic maxlength.
   * Advanced mask initialization.
   * Callbacks.
