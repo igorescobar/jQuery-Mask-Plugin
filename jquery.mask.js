@@ -44,6 +44,7 @@
                 translation: {'A': '[a-zA-Z0-9]', 'S': '[a-zA-Z]'}
             };
 
+
         plugin.init = function() {
             plugin.settings = {};
             options = options || {};
@@ -54,6 +55,7 @@
 
             $el.each(function() {
                 mask = __p.resolveMask();
+                mask = __p.fixRangeMask(mask);
 
                 $el.attr('maxlength', mask.length);
                 $el.attr('autocomplete', 'off');
@@ -65,15 +67,6 @@
         };
 
         var __p = {
-            resolveMask: function() {
-                return typeof mask == "function" ? mask(__p.getVal(), e, options) : mask;
-            },
-            setVal: function(v) {
-                return $el.get(0).tagName.toLowerCase() === "input" ? $el.val(v) : $el.html(v);
-            },
-            getVal: function() {
-                return $el.get(0).tagName.toLowerCase() === "input" ? $el.val() : $el.text();
-            },
             onPasteMethod: function() {
                 setTimeout(function() {
                     $el.trigger('keyup');
@@ -91,18 +84,14 @@
             destroyEvents: function() {
                 $el.unbind('keyup').unbind('onpaste');
             },
-            maskBehaviour: function(e) {
-                e = e || window.event;
-                var keyCode = e.keyCode || e.which;
-
-                if ($.inArray(keyCode, plugin.settings.byPassKeys) > -1) return true;
-
-                var newVal = __p.applyMask(e, mask);
-
-                if (newVal !== __p.getVal())
-                    __p.setVal(newVal).trigger('change');
-
-                return __p.seekCallbacks(e, newVal);
+            resolveMask: function() {
+                return typeof mask == "function" ? mask(__p.getVal(), e, options) : mask;
+            },
+            setVal: function(v) {
+                return $el.get(0).tagName.toLowerCase() === "input" ? $el.val(v) : $el.html(v);
+            },
+            getVal: function() {
+                return $el.get(0).tagName.toLowerCase() === "input" ? $el.val() : $el.text();
             },
             specialChar: function (mask, pos) {
                 return plugin.settings.specialChars[mask.charAt(pos)];
@@ -110,7 +99,20 @@
             maskChar: function (mask, pos) {
                 return plugin.settings.maskChars[mask.charAt(pos)];
             },
-            applyMask: function (e, mask) {
+            maskBehaviour: function(e) {
+                e = e || window.event;
+                var keyCode = e.keyCode || e.which;
+
+                if ($.inArray(keyCode, plugin.settings.byPassKeys) > -1) return true;
+
+                var newVal = __p.applyMask(mask);
+
+                if (newVal !== __p.getVal())
+                    __p.setVal(newVal).trigger('change');
+
+                return __p.seekCallbacks(e, newVal);
+            },
+            applyMask: function (mask) {
                 if (__p.getVal() === "") return;
                 
                 var hasMore = function (entries, i) {
@@ -126,16 +128,17 @@
                     matches.shift();
                     return matches;
                 },
-                mask = __p.getMask(__p.getVal(), mask),
-                oVal = (options.reverse === true) ? __p.removeMaskChars(__p.getVal()) :  __p.getVal(), cDigitCharRegex,
-                matches = getMatches(oVal);
+                val = __p.getVal(),
+                mask = __p.getMask(val, mask),
+                val = options.reverse ? __p.removeMaskChars(val) :  val, cDigitCharRegex,
+                matches = getMatches(val);
                 
                 // cleaning
-                while (matches.join("").length < __p.removeMaskChars(oVal).length) {
+                while (matches.join("").length < __p.removeMaskChars(val).length) {
                     matches = matches.join("").split("");
-                    oVal = __p.removeMaskChars(matches.join("") + oVal.substring(matches.length + 1));
-                    mask = __p.getMask(oVal, mask);
-                    matches = getMatches(oVal);
+                    val = __p.removeMaskChars(matches.join("") + val.substring(matches.length + 1));
+                    mask = __p.getMask(val, mask);
+                    matches = getMatches(val);
                 }
                 
                 // masking
@@ -144,19 +147,20 @@
                     
                     if (__p.maskChar(mask, k) && hasMore(matches, k)) {
                         matches[k] = mask.charAt(k);
-                    } else if (cDigitCharRegex && matches[k] !== undefined) {
-                        if (matches[k].match(new RegExp(cDigitCharRegex)) === null)
-                            break;
-                    } else if (cDigitCharRegex && matches[k] === undefined) {
-                        if ("".match(new RegExp(cDigitCharRegex)) === null) {
-                            matches = matches.slice(0, k);
-                            break;
-                        } 
                     } else {
-                         break;                         
+                        if (cDigitCharRegex) {
+                            if (matches[k] !== undefined) {
+                                if (matches[k].match(new RegExp(cDigitCharRegex)) === null)
+                                    break;
+                            } else {
+                                if ("".match(new RegExp(cDigitCharRegex)) === null) {
+                                    matches = matches.slice(0, k);
+                                    break;
+                                } 
+                            }
+                        } 
                     }
-                }
-                
+                }                
                 return matches.join('');
             },
             getMask: function (cleanVal) {
@@ -177,7 +181,7 @@
                     return mask.substring(startMask, endMask);
                 };
 
-                return (options.reverse === true) ? reverseMask(cleanVal) : mask;
+                return options.reverse ? reverseMask(cleanVal) : mask;
             },
             maskToRegex: function (mask) {
                 var specialChar;
@@ -187,6 +191,27 @@
                 }
 
                 return regex;
+            },
+            fixRangeMask: function (mask) {
+                var repeat = function (str, num) {
+                    return new Array(num + 1).join(str);
+                },
+                rangeRegex = /([A-Z0-9])\{(\d+)?,([(\d+)])\}/g;
+                
+                return mask.replace(rangeRegex, function() {
+                    var match = arguments,
+                        mask = [],
+                        charStr = (plugin.settings.translationNumbers[match[1]]) ? 
+                                    String.fromCharCode(parseInt("6" + match[1], 16)) : match[1].toLowerCase();
+
+                    mask[0] = match[1];
+                    mask[1] = repeat(match[1], match[2] - 1);
+                    mask[2] = repeat(charStr, match[3] - match[2]).toLowerCase();
+                    
+                    plugin.settings.specialChars[charStr] = __p.specialChar(match[1]) + "?";
+                
+                    return mask.join("");
+                });
             },
             removeMaskChars: function(string) {
                 $.each(plugin.settings.maskChars, function(k,v){

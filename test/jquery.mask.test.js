@@ -207,6 +207,47 @@ $(document).ready(function(){
       equal( typeTest('00..'), '00.');
     });
 
+    test("Masks with range with optional numbers ", function(){
+      testfield.mask('0{1,3}.0{1,3}.0{1,3}.0{1,3}');
+
+      equal( typeTest('0.0.0.0'), '0.0.0.0');
+      equal( typeTest('00.00.00.00'), '00.00.00.00');
+      equal( typeTest('00.000.00.000'), '00.000.00.000');
+      equal( typeTest('000.00.000.00'), '000.00.000.00');
+      equal( typeTest('000.000.000.000'), '000.000.000.000');
+      equal( typeTest('000000000000'), '000.000.000.000');
+      equal( typeTest('0'), '0');
+      equal( typeTest('00'), '00');
+      equal( typeTest('00.'), '00.');
+      equal( typeTest('00.0'), '00.0');
+      equal( typeTest('00.00'), '00.00');
+      equal( typeTest('00.00.'), '00.00.');
+      equal( typeTest('00.00.000'), '00.00.000');
+      equal( typeTest('00.00.000.'), '00.00.000.');
+      equal( typeTest('00.00.000.0'), '00.00.000.0');
+      equal( typeTest('00..'), '00.');
+
+    });
+
+    test("Masks with range with optional letters ", function(){
+      testfield.mask('A{1,3}.S{1,3}.0{1,3}');
+
+      equal( typeTest('0.0.0'), '0.');
+      equal( typeTest('z1.s.00'), 'z1.s.00');
+
+      testfield.mask('0{1,2}');
+      equal( typeTest('0'), '0');
+      equal( typeTest('00'), '00');
+
+      testfield.mask('0{2,3}-0');
+      equal( typeTest('0-'), '0');
+      equal( typeTest('00-0'), '00-0');
+      equal( typeTest('000-0'), '000-0');
+
+      testfield.mask('0{2,3}-0');
+      equal( typeTest('0-'), '0');
+    });
+
     test("when aplying mask on a element different than a form field",function(){
       testdiv.mask('000.000.000-00', {reverse: true});
 
