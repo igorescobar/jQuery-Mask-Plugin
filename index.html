@@ -11,7 +11,7 @@
   <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
   <script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/jquery.mask.js"></script>
+  <script type="text/javascript" src="js/jquery.mask.min.js"></script>
 
   <style type="text/css">
   .container {width:773px;}
@@ -22,7 +22,7 @@
     div#examples div.col.center {text-align:center;}
     div#examples div.col.center.banner {border: 1px solid #ccc; padding:15px; margin-top:24px;}
 
-    pre {overflow-x: auto; white-space:pre; word-wrap:normal; font-size:15px;}
+    pre {overflow-x: auto; white-space:pre; word-wrap:normal; font-size:12px;}
   </style>
 
   <script type="text/javascript">
@@ -35,7 +35,7 @@
     $('.phone_with_ddd').mask('(99) 9999-9999');
     $('.phone_us').mask('(999) 999-9999');
     $('.mixed').mask('AAA 000-S0S');
-    $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': "[0-9]?"}});
+    $('.ip_address').mask('0{1,3}.0{1,3}.0{1,3}.0{1,3}');
 
     $('.cep_with_callback').mask('00000-000', {onComplete: function(cep) {
         console.log('Mask is done!:', cep);
@@ -201,10 +201,11 @@ $('.your-field').mask('AA/SS/YYYY', {'translation':
     You can also tell to jQuery Mask which digit is optional, to create a IP mask for example: <br/><br/>
 
     <pre>
-$('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: 
-                                            {'Z': "[0-9]?"}
-                                          });
-    </pre>
+// way 1
+$('.ip_address').mask('0{1,3}.0{1,3}.0{1,3}.0{1,3}');
+// way 2
+$('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': "[0-9]?"}});
+</pre>
 
     Now, all <strong>Z</strong> digits in your masks is optional.
 
