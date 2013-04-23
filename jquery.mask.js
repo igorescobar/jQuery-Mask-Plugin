@@ -88,7 +88,8 @@
                 return typeof mask == "function" ? mask(__p.getVal(), e, options) : mask;
             },
             setVal: function(v) {
-                return $el.get(0).tagName.toLowerCase() === "input" ? $el.val(v) : $el.html(v);
+                $el.get(0).tagName.toLowerCase() === "input" ? $el.val(v) : $el.html(v);
+                return $el;
             },
             getVal: function() {
                 return $el.get(0).tagName.toLowerCase() === "input" ? $el.val() : $el.text();
@@ -249,4 +250,4 @@
         });
     };
 
-})(jQuery);
+})(window.jQuery || window.Zepto);
