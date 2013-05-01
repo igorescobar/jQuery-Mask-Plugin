@@ -26,11 +26,11 @@ http://igorescobar.github.io/jQuery-Mask-Plugin/
 ##Tutorials
 ### English
   * [Masks with jQuery Mask Plugin](http://bit.ly/masks-with-jquery-mask-plugin)
-  * [jQuery Masking Plugins](http://coderbay.com/jquery-masking-plugins/)
+  * [jQuery Masking Plugins](http://coderbay.com/jquery-masking-plugins)
   * [Using jQuery Mask Plugin With Zepto.js](http://bit.ly/using-jquery-mask-plugin-with-zeptojs)
   
 ### Portuguese
-  * [Mascaras com JQuery Mask Plugin](http://bit.ly/mascaras-com-jquery-mask-plugin
+  * [Mascaras com JQuery Mask Plugin](http://bit.ly/mascaras-com-jquery-mask-plugin)
   * [Mascara Javascript para os novos telefones de São Paulo](http://bit.ly/mascara-javascript-para-os-novos-telefones-de-sao-paulo)
 
 ## Compatibility
