@@ -1,0 +1,8 @@
+{
+  "name": "jQuery-Mask-Plugin",
+  "version": "0.9.0",
+  "main": "jquery.mask.min.js",
+  "ignore": [
+    "**/.*",
+  ]
+}
