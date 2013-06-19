@@ -49,7 +49,7 @@
             plugin.settings = {};
             options = options || {};
 
-            defaults.translation = $.extend({}, defaults.translation, defaults.translationNumbers)
+            defaults.translation = $.extend({}, defaults.translation, defaults.translationNumbers);
             plugin.settings = $.extend(true, {}, defaults, options);
             plugin.settings.specialChars = $.extend({}, plugin.settings.maskChars, plugin.settings.translation);
 
@@ -62,7 +62,7 @@
 
                 __p.destroyEvents();
                 __p.setOnKeyUp();
-                __p.setOnPaste();    
+                __p.setOnPaste();
             });
         };
 
@@ -115,7 +115,7 @@
             },
             applyMask: function (mask) {
                 if (__p.getVal() === "") return;
-                
+
                 var hasMore = function (entries, i) {
                     while (i < entries.length) {
                         if (entries[i] !== undefined) return true;
@@ -123,7 +123,7 @@
                     }
                     return false;
                 },
-                getMatches = function (v) { 
+                getMatches = function (v) {
                     v = (typeof v === "string") ? v : v.join("");
                     var matches = v.match(new RegExp(__p.maskToRegex(mask))) || [];
                     matches.shift();
@@ -133,7 +133,7 @@
                 mask = __p.getMask(val, mask),
                 val = options.reverse ? __p.removeMaskChars(val) :  val, cDigitCharRegex,
                 matches = getMatches(val);
-                
+
                 // cleaning
                 while (matches.join("").length < __p.removeMaskChars(val).length) {
                     matches = matches.join("").split("");
@@ -141,11 +141,11 @@
                     mask = __p.getMask(val, mask);
                     matches = getMatches(val);
                 }
-                
+
                 // masking
                 for (var k = 0; k < matches.length; k++) {
                     cDigitCharRegex = __p.specialChar(mask, k);
-                    
+
                     if (__p.maskChar(mask, k) && hasMore(matches, k)) {
                         matches[k] = mask.charAt(k);
                     } else {
@@ -157,11 +157,11 @@
                                 if ("".match(new RegExp(cDigitCharRegex)) === null) {
                                     matches = matches.slice(0, k);
                                     break;
-                                } 
+                                }
                             }
-                        } 
+                        }
                     }
-                }                
+                }
                 return matches.join('');
             },
             getMask: function (cleanVal) {
@@ -198,30 +198,30 @@
                     return new Array(num + 1).join(str);
                 },
                 rangeRegex = /([A-Z0-9])\{(\d+)?,([(\d+)])\}/g;
-                
+
                 return mask.replace(rangeRegex, function() {
                     var match = arguments,
                         mask = [],
-                        charStr = (plugin.settings.translationNumbers[match[1]]) ? 
+                        charStr = (plugin.settings.translationNumbers[match[1]]) ?
                                     String.fromCharCode(parseInt("6" + match[1], 16)) : match[1].toLowerCase();
 
                     mask[0] = match[1];
                     mask[1] = repeat(match[1], match[2] - 1);
                     mask[2] = repeat(charStr, match[3] - match[2]).toLowerCase();
-                    
+
                     plugin.settings.specialChars[charStr] = __p.specialChar(match[1]) + "?";
-                
+
                     return mask.join("");
                 });
             },
             removeMaskChars: function(string) {
                 $.each(plugin.settings.maskChars, function(k,v){
-                    string = string.replace(new RegExp("(" + plugin.settings.maskChars[k] + ")?", 'g'), '')
+                    string = string.replace(new RegExp("(" + plugin.settings.maskChars[k] + ")?", 'g'), '');
                 });
                 return string;
             },
             seekCallbacks: function (e, newVal) {
-                if (options.onKeyPress && e.isTrigger === undefined && 
+                if (options.onKeyPress && e.isTrigger === undefined &&
                     typeof options.onKeyPress == "function")
                         options.onKeyPress(newVal, e, $el, options);
 
@@ -249,5 +249,10 @@
             $(this).data('mask', new Mask(this, mask, options));
         });
     };
+
+    // looking for inputs with mask attribute
+    $('input[mask]').each(function(){
+        $(this).mask($(this).attr('mask'));
+    });
 
 })(window.jQuery || window.Zepto);
