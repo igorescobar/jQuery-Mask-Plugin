@@ -6,6 +6,7 @@
     "deploy.rb",
     "jquery.mask.json",
     "Gruntfile.js",
+    "test/*"
     ".*"
   ]
 }
