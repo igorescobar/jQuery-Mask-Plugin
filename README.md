@@ -54,3 +54,4 @@ jQuery Mask Plugin has been tested with jQuery 1.4+ on all major browsers:
  * Marcia Cristina Cava
  * [Igor Lima](https://github.com/igorlima)
  * Steve Binder
+ * Douglas Patrocinio
