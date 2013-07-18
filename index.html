@@ -59,7 +59,7 @@
     };
 
     $(".sp_celphones").mask(SaoPauloCelphoneMask, { onKeyPress: function(phone, e, currentField, options){
-      $(currentField).mask(SaoPauloCelphoneMask(phone), options);
+      if (phone) $(currentField).mask(SaoPauloCelphoneMask(phone), options);
     }});
 
     $(".bt-mask-it").click(function(){
