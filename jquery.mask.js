@@ -1,3 +1,16 @@
+Please file an issue on https://github.com/tvooo/sublime-grunt/issues and attach this output.
+
+SublimeGrunt: Could not expose available tasks
+
+grunt-cli: The grunt command line interface. (v0.1.9)
+
+Fatal error: Unable to find local grunt.
+
+If you're seeing this message, either a Gruntfile wasn't found or grunt
+hasn't been installed locally to your project. For more information about
+installing and configuring grunt, please see the Getting Started guide:
+
+http://gruntjs.com/getting-started
  /**
  * jquery.mask.js
  * @version: v0.9.0
