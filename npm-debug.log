@@ -1,0 +1,190 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'grunt' ]
+2 info using npm@1.1.71
+3 info using node@v0.8.18
+4 verbose node symlink /usr/local/bin/node
+5 verbose read json /Users/ricardodantas/package.json
+6 verbose read json /Users/ricardodantas/node_modules/clean-css/package.json
+7 verbose read json /Users/ricardodantas/node_modules/coffee/package.json
+8 verbose read json /Users/ricardodantas/node_modules/coffee-script/package.json
+9 verbose read json /Users/ricardodantas/node_modules/css-b64-images/package.json
+10 verbose read json /Users/ricardodantas/node_modules/generator-backbone/package.json
+11 verbose read json /Users/ricardodantas/node_modules/generator-generator/package.json
+12 verbose read json /Users/ricardodantas/node_modules/generator-karma/package.json
+13 verbose read json /Users/ricardodantas/node_modules/generator-vtexproject/package.json
+14 verbose read json /Users/ricardodantas/node_modules/grunt/package.json
+15 verbose read json /Users/ricardodantas/node_modules/html-minifier/package.json
+16 verbose read json /Users/ricardodantas/node_modules/js2coffee/package.json
+17 verbose read json /Users/ricardodantas/node_modules/minify/package.json
+18 verbose read json /Users/ricardodantas/node_modules/npm/package.json
+19 verbose read json /Users/ricardodantas/node_modules/pngquant/package.json
+20 verbose read json /Users/ricardodantas/node_modules/sass/package.json
+21 verbose read json /Users/ricardodantas/node_modules/uglify-js/package.json
+22 verbose read json /Users/ricardodantas/package.json
+23 verbose cache add [ 'grunt', null ]
+24 silly cache add name=undefined spec="grunt" args=["grunt",null]
+25 verbose parsed url { pathname: 'grunt', path: 'grunt', href: 'grunt' }
+26 silly lockFile 20ff3fd8-grunt grunt
+27 verbose lock grunt /Users/ricardodantas/.npm/20ff3fd8-grunt.lock
+28 silly lockFile 20ff3fd8-grunt grunt
+29 verbose addNamed [ 'grunt', '' ]
+30 verbose addNamed [ null, '' ]
+31 silly lockFile 55f1ff24-grunt grunt@
+32 verbose lock grunt@ /Users/ricardodantas/.npm/55f1ff24-grunt.lock
+33 silly addNameRange { name: 'grunt', range: '', hasData: false }
+34 verbose url raw grunt
+35 verbose url resolving [ 'https://registry.npmjs.org/', './grunt' ]
+36 verbose url resolved https://registry.npmjs.org/grunt
+37 info trying registry request attempt 1 at 16:54:04
+38 verbose etag "7L2SC3Y9JUYQ63S1ZYT4C8TUB"
+39 http GET https://registry.npmjs.org/grunt
+40 http 304 https://registry.npmjs.org/grunt
+41 silly registry.get cb [ 304,
+41 silly registry.get   { server: 'CouchDB/1.3.0 (Erlang OTP/R15B03)',
+41 silly registry.get     etag: '"7L2SC3Y9JUYQ63S1ZYT4C8TUB"',
+41 silly registry.get     date: 'Fri, 19 Jul 2013 19:54:06 GMT',
+41 silly registry.get     'content-length': '0' } ]
+42 verbose etag grunt from cache
+43 silly addNameRange number 2 { name: 'grunt', range: '', hasData: true }
+44 silly addNameRange versions [ 'grunt',
+44 silly addNameRange   [ '0.1.0',
+44 silly addNameRange     '0.1.1',
+44 silly addNameRange     '0.1.2',
+44 silly addNameRange     '0.2.0',
+44 silly addNameRange     '0.2.1',
+44 silly addNameRange     '0.2.2',
+44 silly addNameRange     '0.2.3',
+44 silly addNameRange     '0.2.4',
+44 silly addNameRange     '0.2.5',
+44 silly addNameRange     '0.2.6',
+44 silly addNameRange     '0.2.7',
+44 silly addNameRange     '0.2.8',
+44 silly addNameRange     '0.2.9',
+44 silly addNameRange     '0.2.10',
+44 silly addNameRange     '0.2.11',
+44 silly addNameRange     '0.2.12',
+44 silly addNameRange     '0.2.13',
+44 silly addNameRange     '0.2.14',
+44 silly addNameRange     '0.2.15',
+44 silly addNameRange     '0.3.0',
+44 silly addNameRange     '0.3.1',
+44 silly addNameRange     '0.3.2',
+44 silly addNameRange     '0.3.3',
+44 silly addNameRange     '0.3.4',
+44 silly addNameRange     '0.3.5',
+44 silly addNameRange     '0.3.6',
+44 silly addNameRange     '0.3.7',
+44 silly addNameRange     '0.3.8',
+44 silly addNameRange     '0.3.9',
+44 silly addNameRange     '0.3.10',
+44 silly addNameRange     '0.3.11',
+44 silly addNameRange     '0.3.12',
+44 silly addNameRange     '0.3.13',
+44 silly addNameRange     '0.3.14',
+44 silly addNameRange     '0.3.15',
+44 silly addNameRange     '0.3.16',
+44 silly addNameRange     '0.3.17',
+44 silly addNameRange     '0.4.0',
+44 silly addNameRange     '0.4.1',
+44 silly addNameRange     '0.3.13-a',
+44 silly addNameRange     '0.4.0-a',
+44 silly addNameRange     '0.4.0-rc1',
+44 silly addNameRange     '0.4.0-rc2',
+44 silly addNameRange     '0.4.0-rc3',
+44 silly addNameRange     '0.4.0-rc4',
+44 silly addNameRange     '0.4.0-rc5',
+44 silly addNameRange     '0.4.0-rc6',
+44 silly addNameRange     '0.4.0-rc7',
+44 silly addNameRange     '0.4.0-rc8' ] ]
+45 verbose addNamed [ 'grunt', '0.4.1' ]
+46 verbose addNamed [ '0.4.1', '0.4.1' ]
+47 silly lockFile f9e87dfe-grunt-0-4-1 grunt@0.4.1
+48 verbose lock grunt@0.4.1 /Users/ricardodantas/.npm/f9e87dfe-grunt-0-4-1.lock
+49 verbose read json /Users/ricardodantas/.npm/grunt/0.4.1/package/package.json
+50 silly lockFile f9e87dfe-grunt-0-4-1 grunt@0.4.1
+51 silly lockFile 55f1ff24-grunt grunt@
+52 silly resolved [ { name: 'grunt',
+52 silly resolved     description: 'The JavaScript Task Runner',
+52 silly resolved     version: '0.4.1',
+52 silly resolved     author: { name: '"Cowboy" Ben Alman', url: 'http://benalman.com/' },
+52 silly resolved     homepage: 'http://gruntjs.com/',
+52 silly resolved     repository: { type: 'git', url: 'git://github.com/gruntjs/grunt.git' },
+52 silly resolved     bugs: { url: 'http://github.com/gruntjs/grunt/issues' },
+52 silly resolved     licenses: [ [Object] ],
+52 silly resolved     main: 'lib/grunt',
+52 silly resolved     scripts: { test: 'grunt test' },
+52 silly resolved     engines: { node: '>= 0.8.0' },
+52 silly resolved     keywords:
+52 silly resolved      [ 'task',
+52 silly resolved        'async',
+52 silly resolved        'cli',
+52 silly resolved        'minify',
+52 silly resolved        'uglify',
+52 silly resolved        'build',
+52 silly resolved        'lodash',
+52 silly resolved        'unit',
+52 silly resolved        'test',
+52 silly resolved        'qunit',
+52 silly resolved        'nodeunit',
+52 silly resolved        'server',
+52 silly resolved        'init',
+52 silly resolved        'scaffold',
+52 silly resolved        'make',
+52 silly resolved        'jake',
+52 silly resolved        'tool' ],
+52 silly resolved     dependencies:
+52 silly resolved      { async: '~0.1.22',
+52 silly resolved        'coffee-script': '~1.3.3',
+52 silly resolved        colors: '~0.6.0-1',
+52 silly resolved        dateformat: '1.0.2-1.2.3',
+52 silly resolved        eventemitter2: '~0.4.9',
+52 silly resolved        'findup-sync': '~0.1.0',
+52 silly resolved        glob: '~3.1.21',
+52 silly resolved        hooker: '~0.2.3',
+52 silly resolved        'iconv-lite': '~0.2.5',
+52 silly resolved        minimatch: '~0.2.6',
+52 silly resolved        nopt: '~1.0.10',
+52 silly resolved        rimraf: '~2.0.2',
+52 silly resolved        lodash: '~0.9.0',
+52 silly resolved        'underscore.string': '~2.2.0rc',
+52 silly resolved        which: '~1.0.5',
+52 silly resolved        'js-yaml': '~2.0.2' },
+52 silly resolved     devDependencies:
+52 silly resolved      { temporary: '~0.0.4',
+52 silly resolved        'grunt-contrib-jshint': '~0.1.1',
+52 silly resolved        'grunt-contrib-nodeunit': '~0.1.2',
+52 silly resolved        'grunt-contrib-watch': '~0.2.0',
+52 silly resolved        difflet: '~0.2.3' },
+52 silly resolved     contributors: [ [Object], [Object], [Object], [Object] ],
+52 silly resolved     readme: '# Grunt: The JavaScript Task Runner [![Build Status](https://secure.travis-ci.org/gruntjs/grunt.png?branch=master)](http://travis-ci.org/gruntjs/grunt)\n\n### Documentation\n\nVisit the [gruntjs.com](http://gruntjs.com/) website for all the things.\n\n### Support / Contributing\nBefore you make an issue, please read our [Contributing](http://gruntjs.com/contributing) guide.\n\nYou can find the grunt team in [#grunt on irc.freenode.net](irc://irc.freenode.net/#grunt).\n\n### Release History\nSee the [CHANGELOG](CHANGELOG).\n',
+52 silly resolved     readmeFilename: 'README.md',
+52 silly resolved     _id: 'grunt@0.4.1',
+52 silly resolved     _from: 'grunt' } ]
+53 info install grunt@0.4.1 into /Users/ricardodantas
+54 info installOne grunt@0.4.1
+55 verbose from cache /Users/ricardodantas/.npm/grunt/0.4.1/package/package.json
+56 info /Users/ricardodantas/node_modules/grunt unbuild
+57 verbose read json /Users/ricardodantas/node_modules/grunt/package.json
+58 info /Users/ricardodantas/node_modules/grunt unbuild
+59 verbose read json /Users/ricardodantas/node_modules/grunt/package.json
+60 error error rolling back Error: EACCES, unlink '/Users/ricardodantas/node_modules/grunt/node_modules/js-yaml/node_modules/.bin/esparse'
+60 error error rolling back  grunt@0.4.1 { [Error: EACCES, unlink '/Users/ricardodantas/node_modules/grunt/node_modules/js-yaml/node_modules/.bin/esparse']
+60 error error rolling back   errno: 3,
+60 error error rolling back   code: 'EACCES',
+60 error error rolling back   path: '/Users/ricardodantas/node_modules/grunt/node_modules/js-yaml/node_modules/.bin/esparse' }
+61 error Error: EACCES, unlink '/Users/ricardodantas/node_modules/grunt/node_modules/js-yaml/node_modules/.bin/esparse'
+61 error  { [Error: EACCES, unlink '/Users/ricardodantas/node_modules/grunt/node_modules/js-yaml/node_modules/.bin/esparse']
+61 error   errno: 3,
+61 error   code: 'EACCES',
+61 error   path: '/Users/ricardodantas/node_modules/grunt/node_modules/js-yaml/node_modules/.bin/esparse' }
+62 error Please try running this command again as root/Administrator.
+63 error System Darwin 12.4.0
+64 error command "node" "/usr/local/bin/npm" "install" "grunt"
+65 error cwd /Users/ricardodantas/SparkleShare/jQuery-Mask-Plugin
+66 error node -v v0.8.18
+67 error npm -v 1.1.71
+68 error path /Users/ricardodantas/node_modules/grunt/node_modules/js-yaml/node_modules/.bin/esparse
+69 error code EACCES
+70 error errno 3
+71 error stack Error: EACCES, unlink '/Users/ricardodantas/node_modules/grunt/node_modules/js-yaml/node_modules/.bin/esparse'
+72 verbose exit [ 3, true ]
