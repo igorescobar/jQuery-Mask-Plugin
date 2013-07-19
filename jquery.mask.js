@@ -73,10 +73,14 @@
                 }, 100);
             },
             setOnPaste: function() {
+
                 if(__p.hasOnSupport()) {
+
                     $el.on("paste", __p.onPasteMethod)
+
                 }else{
-                    if()
+
+                    if($el.get(0).attachEvent)
                         $el.get(0).attachEvent("paste", __p.onPasteMethod);
                     else
                         $el.get(0).addEventListener("paste", __p.onPasteMethod, false);
