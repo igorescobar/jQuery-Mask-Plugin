@@ -7,6 +7,7 @@ JMASK_MIN_FILE = 'jquery.mask.min.js'
 JMASK_GZIP_FILE = 'jquery.mask.min.js.gz'
 JMASK_VERSION = `stepup version --next-release`.delete("\n")
 BOWER_MANIFEST_FILE = 'bower.json'
+NPM_MANIFEST_FILE = 'package.json'
 
 abort("No notes, do deal.") if JMASK_VERSION.empty?
 
@@ -20,6 +21,12 @@ puts '# UPGRADING BOWER MANIFEST FILE'
 bower_manifest_file = File.open(BOWER_MANIFEST_FILE, 'rb') { |file| file.read }
 File.open(BOWER_MANIFEST_FILE, 'w') do |file|
   file.write(bower_manifest_file.gsub(/"version": "([0-9.+]+)"/, "\"version\": \"#{JMASK_VERSION.gsub("v", "")}\""))
+end
+
+puts '# UPGRADING PACKAGE.JSON MANIFEST FILE'
+npm_manifest_file = File.open(NPM_MANIFEST_FILE, 'rb') { |file| file.read }
+File.open(NPM_MANIFEST_FILE, 'w') do |file|
+  file.write(npm_manifest_file.gsub(/"version": "([0-9.+]+)"/, "\"version\": \"#{JMASK_VERSION.gsub("v", "")}\""))
 end
 
 puts '# UPGRADING JQUERY PLUGINS MANIFEST FILE'
