@@ -1,13 +1,13 @@
 var QUNIT = true;
 $(document).ready(function(){
 
-    $('body').append('<input class="simple-field" type="text" />');
-    $('body').append('<div class="simple-div"></div>');
-
     var testfield = $('.simple-field'),
+        testfieldDataMask = $('.simple-field-data-mask'),
         testdiv = $('.simple-div'),
-        typeTest = function (typedValue) {
-          return testfield.val(typedValue).trigger('keyup').val();
+        typeTest = function (typedValue, obj) {
+          obj = typeof obj === "undefined" ? testfield : obj;
+
+          return obj.val(typedValue).trigger('keyup').val();
         },
         typeDivTest = function(typedValue){
           return testdiv.text(typedValue).trigger('keyup').text();
@@ -308,5 +308,18 @@ $(document).ready(function(){
       equal(testfield.data('mask').__p.maskToRegex('AA/SS'), "([a-zA-Z0-9])?([a-zA-Z0-9])?(/)?([a-zA-Z])?([a-zA-Z])?");
       equal(testfield.data('mask').__p.maskToRegex(':-.()/,_ +'), "(:)?(-)?(\\\.)?(\\()?(\\))?(/)?(,)?(_)?(\\s)?(\\\+)?");
     });
+
+
+    module('Testing data-mask attribute support');
+    
+    test("Testing data-mask attribute", function(){
+      equal( typeTest("00/", testfieldDataMask), "00/");
+      equal( typeTest("00a", testfieldDataMask), "00");
+      equal( typeTest("00a00/00", testfieldDataMask), "00/00/00");
+      equal( typeTest("0a/00/00", testfieldDataMask), "00/00/0");
+      equal( typeTest("0a/0a/00", testfieldDataMask), "00/00");
+      equal( typeTest("00000000", testfieldDataMask), "00/00/0000");
+    });
+
 
   });

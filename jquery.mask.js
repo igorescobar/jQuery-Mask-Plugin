@@ -260,4 +260,9 @@
         });
     };
 
+    // looking for inputs with data-mask attribute
+    $('input[data-mask]').each(function() {
+        $(this).mask($(this).attr('data-mask'));
+    });
+   
 })(window.jQuery || window.Zepto);
