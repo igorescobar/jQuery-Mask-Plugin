@@ -81,8 +81,8 @@
                 }else{
                     $el = $el.get(0);
                     $el.addEventListener ?
-                    $el.addEventListener("paste", __p.onPasteMethod, false) :
-                    $el.attachEvent("paste", __p.onPasteMethod);
+                        $el.addEventListener("paste", __p.onPasteMethod, false) :
+                        $el.attachEvent("paste", __p.onPasteMethod);
                 }
             },
             setOnKeyUp: function() {
