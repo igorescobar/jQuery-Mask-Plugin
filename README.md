@@ -10,6 +10,7 @@ http://igorescobar.github.io/jQuery-Mask-Plugin/
 
   * Lightweight (~3kb).
   * Masks on any HTML element!
+  * data-mask attribute support.
   * String/Numeric/Alpha/Mixed masks.
   * Reverse mask support for masks on numeric fields.
   * Sanitization.
