@@ -7,11 +7,6 @@
 
   <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen">
   <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
-  
-  <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
-  <script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/jquery.mask.min.js"></script>
 
   <style type="text/css">
   .container {width:773px;}
@@ -24,53 +19,6 @@
 
     pre {overflow-x: auto; white-space:pre; word-wrap:normal; font-size:12px;}
   </style>
-
-  <script type="text/javascript">
-  $(function() {
-    $('.date').mask('99/99/9999');
-    $('.time').mask('99:99:99');
-    $('.date_time').mask('99/99/9999 99:99:99');
-    $('.cep').mask('99999-999');
-    $('.phone').mask('9999-9999');
-    $('.phone_with_ddd').mask('(99) 9999-9999');
-    $('.phone_us').mask('(999) 999-9999');
-    $('.mixed').mask('AAA 000-S0S');
-    $('.ip_address').mask('0{1,3}.0{1,3}.0{1,3}.0{1,3}');
-
-    $('.cep_with_callback').mask('00000-000', {onComplete: function(cep) {
-        console.log('Mask is done!:', cep);
-      },
-       onKeyPress: function(cep, event, currentField, options){
-        console.log('An key was pressed!:', cep, ' event: ', event, 'currentField: ', currentField.attr('class'), ' options: ', options);
-      }
-    });
-
-    $('.crazy_cep').mask('00000-000', {onKeyPress: function(cep){
-      var masks = ['00000-000', '0-00-00-00'];
-        mask = (cep.length>7) ? masks[1] : masks[0];
-      $('.crazy_cep').mask(mask, this);
-    }});
-
-    $('.cpf').mask('999.999.999-99', {reverse: true});
-    $('.money').mask('000.000.000.000.000,00', {reverse: true});
-
-    var SaoPauloCelphoneMask = function(phone, e, currentField, options){
-      return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? '(00) 00000-0000' : '(00) 0000-0000';
-    };
-
-    $(".sp_celphones").mask(SaoPauloCelphoneMask, { onKeyPress: function(phone, e, currentField, options){
-      if (phone) $(currentField).mask(SaoPauloCelphoneMask(phone), options);
-    }});
-
-    $(".bt-mask-it").click(function(){
-      $(".mask-on-div").mask("000.000.000-00");
-      $(".mask-on-div").fadeOut(500).fadeIn(500)
-    })
-
-    $('pre').each(function(i, e) {hljs.highlightBlock(e)});
-
-  });
-  </script>
 </head>
 <body>
   <div class="container">
@@ -128,7 +76,7 @@
   <div id="code-samples">
     <h2>Code Samples</h2>
     <h3>Basic Examples</h3>
-    <pre>
+<pre>
 $(document).ready(function(){
   $('.date').mask('11/11/1111');
   $('.time').mask('00:00:00');
@@ -144,7 +92,7 @@ $(document).ready(function(){
 );</pre>
 
     <h3>Callback Examples</h3>
-    <pre>
+<pre>
 var options =  { onComplete: function(cep) {
   alert('Mask is done!:' + cep);
 },
@@ -154,10 +102,10 @@ onKeyPress: function(cep, event, currentField, options){
 }};
 
 $('.cep_with_callback').mask('00000-000', options);
-      </pre>
+</pre>
 
     <h3>On-the-fly mask change</h3>
-    <pre>
+<pre>
 var options =  {onKeyPress: function(cep){
   var masks = ['00000-000', '0-00-00-00'];
     mask = (cep.length>7) ? masks[1] : masks[0];
@@ -165,42 +113,49 @@ var options =  {onKeyPress: function(cep){
 }};
 
 $('.crazy_cep').mask('00000-000', options);
-  </pre>
+</pre>
 
     <h3>Mask as a function</h3>
-    <pre>
+<pre>
 var SaoPauloCelphoneMask = function(phone, e, currentField, options){
   return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? 
   '(00) 00000-0000' : '(00) 0000-0000';
 };
 
 $(".sp_celphones").mask(SaoPauloCelphoneMask);
-    </pre>
+</pre>
     
+    <h3>Mask using data-mask attribute</h3>
+
+    To get your mask applied with the data-mask attribute just use it as the same way you use with the $.mask function. <br/> <br/>
+<pre>
+&lt;input type=&quot;text&quot; name=&quot;field-name&quot; data-mask=&quot;00/00/0000&quot; /&gt;
+</pre>
+
     <h3>Customization</h3>
     Teach to jQuery Mask Plugin how to apply your mask: <br/><br/>
 
-    <pre>
+<pre>
 // now the digit 0 on your mask pattern will be interpreted 
 // as valid characters like 0,1,2,3,4,5,6,7,8,9 and *
 $('.your-field').mask('00/00/0000', {'translation': {0: '[0-9*]'}});
-    </pre>
+</pre>
 
     By default, jQuery Mask Plugin only reconizes the logical digit A (Numbers and Letters) and S (A-Za-z) but
     you can extend or modify this behaviour by telling to jQuery Mask Plugin how to interpret those logical digits. <br/><br/>
 
-    <pre>
+<pre>
 $('.your-field').mask('AA/SS/YYYY', {'translation': 
                                       {A: '[A-Za-z0-9]', S: '[A-Za-z]',  Y: '[0-9]'}
                                     });
-    </pre>
+</pre>
     Now jQuery Mask Plugin knows the logic digit Y and you can create you own pattern. <br/><br/>
 
     <h4>Optional digits</h4>  <br/>
 
     You can also tell to jQuery Mask which digit is optional, to create a IP mask for example: <br/><br/>
 
-    <pre>
+<pre>
 // way 1
 $('.ip_address').mask('0{1,3}.0{1,3}.0{1,3}.0{1,3}');
 // way 2
@@ -224,5 +179,56 @@ $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': "[0-9]?"}});
 <br clear="all" />
 
 </div>
+
+<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.mask.min.js"></script>
+
+<script type="text/javascript">
+  $(function() {
+    $('.date').mask('99/99/9999');
+    $('.time').mask('99:99:99');
+    $('.date_time').mask('99/99/9999 99:99:99');
+    $('.cep').mask('99999-999');
+    $('.phone').mask('9999-9999');
+    $('.phone_with_ddd').mask('(99) 9999-9999');
+    $('.phone_us').mask('(999) 999-9999');
+    $('.mixed').mask('AAA 000-S0S');
+    $('.ip_address').mask('0{1,3}.0{1,3}.0{1,3}.0{1,3}');
+
+    $('.cep_with_callback').mask('00000-000', {onComplete: function(cep) {
+        console.log('Mask is done!:', cep);
+      },
+       onKeyPress: function(cep, event, currentField, options){
+        console.log('An key was pressed!:', cep, ' event: ', event, 'currentField: ', currentField.attr('class'), ' options: ', options);
+      }
+    });
+
+    $('.crazy_cep').mask('00000-000', {onKeyPress: function(cep){
+      var masks = ['00000-000', '0-00-00-00'];
+        mask = (cep.length>7) ? masks[1] : masks[0];
+      $('.crazy_cep').mask(mask, this);
+    }});
+
+    $('.cpf').mask('999.999.999-99', {reverse: true});
+    $('.money').mask('000.000.000.000.000,00', {reverse: true});
+
+    var SaoPauloCelphoneMask = function(phone, e, currentField, options){
+      return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? '(00) 00000-0000' : '(00) 0000-0000';
+    };
+
+    $(".sp_celphones").mask(SaoPauloCelphoneMask, { onKeyPress: function(phone, e, currentField, options){
+      if (phone) $(currentField).mask(SaoPauloCelphoneMask(phone), options);
+    }});
+
+    $(".bt-mask-it").click(function(){
+      $(".mask-on-div").mask("000.000.000-00");
+      $(".mask-on-div").fadeOut(500).fadeIn(500)
+    })
+
+    $('pre').each(function(i, e) {hljs.highlightBlock(e)});
+  });
+</script>
 </body>
 </html>
