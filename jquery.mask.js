@@ -235,7 +235,7 @@
                     typeof options.onKeyPress == "function")
                         options.onKeyPress(newVal, e, $el, options);
 
-                if (options.onComplete && e.isTrigger === undefined &&
+                if (options.onComplete && e.isTrigger === undefined && newVal &&
                     newVal.length === mask.length && typeof options.onComplete == "function")
                         options.onComplete(newVal, e, $el, options);
             }
