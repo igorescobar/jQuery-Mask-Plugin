@@ -4,3 +4,4 @@ img/*
 js/*
 node_modules/
 .sparkleshare
+libpeerconnection.log
