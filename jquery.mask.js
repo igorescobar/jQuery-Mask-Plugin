@@ -73,26 +73,13 @@
                 }, 100);
             },
             setOnPaste: function() {
-
-                if(__p.hasOnSupport()) {
-
-                    $el.on("paste", __p.onPasteMethod)
-
-                }else{
-                    $el = $el.get(0);
-                    $el.addEventListener ?
-                        $el.addEventListener("paste", __p.onPasteMethod, false) :
-                        $el.attachEvent("paste", __p.onPasteMethod);
-                }
+                $el.bind("paste", __p.onPasteMethod);
             },
             setOnKeyUp: function() {
                 $el.keyup(__p.maskBehaviour).trigger('keyup');
             },
-            hasOnSupport: function() {
-                return $.isFunction($().on);
-            },
             destroyEvents: function() {
-                $el.unbind('keyup').unbind('onpaste');
+                $el.unbind('keyup').unbind('paste');
             },
             resolveMask: function() {
                 return typeof mask == "function" ? mask(__p.getVal(), e, options) : mask;
