@@ -101,7 +101,7 @@
                 e = e || window.event;
                 var keyCode = e.keyCode || e.which;
 
-                if ($.inArray(keyCode, plugin.settings.byPassKeys) > -1) return true;
+                if ($.inArray(keyCode, plugin.settings.byPassKeys) > -1) return __p.seekCallbacks(e, newVal);
 
                 var newVal = __p.applyMask(mask);
 
