@@ -237,6 +237,11 @@
           __p.setVal(__p.removeMaskChars(__p.getVal()));
           $el.removeAttr('maxlength');
         };
+        
+        //get value without mask
+        plugin.getTypedValue = function() {
+          return __p.removeMaskChars(__p.getVal());
+        };
 
         plugin.init();
     };
