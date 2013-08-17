@@ -4,6 +4,7 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-qunit": "*",
+    "grunt-contrib-connect": "*",
     "grunt-contrib-uglify": "*"
   }
 }
