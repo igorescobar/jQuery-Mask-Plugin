@@ -1,0 +1,1 @@
+Altered "ignored keys" hook to run events (i.e. onKeyPress) afterwards. Otherwise, we miss key triggered events when the user deletes the entire text box, etc.
