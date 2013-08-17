@@ -154,7 +154,6 @@ $(document).ready(function(){
       equal( typeTest("123.456.789-00"), "123.456.789-00");
       equal( typeTest("123.456.789-00"), "123.456.789-00");
       equal( typeTest("123.456.789a00"), "123.456.789-00");
-
     });
 
     module('Removing mask');
@@ -167,7 +166,16 @@ $(document).ready(function(){
       testfield.data('mask').remove();
       equal( testfield.val(), "1299999999");
       equal( testfield.attr('maxlength'), undefined);
+    });
 
+    module('Getting Unmasked Value');
+
+    test("when I get the unmasked value", function(){
+      testfield.mask('(00) 0000-0000');
+
+      equal( typeTest("1299999999"), "(12) 9999-9999");
+
+      equal( testfield.data('mask').getCleanVal(), "1299999999");
     });
 
     module('personalized settings')
@@ -270,43 +278,43 @@ $(document).ready(function(){
 
     test("#getMask - Normal", function(){
       testfield.mask('(00) 0000-0000');
-      equal(testfield.data('mask').__p.getMask('0'), '(00) 0000-0000');
-      equal(testfield.data('mask').__p.getMask('000000'), '(00) 0000-0000');
-      equal(testfield.data('mask').__p.getMask('0000000000'), '(00) 0000-0000');
+      equal(testfield.data('mask').p.getMask('0'), '(00) 0000-0000');
+      equal(testfield.data('mask').p.getMask('000000'), '(00) 0000-0000');
+      equal(testfield.data('mask').p.getMask('0000000000'), '(00) 0000-0000');
     });
 
     test("#getMask - Reverse", function(){
       testfield.mask('000.000.000-00', {reverse: true});
-      equal(testfield.data('mask').__p.getMask('0'), '0');
-      equal(testfield.data('mask').__p.getMask('00'), '00');
-      equal(testfield.data('mask').__p.getMask('000'), '0-00');
-      equal(testfield.data('mask').__p.getMask('0000'), '00-00');
-      equal(testfield.data('mask').__p.getMask('00000'), '000-00');
-      equal(testfield.data('mask').__p.getMask('000000'), '0.000-00');
-      equal(testfield.data('mask').__p.getMask('0000000'), '00.000-00');
-      equal(testfield.data('mask').__p.getMask('00000000'), '000.000-00');
-      equal(testfield.data('mask').__p.getMask('000000000'), '0.000.000-00');
-      equal(testfield.data('mask').__p.getMask('0000000000'), '00.000.000-00');
-      equal(testfield.data('mask').__p.getMask('00000000000'), '000.000.000-00');
+      equal(testfield.data('mask').p.getMask('0'), '0');
+      equal(testfield.data('mask').p.getMask('00'), '00');
+      equal(testfield.data('mask').p.getMask('000'), '0-00');
+      equal(testfield.data('mask').p.getMask('0000'), '00-00');
+      equal(testfield.data('mask').p.getMask('00000'), '000-00');
+      equal(testfield.data('mask').p.getMask('000000'), '0.000-00');
+      equal(testfield.data('mask').p.getMask('0000000'), '00.000-00');
+      equal(testfield.data('mask').p.getMask('00000000'), '000.000-00');
+      equal(testfield.data('mask').p.getMask('000000000'), '0.000.000-00');
+      equal(testfield.data('mask').p.getMask('0000000000'), '00.000.000-00');
+      equal(testfield.data('mask').p.getMask('00000000000'), '000.000.000-00');
 
-      equal(testfield.data('mask').__p.getMask('0'), '0');
-      equal(testfield.data('mask').__p.getMask('00'), '00');
-      equal(testfield.data('mask').__p.getMask('0-00'), '0-00');
-      equal(testfield.data('mask').__p.getMask('00-00'), '00-00');
-      equal(testfield.data('mask').__p.getMask('000-00'), '000-00');
-      equal(testfield.data('mask').__p.getMask('0.000-00'), '0.000-00');
-      equal(testfield.data('mask').__p.getMask('00.000-00'), '00.000-00');
-      equal(testfield.data('mask').__p.getMask('000.000-00'), '000.000-00');
-      equal(testfield.data('mask').__p.getMask('0.000.000-00'), '0.000.000-00');
-      equal(testfield.data('mask').__p.getMask('00.000.000-00'), '00.000.000-00');
-      equal(testfield.data('mask').__p.getMask('000.000.000-00'), '000.000.000-00');
+      equal(testfield.data('mask').p.getMask('0'), '0');
+      equal(testfield.data('mask').p.getMask('00'), '00');
+      equal(testfield.data('mask').p.getMask('0-00'), '0-00');
+      equal(testfield.data('mask').p.getMask('00-00'), '00-00');
+      equal(testfield.data('mask').p.getMask('000-00'), '000-00');
+      equal(testfield.data('mask').p.getMask('0.000-00'), '0.000-00');
+      equal(testfield.data('mask').p.getMask('00.000-00'), '00.000-00');
+      equal(testfield.data('mask').p.getMask('000.000-00'), '000.000-00');
+      equal(testfield.data('mask').p.getMask('0.000.000-00'), '0.000.000-00');
+      equal(testfield.data('mask').p.getMask('00.000.000-00'), '00.000.000-00');
+      equal(testfield.data('mask').p.getMask('000.000.000-00'), '000.000.000-00');
     });
 
     test("#maskToRegex", function(){
       testfield.mask('(00) 0000-0000');
-      equal(testfield.data('mask').__p.maskToRegex('01/23/4567'), "(\\d)?(\\d)?(/)?(\\d)?(\\d)?(/)?(\\d)?(\\d)?(\\d)?(\\d)?");
-      equal(testfield.data('mask').__p.maskToRegex('AA/SS'), "([a-zA-Z0-9])?([a-zA-Z0-9])?(/)?([a-zA-Z])?([a-zA-Z])?");
-      equal(testfield.data('mask').__p.maskToRegex(':-.()/,_ +'), "(:)?(-)?(\\\.)?(\\()?(\\))?(/)?(,)?(_)?(\\s)?(\\\+)?");
+      equal(testfield.data('mask').p.maskToRegex('01/23/4567'), "(\\d)?(\\d)?(/)?(\\d)?(\\d)?(/)?(\\d)?(\\d)?(\\d)?(\\d)?");
+      equal(testfield.data('mask').p.maskToRegex('AA/SS'), "([a-zA-Z0-9])?([a-zA-Z0-9])?(/)?([a-zA-Z])?([a-zA-Z])?");
+      equal(testfield.data('mask').p.maskToRegex(':-.()/,_ +'), "(:)?(-)?(\\\.)?(\\()?(\\))?(/)?(,)?(_)?(\\s)?(\\\+)?");
     });
 
 
