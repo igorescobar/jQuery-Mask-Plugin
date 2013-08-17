@@ -238,9 +238,9 @@
           $el.removeAttr('maxlength');
         };
         
-        //get value without mask
-        plugin.getTypedValue = function() {
-          return __p.removeMaskChars(__p.getVal());
+        // get value without mask
+        jMask.getCleanVal = function() {
+          return p.removeMaskChars(p.getVal());
         };
 
         jMask.init();
