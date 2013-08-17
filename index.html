@@ -8,10 +8,16 @@
   <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen">
   <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
 
+  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+  <!-- <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'> -->
+  <!-- <link href='http://fonts.googleapis.com/css?family=Cabin+Condensed' rel='stylesheet' type='text/css'> -->
   <style type="text/css">
-  .container {width:773px;}
-    h1 .jq-label {font-size: 40px; color: #CFCFCF; display:block;margin:20px 0px 18px 6px;}
-    h1 .plugin-name {font-size:80px; color: #6BBEC7;}
+    * {font-family: 'Lato', sans-serif;}
+    .container {width:773px;}
+    h1 {margin-bottom:10px}
+    h1 .jq-label {font-size: 35px; color: #CFCFCF; display:block;margin:21px 2px 40px 13px;}
+    h1 .plugin-name {font-size:144px; color: #6BBEC7;}
+    span.subtitle {margin-bottom:20px;}
     div#examples div.col {width:246px;float:left;}
 
     div#examples div.col.center {text-align:center;}
@@ -23,7 +29,7 @@
 <body>
   <div class="container">
   <h1><span class="jq-label">jQuery</span> <span class="plugin-name">Mask Plugin</span></h1>
-  <span class="subltitle">A jQuery Plugin to make masks on form fields and html elements.</span> <br /> <br />
+  <span class="subtitle">A jQuery Plugin to make masks on form fields and html elements.</span> <br /> <br />
   <h2>Demonstrations</h2> 
 
   <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -74,8 +80,8 @@
   </form>
   <br clear="all"/><br clear="all"/><br clear="all"/>
   <div id="code-samples">
-    <h2>Code Samples</h2>
-    <h3>Basic Examples</h3>
+    <h1>Documentation</h1>
+    <h2>Basic Usage Examples</h2>
 <pre>
 $(document).ready(function(){
   $('.date').mask('11/11/1111');
@@ -132,8 +138,25 @@ $(".sp_celphones").mask(SaoPauloCelphoneMask);
 &lt;input type=&quot;text&quot; name=&quot;field-name&quot; data-mask=&quot;00/00/0000&quot; /&gt;
 </pre>
 
-    <h3>Customization</h3>
-    Teach to jQuery Mask Plugin how to apply your mask: <br/><br/>
+<h2>Customization</h2>
+
+jQuery Mask Plugin has a few default options that you can overwrite as you like:
+
+<pre>
+var custom_options = {
+  byPassKeys: [8, 9, 37, 38, 39, 40],
+  maskChars: {':': ':', '-': '-', '.': '\\\.', '(': '\\(', ')': '\\)', '/': '\/', ',': ',', '_': '_', ' ': '\\s', '+': '\\\+'},
+  translationNumbers: {0: '\\d', 1: '\\d', 2: '\\d', 3: '\\d', 4: '\\d', 5: '\\d', 6: '\\d', 7: '\\d', 8: '\\d', 9: '\\d'},
+  translation: {'A': '[a-zA-Z0-9]', 'S': '[a-zA-Z]'}
+};</pre>
+<strong> byPassKeys </strong> list of keyboard's <a href="http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes" target="_blank">keyCode</a> that you want to be ignored when it was pressed. <br />
+<strong> maskChars </strong> object that stores all special characters that jQuery Mask Plugin will interpret as a mask digit. <br />
+<strong> translationNumbers </strong> object with all digits that should be interpred as a common digit. <br />
+<strong> translation </strong> object with all digits that should be interpreted as a special chars and its regex representation. <br />
+
+<br />
+<h3>Translation</h3>
+Teach to jQuery Mask Plugin how to apply your mask: <br/><br/>
 
 <pre>
 // now the digit 0 on your mask pattern will be interpreted 
