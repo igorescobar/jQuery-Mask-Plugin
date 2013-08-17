@@ -49,14 +49,15 @@
             jMask = $.extend(true, {}, jMask, options);
             jMask.specialChars = $.extend({}, jMask.maskChars, jMask.translation);
 
-            mask = p.resolveMask();
-            mask = p.fixRangeMask(mask);
+            el.each(function() {
+                mask = p.resolveMask();
+                mask = p.fixRangeMask(mask);
 
-            el.attr('maxlength', mask.length).attr('autocomplete', 'off');
-
-            p.destroyEvents();
-            p.keyUp();
-            p.paste();
+                el.attr('maxlength', mask.length).attr('autocomplete', 'off');
+                p.destroyEvents();
+                p.keyUp();
+                p.paste();
+            });
         };
 
         var p = {
