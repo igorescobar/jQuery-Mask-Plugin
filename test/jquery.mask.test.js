@@ -272,8 +272,6 @@ $(document).ready(function(){
     
     });
 
-
-
     module('Testing private methods');
 
     test("#getMask - Normal", function(){

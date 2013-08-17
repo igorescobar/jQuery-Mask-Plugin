@@ -33,85 +33,74 @@
 
 (function ($) {
     "use strict";
-    var  e;
     var Mask = function (el, mask, options) {
         var jMask = this,
-            $el = $(el),
-            defaults = {
-                byPassKeys: [8, 9, 37, 38, 39, 40],
-                maskChars: {':': ':', '-': '-', '.': '\\\.', '(': '\\(', ')': '\\)', '/': '\/', ',': ',', '_': '_', ' ': '\\s', '+': '\\\+'},
-                translationNumbers: {0: '\\d', 1: '\\d', 2: '\\d', 3: '\\d', 4: '\\d', 5: '\\d', 6: '\\d', 7: '\\d', 8: '\\d', 9: '\\d'},
-                translation: {'A': '[a-zA-Z0-9]', 'S': '[a-zA-Z]'}
-            };
-
-
+            el = $(el);
+                
         jMask.init = function() {
-            jMask.settings = {};
             options = options || {};
 
-            defaults.translation = $.extend({}, defaults.translation, defaults.translationNumbers)
-            jMask.settings = $.extend(true, {}, defaults, options);
-            jMask.settings.specialChars = $.extend({}, jMask.settings.maskChars, jMask.settings.translation);
+            jMask.byPassKeys = [8, 9, 37, 38, 39, 40];
+            jMask.maskChars = {':': ':', '-': '-', '.': '\\\.', '(': '\\(', ')': '\\)', '/': '\/', ',': ',', '_': '_', ' ': '\\s', '+': '\\\+'};
+            jMask.translationNumbers = {0: '\\d', 1: '\\d', 2: '\\d', 3: '\\d', 4: '\\d', 5: '\\d', 6: '\\d', 7: '\\d', 8: '\\d', 9: '\\d'};
+            jMask.translation = {'A': '[a-zA-Z0-9]', 'S': '[a-zA-Z]'};
 
-            $el.each(function() {
-                mask = p.resolveMask();
-                mask = p.fixRangeMask(mask);
+            jMask.translation = $.extend({}, jMask.translation, jMask.translationNumbers);
+            jMask = $.extend(true, {}, jMask, options);
+            jMask.specialChars = $.extend({}, jMask.maskChars, jMask.translation);
 
-                $el.attr('maxlength', mask.length);
-                $el.attr('autocomplete', 'off');
+            mask = p.resolveMask();
+            mask = p.fixRangeMask(mask);
 
-                p.destroyEvents();
-                p.setOnKeyUp();
-                p.setOnPaste();
-            });
+            el.attr('maxlength', mask.length).attr('autocomplete', 'off');
+
+            p.destroyEvents();
+            p.keyUp();
+            p.paste();
         };
 
         var p = {
-            onPasteMethod: function() {
-                setTimeout(function() {
-                    $el.trigger('keyup');
-                }, 100);
+            paste: function() {
+                el.bind("paste", function() {
+                    setTimeout(function() {
+                        el.trigger('keyup');
+                    }, 100);
+                });
             },
-            setOnPaste: function() {
-                $el.bind("paste", p.onPasteMethod);
-            },
-            setOnKeyUp: function() {
-                $el.keyup(p.maskBehaviour).trigger('keyup');
+            keyUp: function() {
+                el.keyup(p.maskBehaviour).trigger('keyup');
             },
             destroyEvents: function() {
-                $el.unbind('keyup').unbind('paste');
+                el.unbind();
             },
             resolveMask: function() {
-                return typeof mask == "function" ? mask(p.getVal(), e, options) : mask;
+                return typeof mask == "function" ? mask(p.val(), options) : mask;
             },
-            setVal: function(v) {
-                $el.get(0).tagName.toLowerCase() === "input" ? $el.val(v) : $el.html(v);
-                return $el;
-            },
-            getVal: function() {
-                return $el.get(0).tagName.toLowerCase() === "input" ? $el.val() : $el.text();
+            val: function(v) {
+                var input = el.get(0).tagName.toLowerCase() === "input";
+                return arguments.length > 0 ? (input ? el.val(v) : el.text(v)) : (input ? el.val() : el.text());
             },
             specialChar: function (mask, pos) {
-                return jMask.settings.specialChars[mask.charAt(pos)];
+                return jMask.specialChars[mask.charAt(pos)];
             },
             maskChar: function (mask, pos) {
-                return jMask.settings.maskChars[mask.charAt(pos)];
+                return jMask.maskChars[mask.charAt(pos)];
             },
             maskBehaviour: function(e) {
                 e = e || window.event;
                 var keyCode = e.keyCode || e.which;
 
-                if ($.inArray(keyCode, jMask.settings.byPassKeys) > -1) return p.seekCallbacks(e, newVal);
+                if ($.inArray(keyCode, jMask.byPassKeys) > -1) return p.seekCallbacks(e, newVal);
 
                 var newVal = p.applyMask(mask);
 
-                if (newVal !== p.getVal())
-                    p.setVal(newVal).trigger('change');
+                if (newVal !== p.val())
+                    p.val(newVal).trigger('change');
 
                 return p.seekCallbacks(e, newVal);
             },
             applyMask: function (mask) {
-                if (p.getVal() === "") return;
+                if (p.val() === "") return;
 
                 var hasMore = function (entries, i) {
                     while (i < entries.length) {
@@ -122,13 +111,14 @@
                 },
                 getMatches = function (v) {
                     v = (typeof v === "string") ? v : v.join("");
+                    console.log(p.maskToRegex(mask))
                     var matches = v.match(new RegExp(p.maskToRegex(mask))) || [];
                     matches.shift();
                     return matches;
                 },
-                val = p.getVal(),
+                val = p.val(),
                 mask = p.getMask(val, mask),
-                val = options.reverse ? p.removeMaskChars(val) :  val, cDigitCharRegex,
+                val = options.reverse ? p.removeMaskChars(val) : val, cDigitCharRegex,
                 matches = getMatches(val);
 
                 // cleaning
@@ -199,32 +189,32 @@
                 return mask.replace(rangeRegex, function() {
                     var match = arguments,
                         mask = [],
-                        charStr = (jMask.settings.translationNumbers[match[1]]) ?
+                        charStr = (jMask.translationNumbers[match[1]]) ?
                                     String.fromCharCode(parseInt("6" + match[1], 16)) : match[1].toLowerCase();
 
                     mask[0] = match[1];
                     mask[1] = repeat(match[1], match[2] - 1);
                     mask[2] = repeat(charStr, match[3] - match[2]).toLowerCase();
 
-                    jMask.settings.specialChars[charStr] = p.specialChar(match[1]) + "?";
+                    jMask.specialChars[charStr] = p.specialChar(match[1]) + "?";
 
                     return mask.join("");
                 });
             },
             removeMaskChars: function(string) {
-                $.each(jMask.settings.maskChars, function(k,v){
-                    string = string.replace(new RegExp("(" + jMask.settings.maskChars[k] + ")?", 'g'), '')
+                $.each(jMask.maskChars, function(k,v){
+                    string = string.replace(new RegExp("(" + jMask.maskChars[k] + ")?", 'g'), '')
                 });
                 return string;
             },
             seekCallbacks: function (e, newVal) {
                 if (options.onKeyPress && e.isTrigger === undefined &&
                     typeof options.onKeyPress == "function")
-                        options.onKeyPress(newVal, e, $el, options);
+                        options.onKeyPress(newVal, e, el, options);
 
                 if (options.onComplete && e.isTrigger === undefined &&
                     newVal.length === mask.length && typeof options.onComplete == "function")
-                        options.onComplete(newVal, e, $el, options);
+                        options.onComplete(newVal, e, el, options);
             }
         };
 
@@ -234,13 +224,12 @@
         // public methods
         jMask.remove = function() {
           p.destroyEvents();
-          p.setVal(p.removeMaskChars(p.getVal()));
-          $el.removeAttr('maxlength');
+          p.val(p.removeMaskChars(p.val())).removeAttr('maxlength');
         };
         
         // get value without mask
         jMask.getCleanVal = function() {
-          return p.removeMaskChars(p.getVal());
+          return p.removeMaskChars(p.val());
         };
 
         jMask.init();
