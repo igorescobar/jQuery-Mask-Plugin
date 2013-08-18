@@ -62,17 +62,17 @@
 
         var p = {
             paste: function() {
-                el.bind("paste", function() {
+                el.on("paste", function() {
                     setTimeout(function() {
                         el.trigger('keyup');
                     }, 100);
                 });
             },
             keyUp: function() {
-                el.keyup(p.maskBehaviour).trigger('keyup');
+                el.on('keyup', p.maskBehaviour).trigger('keyup');
             },
             destroyEvents: function() {
-                el.unbind();
+                el.off();
             },
             resolveMask: function() {
                 return typeof mask == "function" ? mask(p.val(), options) : mask;
@@ -89,11 +89,11 @@
             },
             maskBehaviour: function(e) {
                 e = e || window.event;
-                var keyCode = e.keyCode || e.which;
+                var keyCode = e.keyCode || e.which,
+                    newVal = p.applyMask(mask);
+
 
                 if ($.inArray(keyCode, jMask.byPassKeys) > -1) return p.seekCallbacks(e, newVal);
-
-                var newVal = p.applyMask(mask);
 
                 if (newVal !== p.val())
                     p.val(newVal).trigger('change');

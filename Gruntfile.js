@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         	all: {
 				options: {
 		        	urls: [
-						'http://localhost:9001/test/index.html',
+						'http://localhost:9001/test/test-for-jquery.html',
 	        			'http://localhost:9001/test/test-for-zepto.html'
         			]
     			}

@@ -35,7 +35,7 @@ http://igorescobar.github.io/jQuery-Mask-Plugin/
   * [Mascara Javascript para os novos telefones de São Paulo](http://bit.ly/mascara-javascript-para-os-novos-telefones-de-sao-paulo)
 
 ## Compatibility
-jQuery Mask Plugin has been tested with jQuery 1.4+ on all major browsers:
+jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
 
  * Firefox 2+ (Win, Mac, Linux);
  * IE7+ (Win);
