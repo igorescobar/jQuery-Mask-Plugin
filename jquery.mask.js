@@ -92,8 +92,8 @@
                 var keyCode = e.keyCode || e.which,
                     newVal = p.applyMask(mask);
 
-
-                if ($.inArray(keyCode, jMask.byPassKeys) > -1) return p.seekCallbacks(e, newVal);
+                if ($.inArray(keyCode, jMask.byPassKeys) > -1) 
+                    return p.seekCallbacks(e, newVal);
 
                 if (newVal !== p.val())
                     p.val(newVal).trigger('change');
