@@ -184,7 +184,7 @@
                 var repeat = function (str, num) {
                     return new Array(num + 1).join(str);
                 },
-                rangeRegex = /([A-Z0-9])\{(\d+)?,([(\d+)])\}/g;
+                rangeRegex = /([A-Z0-9])\{(\d+)?,(\d+)\}/g;
 
                 return mask.replace(rangeRegex, function() {
                     var match = arguments,

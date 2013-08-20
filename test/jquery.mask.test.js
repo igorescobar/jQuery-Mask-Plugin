@@ -256,6 +256,15 @@ $(document).ready(function(){
       equal( typeTest('0-'), '0');
     });
 
+    test("Masks with range with optional letters ", function(){
+      testfield.mask('A{4,20}');
+
+      equal( typeTest('aa'), 'aa');
+      equal( typeTest('abcd'), 'abcd');
+      equal( typeTest('abcd123456abcd123456'), 'abcd123456abcd123456');
+      equal( typeTest('abcd123456abcd1234567'), 'abcd123456abcd123456');
+    });
+
     test("when aplying mask on a element different than a form field",function(){
       testdiv.mask('000.000.000-00', {reverse: true});
 
