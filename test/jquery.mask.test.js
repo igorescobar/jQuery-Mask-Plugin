@@ -54,19 +54,17 @@ $(document).ready(function(){
 
       var masks = ['0000.0000', '0.0000.0000']; 
       var SPphoneMask = function(phone){
-        return phone.length < 9 ? masks[0] : masks[1];
+        return phone.length < 8 ? masks[0] : masks[1];
       };
-       
-      testfield.mask(SPphoneMask, {onKeyPress: function(phone, e, currentField, options){
+      
+      testfield.val('');
+      testfield.mask(SPphoneMask, {onChange: function(phone, e, currentField, options){
         $(currentField).mask(SPphoneMask(phone), options);
       }});
 
       equal( typeTest(""), "");
       equal( typeTest("12345"), "1234.5");
-      equal( typeTest("123456"), "1234.56");
-      equal( typeTest("1234567"), "1234.567");
-      // equal( typeTest("12345678"), "1.2345.678");
-      // equal( typeTest("123456789"), "1.2345.6789");
+      equal( typeTest("123456789"), "1.2345.678");
      
     });
 
@@ -210,8 +208,8 @@ $(document).ready(function(){
       testfield.mask('(00) 0000-0000');
 
       equal( typeTest("1299999999"), "(12) 9999-9999");
-
-      equal( testfield.data('mask').getCleanVal(), "1299999999");
+      testfield.unmask()
+      equal( testfield.val(), "1299999999");
     });
 
     module('personalized settings')

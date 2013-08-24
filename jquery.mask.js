@@ -36,10 +36,12 @@
     var Mask = function (el, mask, options) {
         var jMask = this,
             el = $(el);
+        
+        mask = typeof mask == "function" ? mask(el.val(), options) : mask;
 
         jMask.init = function() {
             options = options || {};
-
+            
             jMask.byPassKeys = [8, 9, 37, 38, 39, 40, 46];
             jMask.translation = {
                 '0': {pattern: /\d/}, 
@@ -52,8 +54,6 @@
             jMask = $.extend(true, {}, jMask, options);
 
             el.each(function() {
-                p.resolveMask();
-
                 el.attr('maxlength', mask.length).attr('autocomplete', 'off');
                 p.destroyEvents();
                 p.events();
@@ -63,6 +63,7 @@
         var p = {
             events: function() {
                 el.on('keyup.mask', p.behaviour).keyup();
+                el.on('change.mask', options.onChange);
                 el.on("paste.mask", function() {
                     setTimeout(function() {
                         el.keyup();
@@ -70,23 +71,18 @@
                 });
             },
             destroyEvents: function() {
-                el.off("keyup.mask").off("paste.mask");
-            },
-            resolveMask: function() {
-                mask = typeof mask == "function" ? mask(p.val(), options) : mask;
+                el.off("keyup.mask").off("paste.mask").off('change.mask');
             },
             val: function(v) {
                 var input = el.get(0).tagName.toLowerCase() === "input";
                 return arguments.length > 0 ? (input ? el.val(v) : el.text(v)) : (input ? el.val() : el.text());
             },
             behaviour: function(e) {
-                var newVal = p.getMasked(mask);
+                var newVal = p.getMasked();
                 e = e || window.event;
-
-                if ($.inArray(e.keyCode || e.which, jMask.byPassKeys) === -1 && newVal !== p.val())
-                    p.val(newVal).change();
-
-                return p.seekCallbacks(e, newVal);
+                
+                if ($.inArray(e.keyCode || e.which, jMask.byPassKeys) === -1) 
+                    return p.callbacks(e, newVal);
             },
             getMasked: function () {
                 var buf = [],
@@ -115,8 +111,8 @@
                         translationMaskDigit = jMask.translation[maskDigit],
                         valDigit = value.charAt(v);
 
-                    if (translationMaskDigit){
-                        if (valDigit.match(translationMaskDigit.pattern)){
+                    if (translationMaskDigit) {
+                        if (valDigit.match(translationMaskDigit.pattern)) {
                             buf[addMethod](valDigit);
                             m += offset;
                         } else if (translationMaskDigit.optional == true) {
@@ -133,17 +129,18 @@
                 }
                 return buf.join("");
             },
-            removeMaskChars: function(string) {
-                var buf = [];
-                for (var m = 0; m < mask.length; m++){
-                    if (jMask.translation[mask.charAt(m)]) {
-                        buf["push"](string.charAt(m));
-                    }
+            callbacks: function (e, newVal) {
+                var changed = false;
+                
+                if (newVal !== p.val()) {
+                    p.val(newVal);
+                    changed = true;
                 }
-                return buf.join("");
-            },
-            seekCallbacks: function (e, newVal) {
-                if (!e.isTrigger && typeof options.onKeyPress == "function")
+
+                if (changed === true && typeof options.onChange == "function")
+                    options.onChange(newVal, e, el, options);
+                
+                if (typeof options.onKeyPress == "function")
                     options.onKeyPress(newVal, e, el, options);
 
                 if (typeof options.onComplete === "function" && newVal.length === mask.length)
@@ -154,12 +151,18 @@
         // public methods
         jMask.remove = function() {
           p.destroyEvents();
-          p.val(p.removeMaskChars(p.val())).removeAttr('maxlength');
+          p.val(jMask.getCleanVal()).removeAttr('maxlength');
         };
         
         // get value without mask
         jMask.getCleanVal = function() {
-          return p.removeMaskChars(p.val());
+            var buf = [],
+                string = p.val();
+            for (var m = 0, mLen = mask.length; m < mLen; m++) {
+                if (jMask.translation[mask.charAt(m)])
+                    buf["push"](string.charAt(m));
+            }
+            return buf.join("");
         };
 
         jMask.init();
@@ -167,7 +170,13 @@
 
     $.fn.mask = function(mask, options) {
         return this.each(function() {
-            $(this).data('mask', new Mask(this, mask, options));
+            $(this).data('mask', new Mask(this, mask, options));    
+        });
+    };
+
+    $.fn.unmask = function() {
+        return this.each(function() {
+            $(this).data('mask').remove();
         });
     };
 
