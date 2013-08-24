@@ -37,15 +37,6 @@
         var jMask = this,
             el = $(el);
 
-        jMask.reMask = function (m, opt){
-            mask = m;
-            options = opt;
-            jMask.init();
-            var val = p.applyMask();
-            if (val !== p.val())
-                p.val(val);
-        };
-
         jMask.init = function() {
             options = options || {};
 
@@ -71,7 +62,7 @@
 
         var p = {
             events: function() {
-                el.on('keyup.mask', p.maskBehaviour);
+                el.on('keyup.mask', p.behaviour).keyup();
                 el.on("paste.mask", function() {
                     setTimeout(function() {
                         el.keyup();
@@ -88,8 +79,8 @@
                 var input = el.get(0).tagName.toLowerCase() === "input";
                 return arguments.length > 0 ? (input ? el.val(v) : el.text(v)) : (input ? el.val() : el.text());
             },
-            maskBehaviour: function(e) {
-                var newVal = p.applyMask(mask);
+            behaviour: function(e) {
+                var newVal = p.getMasked(mask);
                 e = e || window.event;
 
                 if ($.inArray(e.keyCode || e.which, jMask.byPassKeys) === -1 && newVal !== p.val())
@@ -97,7 +88,7 @@
 
                 return p.seekCallbacks(e, newVal);
             },
-            applyMask: function () {
+            getMasked: function () {
                 var buf = [],
                     value = p.val(),
                     m = 0, maskLen = mask.length,
@@ -152,10 +143,10 @@
                 return buf.join("");
             },
             seekCallbacks: function (e, newVal) {
-                if (options.onKeyPress && typeof options.onKeyPress == "function")
+                if (!e.isTrigger && typeof options.onKeyPress == "function")
                     options.onKeyPress(newVal, e, el, options);
 
-                if (options.onComplete && newVal.length === mask.length && typeof options.onComplete === "function")
+                if (typeof options.onComplete === "function" && newVal.length === mask.length)
                     options.onComplete(newVal, e, el, options);
             }
         };
@@ -176,13 +167,7 @@
 
     $.fn.mask = function(mask, options) {
         return this.each(function() {
-            var dataMask = $(this).data('mask');
-            if (typeof dataMask === "object") {
-                $(this).data('mask').reMask(mask, options);
-            } else {
-                $(this).data('mask', new Mask(this, mask, options));    
-            }
-            
+            $(this).data('mask', new Mask(this, mask, options));
         });
     };
 
