@@ -65,7 +65,7 @@ $(document).ready(function(){
       equal( typeTest("12345"), "1234.5");
       equal( typeTest("123456"), "1234.56");
       equal( typeTest("1234567"), "1234.567");
-      equal( typeTest("12345678"), "1234.5678");
+      equal( typeTest("12345678"), "1.2345.678");
       equal( typeTest("123456789"), "1.2345.6789");
      
     });

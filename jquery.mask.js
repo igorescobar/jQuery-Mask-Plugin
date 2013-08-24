@@ -37,6 +37,15 @@
         var jMask = this,
             el = $(el);
 
+        jMask.reMask = function (m, opt){
+            mask = m;
+            options = opt;
+            jMask.init();
+            var val = p.applyMask();
+            if (val !== p.val())
+                p.val(val);
+        };
+
         jMask.init = function() {
             options = options || {};
 
@@ -167,7 +176,13 @@
 
     $.fn.mask = function(mask, options) {
         return this.each(function() {
-            $(this).data('mask', new Mask(this, mask, options));
+            var dataMask = $(this).data('mask');
+            if (typeof dataMask === "object") {
+                $(this).data('mask').reMask(mask, options);
+            } else {
+                $(this).data('mask', new Mask(this, mask, options));    
+            }
+            
         });
     };
 
