@@ -217,14 +217,14 @@ $(document).ready(function(){
     module('personalized settings')
 
     test("when adding more itens to the table translation",function(){
-      testfield.mask('00/00/0000', {'translation': {0: /[0-9*]/}});
+      testfield.mask('00/00/0000', {'translation': {0: {pattern: /[0-9*]/}}});
 
       equal( typeTest('12/34/5678'), '12/34/5678');
       equal( typeTest('**/34/5678'), '**/34/5678');
     });
 
     test("when adding more itens to the table translation #2",function(){
-      testfield.mask('00/YY/0000', {'translation': {'Y': /[0-9*]/}});
+      testfield.mask('00/YY/0000', {'translation': {'Y': {pattern: /[0-9*]/}}});
 
       equal( typeTest('12/34/5678'), '12/34/5678');
       equal( typeTest('12/**/5678'), '12/**/5678');
