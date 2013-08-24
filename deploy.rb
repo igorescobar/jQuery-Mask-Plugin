@@ -59,6 +59,6 @@ puts '# PUSHING CHANGES TO REMOTE'
 `git pull --rebase && git push`
 
 puts '# CREATING NEW VERSION'
-`stepup version create --level major --no-editor`
+`stepup version create --no-editor`
 
 puts '# DONE'
