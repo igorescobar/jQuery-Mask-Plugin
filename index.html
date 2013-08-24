@@ -86,15 +86,16 @@
 $(document).ready(function(){
   $('.date').mask('11/11/1111');
   $('.time').mask('00:00:00');
-  $('.date_time').mask('99/99/9999 00:00:00');
-  $('.cep').mask('99999-999');
-  $('.phone').mask('9999-9999');
-  $('.phone_with_ddd').mask('(99) 9999-9999');
-  $('.phone_us').mask('(999) 999-9999');
+  $('.date_time').mask('00/00/0000 00:00:00');
+  $('.cep').mask('00000-000');
+  $('.phone').mask('0000-0000');
+  $('.phone_with_ddd').mask('(00) 0000-0000');
+  $('.phone_us').mask('(000) 000-0000');
   $('.mixed').mask('AAA 000-S0S');
-  $('.cpf').mask('999.999.999-99', {reverse: true});
+  $('.cpf').mask('000.000.000-00', {reverse: true});
   $('.money').mask('000.000.000.000.000,00', {reverse: true});
-  $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': "[0-9]?"}});
+  $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': {pattern: /[0-9]/, optional: true}});
+  $('.ip_address').mask('099.099.099.099');
 );</pre>
 
     <h3>Callback Examples</h3>
@@ -144,14 +145,15 @@ jQuery Mask Plugin has a few default options that you can overwrite as you like:
 
 <pre>
 var custom_options = {
-  byPassKeys: [8, 9, 37, 38, 39, 40, 46],
-  maskChars: {':': ':', '-': '-', '.': '\\\.', '(': '\\(', ')': '\\)', '/': '\/', ',': ',', '_': '_', ' ': '\\s', '+': '\\\+'},
-  translationNumbers: {0: '\\d', 1: '\\d', 2: '\\d', 3: '\\d', 4: '\\d', 5: '\\d', 6: '\\d', 7: '\\d', 8: '\\d', 9: '\\d'},
-  translation: {'A': '[a-zA-Z0-9]', 'S': '[a-zA-Z]'}
+  byPassKeys: [8, 9, 37, 38, 39, 40],
+  translation: {
+                '0': {pattern: /\d/}, 
+                '9': {pattern: /\d/, optional: true}, 
+                'A': {pattern: /[a-zA-Z0-9]/}, 
+                'S': {pattern: /[a-zA-Z]/}
+            };
 };</pre>
 <strong> byPassKeys </strong> list of keyboard's <a href="http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes" target="_blank">keyCode</a> that you want to be ignored when it was pressed. <br />
-<strong> maskChars </strong> object that stores all special characters that jQuery Mask Plugin will interpret as a mask digit. <br />
-<strong> translationNumbers </strong> object with all digits that should be interpred as a common digit. <br />
 <strong> translation </strong> object with all digits that should be interpreted as a special chars and its regex representation. <br />
 
 <br />
@@ -161,16 +163,19 @@ Teach to jQuery Mask Plugin how to apply your mask: <br/><br/>
 <pre>
 // now the digit 0 on your mask pattern will be interpreted 
 // as valid characters like 0,1,2,3,4,5,6,7,8,9 and *
-$('.your-field').mask('00/00/0000', {'translation': {0: '[0-9*]'}});
+$('.your-field').mask('00/00/0000', {'translation': {0: {pattern: /[0-9*]/}});
 </pre>
 
     By default, jQuery Mask Plugin only reconizes the logical digit A (Numbers and Letters) and S (A-Za-z) but
     you can extend or modify this behaviour by telling to jQuery Mask Plugin how to interpret those logical digits. <br/><br/>
 
 <pre>
-$('.your-field').mask('AA/SS/YYYY', {'translation': 
-                                      {A: '[A-Za-z0-9]', S: '[A-Za-z]',  Y: '[0-9]'}
-                                    });
+$('.your-field').mask('AA/SS/YYYY', {'translation': {
+                                        A: {pattern: /[A-Za-z0-9]/}, 
+                                        S: {pattern: /[A-Za-z]/},  
+                                        Y: {pattern: /[0-9]/}
+                                      }
+                                });
 </pre>
     Now jQuery Mask Plugin knows the logic digit Y and you can create your own pattern. <br/><br/>
 
@@ -180,9 +185,9 @@ $('.your-field').mask('AA/SS/YYYY', {'translation':
 
 <pre>
 // way 1
-$('.ip_address').mask('0{1,3}.0{1,3}.0{1,3}.0{1,3}');
+$('.ip_address').mask('099.099.099.099');
 // way 2
-$('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': "[0-9]?"}});
+$('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': {pattern: /[0-9]/, optional: true}}});
 </pre>
 
     Now, all <strong>Z</strong> digits in your masks is optional.
@@ -195,7 +200,8 @@ $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': "[0-9]?"}});
 
     <h4>Default Mask Legend</h4>
     <ul>
-      <li><strong>0,1,3,4,5,6,7,8 or 9</strong>: Only Numbers</li>
+      <li><strong>0</strong>: Only Numbers</li>
+      <li><strong>9</strong>: Only Numbers but optional</li>
       <li><strong>A</strong>: Numbers and Letters</li>
       <li><strong>S</strong>: Only A-Z and a-z characters</li>
     </ul>
@@ -213,15 +219,15 @@ $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': "[0-9]?"}});
 
 <script type="text/javascript">
   $(function() {
-    $('.date').mask('99/99/9999');
-    $('.time').mask('99:99:99');
-    $('.date_time').mask('99/99/9999 99:99:99');
-    $('.cep').mask('99999-999');
-    $('.phone').mask('9999-9999');
-    $('.phone_with_ddd').mask('(99) 9999-9999');
-    $('.phone_us').mask('(999) 999-9999');
+    $('.date').mask('00/00/0000');
+    $('.time').mask('00:00:00');
+    $('.date_time').mask('00/00/0000 00:00:00');
+    $('.cep').mask('00000-000');
+    $('.phone').mask('0000-0000');
+    $('.phone_with_ddd').mask('(00) 0000-0000');
+    $('.phone_us').mask('(000) 000-0000');
     $('.mixed').mask('AAA 000-S0S');
-    $('.ip_address').mask('0{1,3}.0{1,3}.0{1,3}.0{1,3}');
+    $('.ip_address').mask('099.099.099.099');
 
     $('.cep_with_callback').mask('00000-000', {onComplete: function(cep) {
         console.log('Mask is done!:', cep);
@@ -237,7 +243,7 @@ $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': "[0-9]?"}});
       $('.crazy_cep').mask(mask, this);
     }});
 
-    $('.cpf').mask('999.999.999-99', {reverse: true});
+    $('.cpf').mask('000.000.000-00', {reverse: true});
     $('.money').mask('000.000.000.000.000,00', {reverse: true});
 
     var SaoPauloCelphoneMask = function(phone, e, currentField, options){
