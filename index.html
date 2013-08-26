@@ -128,12 +128,12 @@ $('.crazy_cep').mask('00000-000', options);
 
     <h3>Mask as a function</h3>
 <pre>
-var SaoPauloCelphoneMask = function(phone, e, currentField, options){
+var celphoneMask = function(phone, e, currentField, options){
   return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? 
   '(00) 00000-0000' : '(00) 0000-0000';
 };
 
-$(".sp_celphones").mask(SaoPauloCelphoneMask);
+$(".sp_celphones").mask(celphoneMask);
 </pre>
     
     <h3>Mask using data-mask attribute</h3>
@@ -254,9 +254,7 @@ $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': {pattern: /[0-9]/,
       return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? '(00) 00000-0000' : '(00) 0000-0000';
     };
 
-    $(".sp_celphones").mask(SaoPauloCelphoneMask, { onKeyPress: function(phone, e, currentField, options){
-      if (phone) $(currentField).mask(SaoPauloCelphoneMask(phone), options);
-    }});
+    $(".sp_celphones").mask('(00) 90000-0000');
 
     $(".bt-mask-it").click(function(){
       $(".mask-on-div").mask("000.000.000-00");
