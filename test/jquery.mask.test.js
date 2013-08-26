@@ -7,10 +7,10 @@ $(document).ready(function(){
         typeTest = function (typedValue, obj) {
           obj = typeof obj === "undefined" ? testfield : obj;
 
-          return obj.val(typedValue).keyup().val();
+          return obj.keydown().val(typedValue).keyup().val();
         },
         typeDivTest = function(typedValue){
-          return testdiv.text(typedValue).trigger('keyup').text();
+          return testdiv.keydown().text(typedValue).keyup().text();
         };
 
     module('Setting Up');
@@ -50,21 +50,49 @@ $(document).ready(function(){
 
     });
 
-    test("When I change the mask on-the-fly with callback things should work normally", function(){
+    test("When I change the mask on-the-fly with onChange callback things should work normally", function(){
 
       var masks = ['0000.0000', '0.0000.0000']; 
       var SPphoneMask = function(phone){
-        return phone.length < 8 ? masks[0] : masks[1];
+        return phone.length <= 8 ? masks[0] : masks[1];
       };
       
-      testfield.val('');
       testfield.mask(SPphoneMask, {onChange: function(phone, e, currentField, options){
         $(currentField).mask(SPphoneMask(phone), options);
       }});
 
-      equal( typeTest(""), "");
+      equal( typeTest("1"), "1");
+      equal( typeTest("12"), "12");
+      equal( typeTest("123"), "123");
+      equal( typeTest("1234"), "1234");
       equal( typeTest("12345"), "1234.5");
-      equal( typeTest("123456789"), "1.2345.678");
+      equal( typeTest("123456"), "1234.56");
+      equal( typeTest("1234567"), "1234.567");
+      equal( typeTest("12345678"), "1234.5678");
+      equal( typeTest("123456789"), "1.2345.6789");
+     
+    });
+
+    test("When I change the mask on-the-fly with onKeyPress callback things should work normally", function(){
+
+      var masks = ['0000.0000', '0.0000.0000']; 
+      var SPphoneMask = function(phone){
+        return phone.length <= 8 ? masks[0] : masks[1];
+      };
+      
+      testfield.mask(SPphoneMask, {onKeyPress: function(phone, e, currentField, options){
+        $(currentField).mask(SPphoneMask(phone), options);
+      }});
+
+      equal( typeTest("1"), "1");
+      equal( typeTest("12"), "12");
+      equal( typeTest("123"), "123");
+      equal( typeTest("1234"), "1234");
+      equal( typeTest("12345"), "1234.5");
+      equal( typeTest("123456"), "1234.56");
+      equal( typeTest("1234567"), "1234.567");
+      equal( typeTest("12345678"), "1234.5678");
+      equal( typeTest("123456789"), "1.2345.6789");
      
     });
 

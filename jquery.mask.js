@@ -35,7 +35,8 @@
     "use strict";
     var Mask = function (el, mask, options) {
         var jMask = this,
-            el = $(el);
+            el = $(el),
+            old_value;
         
         mask = typeof mask == "function" ? mask(el.val(), options) : mask;
 
@@ -62,27 +63,29 @@
 
         var p = {
             events: function() {
-                el.on('keyup.mask', p.behaviour).keyup();
-                el.on('change.mask', options.onChange);
+                el.on('keydown.mask', function(){
+                    old_value = p.val();
+                });
+                el.on('keyup.mask', p.behaviour);
                 el.on("paste.mask", function() {
                     setTimeout(function() {
-                        el.keyup();
+                        el.keydown().keyup();
                     }, 100);
                 });
             },
             destroyEvents: function() {
-                el.off("keyup.mask").off("paste.mask").off('change.mask');
+                el.off("keyup.mask").off("paste.mask").off('keydown.mask');
             },
             val: function(v) {
                 var input = el.get(0).tagName.toLowerCase() === "input";
                 return arguments.length > 0 ? (input ? el.val(v) : el.text(v)) : (input ? el.val() : el.text());
             },
             behaviour: function(e) {
-                var newVal = p.getMasked();
                 e = e || window.event;
-                
-                if ($.inArray(e.keyCode || e.which, jMask.byPassKeys) === -1) 
-                    return p.callbacks(e, newVal);
+                if ($.inArray(e.keyCode || e.which, jMask.byPassKeys) === -1) {
+                    p.val(p.getMasked());
+                    return p.callbacks(e);
+                }
             },
             getMasked: function () {
                 var buf = [],
@@ -129,22 +132,19 @@
                 }
                 return buf.join("");
             },
-            callbacks: function (e, newVal) {
-                var changed = false;
-                
-                if (newVal !== p.val()) {
-                    p.val(newVal);
-                    changed = true;
-                }
+            callbacks: function (e) {
+                var val = p.val(),
+                    changed = p.val() !== old_value;
+                if (changed === true){
+                    if (typeof options.onChange == "function")
+                        options.onChange(val, e, el, options);
+                } 
+                         
+                if (changed === true && typeof options.onKeyPress == "function")
+                    options.onKeyPress(val, e, el, options);
 
-                if (changed === true && typeof options.onChange == "function")
-                    options.onChange(newVal, e, el, options);
-                
-                if (typeof options.onKeyPress == "function")
-                    options.onKeyPress(newVal, e, el, options);
-
-                if (typeof options.onComplete === "function" && newVal.length === mask.length)
-                    options.onComplete(newVal, e, el, options);
+                if (typeof options.onComplete === "function" && val.length === mask.length)
+                    options.onComplete(val, e, el, options);
             }
         };
 
@@ -170,7 +170,7 @@
 
     $.fn.mask = function(mask, options) {
         return this.each(function() {
-            $(this).data('mask', new Mask(this, mask, options));    
+            $(this).data('mask', new Mask(this, mask, options));
         });
     };
 
