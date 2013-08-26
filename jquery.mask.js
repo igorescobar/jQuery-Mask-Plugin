@@ -58,12 +58,17 @@
                 el.attr('maxlength', mask.length).attr('autocomplete', 'off');
                 p.destroyEvents();
                 p.events();
+
+                // div, span, p etc
+                if (!p.isInput()){
+                   p.val(p.getMasked()); 
+                }
             });
         };
 
         var p = {
             events: function() {
-                el.on('keydown.mask', function(){
+                el.on('keydown.mask', function() {
                     old_value = p.val();
                 });
                 el.on('keyup.mask', p.behaviour);
@@ -74,11 +79,13 @@
                 });
             },
             destroyEvents: function() {
-                el.off("keyup.mask").off("paste.mask").off('keydown.mask');
+                el.off('keydown.mask').off("keyup.mask").off("paste.mask");
+            },
+            isInput: function() {
+                return el.get(0).tagName.toLowerCase() === "input"
             },
             val: function(v) {
-                var input = el.get(0).tagName.toLowerCase() === "input";
-                return arguments.length > 0 ? (input ? el.val(v) : el.text(v)) : (input ? el.val() : el.text());
+                return arguments.length > 0 ? (p.isInput() ? el.val(v) : el.text(v)) : (p.isInput() ? el.val() : el.text());
             },
             behaviour: function(e) {
                 e = e || window.event;
