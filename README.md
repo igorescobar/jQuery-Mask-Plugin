@@ -8,7 +8,7 @@ http://igorescobar.github.io/jQuery-Mask-Plugin/
 
 ##Features
 
-  * Lightweight (~2kb).
+  * Lightweight (~2kb minified, ~1kb gziped).
   * Masks on any HTML element!
   * data-mask attribute support.
   * String/Numeric/Alpha/Mixed masks.
