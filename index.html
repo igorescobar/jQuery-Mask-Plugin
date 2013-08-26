@@ -100,17 +100,21 @@ $(document).ready(function(){
 
     <h3>Callback Examples</h3>
 <pre>
-var options =  { onComplete: function(cep) {
-  alert('Mask is done!:' + cep);
-},
-onKeyPress: function(cep, event, currentField, options){
-  console.log('An key was pressed!:', cep, ' event: ', event, 
-              'currentField: ', currentField, ' options: ', options);
-}};
+var options =  { 
+  onComplete: function(cep) {
+    alert('CEP Completed!:' + cep);
+  },
+  onKeyPress: function(cep, event, currentField, options){
+    console.log('An key was pressed!:', cep, ' event: ', event, 
+                'currentField: ', currentField, ' options: ', options);
+  },
+  onChange: function(cep){
+    console.log('cep changed! ', cep);
+  }
+};
 
 $('.cep_with_callback').mask('00000-000', options);
 </pre>
-
     <h3>On-the-fly mask change</h3>
 <pre>
 var options =  {onKeyPress: function(cep){
