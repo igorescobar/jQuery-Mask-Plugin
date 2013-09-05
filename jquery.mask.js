@@ -58,11 +58,7 @@
                 el.attr('maxlength', mask.length).attr('autocomplete', 'off');
                 p.destroyEvents();
                 p.events();
-
-                // div, span, p etc
-                if (!p.isInput()){
-                   p.val(p.getMasked()); 
-                }
+                p.val(p.getMasked()); 
             });
         };
 

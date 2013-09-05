@@ -52,9 +52,9 @@ $(document).ready(function(){
 
     test("When I change the mask on-the-fly with onChange callback things should work normally", function(){
 
-      var masks = ['0000.0000', '0.0000.0000']; 
+      var masks = ['0000.00009', '0.0000.0000']; 
       var SPphoneMask = function(phone){
-        return phone.length <= 8 ? masks[0] : masks[1];
+        return phone.length <= 9 ? masks[0] : masks[1];
       };
       
       testfield.mask(SPphoneMask, {onChange: function(phone, e, currentField, options){
@@ -75,9 +75,9 @@ $(document).ready(function(){
 
     test("When I change the mask on-the-fly with onKeyPress callback things should work normally", function(){
 
-      var masks = ['0000.0000', '0.0000.0000']; 
+      var masks = ['0000.00009', '0.0000.0000']; 
       var SPphoneMask = function(phone){
-        return phone.length <= 8 ? masks[0] : masks[1];
+        return phone.length <= 9 ? masks[0] : masks[1];
       };
       
       testfield.mask(SPphoneMask, {onKeyPress: function(phone, e, currentField, options){
