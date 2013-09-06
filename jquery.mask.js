@@ -47,6 +47,7 @@
             jMask.translation = {
                 '0': {pattern: /\d/}, 
                 '9': {pattern: /\d/, optional: true}, 
+                '#': {pattern: /\d/, recursive: true}, 
                 'A': {pattern: /[a-zA-Z0-9]/}, 
                 'S': {pattern: /[a-zA-Z]/}
             };
@@ -77,11 +78,9 @@
             destroyEvents: function() {
                 el.off('keydown.mask').off("keyup.mask").off("paste.mask");
             },
-            isInput: function() {
-                return el.get(0).tagName.toLowerCase() === "input"
-            },
             val: function(v) {
-                return arguments.length > 0 ? (p.isInput() ? el.val(v) : el.text(v)) : (p.isInput() ? el.val() : el.text());
+                var isInput = el.get(0).tagName.toLowerCase() === "input";
+                return arguments.length > 0 ? (isInput ? el.val(v) : el.text(v)) : (isInput ? el.val() : el.text());
             },
             behaviour: function(e) {
                 e = e || window.event;
@@ -96,11 +95,14 @@
                     m = 0, maskLen = mask.length,
                     v = 0, valLen = value.length,
                     offset = 1, addMethod = "push",
+                    resetPos = -1,
+                    lastMaskChar,
                     check;
 
                 if (options.reverse) {
                     addMethod = "unshift";
                     offset = -1;
+                    lastMaskChar = 0;
                     m = maskLen - 1;
                     v = valLen - 1;
                     check = function () {
@@ -120,8 +122,16 @@
                     if (translationMaskDigit) {
                         if (valDigit.match(translationMaskDigit.pattern)) {
                             buf[addMethod](valDigit);
+                             if (translationMaskDigit.recursive === true) {
+                                 el.removeAttr('maxlength');
+                                if (resetPos == -1) {
+                                    resetPos = m;   
+                                } else if (m == lastMaskChar) {
+                                    m = resetPos - offset;
+                                }
+                            }
                             m += offset;
-                        } else if (translationMaskDigit.optional == true) {
+                        } else if (translationMaskDigit.optional === true) {
                             m += offset;
                             v -= offset;
                         }

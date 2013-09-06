@@ -218,6 +218,29 @@ $(document).ready(function(){
       equal( typeTest("123.456.789a00"), "123.456.789-00");
     });
 
+  test("Testing Reverse numbers with recursive mask", function(){
+    testfield.mask("#.##0,00", {reverse: true});
+
+    equal(typeTest("1"), "1");
+    equal(typeTest(""), "");
+    equal(typeTest("1"), "1");
+    equal(typeTest("12"), "12");
+    equal(typeTest("123"), "1,23");
+    equal(typeTest("1,234"), "12,34");
+    equal(typeTest("12,345"), "123,45");
+    equal(typeTest("123,456"), "1.234,56");
+    equal(typeTest("1.234,567"), "12.345,67");
+    equal(typeTest("12.345,678"), "123.456,78");
+    equal(typeTest("123.456,789"), "1.234.567,89");
+    equal(typeTest("1.234.567,890"), "12.345.678,90");
+    equal(typeTest("12.345.678,901"), "123.456.789,01");
+    equal(typeTest("123.456.789,012"), "1.234.567.890,12");
+    equal(typeTest("1.234.567.890,1"), "123.456.789,01");
+    equal(typeTest("123.456.789,0"), "12.345.678,90");
+    equal(typeTest("12.345.678,9"), "1.234.567,89");
+    equal(typeTest("1.234.567,8"), "123.456,78");
+  });
+    
     module('Removing mask');
 
     test("when disabling a simple mask", function(){
