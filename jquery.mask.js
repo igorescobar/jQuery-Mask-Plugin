@@ -117,8 +117,8 @@
 
                 while (check()) { 
                     var maskDigit = mask.charAt(m),
-                        translation = jMask.translation[maskDigit],
-                        valDigit = value.charAt(v);
+                        valDigit = value.charAt(v),
+                        translation = jMask.translation[maskDigit];
 
                     if (translation) {
                         if (valDigit.match(translation.pattern)) {
