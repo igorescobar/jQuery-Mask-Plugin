@@ -221,7 +221,6 @@ $(document).ready(function(){
   test("Testing Reverse numbers with recursive mask", function(){
     testfield.mask("#.##0,00", {reverse: true});
 
-    equal(typeTest("1"), "1");
     equal(typeTest(""), "");
     equal(typeTest("1"), "1");
     equal(typeTest("12"), "12");
@@ -241,91 +240,100 @@ $(document).ready(function(){
     equal(typeTest("1.234.567,8"), "123.456,78");
   });
     
-    module('Removing mask');
+  test("Testing numbers with recursive mask", function(){
+    // testfield.mask("0#");
 
-    test("when disabling a simple mask", function(){
-      testfield.mask('(00) 0000-0000');
-
-      equal( typeTest("1299999999"), "(12) 9999-9999");
-
-      testfield.data('mask').remove();
-      equal( testfield.val(), "1299999999");
-      equal( testfield.attr('maxlength'), undefined);
-    });
-
-    module('Getting Unmasked Value');
-
-    test("when I get the unmasked value", function(){
-      testfield.mask('(00) 0000-0000');
-
-      equal( typeTest("1299999999"), "(12) 9999-9999");
-      testfield.unmask()
-      equal( testfield.val(), "1299999999");
-    });
-
-    module('personalized settings')
-
-    test("when adding more itens to the table translation",function(){
-      testfield.mask('00/00/0000', {'translation': {0: {pattern: /[0-9*]/}}});
-
-      equal( typeTest('12/34/5678'), '12/34/5678');
-      equal( typeTest('**/34/5678'), '**/34/5678');
-    });
-
-    test("when adding more itens to the table translation #2",function(){
-      testfield.mask('00/YY/0000', {'translation': {'Y': {pattern: /[0-9*]/}}});
-
-      equal( typeTest('12/34/5678'), '12/34/5678');
-      equal( typeTest('12/**/5678'), '12/**/5678');
-    });
-
-    test("when adding opcional chars",function(){
-      testfield.mask('099.099.099.099');
-
-      equal( typeTest('0.0.0.0'), '0.0.0.0');
-      equal( typeTest('00.00.00.00'), '00.00.00.00');
-      equal( typeTest('00.000.00.000'), '00.000.00.000');
-      equal( typeTest('000.00.000.00'), '000.00.000.00');
-      equal( typeTest('000.000.000.000'), '000.000.000.000');
-      equal( typeTest('000000000000'), '000.000.000.000');
-      equal( typeTest('0'), '0');
-      equal( typeTest('00'), '00');
-      equal( typeTest('00.'), '00.');
-      equal( typeTest('00.0'), '00.0');
-      equal( typeTest('00.00'), '00.00');
-      equal( typeTest('00.00.'), '00.00.');
-      equal( typeTest('00.00.000'), '00.00.000');
-      equal( typeTest('00.00.000.'), '00.00.000.');
-      equal( typeTest('00.00.000.0'), '00.00.000.0');
-      equal( typeTest('00..'), '00.');
-    });
-
-    test("when aplying mask on a element different than a form field",function(){
-      testdiv.mask('000.000.000-00', {reverse: true});
-
-      equal( typeDivTest('12312312312'), '123.123.123-12');
-      equal( typeDivTest('123.123.123-12'), '123.123.123-12');
-      equal( typeDivTest('123.123a123-12'), '123.123.123-12');
-      equal( typeDivTest('191'), '1-91');
-
-      testdiv.mask('00/00/0000');
-      equal( typeDivTest('000000'), '00/00/00');
-      equal( typeDivTest('00000000'), '00/00/0000');
-      equal( typeDivTest('00/00/0000'), '00/00/0000');
-      equal( typeDivTest('0a/00/0000'), '00/00/000');
-    
-    });
-
-    module('Testing data-mask attribute support');
-    
-    test("Testing data-mask attribute", function(){
-      equal( typeTest("00/", testfieldDataMask), "00/");
-      equal( typeTest("00a", testfieldDataMask), "00/");
-      equal( typeTest("00a00/00", testfieldDataMask), "00/00/00");
-      equal( typeTest("0a/00/00", testfieldDataMask), "00/00/0");
-      equal( typeTest("0a/0a/00", testfieldDataMask), "00/00");
-      equal( typeTest("00000000", testfieldDataMask), "00/00/0000");
-    });
-
-
+    // equal(typeTest(""), "");
+    // equal(typeTest("1"), "1");
+    // equal(typeTest("12"), "12");
+    // equal(typeTest("123"), "1.23");
+    // equal(typeTest("1234"), "1234");
+    // equal(typeTest("12345"), "12345");
   });
+  
+  module('Removing mask');
+
+  test("when disabling a simple mask", function(){
+    testfield.mask('(00) 0000-0000');
+
+    equal( typeTest("1299999999"), "(12) 9999-9999");
+
+    testfield.data('mask').remove();
+    equal( testfield.val(), "1299999999");
+    equal( testfield.attr('maxlength'), undefined);
+  });
+
+  module('Getting Unmasked Value');
+
+  test("when I get the unmasked value", function(){
+    testfield.mask('(00) 0000-0000');
+
+    equal( typeTest("1299999999"), "(12) 9999-9999");
+    testfield.unmask()
+    equal( testfield.val(), "1299999999");
+  });
+
+  module('personalized settings')
+
+  test("when adding more itens to the table translation",function(){
+    testfield.mask('00/00/0000', {'translation': {0: {pattern: /[0-9*]/}}});
+
+    equal( typeTest('12/34/5678'), '12/34/5678');
+    equal( typeTest('**/34/5678'), '**/34/5678');
+  });
+
+  test("when adding more itens to the table translation #2",function(){
+    testfield.mask('00/YY/0000', {'translation': {'Y': {pattern: /[0-9*]/}}});
+
+    equal( typeTest('12/34/5678'), '12/34/5678');
+    equal( typeTest('12/**/5678'), '12/**/5678');
+  });
+
+  test("when adding opcional chars",function(){
+    testfield.mask('099.099.099.099');
+
+    equal( typeTest('0.0.0.0'), '0.0.0.0');
+    equal( typeTest('00.00.00.00'), '00.00.00.00');
+    equal( typeTest('00.000.00.000'), '00.000.00.000');
+    equal( typeTest('000.00.000.00'), '000.00.000.00');
+    equal( typeTest('000.000.000.000'), '000.000.000.000');
+    equal( typeTest('000000000000'), '000.000.000.000');
+    equal( typeTest('0'), '0');
+    equal( typeTest('00'), '00');
+    equal( typeTest('00.'), '00.');
+    equal( typeTest('00.0'), '00.0');
+    equal( typeTest('00.00'), '00.00');
+    equal( typeTest('00.00.'), '00.00.');
+    equal( typeTest('00.00.000'), '00.00.000');
+    equal( typeTest('00.00.000.'), '00.00.000.');
+    equal( typeTest('00.00.000.0'), '00.00.000.0');
+    equal( typeTest('00..'), '00.');
+  });
+
+  test("when aplying mask on a element different than a form field",function(){
+    testdiv.mask('000.000.000-00', {reverse: true});
+
+    equal( typeDivTest('12312312312'), '123.123.123-12');
+    equal( typeDivTest('123.123.123-12'), '123.123.123-12');
+    equal( typeDivTest('123.123a123-12'), '123.123.123-12');
+    equal( typeDivTest('191'), '1-91');
+
+    testdiv.mask('00/00/0000');
+    equal( typeDivTest('000000'), '00/00/00');
+    equal( typeDivTest('00000000'), '00/00/0000');
+    equal( typeDivTest('00/00/0000'), '00/00/0000');
+    equal( typeDivTest('0a/00/0000'), '00/00/000');
+  
+  });
+
+  module('Testing data-mask attribute support');
+  
+  test("Testing data-mask attribute", function(){
+    equal( typeTest("00/", testfieldDataMask), "00/");
+    equal( typeTest("00a", testfieldDataMask), "00/");
+    equal( typeTest("00a00/00", testfieldDataMask), "00/00/00");
+    equal( typeTest("0a/00/00", testfieldDataMask), "00/00/0");
+    equal( typeTest("0a/0a/00", testfieldDataMask), "00/00");
+    equal( typeTest("00000000", testfieldDataMask), "00/00/0000");
+  });
+});
