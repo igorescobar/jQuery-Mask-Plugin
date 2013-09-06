@@ -241,16 +241,58 @@ $(document).ready(function(){
   });
     
   test("Testing numbers with recursive mask", function(){
-    // testfield.mask("0#");
+    testfield.mask("0#.#");
 
-    // equal(typeTest(""), "");
-    // equal(typeTest("1"), "1");
-    // equal(typeTest("12"), "12");
-    // equal(typeTest("123"), "1.23");
-    // equal(typeTest("1234"), "1234");
-    // equal(typeTest("12345"), "12345");
+    equal(typeTest(""), "");
+    equal(typeTest("1"), "1");
+    equal(typeTest("12"), "12");
+    equal(typeTest("12."), "12.");
+    equal(typeTest("12.3"), "12.3");
+    equal(typeTest("12.34"), "12.34");
+    equal(typeTest("12.345"), "12.34.5");
+    equal(typeTest("12.34.5."), "12.34.5");
+    equal(typeTest("12.34.56"), "12.34.56");
+    equal(typeTest("12.34.567"), "12.34.56.7");
+    equal(typeTest("12.34.56."), "12.34.56.");
+    equal(typeTest("12.34.56"), "12.34.56");
+    equal(typeTest("12.34.5"), "12.34.5");
   });
   
+  test("Testing numbers with recursive mask with one #", function(){
+    testfield.mask("0#", {});
+
+    equal(typeTest(""), "");
+    equal(typeTest("1"), "1");
+    equal(typeTest("12"), "12");
+    equal(typeTest("12"), "12");
+    equal(typeTest("123"), "123");
+    equal(typeTest("1234"), "1234");
+    equal(typeTest("12345"), "12345");
+    equal(typeTest("12345"), "12345");
+    equal(typeTest("123456"), "123456");
+    equal(typeTest("1234567"), "1234567");
+    equal(typeTest("123456."), "123456");
+    equal(typeTest("123456"), "123456");
+    equal(typeTest("12345"), "12345");
+  });
+  test("Testing numbers with recursive mask with one # and reverse", function(){
+    testfield.mask("#0", {reverse: true});
+
+    equal(typeTest(""), "");
+    equal(typeTest("1"), "1");
+    equal(typeTest("12"), "12");
+    equal(typeTest("12"), "12");
+    equal(typeTest("123"), "123");
+    equal(typeTest("1234"), "1234");
+    equal(typeTest("12345"), "12345");
+    equal(typeTest("12345"), "12345");
+    equal(typeTest("123456"), "123456");
+    equal(typeTest("1234567"), "1234567");
+    equal(typeTest("123456."), "123456");
+    equal(typeTest("123456"), "123456");
+    equal(typeTest("12345"), "12345");
+  });
+
   module('Removing mask');
 
   test("when disabling a simple mask", function(){

@@ -109,6 +109,7 @@
                         return m > -1 && v > -1;
                     };
                 } else {
+                    lastMaskChar = maskLen - 1;
                     check = function () {
                         return m < maskLen && v < valLen
                     };
@@ -116,13 +117,13 @@
 
                 while (check()) { 
                     var maskDigit = mask.charAt(m),
-                        translationMaskDigit = jMask.translation[maskDigit],
+                        translation = jMask.translation[maskDigit],
                         valDigit = value.charAt(v);
 
-                    if (translationMaskDigit) {
-                        if (valDigit.match(translationMaskDigit.pattern)) {
+                    if (translation) {
+                        if (valDigit.match(translation.pattern)) {
                             buf[addMethod](valDigit);
-                             if (translationMaskDigit.recursive === true) {
+                             if (translation.recursive) {
                                  el.removeAttr('maxlength');
                                 if (resetPos == -1) {
                                     resetPos = m;   
@@ -131,7 +132,7 @@
                                 }
                             }
                             m += offset;
-                        } else if (translationMaskDigit.optional === true) {
+                        } else if (translation.optional) {
                             m += offset;
                             v -= offset;
                         }
