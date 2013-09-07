@@ -111,7 +111,7 @@
                 } else {
                     lastMaskChar = maskLen - 1;
                     check = function () {
-                        return m < maskLen && v < valLen
+                        return m < maskLen && v < valLen;
                     };
                 }
 
@@ -130,7 +130,8 @@
                                 } else if (m == lastMaskChar) {
                                     m = resetPos - offset;
                                 }
-                                if (lastMaskChar == resetPos) m -= offset;
+                                if (lastMaskChar == resetPos) 
+                                    m -= offset;
                             }
                             m += offset;
                         } else if (translation.optional) {
