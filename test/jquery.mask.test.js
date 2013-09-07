@@ -264,7 +264,6 @@ $(document).ready(function(){
     equal(typeTest(""), "");
     equal(typeTest("1"), "1");
     equal(typeTest("12"), "12");
-    equal(typeTest("12"), "12");
     equal(typeTest("123"), "123");
     equal(typeTest("1234"), "1234");
     equal(typeTest("12345"), "12345");
@@ -280,7 +279,6 @@ $(document).ready(function(){
 
     equal(typeTest(""), "");
     equal(typeTest("1"), "1");
-    equal(typeTest("12"), "12");
     equal(typeTest("12"), "12");
     equal(typeTest("123"), "123");
     equal(typeTest("1234"), "1234");
