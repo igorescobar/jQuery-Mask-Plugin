@@ -94,6 +94,7 @@ $(document).ready(function(){
   $('.mixed').mask('AAA 000-S0S');
   $('.cpf').mask('000.000.000-00', {reverse: true});
   $('.money').mask('000.000.000.000.000,00', {reverse: true});
+  $('.money2').mask("#.##0,00", {reverse: true});
   $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': {pattern: /[0-9]/, optional: true}});
   $('.ip_address').mask('099.099.099.099');
 );</pre>
@@ -153,6 +154,7 @@ var custom_options = {
   translation: {
                 '0': {pattern: /\d/}, 
                 '9': {pattern: /\d/, optional: true}, 
+                '#': {pattern: /\d/, recursive: true}, 
                 'A': {pattern: /[a-zA-Z0-9]/}, 
                 'S': {pattern: /[a-zA-Z]/}
             };
@@ -194,7 +196,17 @@ $('.ip_address').mask('099.099.099.099');
 $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': {pattern: /[0-9]/, optional: true}}});
 </pre>
 
-    Now, all <strong>Z</strong> digits in your masks is optional.
+    Now, all <strong>Z</strong> digits in your masks is optional. <br /> <br />
+
+    <h4>Recursive digits</h4> <br/>
+
+    With jQuery Mask Plugin you can also define recursive patterns inside your mask: <br/><br/>
+    <pre>$('.money_example').mask('#.##0,00', {reverse: true});</pre>
+    With example above the mask will be placed from the right to the left (that's why reverse:true is defined). As soon as you start typing, a "0,00" will be applied followed by repeating recursively the following pattern "#.##". The result could be something like: 1.234.567,890. <br /><br />
+
+    You can also use that kind of feature to define what kind of data could be typed inside of a field:
+    <pre>$('.example').mask('0#');</pre>
+    Now only numbers will be allowed inside your form field and no maxlength will be set.
 
     <br/><br /><h3>Removing the mask</h3>
     <pre>$('.date').unmask();</pre>
@@ -204,10 +216,11 @@ $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': {pattern: /[0-9]/,
 
     <h4>Default Mask Legend</h4>
     <ul>
-      <li><strong>0</strong>: Only Numbers</li>
-      <li><strong>9</strong>: Only Numbers but optional</li>
-      <li><strong>A</strong>: Numbers and Letters</li>
-      <li><strong>S</strong>: Only A-Z and a-z characters</li>
+      <li><strong>0</strong>: Only Numbers.</li>
+      <li><strong>9</strong>: Only Numbers but optional.</li>
+      <li><strong>#</strong>: Only Numbers but recusive.</li>
+      <li><strong>A</strong>: Numbers and Letters.</li>
+      <li><strong>S</strong>: Only A-Z and a-z characters.</li>
     </ul>
 
   </div>
@@ -248,7 +261,7 @@ $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': {pattern: /[0-9]/,
     }});
 
     $('.cpf').mask('000.000.000-00', {reverse: true});
-    $('.money').mask('000.000.000.000.000,00', {reverse: true});
+    $('.money').mask('#.##0,00', {reverse: true});
 
     var SaoPauloCelphoneMask = function(phone, e, currentField, options){
       return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? '(00) 00000-0000' : '(00) 0000-0000';
