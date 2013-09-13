@@ -56,7 +56,10 @@
             jMask = $.extend(true, {}, jMask, options);
 
             el.each(function() {
-                el.attr('maxlength', mask.length).attr('autocomplete', 'off');
+                if (options.maxlength !== false)
+                    el.attr('maxlength', mask.length);
+                
+                el.attr('autocomplete', 'off');
                 p.destroyEvents();
                 p.events();
                 p.val(p.getMasked()); 
@@ -124,7 +127,6 @@
                         if (valDigit.match(translation.pattern)) {
                             buf[addMethod](valDigit);
                              if (translation.recursive) {
-                                 el.removeAttr('maxlength');
                                 if (resetPos == -1) {
                                     resetPos = m;   
                                 } else if (m == lastMaskChar) {
