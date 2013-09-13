@@ -94,7 +94,7 @@ $(document).ready(function(){
   $('.mixed').mask('AAA 000-S0S');
   $('.cpf').mask('000.000.000-00', {reverse: true});
   $('.money').mask('000.000.000.000.000,00', {reverse: true});
-  $('.money2').mask("#.##0,00", {reverse: true});
+  $('.money2').mask("#.##0,00", {reverse: true, maxlength: false});
   $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': {pattern: /[0-9]/, optional: true}});
   $('.ip_address').mask('099.099.099.099');
 );</pre>
@@ -261,7 +261,7 @@ $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': {pattern: /[0-9]/,
     }});
 
     $('.cpf').mask('000.000.000-00', {reverse: true});
-    $('.money').mask('#.##0,00', {reverse: true});
+    $('.money').mask('#.##0,00', {reverse: true, maxlength: false});
 
     var SaoPauloCelphoneMask = function(phone, e, currentField, options){
       return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? '(00) 00000-0000' : '(00) 0000-0000';
