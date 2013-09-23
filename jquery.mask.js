@@ -37,18 +37,18 @@
         var jMask = this,
             el = $(el),
             old_value;
-        
+
         mask = typeof mask == "function" ? mask(el.val(), options) : mask;
 
         jMask.init = function() {
             options = options || {};
-            
+
             jMask.byPassKeys = [8, 9, 37, 38, 39, 40, 46];
             jMask.translation = {
-                '0': {pattern: /\d/}, 
-                '9': {pattern: /\d/, optional: true}, 
-                '#': {pattern: /\d/, recursive: true}, 
-                'A': {pattern: /[a-zA-Z0-9]/}, 
+                '0': {pattern: /\d/},
+                '9': {pattern: /\d/, optional: true},
+                '#': {pattern: /\d/, recursive: true},
+                'A': {pattern: /[a-zA-Z0-9]/},
                 'S': {pattern: /[a-zA-Z]/}
             };
 
@@ -58,11 +58,11 @@
             el.each(function() {
                 if (options.maxlength !== false)
                     el.attr('maxlength', mask.length);
-                
+
                 el.attr('autocomplete', 'off');
                 p.destroyEvents();
                 p.events();
-                p.val(p.getMasked()); 
+                p.val(p.getMasked());
             });
         };
 
@@ -118,7 +118,7 @@
                     };
                 }
 
-                while (check()) { 
+                while (check()) {
                     var maskDigit = mask.charAt(m),
                         valDigit = value.charAt(v),
                         translation = jMask.translation[maskDigit];
@@ -128,11 +128,11 @@
                             buf[addMethod](valDigit);
                              if (translation.recursive) {
                                 if (resetPos == -1) {
-                                    resetPos = m;   
+                                    resetPos = m;
                                 } else if (m == lastMaskChar) {
                                     m = resetPos - offset;
                                 }
-                                if (lastMaskChar == resetPos) 
+                                if (lastMaskChar == resetPos)
                                     m -= offset;
                             }
                             m += offset;
@@ -156,8 +156,8 @@
                 if (changed === true){
                     if (typeof options.onChange == "function")
                         options.onChange(val, e, el, options);
-                } 
-                         
+                }
+
                 if (changed === true && typeof options.onKeyPress == "function")
                     options.onKeyPress(val, e, el, options);
 
@@ -171,7 +171,7 @@
           p.destroyEvents();
           p.val(jMask.getCleanVal()).removeAttr('maxlength');
         };
-        
+
         // get value without mask
         jMask.getCleanVal = function() {
             var buf = [],
@@ -200,7 +200,18 @@
 
     // looking for inputs with data-mask attribute
     $('input[data-mask]').each(function() {
-        $(this).mask($(this).attr('data-mask'));
+        var input = $(this),
+            options = {};
+
+        if (input.attr('data-mask-reverse') === 'true') {
+            options['reverse'] = true;
+        }
+
+        if (input.attr('data-mask-maxlength') === 'false') {
+            options['maxlength'] = false;
+        }
+
+        input.mask(input.attr('data-mask'), options);
     });
-   
+
 })(window.jQuery || window.Zepto);
