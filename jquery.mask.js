@@ -153,7 +153,7 @@
             callbacks: function (e) {
                 var val = p.val(),
                     changed = p.val() !== old_value;
-                if (changed === true){
+                if (changed === true) {
                     if (typeof options.onChange == "function")
                         options.onChange(val, e, el, options);
                 }
@@ -194,7 +194,10 @@
 
     $.fn.unmask = function() {
         return this.each(function() {
-            $(this).data('mask').remove();
+            try {
+                $(this).data('mask').remove();    
+            } catch (e) {}
+            
         });
     };
 
