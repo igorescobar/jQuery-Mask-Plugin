@@ -43,7 +43,7 @@
         jMask.init = function() {
             options = options || {};
 
-            jMask.byPassKeys = [8, 9, 16, 37, 38, 39, 40, 46, 91];
+            jMask.byPassKeys = [8, 9, 16, 36, 37, 38, 39, 40, 46, 91];
             jMask.translation = {
                 '0': {pattern: /\d/},
                 '9': {pattern: /\d/, optional: true},
