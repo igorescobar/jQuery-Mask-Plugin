@@ -38,7 +38,7 @@
             el = $(el),
             old_value;
 
-        mask = typeof mask == "function" ? mask(el.val(), options) : mask;
+        mask = typeof mask == "function" ? mask(el.val(), undefined, el,  options) : mask;
 
         jMask.init = function() {
             options = options || {};
