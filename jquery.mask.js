@@ -38,7 +38,7 @@
             el = $(el),
             old_value;
 
-        mask = typeof mask == "function" ? mask(el.val(), undefined, el,  options) : mask;
+        mask = typeof mask === "function" ? mask(el.val(), undefined, el,  options) : mask;
 
         jMask.init = function() {
             options = options || {};
@@ -127,12 +127,12 @@
                         if (valDigit.match(translation.pattern)) {
                             buf[addMethod](valDigit);
                              if (translation.recursive) {
-                                if (resetPos == -1) {
+                                if (resetPos === -1) {
                                     resetPos = m;
-                                } else if (m == lastMaskChar) {
+                                } else if (m === lastMaskChar) {
                                     m = resetPos - offset;
                                 }
-                                if (lastMaskChar == resetPos)
+                                if (lastMaskChar === resetPos)
                                     m -= offset;
                             }
                             m += offset;
@@ -143,7 +143,7 @@
                         v += offset;
                     } else {
                         buf[addMethod](maskDigit);
-                        if (valDigit == maskDigit)
+                        if (valDigit === maskDigit)
                             v += offset;
                         m += offset;
                     }
@@ -154,11 +154,11 @@
                 var val = p.val(),
                     changed = p.val() !== old_value;
                 if (changed === true) {
-                    if (typeof options.onChange == "function")
+                    if (typeof options.onChange === "function")
                         options.onChange(val, e, el, options);
                 }
 
-                if (changed === true && typeof options.onKeyPress == "function")
+                if (changed === true && typeof options.onKeyPress === "function")
                     options.onKeyPress(val, e, el, options);
 
                 if (typeof options.onComplete === "function" && val.length === mask.length)
