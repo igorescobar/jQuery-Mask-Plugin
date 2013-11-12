@@ -61,3 +61,4 @@ jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
  * Steve Binder
  * Douglas Patrocinio
  * Paulo Diogo Rodrigues Leão
+ * Amaro Mariño Malvido
