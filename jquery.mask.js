@@ -67,6 +67,39 @@
         };
 
         var p = {
+            getCaret: function () {
+                var sel,
+                    pos = 0,
+                    ctrl = el.get(0);
+
+                // IE Support
+                if (document.selection && navigator.appVersion.indexOf("MSIE 10") == -1) {
+                    ctrl.focus();
+                    sel = document.selection.createRange ();
+                    sel.moveStart ('character', -ctrl.value.length);
+                    pos = sel.text.length;
+                } 
+                // Firefox support
+                else if (ctrl.selectionStart || ctrl.selectionStart == '0') {
+                    pos = ctrl.selectionStart;
+                }
+                
+                return pos;
+            },
+            setCaret: function(pos) {
+                var range, ctrl = el.get(0);
+
+                if (ctrl.setSelectionRange) {
+                    ctrl.focus();
+                    ctrl.setSelectionRange(pos,pos);
+                } else if (ctrl.createTextRange) {
+                    range = ctrl.createTextRange();
+                    range.collapse(true);
+                    range.moveEnd('character', pos);
+                    range.moveStart('character', pos);
+                    range.select();
+                }
+            },
             events: function() {
                 el.on('keydown.mask', function() {
                     old_value = p.val();
