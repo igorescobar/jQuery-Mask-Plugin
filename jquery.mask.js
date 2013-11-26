@@ -121,7 +121,18 @@
             behaviour: function(e) {
                 e = e || window.event;
                 if ($.inArray(e.keyCode || e.which, jMask.byPassKeys) === -1) {
+                    
+                    var changeCaret, caretPos = p.getCaret();
+                    if (caretPos < p.val().length) {
+                        changeCaret = true;
+                    }
+                    
                     p.val(p.getMasked());
+                    
+                    if (changeCaret) {
+                        p.setCaret(caretPos);     
+                    }
+
                     return p.callbacks(e);
                 }
             },
