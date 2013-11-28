@@ -55,8 +55,9 @@
             jMask = $.extend(true, {}, jMask, options);
 
             el.each(function() {
-                if (options.maxlength !== false)
+                if (options.maxlength !== false) {
                     el.attr('maxlength', mask.length);
+                }
 
                 el.attr('autocomplete', 'off');
                 p.destroyEvents();
