@@ -34,9 +34,8 @@
 (function ($) {
     "use strict";
     var Mask = function (el, mask, options) {
-        var jMask = this,
-            el = $(el),
-            old_value;
+        var jMask = this, old_value;
+        el = $(el);
 
         mask = typeof mask === "function" ? mask(el.val(), undefined, el,  options) : mask;
 
@@ -73,14 +72,14 @@
                     ctrl = el.get(0);
 
                 // IE Support
-                if (document.selection && navigator.appVersion.indexOf("MSIE 10") == -1) {
+                if (document.selection && navigator.appVersion.indexOf("MSIE 10") === -1) {
                     ctrl.focus();
                     sel = document.selection.createRange ();
                     sel.moveStart ('character', -ctrl.value.length);
                     pos = sel.text.length;
                 } 
                 // Firefox support
-                else if (ctrl.selectionStart || ctrl.selectionStart == '0') {
+                else if (ctrl.selectionStart || ctrl.selectionStart === '0') {
                     pos = ctrl.selectionStart;
                 }
                 
@@ -176,8 +175,10 @@
                                 } else if (m === lastMaskChar) {
                                     m = resetPos - offset;
                                 }
-                                if (lastMaskChar === resetPos)
+
+                                if (lastMaskChar === resetPos) {
                                     m -= offset;
+                                }
                             }
                             m += offset;
                         } else if (translation.optional) {
@@ -187,8 +188,11 @@
                         v += offset;
                     } else {
                         buf[addMethod](maskDigit);
-                        if (valDigit === maskDigit)
+                        
+                        if (valDigit === maskDigit) {
                             v += offset;
+                        }
+
                         m += offset;
                     }
                 }
@@ -198,15 +202,18 @@
                 var val = p.val(),
                     changed = p.val() !== old_value;
                 if (changed === true) {
-                    if (typeof options.onChange === "function")
+                    if (typeof options.onChange === "function") {
                         options.onChange(val, e, el, options);
+                    }
                 }
 
-                if (changed === true && typeof options.onKeyPress === "function")
+                if (changed === true && typeof options.onKeyPress === "function") {
                     options.onKeyPress(val, e, el, options);
+                }
 
-                if (typeof options.onComplete === "function" && val.length === mask.length)
+                if (typeof options.onComplete === "function" && val.length === mask.length) {
                     options.onComplete(val, e, el, options);
+                }
             }
         };
 
@@ -221,8 +228,9 @@
             var buf = [],
                 string = p.val();
             for (var m = 0, mLen = mask.length; m < mLen; m++) {
-                if (jMask.translation[mask.charAt(m)])
+                if (jMask.translation[mask.charAt(m)]) {
                     buf["push"](string.charAt(m));
+                }
             }
             return buf.join("");
         };
