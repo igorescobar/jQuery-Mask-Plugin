@@ -3,6 +3,7 @@ $(document).ready(function(){
 
     var testfield = $('.simple-field'),
         testfieldDataMask = $('.simple-field-data-mask'),
+        testfieldDataMaskWithReverse = $('.simple-field-data-mask-reverse'),
         testdiv = $('.simple-div'),
         typeTest = function (typedValue, obj) {
           obj = typeof obj === "undefined" ? testfield : obj;
@@ -394,5 +395,11 @@ $(document).ready(function(){
     equal( typeTest("0a/00/00", testfieldDataMask), "00/00/0");
     equal( typeTest("0a/0a/00", testfieldDataMask), "00/00");
     equal( typeTest("00000000", testfieldDataMask), "00/00/0000");
+  });
+
+  test("Testing data-mask-reverse attribute", function(){
+    equal( typeTest("0000", testfieldDataMaskWithReverse), "00,00");
+    equal( typeTest("000000", testfieldDataMaskWithReverse), "0.000,00");
+    equal( typeTest("0000000000", testfieldDataMaskWithReverse), "00.000.000,00");
   });
 });
