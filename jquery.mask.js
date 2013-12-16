@@ -197,6 +197,11 @@
                         m += offset;
                     }
                 }
+                
+                if (maskLen == valLen + 1 && !jMask.translation[mask.charAt(lastMaskChar)]) {
+                    buf.push(mask.charAt(lastMaskChar));
+                }
+                
                 return buf.join("");
             },
             callbacks: function (e) {

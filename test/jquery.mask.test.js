@@ -125,6 +125,12 @@ $(document).ready(function(){
       equal( typeTest("00/00/0"), "00/00/0");
       equal( typeTest("00/00/00"), "00/00/00");
     });
+    
+    test("Testing masks with a literal on the last char", function () {
+      testfield.mask("(99)");
+      
+      equal( typeTest("(99"), "(99)");
+    });
 
 
     module('Masks with numbers and especial characters');
@@ -298,6 +304,11 @@ $(document).ready(function(){
     equal(typeTest("123456"), "123456");
     equal(typeTest("12345"), "12345");
   });
+  test("Testing reversible masks with a literal on the last char", function () {
+      testfield.mask("(99)");
+      
+      equal( typeTest("(99"), "(99)");
+    });
 
   module('Removing mask');
 
