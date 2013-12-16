@@ -165,7 +165,8 @@
                 while (check()) {
                     var maskDigit = mask.charAt(m),
                         valDigit = value.charAt(v),
-                        translation = jMask.translation[maskDigit];
+                        translation = jMask.translation[maskDigit],
+                        lastMaskCharDigit = mask.charAt(lastMaskChar);
 
                     if (translation) {
                         if (valDigit.match(translation.pattern)) {
@@ -198,8 +199,8 @@
                     }
                 }
                 
-                if (maskLen == valLen + 1 && !jMask.translation[mask.charAt(lastMaskChar)]) {
-                    buf.push(mask.charAt(lastMaskChar));
+                if (maskLen === valLen + 1 && !jMask.translation[lastMaskCharDigit]) {
+                    buf.push(lastMaskCharDigit);
                 }
                 
                 return buf.join("");
