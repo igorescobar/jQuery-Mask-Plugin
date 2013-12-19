@@ -165,8 +165,7 @@
                 while (check()) {
                     var maskDigit = mask.charAt(m),
                         valDigit = value.charAt(v),
-                        translation = jMask.translation[maskDigit],
-                        lastMaskCharDigit = mask.charAt(lastMaskChar);
+                        translation = jMask.translation[maskDigit];
 
                     if (translation) {
                         if (valDigit.match(translation.pattern)) {
@@ -201,6 +200,7 @@
                     }
                 }
                 
+                var lastMaskCharDigit = mask.charAt(lastMaskChar);
                 if (maskLen === valLen + 1 && !jMask.translation[lastMaskCharDigit]) {
                     buf.push(lastMaskCharDigit);
                 }
@@ -264,11 +264,11 @@
             options = {};
 
         if (input.attr('data-mask-reverse') === 'true') {
-            options['reverse'] = true;
+            options.reverse = true;
         }
 
         if (input.attr('data-mask-maxlength') === 'false') {
-            options['maxlength'] = false;
+            options.maxlength = false;
         }
 
         input.mask(input.attr('data-mask'), options);
