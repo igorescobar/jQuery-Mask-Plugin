@@ -234,14 +234,7 @@
 
         // get value without mask
         jMask.getCleanVal = function() {
-            var buf = [],
-                string = p.val();
-            for (var m = 0, mLen = mask.length; m < mLen; m++) {
-                if (jMask.translation[mask.charAt(m)]) {
-                    buf["push"](string.charAt(m));
-                }
-            }
-            return buf.join("");
+           return p.getMasked(true);
         };
 
         jMask.init();
@@ -256,10 +249,13 @@
     $.fn.unmask = function() {
         return this.each(function() {
             try {
-                $(this).data('mask').remove();    
+                $(this).data('mask').remove();
             } catch (e) {}
-            
         });
+    };
+
+    $.fn.cleanVal = function() {
+        return $(this).data('mask').getCleanVal();
     };
 
     // looking for inputs with data-mask attribute
