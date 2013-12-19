@@ -136,7 +136,7 @@
                     return p.callbacks(e);
                 }
             },
-            getMasked: function () {
+            getMasked: function (skipMaskChars) {
                 var buf = [],
                     value = p.val(),
                     m = 0, maskLen = mask.length,
@@ -189,7 +189,9 @@
                         }
                         v += offset;
                     } else {
-                        buf[addMethod](maskDigit);
+                        if (skipMaskChars === undefined) {
+                            buf[addMethod](maskDigit);
+                        }
                         
                         if (valDigit === maskDigit) {
                             v += offset;

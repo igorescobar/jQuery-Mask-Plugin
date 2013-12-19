@@ -313,14 +313,12 @@ $(document).ready(function(){
 
   module('Removing mask');
 
-  test("when disabling a simple mask", function(){
+  test("when I get the unmasked value", function(){
     testfield.mask('(00) 0000-0000');
 
     equal( typeTest("1299999999"), "(12) 9999-9999");
-
-    testfield.data('mask').remove();
+    testfield.unmask()
     equal( testfield.val(), "1299999999");
-    equal( testfield.attr('maxlength'), undefined);
   });
 
   module('Getting Unmasked Value');
@@ -329,9 +327,16 @@ $(document).ready(function(){
     testfield.mask('(00) 0000-0000');
 
     equal( typeTest("1299999999"), "(12) 9999-9999");
-    testfield.unmask()
-    equal( testfield.val(), "1299999999");
+    equal( testfield.cleanVal(), "1299999999");
   });
+
+  test("when I get the unmasked value with recursive mask", function(){
+    testfield.mask('#.##0,00', {reverse:true, maxlength: false});
+
+    equal( typeTest("123123123123123123", testfield), "1.231.231.231.231.231,23");
+    equal( testfield.cleanVal(), "123123123123123123");
+  });
+
 
   module('personalized settings')
 
