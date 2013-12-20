@@ -70,18 +70,20 @@
             getCaret: function () {
                 var sel,
                     pos = 0,
-                    ctrl = el.get(0);
+                    ctrl = el.get(0),
+                    dSel = document.selection,
+                    cSelStart = ctrl.selectionStart;
 
                 // IE Support
-                if (document.selection && navigator.appVersion.indexOf("MSIE 10") === -1) {
+                if (dSel && navigator.appVersion.indexOf("MSIE 10") === -1) {
                     ctrl.focus();
-                    sel = document.selection.createRange ();
+                    sel = dSel.createRange ();
                     sel.moveStart ('character', -ctrl.value.length);
                     pos = sel.text.length;
                 } 
                 // Firefox support
-                else if (ctrl.selectionStart || ctrl.selectionStart === '0') {
-                    pos = ctrl.selectionStart;
+                else if (cSelStart || cSelStart === '0') {
+                    pos = cSelStart;
                 }
                 
                 return pos;
@@ -112,11 +114,13 @@
                 });
             },
             destroyEvents: function() {
-                el.off('keydown.mask').off("keyup.mask").off("paste.mask");
+                el.off('keydown.mask keyup.mask paste.mask');
             },
             val: function(v) {
                 var isInput = el.get(0).tagName.toLowerCase() === "input";
-                return arguments.length > 0 ? (isInput ? el.val(v) : el.text(v)) : (isInput ? el.val() : el.text());
+                return arguments.length > 0 
+                    ? (isInput ? el.val(v) : el.text(v)) 
+                    : (isInput ? el.val() : el.text());
             },
             behaviour: function(e) {
                 e = e || window.event;
