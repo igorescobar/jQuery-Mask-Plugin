@@ -192,7 +192,7 @@
                         }
                         v += offset;
                     } else {
-                        if (skipMaskChars === undefined) {
+                        if (!skipMaskChars) {
                             buf[addMethod](maskDigit);
                         }
                         
