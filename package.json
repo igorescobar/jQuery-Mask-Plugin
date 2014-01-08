@@ -1,6 +1,6 @@
 {
   "name": "jQuery-Mask-Plugin",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-qunit": "*",
