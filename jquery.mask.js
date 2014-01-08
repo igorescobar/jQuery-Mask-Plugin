@@ -263,7 +263,7 @@
     };
 
     // looking for inputs with data-mask attribute
-    $('input[data-mask]').each(function() {
+    $('*[data-mask]').each(function() {
         var input = $(this),
             options = {};
 
