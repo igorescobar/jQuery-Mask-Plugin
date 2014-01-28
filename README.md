@@ -3,6 +3,7 @@ A jQuery Plugin to make masks on form fields and HTML elements.
 
 [![Build Status](https://travis-ci.org/igorescobar/jQuery-Mask-Plugin.png)](https://travis-ci.org/igorescobar/jQuery-Mask-Plugin)
 [![Code Climate](https://codeclimate.com/github/igorescobar/jQuery-Mask-Plugin.png)](https://codeclimate.com/github/igorescobar/jQuery-Mask-Plugin)
+[![Total views](https://sourcegraph.com/api/repos/github.com/igorescobar/jQuery-Mask-Plugin/counters/views.png)](https://sourcegraph.com/github.com/igorescobar/jQuery-Mask-Plugin) 
 
 #Live Demostration & Usage Examples
 http://igorescobar.github.io/jQuery-Mask-Plugin/
