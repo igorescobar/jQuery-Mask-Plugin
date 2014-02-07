@@ -93,7 +93,7 @@
 
                 if (ctrl.setSelectionRange) {
                     ctrl.focus();
-                    ctrl.setSelectionRange(pos,pos);
+                    ctrl.setSelectionRange(pos,ctrl.value.length);
                 } else if (ctrl.createTextRange) {
                     range = ctrl.createTextRange();
                     range.collapse(true);
