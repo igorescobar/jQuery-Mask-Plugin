@@ -75,7 +75,7 @@
                     cSelStart = ctrl.selectionStart;
 
                 // IE Support
-                if (dSel && navigator.appVersion.indexOf("MSIE 10") === -1) {
+                if (dSel && !~navigator.appVersion.indexOf("MSIE 10")) {
                     ctrl.focus();
                     sel = dSel.createRange ();
                     sel.moveStart ('character', -ctrl.value.length);
@@ -117,7 +117,7 @@
                 el.off('keydown.mask keyup.mask paste.mask');
             },
             val: function(v) {
-                var isInput = el.get(0).tagName.toLowerCase() === "input";
+                var isInput = el.is($.zepto ? 'input' : ':input');
                 return arguments.length > 0 
                     ? (isInput ? el.val(v) : el.text(v)) 
                     : (isInput ? el.val() : el.text());
