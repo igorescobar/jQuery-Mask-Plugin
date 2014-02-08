@@ -124,16 +124,20 @@
             },
             behaviour: function(e) {
                 e = e || window.event;
-                if ($.inArray(e.keyCode || e.which, jMask.byPassKeys) === -1) {
-                    
+                var keyCode = e.keyCode || e.which;
+                if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
+
                     var changeCaret, caretPos = p.getCaret();
                     if (caretPos < p.val().length) {
                         changeCaret = true;
                     }
-                    
-                    p.val(p.getMasked());
-                    
-                    if (changeCaret) {
+
+                    var new_val = p.getMasked();
+                    if (new_val !== p.val())               
+                        p.val(new_val);
+
+                    // change caret but avoid CTRL+A
+                    if (changeCaret && !(keyCode === 65 && e.ctrlKey)) {
                         p.setCaret(caretPos);     
                     }
 
