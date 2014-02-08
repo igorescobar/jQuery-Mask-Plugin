@@ -92,7 +92,7 @@ $(document).ready(function(){
   $('.cpf').mask('000.000.000-00', {reverse: true});
   $('.money').mask('000.000.000.000.000,00', {reverse: true});
   $('.money2').mask("#.##0,00", {reverse: true, maxlength: false});
-  $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': {pattern: /[0-9]/, optional: true}});
+  $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': {pattern: /[0-9]/, optional: true}}});
   $('.ip_address').mask('099.099.099.099');
   $('.percent').mask('##0,00%', {reverse: true});
 );</pre>
@@ -167,7 +167,7 @@ Teach to jQuery Mask Plugin how to apply your mask: <br/><br/>
 <pre>
 // now the digit 0 on your mask pattern will be interpreted 
 // as valid characters like 0,1,2,3,4,5,6,7,8,9 and *
-$('.your-field').mask('00/00/0000', {'translation': {0: {pattern: /[0-9*]/}});
+$('.your-field').mask('00/00/0000', {'translation': {0: {pattern: /[0-9*]/}}});
 </pre>
 
     By default, jQuery Mask Plugin only reconizes the logical digit A (Numbers and Letters) and S (A-Za-z) but
