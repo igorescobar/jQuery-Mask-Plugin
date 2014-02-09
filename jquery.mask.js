@@ -117,7 +117,7 @@
                 el.off('keydown.mask keyup.mask paste.mask');
             },
             val: function(v) {
-                var isInput = el.is($.zepto ? 'input' : ':input');
+                var isInput = el.is('input');
                 return arguments.length > 0 
                     ? (isInput ? el.val(v) : el.text(v)) 
                     : (isInput ? el.val() : el.text());
