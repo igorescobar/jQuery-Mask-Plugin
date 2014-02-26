@@ -107,14 +107,14 @@
                     old_value = p.val();
                 });
                 el.on('keyup.mask', p.behaviour);
-                el.on("paste.mask", function() {
+                el.on("paste.mask drop.mask", function() {
                     setTimeout(function() {
                         el.keydown().keyup();
                     }, 100);
                 });
             },
             destroyEvents: function() {
-                el.off('keydown.mask keyup.mask paste.mask');
+                el.off('keydown.mask keyup.mask paste.mask drop.mask');
             },
             val: function(v) {
                 var isInput = el.get(0).tagName.toLowerCase() === "input";
