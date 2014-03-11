@@ -112,9 +112,21 @@
                         el.keydown().keyup();
                     }, 100);
                 });
+                el.on("change.mask", function() {
+                    el.data("changeCalled", true);
+                });
+                el.on("blur.mask", function(e){
+                    var el = $(e.target)
+                    if (el.prop("defaultValue") != el.val()) {
+                        el.prop("defaultValue", el.val())
+                        if(!el.data("changeCalled"))
+                            el.trigger("change");
+                    }
+                    el.data("changeCalled", false);
+                });
             },
             destroyEvents: function() {
-                el.off('keydown.mask keyup.mask paste.mask drop.mask');
+                el.off('keydown.mask keyup.mask paste.mask drop.mask change.mask blur.mask').removeData("changeCalled");
             },
             val: function(v) {
                 var isInput = el.is('input');
