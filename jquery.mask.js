@@ -77,10 +77,10 @@
                 // IE Support
                 if (dSel && !~navigator.appVersion.indexOf("MSIE 10")) {
                     ctrl.focus();
-                    sel = dSel.createRange ();
-                    sel.moveStart ('character', -ctrl.value.length);
+                    sel = dSel.createRange();
+                    sel.moveStart('character', el.is(":input")? -el.val().length : -el.text().length);
                     pos = sel.text.length;
-                } 
+                }
                 // Firefox support
                 else if (cSelStart || cSelStart === '0') {
                     pos = cSelStart;
