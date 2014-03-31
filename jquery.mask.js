@@ -30,8 +30,17 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-
-(function ($) {
+// UMD (Universal Module Definition) patterns for JavaScript modules that work everywhere.
+// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(["jquery"], factory);
+    } else {
+        // Browser globals
+        factory(window.jQuery || window.Zepto);
+    }
+}(function ($) {
     "use strict";
     var Mask = function (el, mask, options) {
         var jMask = this, old_value;
@@ -282,4 +291,4 @@
         input.mask(input.attr('data-mask'), options);
     });
 
-})(window.jQuery || window.Zepto);
+}));
