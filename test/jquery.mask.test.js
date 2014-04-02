@@ -407,4 +407,41 @@ $(document).ready(function(){
     equal( typeTest("000000", testfieldDataMaskWithReverse), "0.000,00");
     equal( typeTest("0000000000", testfieldDataMaskWithReverse), "00.000.000,00");
   });
+
+  module('Event fire test');
+
+  test('onChange Test', 12, function(){
+    var typeAndBlur = function(typedValue){
+      testfield.keydown().val(typedValue).keyup();
+      testfield.triggerHandler("blur");
+    };
+
+    testfield.on("change", function(e){
+      console.log("aaa");
+      ok(true, "Change event!!");
+    });
+
+    testfield.mask('000.(000).000/0-1');
+
+    typeAndBlur("1");
+    typeAndBlur("12");
+    typeAndBlur("123");
+    typeAndBlur("1234");
+    typeAndBlur("12345");
+    typeAndBlur("123456");
+    typeAndBlur("1234567");
+    typeAndBlur("12345678");
+    typeAndBlur("123456789");
+    typeAndBlur("123456789");
+    typeAndBlur("1234567891");
+    typeAndBlur("12345678912");
+
+    equal( testfield.val(), "123.(456).789/1-1" );
+
+    testfield.off("change");
+  });
+
+  test('onDrop Test', function(){
+    ok(true, "todo");
+  });
 });
