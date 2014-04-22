@@ -120,7 +120,7 @@
                 });
             },
             destroyEvents: function() {
-                el.off('keydown.mask keyup.mask paste.mask drop.mask');
+                el.off('keydown.mask keyup.mask paste.mask drop.mask focusout.mask');
             },
             val: function(v) {
                 var isInput = el.is('input');
