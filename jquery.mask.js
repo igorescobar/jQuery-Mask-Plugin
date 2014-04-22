@@ -74,14 +74,35 @@
                     dSel = document.selection,
                     cSelStart = ctrl.selectionStart;
 
-                // IE Support
-                if (dSel && !~navigator.appVersion.indexOf("MSIE 10")) {
+                // get caret position in a content editable element (modern browsers, including IE9+)
+                if (el.is('[contenteditable="true"]') && window.getSelection) {
+                    var range = window.getSelection().getRangeAt(0);
+                    var clonerange = range.cloneRange();
+                    
+                    clonerange.selectNodeContents(ctrl);
+                    clonerange.setEnd(range.endContainer, range.endOffset);
+                    
+                    pos = clonerange.toString().length;
+                }
+                // get caret position in an input element (old IE)
+                else if (dSel && !~navigator.appVersion.indexOf("MSIE 10")) {
                     ctrl.focus();
                     sel = dSel.createRange ();
-                    sel.moveStart ('character', -ctrl.value.length);
-                    pos = sel.text.length;
+                    
+                    if (el.is("[contenteditable='true']")) {
+                        var txtrange = document.body.createTextRange();
+                        
+                        txtrange.moveToElementText(ctrl);
+                        txtrange.setEndPoint('EndToEnd', sel);
+                        
+                        pos = txtrange.text.length;
+                    }
+                    else {
+                        sel.moveStart ('character', -ctrl.value.length);
+                        pos = sel.text.length;
+                    }
                 } 
-                // Firefox support
+                // get caret position in an input element (modern browsers, including IE9+)
                 else if (cSelStart || cSelStart === '0') {
                     pos = cSelStart;
                 }
@@ -89,9 +110,16 @@
                 return pos;
             },
             setCaret: function(pos) {
-                var range, ctrl = el.get(0);
+                var range, sel, ctrl = el.get(0);
 
-                if (ctrl.setSelectionRange) {
+                if (el.is("[contenteditable='true']") && window.getSelection) {
+                    range = document.createRange();
+                    sel = window.getSelection();
+                    range.setStart(ctrl.childNodes[0], pos);
+                    range.collapse(true);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                } else if (ctrl.setSelectionRange) {
                     ctrl.focus();
                     ctrl.setSelectionRange(pos,pos);
                 } else if (ctrl.createTextRange) {
@@ -126,19 +154,26 @@
                 e = e || window.event;
                 var keyCode = e.keyCode || e.which;
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
+                    var changeCaret, new_val,
+                        caretPos = p.getCaret(),
+                        nonMaskedVal = p.val();
 
-                    var changeCaret, caretPos = p.getCaret();
-                    if (caretPos < p.val().length) {
+                    if (caretPos < nonMaskedVal.length) {
                         changeCaret = true;
                     }
 
                     var new_val = p.getMasked();
-                    if (new_val !== p.val())               
+                    if (new_val !== nonMaskedVal)
                         p.val(new_val);
 
                     // change caret but avoid CTRL+A
-                    if (changeCaret && !(keyCode === 65 && e.ctrlKey)) {
-                        p.setCaret(caretPos);     
+                    if (!(keyCode === 65 && e.ctrlKey)) {
+                        if (changeCaret) {
+                            p.setCaret(caretPos);
+                        }
+                        else if (el.is("[contenteditable='true']") && new_val.length) {
+                            p.setCaret(new_val.length);
+                        }
                     }
 
                     return p.callbacks(e);
