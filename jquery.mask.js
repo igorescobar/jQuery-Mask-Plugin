@@ -112,6 +112,12 @@
                         el.keydown().keyup();
                     }, 100);
                 });
+                // clear the value if it not complete the mask
+                el.on("focusout.mask", function() {
+                    if(options.removeIfNotMatch && p.val().length !== mask.length){
+                        p.val('');
+                    }
+                });
             },
             destroyEvents: function() {
                 el.off('keydown.mask keyup.mask paste.mask drop.mask');
