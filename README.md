@@ -66,3 +66,4 @@ jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
  * Amaro Mariño Malvido
  * Mark Guadagna
  * Serdar Selim Tulunoğlu
+ * [Full list](https://pledgie.com/campaigns/22649#donors)
