@@ -1,341 +1,341 @@
-[0;33mv1.5.4 (Feb/09 2014 12:02 -0200 by Igor Escobar)[0m
+== v1.5.4 (Feb/09 2014 12:02 -0200 by Igor Escobar) ==
 
 Changes:
 
-  - optmizing code
+* optmizing code
 
-[0;33mv1.5.3 (Feb/08 2014 14:59 -0200 by Igor Escobar)[0m
+== v1.5.3 (Feb/08 2014 14:59 -0200 by Igor Escobar) ==
 
 Bugfixes:
 
-  - fixing ctrl a bug
+* fixing ctrl a bug
 
-[0;33mv1.5.2 (Dec/20 2013 16:35 -0200 by Igor Escobar)[0m
-
-Changes:
-
-  - smaller source code
-
-[0;33mv1.5.1 (Dec/18 2013 22:34 -0200 by Igor Escobar)[0m
+== v1.5.2 (Dec/20 2013 16:35 -0200 by Igor Escobar) ==
 
 Changes:
 
-  - fixing some code climate problems
+* smaller source code
 
-[0;33mv1.5.0 (Dec/18 2013 22:10 -0200 by Igor Escobar)[0m
+== v1.5.1 (Dec/18 2013 22:34 -0200 by Igor Escobar) ==
+
+Changes:
+
+* fixing some code climate problems
+
+== v1.5.0 (Dec/18 2013 22:10 -0200 by Igor Escobar) ==
 
 Bugfixes:
 
-  - fixing getCleanVal()
+* fixing getCleanVal()
 
 Features:
 
-  - new public method called cleanVal
+* new public method called cleanVal
 
-[0;33mv1.4.2 (Dec/16 2013 15:48 -0200 by Igor Escobar)[0m
+== v1.4.2 (Dec/16 2013 15:48 -0200 by Igor Escobar) ==
 
 Bugfixes:
 
-  - Dirty fix for masks not completing with a literal
+* Dirty fix for masks not completing with a literal
 
-[0;33mv1.4.1 (Dec/09 2013 21:23 -0200 by Igor Escobar)[0m
+== v1.4.1 (Dec/09 2013 21:23 -0200 by Igor Escobar) ==
 
 Changes:
 
-  - revising ignored keys
+* revising ignored keys
 
-[0;33mv1.4.0 (Nov/28 2013 18:06 -0200 by Igor Escobar)[0m
+== v1.4.0 (Nov/28 2013 18:06 -0200 by Igor Escobar) ==
 
 Features:
 
-  - caret positioning implementation
+* caret positioning implementation
 
-[0;33mv1.3.1 (Oct/08 2013 20:38 -0300 by Igor Escobar)[0m
+== v1.3.1 (Oct/08 2013 20:38 -0300 by Igor Escobar) ==
 
 Changes:
 
-  - adding more keys to ignore list to make the char navigation smoothly
+* adding more keys to ignore list to make the char navigation smoothly
 
 Bugfixes:
 
-  - Sounds like 'options' has disappeared for some reason
+* Sounds like 'options' has disappeared for some reason
 
-[0;33mv1.3.0 (Sep/13 2013 10:37 -0300 by Igor Escobar)[0m
+== v1.3.0 (Sep/13 2013 10:37 -0300 by Igor Escobar) ==
 
 Features:
 
-  - creating the maxlength option
+* creating the maxlength option
 
-[0;33mv1.2.0 (Sep/07 2013 12:07 -0300 by Igor Escobar)[0m
-
-Features:
-
-  - adding the possibility to put recursive digits inside masks
-
-[0;33mv1.1.3 (Sep/04 2013 21:21 -0300 by Igor Escobar)[0m
-
-Bugfixes:
-
-  - fixing late masking
-
-[0;33mv1.1.2 (Aug/26 2013 15:08 -0300 by Igor Escobar)[0m
-
-Bugfixes:
-
-  - fixing mask on div,span etc
-
-[0;33mv1.1.1 (Aug/26 2013 14:42 -0300 by Igor Escobar)[0m
-
-Bugfixes:
-
-  - better callback handling
-
-[0;33mv1.1.0 (Aug/24 2013 15:59 -0300 by Igor Escobar)[0m
+== v1.2.0 (Sep/07 2013 12:07 -0300 by Igor Escobar) ==
 
 Features:
 
-  - adding onchange support
+* adding the possibility to put recursive digits inside masks
 
-[0;33mv1.0.3 (Aug/23 2013 23:10 -0300 by Igor Escobar)[0m
-
-Changes:
-
-  - optimizations to mask on non html fields
-
-[0;33mv1.0.2 (Aug/23 2013 22:46 -0300 by Igor Escobar)[0m
+== v1.1.3 (Sep/04 2013 21:21 -0300 by Igor Escobar) ==
 
 Bugfixes:
 
-  - adding remask method do improve callback performance
+* fixing late masking
 
-[0;33mv1.0.1 (Aug/23 2013 22:01 -0300 by Igor Escobar)[0m
+== v1.1.2 (Aug/26 2013 15:08 -0300 by Igor Escobar) ==
 
-Changes:
+Bugfixes:
 
-  - normal releases again
+* fixing mask on div,span etc
 
-[0;33mv1.0.0 (Aug/23 2013 21:59 -0300 by Igor Escobar)[0m
+== v1.1.1 (Aug/26 2013 14:42 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* better callback handling
+
+== v1.1.0 (Aug/24 2013 15:59 -0300 by Igor Escobar) ==
 
 Features:
 
-  - huge refactoring focusing no reduce source code weight and bugfixing
+* adding onchange support
 
-[0;33mv0.11.5 (Aug/20 2013 17:11 -0300 by Igor Escobar)[0m
-
-Bugfixes:
-
-  - bug fixing when mask range is bigger than 2 digits.
-
-[0;33mv0.11.4 (Aug/19 2013 10:24 -0300 by Igor Escobar)[0m
+== v1.0.3 (Aug/23 2013 23:10 -0300 by Igor Escobar) ==
 
 Changes:
 
-  - adding de delete key to byPassKeys
+* optimizations to mask on non html fields
 
-[0;33mv0.11.3 (Aug/18 2013 00:48 -0300 by Igor Escobar)[0m
-
-Bugfixes:
-
-  - fixing zepto compatibily
-
-[0;33mv0.11.2 (Aug/17 2013 18:39 -0300 by Igor Escobar)[0m
+== v1.0.2 (Aug/23 2013 22:46 -0300 by Igor Escobar) ==
 
 Bugfixes:
 
-  - jmask iterate all items
+* adding remask method do improve callback performance
 
-[0;33mv0.11.1 (Aug/17 2013 18:32 -0300 by Igor Escobar)[0m
+== v1.0.1 (Aug/23 2013 22:01 -0300 by Igor Escobar) ==
 
 Changes:
 
-  - a little bit smaller source code
+* normal releases again
 
-[0;33mv0.11.0 (Aug/16 2013 21:27 -0300 by Igor Escobar)[0m
-
-Bugfixes:
-
-  - Altered "ignored keys" hook to run events (i.e. onKeyPress) afterwards. Otherwise, we miss key triggered events when the user deletes the entire text box, etc.
+== v1.0.0 (Aug/23 2013 21:59 -0300 by Igor Escobar) ==
 
 Features:
 
-  - adding support to method getCleanVal
+* huge refactoring focusing no reduce source code weight and bugfixing
 
-[0;33mv0.10.1 (Jul/26 2013 09:35 -0300 by )[0m
+== v0.11.5 (Aug/20 2013 17:11 -0300 by Igor Escobar) ==
 
+Bugfixes:
 
+* bug fixing when mask range is bigger than 2 digits.
 
-[0;33mv0.10.0 (Jul/19 2013 23:07 -0300 by Igor Escobar)[0m
+== v0.11.4 (Aug/19 2013 10:24 -0300 by Igor Escobar) ==
+
+Changes:
+
+* adding de delete key to byPassKeys
+
+== v0.11.3 (Aug/18 2013 00:48 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing zepto compatibily
+
+== v0.11.2 (Aug/17 2013 18:39 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* jmask iterate all items
+
+== v0.11.1 (Aug/17 2013 18:32 -0300 by Igor Escobar) ==
+
+Changes:
+
+* a little bit smaller source code
+
+== v0.11.0 (Aug/16 2013 21:27 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* Altered "ignored keys" hook to run events (i.e. onKeyPress) afterwards. Otherwise, we miss key triggered events when the user deletes the entire text box, etc.
 
 Features:
 
-  - adding data-mask support
+* adding support to method getCleanVal
 
-[0;33mv0.9.1 (Jul/19 2013 22:35 -0300 by Igor Escobar)[0m
+== v0.10.1 (Jul/26 2013 09:35 -0300 by ) ==
 
-Changes:
 
-  - jQuery-Mask-Plugin is now available at bower.io
 
-Bugfixes:
-
-  - fixing addEventListener on IE7
-
-[0;33mv0.9.0 (Apr/24 2013 07:44 -0300 by Igor Escobar)[0m
+== v0.10.0 (Jul/19 2013 23:07 -0300 by Igor Escobar) ==
 
 Features:
 
-  - Adding compatibility with Zepto.js
+* adding data-mask support
 
-[0;33mv0.8.0 (Apr/07 2013 18:39 -0300 by Igor Escobar)[0m
+== v0.9.1 (Jul/19 2013 22:35 -0300 by Igor Escobar) ==
+
+Changes:
+
+* jQuery-Mask-Plugin is now available at bower.io
+
+Bugfixes:
+
+* fixing addEventListener on IE7
+
+== v0.9.0 (Apr/24 2013 07:44 -0300 by Igor Escobar) ==
 
 Features:
 
-  - applying masks anything != than input :)
-  - implementing the possibility of range chars ex: A{1,3}
+* Adding compatibility with Zepto.js
 
-[0;33mv0.7.11 (Apr/05 2013 22:12 -0300 by Igor Escobar)[0m
-
-Changes:
-
-  - now when you type a wrong char, the plugin will make your text fit inside of the mask instead of lose your data.
-
-[0;33mv0.7.10 (Apr/04 2013 22:14 -0300 by Igor Escobar)[0m
-
-Changes:
-
-  - changing yui-compressor to clojure-compiler
-
-[0;33mv0.7.9 (Apr/04 2013 22:04 -0300 by Igor Escobar)[0m
-
-Changes:
-
-  - refactoring and implementation of optional mask digits
-
-Bugfixes:
-
-  - fixing maxlength and adding a smarter mask removal. issue #18
-
-[0;33mv0.7.8 (Mar/30 2013 00:48 -0300 by Igor Escobar)[0m
-
-Changes:
-
-  - a few changes to get the code smallest possible.
-  - removing unnecessary methods and making code smaller.
-
-[0;33mv0.7.7 (Mar/29 2013 12:38 -0300 by Igor Escobar)[0m
-
-Bugfixes:
-
-  - fixing copy and paste problem related on issue #15
-
-[0;33mv0.7.6 (Mar/29 2013 00:28 -0300 by Igor Escobar)[0m
-
-Bugfixes:
-
-  - correcting mask formatationg problem related on issue #16
-
-[0;33mv0.7.5 (Mar/03 2013 20:56 -0300 by Igor Escobar)[0m
-
-Changes:
-
-  - generating .gz file on deploy
-
-[0;33mv0.7.4 (Mar/03 2013 20:38 -0300 by Igor Escobar)[0m
-
-Changes:
-
-  - changing minifier jsmin to yui compressor.
-
-[0;33mv0.7.3 (Mar/02 2013 01:12 -0300 by Igor Escobar)[0m
-
-Bugfixes:
-
-  - bug fixing when typed wrong data type on mixing masks.
-
-[0;33mv0.7.2 (Feb/24 2013 22:02 -0300 by Igor Escobar)[0m
-
-Bugfixes:
-
-  - fuckin stupid comma.
-
-[0;33mv0.7.1 (Feb/24 2013 21:57 -0300 by Igor Escobar)[0m
-
-Changes:
-
-  - testing the private method maskToRegex
-  - a little bit of changes to make the code more testable
-
-[0;33mv0.7.0 (Feb/12 2013 00:30 -0200 by Igor Escobar)[0m
+== v0.8.0 (Apr/07 2013 18:39 -0300 by Igor Escobar) ==
 
 Features:
 
-  - Now you can decide for jquery mask plugin how to interpret 0 to 9, A and S and even teach him how to reconize patterns.
+* applying masks anything != than input :)
+* implementing the possibility of range chars ex: A{1,3}
 
-[0;33mv0.6.3 (Feb/11 2013 12:20 -0200 by Igor Escobar)[0m
+== v0.7.11 (Apr/05 2013 22:12 -0300 by Igor Escobar) ==
+
+Changes:
+
+* now when you type a wrong char, the plugin will make your text fit inside of the mask instead of lose your data.
+
+== v0.7.10 (Apr/04 2013 22:14 -0300 by Igor Escobar) ==
+
+Changes:
+
+* changing yui-compressor to clojure-compiler
+
+== v0.7.9 (Apr/04 2013 22:04 -0300 by Igor Escobar) ==
+
+Changes:
+
+* refactoring and implementation of optional mask digits
 
 Bugfixes:
 
-  - When the user paste a text and the last char is valid sanitize may fail
+* fixing maxlength and adding a smarter mask removal. issue #18
 
-[0;33mv0.6.2 (Feb/11 2013 00:02 -0200 by Igor Escobar)[0m
+== v0.7.8 (Mar/30 2013 00:48 -0300 by Igor Escobar) ==
+
+Changes:
+
+* a few changes to get the code smallest possible.
+* removing unnecessary methods and making code smaller.
+
+== v0.7.7 (Mar/29 2013 12:38 -0300 by Igor Escobar) ==
 
 Bugfixes:
 
-  - allowing the user type the same character as the mask without erasing it.
+* fixing copy and paste problem related on issue #15
 
-[0;33mv0.6.1 (Jan/20 2013 23:57 -0200 by Igor Escobar)[0m
-
-Changes:
-
-  - changing the way ta deployment occurs to correct jquery plugins deployments.
-
-[0;33mv0.6.0 (Jan/18 2013 17:19 -0200 by Igor Escobar)[0m
-
-Changes:
-
-  - Now pushing jQuery Mask Plugin to jQuery Plugins Repository
-
-[0;33mv0.5.4 (Jan/17 2013 23:06 -0200 by Igor Escobar)[0m
-
-Changes:
-
-  - upgrading jquery plugins manifest file
-
-[0;33mv0.5.3 (Jan/17 2013 22:48 -0200 by Igor Escobar)[0m
+== v0.7.6 (Mar/29 2013 00:28 -0300 by Igor Escobar) ==
 
 Bugfixes:
 
-  - correctly generating jmask version inside of jquery mask source
+* correcting mask formatationg problem related on issue #16
 
-[0;33mv0.5.2 (Jan/17 2013 22:43 -0200 by Igor Escobar)[0m
-
-Changes:
-
-  - Now pushing to jQuery Plugin Repository
-
-[0;33mv0.5.1 (Jan/07 2013 23:33 -0200 by Igor Escobar)[0m
+== v0.7.5 (Mar/03 2013 20:56 -0300 by Igor Escobar) ==
 
 Changes:
 
-  - improving the deploy process with the new stepup's upgrade.
+* generating .gz file on deploy
 
-[0;33mv0.5.0 (Oct/27 2012 13:40 -0200 by Igor Escobar)[0m
+== v0.7.4 (Mar/03 2013 20:38 -0300 by Igor Escobar) ==
+
+Changes:
+
+* changing minifier jsmin to yui compressor.
+
+== v0.7.3 (Mar/02 2013 01:12 -0300 by Igor Escobar) ==
 
 Bugfixes:
 
-  - Bug fixes on OnSupport method with Firefox.
+* bug fixing when typed wrong data type on mixing masks.
+
+== v0.7.2 (Feb/24 2013 22:02 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* fuckin stupid comma.
+
+== v0.7.1 (Feb/24 2013 21:57 -0300 by Igor Escobar) ==
+
+Changes:
+
+* testing the private method maskToRegex
+* a little bit of changes to make the code more testable
+
+== v0.7.0 (Feb/12 2013 00:30 -0200 by Igor Escobar) ==
 
 Features:
 
-  - the first parameter of the .mask() function, now accepts a string or a anonymous function
+* Now you can decide for jquery mask plugin how to interpret 0 to 9, A and S and even teach him how to reconize patterns.
 
-[0;33mv0.4.7 (Aug/06 2012 22:56 -0300 by Igor Escobar)[0m
+== v0.6.3 (Feb/11 2013 12:20 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* When the user paste a text and the last char is valid sanitize may fail
+
+== v0.6.2 (Feb/11 2013 00:02 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* allowing the user type the same character as the mask without erasing it.
+
+== v0.6.1 (Jan/20 2013 23:57 -0200 by Igor Escobar) ==
 
 Changes:
 
-  - Nothing big, just class refactoring
+* changing the way ta deployment occurs to correct jquery plugins deployments.
 
-[0;33mv0.4.6 (Aug/06 2012 01:25 -0300 by Igor Escobar)[0m
+== v0.6.0 (Jan/18 2013 17:19 -0200 by Igor Escobar) ==
+
+Changes:
+
+* Now pushing jQuery Mask Plugin to jQuery Plugins Repository
+
+== v0.5.4 (Jan/17 2013 23:06 -0200 by Igor Escobar) ==
+
+Changes:
+
+* upgrading jquery plugins manifest file
+
+== v0.5.3 (Jan/17 2013 22:48 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* correctly generating jmask version inside of jquery mask source
+
+== v0.5.2 (Jan/17 2013 22:43 -0200 by Igor Escobar) ==
+
+Changes:
+
+* Now pushing to jQuery Plugin Repository
+
+== v0.5.1 (Jan/07 2013 23:33 -0200 by Igor Escobar) ==
+
+Changes:
+
+* improving the deploy process with the new stepup's upgrade.
+
+== v0.5.0 (Oct/27 2012 13:40 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* Bug fixes on OnSupport method with Firefox.
+
+Features:
+
+* the first parameter of the .mask() function, now accepts a string or a anonymous function
+
+== v0.4.7 (Aug/06 2012 22:56 -0300 by Igor Escobar) ==
+
+Changes:
+
+* Nothing big, just class refactoring
+
+== v0.4.6 (Aug/06 2012 01:25 -0300 by Igor Escobar) ==
 
 Changes:
 
@@ -343,7 +343,7 @@ Changes:
 - implementing the jquery data object on each mask field
 - implementing the public method .remove to disable and remove the mask
 
-[0;33mv0.4.5 (Aug/04 2012 01:31 -0300 by Igor Escobar)[0m
+== v0.4.5 (Aug/04 2012 01:31 -0300 by Igor Escobar) ==
 
 Changes:
 
@@ -351,79 +351,79 @@ Changes:
 - performance improvement.
 - callback handling improvement
 
-[0;33mv0.4.4 (Jun/03 2012 21:01 -0300 by Igor Escobar)[0m
+== v0.4.4 (Jun/03 2012 21:01 -0300 by Igor Escobar) ==
 
 Bugfixes:
 
-  - Bug fixes on Internet Explorer 8.
+* Bug fixes on Internet Explorer 8.
 
-[0;33mv0.4.3 (Mar/19 2012 21:52 -0300 by Igor Escobar)[0m
-
-Bugfixes:
-
-  - Corrigindo bug para mascaras com +
-
-[0;33mv0.4.2 (Mar/18 2012 15:28 -0300 by Igor Escobar)[0m
+== v0.4.3 (Mar/19 2012 21:52 -0300 by Igor Escobar) ==
 
 Bugfixes:
 
-  - Mascara não pararecia no firefox
+* Corrigindo bug para mascaras com +
 
-[0;33mv0.4.1 (Mar/18 2012 15:01 -0300 by Igor Escobar)[0m
+== v0.4.2 (Mar/18 2012 15:28 -0300 by Igor Escobar) ==
 
 Bugfixes:
 
-  - Corrigindo tim das macaras.
+* Mascara não pararecia no firefox
 
-[0;33mv0.4.0 (Mar/18 2012 14:51 -0300 by Igor Escobar)[0m
+== v0.4.1 (Mar/18 2012 15:01 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* Corrigindo tim das macaras.
+
+== v0.4.0 (Mar/18 2012 14:51 -0300 by Igor Escobar) ==
 
 Features:
 
-  - Implementado mascara reversa para moeda/cpf/rg/etc.
-  - Nova engine.
+* Implementado mascara reversa para moeda/cpf/rg/etc.
+* Nova engine.
 
-[0;33mv0.3.0 (Mar/14 2012 10:14 -0300 by Igor Escobar)[0m
+== v0.3.0 (Mar/14 2012 10:14 -0300 by Igor Escobar) ==
 
 Changes:
 
-  - License and comments up to date.
+* License and comments up to date.
 
 Features:
 
-  - On-the-fly mask change.
-  - onComplete and onKeyPress new callbacks.
+* On-the-fly mask change.
+* onComplete and onKeyPress new callbacks.
 
-[0;33mv0.2.5 (Mar/13 2012 22:55 -0300 by Igor Escobar)[0m
+== v0.2.5 (Mar/13 2012 22:55 -0300 by Igor Escobar) ==
 
 Bugfixes:
 
 - Corrigindo ctrl+v com mascara errada. - Cortando dados que exceder a mascara no ctrl+v ou se segurar alguma tecla. - Refatorando algumas partes do código.
 
-[0;33mv0.2.4 (Mar/13 2012 11:06 -0300 by Igor Escobar)[0m
+== v0.2.4 (Mar/13 2012 11:06 -0300 by Igor Escobar) ==
 
 Changes:
 
-  - Codigo refatorado, otimizado, validação mais precisa e efetiva.
+* Codigo refatorado, otimizado, validação mais precisa e efetiva.
 
-[0;33mv0.2.3 (Mar/13 2012 01:01 -0300 by Igor Escobar)[0m
+== v0.2.3 (Mar/13 2012 01:01 -0300 by Igor Escobar) ==
 
 Changes:
 
-  - Melhorando expressoes regulares.
+* Melhorando expressoes regulares.
 
-[0;33mv0.2.2 (Mar/13 2012 00:50 -0300 by Igor Escobar)[0m
-
-Bugfixes:
-
-  - Corrindo regex de validação
-
-[0;33mv0.2.1 (Mar/13 2012 00:41 -0300 by Igor Escobar)[0m
+== v0.2.2 (Mar/13 2012 00:50 -0300 by Igor Escobar) ==
 
 Bugfixes:
 
-  - Corrigida validação alphanumerica.
+* Corrindo regex de validação
 
-[0;33mv0.2.0 (Mar/13 2012 00:24 -0300 by Igor Escobar)[0m
+== v0.2.1 (Mar/13 2012 00:41 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* Corrigida validação alphanumerica.
+
+== v0.2.0 (Mar/13 2012 00:24 -0300 by Igor Escobar) ==
 
 Features:
 
@@ -431,11 +431,11 @@ Features:
 - Automatic MaxLength (When are not defined).
 - Live Event Implemented for Ajax-based Apps.
 - Mixed mask with validation.
-  - S for string digit
-  - A for alphanumeric digit
-  - 0 to 9 for numeric digit.
+* S for string digit
+* A for alphanumeric digit
+* 0 to 9 for numeric digit.
 
-[0;33mv0.1.1.1 (Mar/10 2012 21:49 -0300 by Igor Escobar)[0m
+== v0.1.1.1 (Mar/10 2012 21:49 -0300 by Igor Escobar) ==
 
 - Isolando instancia do jQuery para dentro do Plugin
 - Crossbrowser keyCode
@@ -443,24 +443,24 @@ Features:
 - Aprimorando preenchimento das mascaras
 - Adicionando as setas do teclado como byPassKeys
 
-[0;33mv0.1.1 (Mar/10 2012 14:05 -0300 by Igor Escobar)[0m
+== v0.1.1 (Mar/10 2012 14:05 -0300 by Igor Escobar) ==
 
 Bugfixes:
 
-  - Implementando Crossbrowser event handling.
+* Implementando Crossbrowser event handling.
 
-[0;33mv0.1.0 (Mar/10 2012 13:10 -0300 by Igor Escobar)[0m
+== v0.1.0 (Mar/10 2012 13:10 -0300 by Igor Escobar) ==
 
 Features:
 
-  - Implementando mascaras com espaço para data e hora
+* Implementando mascaras com espaço para data e hora
 
-[0;33mv0.0.1 (Mar/10 2012 04:42 -0300 by Igor Escobar)[0m
+== v0.0.1 (Mar/10 2012 04:42 -0300 by Igor Escobar) ==
 
 Changes:
 
-  - Refatorando o codigo para suportar multiplas instancias
+* Refatorando o codigo para suportar multiplas instancias
 
-[0;33mv0.0.0.1 (Mar/10 2012 01:13 -0300 by Igor Escobar)[0m
+== v0.0.0.1 (Mar/10 2012 01:13 -0300 by Igor Escobar) ==
 
 Primeira versão do jQuery-Mask-Plugin.
