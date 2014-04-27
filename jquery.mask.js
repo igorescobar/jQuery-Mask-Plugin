@@ -87,7 +87,7 @@
                 if (dSel && !~navigator.appVersion.indexOf("MSIE 10")) {
                     ctrl.focus();
                     sel = dSel.createRange();
-                    sel.moveStart('character', el.is("input")? -el.val().length : -el.text().length);
+                    sel.moveStart('character', el.is("input") ? -el.val().length : -el.text().length);
                     pos = sel.text.length;
                 }
                 // Firefox support
@@ -150,18 +150,20 @@
 
                     var caretPos = p.getCaret(),
                         currVal = p.val(),
-                        changeCaret = caretPos < currVal.length;
+                        currValL = currVal.length,
+                        changeCaret = caretPos < currValL;
 
-                    var new_val = p.getMasked();
-                    if (new_val !== currVal) {
-                        p.val(new_val);
+                    var newVal = p.getMasked(),
+                        newValL = newVal.length;
+                    if (newVal !== currVal) {
+                        p.val(newVal);
                     }
 
                     // change caret but avoid CTRL+A
                     if (changeCaret && !(keyCode === 65 && e.ctrlKey)) {
-                        if(new_val.length != currVal.length){
-                            if(new_val.substring(0, caretPos) != currVal.substring(0, caretPos)){
-                                caretPos = Math.min(caretPos + new_val.length - currVal.length, new_val.length);
+                        if (newValL != currValL) {
+                            if (newVal.substring(0, caretPos) != currVal.substring(0, caretPos)) {
+                                caretPos = Math.min(caretPos + newValL - currValL, newValL);
                             }
                         }
                         p.setCaret(caretPos);
