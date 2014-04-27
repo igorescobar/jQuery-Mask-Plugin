@@ -139,18 +139,23 @@
                 var keyCode = e.keyCode || e.which;
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
 
-                    var changeCaret, caretPos = p.getCaret();
-                    if (caretPos < p.val().length) {
-                        changeCaret = true;
-                    }
+                    var caretPos = p.getCaret(),
+                        currVal = p.val(),
+                        changeCaret = caretPos < currVal.length;
 
                     var new_val = p.getMasked();
-                    if (new_val !== p.val())               
+                    if (new_val !== currVal) {
                         p.val(new_val);
+                    }
 
                     // change caret but avoid CTRL+A
                     if (changeCaret && !(keyCode === 65 && e.ctrlKey)) {
-                        p.setCaret(caretPos);     
+                        if(new_val.length != currVal.length){
+                            if(new_val.substring(0, caretPos) != currVal.substring(0, caretPos)){
+                                caretPos = Math.min(caretPos + new_val.length - currVal.length, new_val.length);
+                            }
+                        }
+                        p.setCaret(caretPos);
                     }
 
                     return p.callbacks(e);
