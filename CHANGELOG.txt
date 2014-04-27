@@ -1,3 +1,14 @@
+== v1.5.5 (Apr/27 2014 13:47 -0300 by Igor Escobar) ==
+
+Changes:
+
+* UMD (Universal Module Definition) patterns for JavaScript modules
+
+Bugfixes:
+
+* caret position correction
+* 114 - Fix onChange Event error
+
 == v1.5.4 (Feb/09 2014 12:02 -0200 by Igor Escobar) ==
 
 Changes:
