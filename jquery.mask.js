@@ -160,8 +160,7 @@
                 var determineCaretPos = function (caretPos) {
                     var translation = jMask.translation[mask.charAt(caretPos - 1)];
                     if (!translation) {
-                        caretPos++;
-                        determineCaretPos(caretPos);
+                        caretPos = determineCaretPos(caretPos + 1);
                     } else {
                         caretPos = Math.min(caretPos + newValL - currValL - maskDif, newValL);
                     }
@@ -184,6 +183,7 @@
 
                     // change caret but avoid CTRL+A
                     if (changeCaret && !(keyCode === 65 && e.ctrlKey)) {
+                        // Avoid adjusting caret on backspace or delete
                         if (!(keyCode === 8 || keyCode === 46)) {
                             caretPos = determineCaretPos(caretPos);
                         }
