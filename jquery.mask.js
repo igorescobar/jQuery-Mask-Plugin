@@ -143,9 +143,31 @@
                     ? (isInput ? el.val(v) : el.text(v)) 
                     : (isInput ? el.val() : el.text());
             },
+            getMaskCharactersBeforeCount: function(index) {
+                var count = 0;
+                for (var i = 0; i <= index; i++) {
+                    var translation = jMask.translation[mask.charAt(i)];
+                    if (!translation) {
+                        count++;
+                    }
+                }
+                return count;
+            },
             behaviour: function(e) {
                 e = e || window.event;
                 var keyCode = e.keyCode || e.which;
+
+                var determineCaretPos = function (caretPos) {
+                    var translation = jMask.translation[mask.charAt(caretPos - 1)];
+                    if (!translation) {
+                        caretPos++;
+                        determineCaretPos(caretPos);
+                    } else {
+                        caretPos = Math.min(caretPos + newValL - currValL - maskDif, newValL);
+                    }
+                    return caretPos;
+                };
+
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
 
                     var caretPos = p.getCaret(),
@@ -154,17 +176,16 @@
                         changeCaret = caretPos < currValL;
 
                     var newVal = p.getMasked(),
-                        newValL = newVal.length;
+                        newValL = newVal.length,
+                        maskDif = p.getMaskCharactersBeforeCount(newValL) - p.getMaskCharactersBeforeCount(currValL);
                     if (newVal !== currVal) {
                         p.val(newVal);
                     }
 
                     // change caret but avoid CTRL+A
                     if (changeCaret && !(keyCode === 65 && e.ctrlKey)) {
-                        if (newValL != currValL) {
-                            if (newVal.substring(0, caretPos) != currVal.substring(0, caretPos)) {
-                                caretPos = Math.min(caretPos + newValL - currValL, newValL);
-                            }
+                        if (!(keyCode === 8 || keyCode === 46)) {
+                            caretPos = determineCaretPos(caretPos);
                         }
                         p.setCaret(caretPos);
                     }
