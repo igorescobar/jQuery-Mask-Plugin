@@ -72,6 +72,7 @@
                 p.destroyEvents();
                 p.events();
                 var caret = p.getCaret();
+                // use + 1 to cater for the case when caret is on a mask character (i.e. ensure we move after the mask character)
                 var maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret + 1);
                 p.val(p.getMasked());
                 p.setCaret(caret + maskedCharacterCountBefore);
@@ -156,19 +157,19 @@
                 }
                 return count;
             },
+            determineCaretPos: function (originalCaretPos, oldLength, newLength, maskDif) {
+                var translation = jMask.translation[mask.charAt(originalCaretPos - 1)],
+                    caretPos;
+                if (!translation) {
+                    caretPos = p.determineCaretPos(originalCaretPos + 1, oldLength, newLength, maskDif);
+                } else {
+                    caretPos = Math.min(originalCaretPos + newLength - oldLength - maskDif, newLength);
+                }
+                return caretPos;
+            },
             behaviour: function(e) {
                 e = e || window.event;
                 var keyCode = e.keyCode || e.which;
-
-                var determineCaretPos = function (caretPos) {
-                    var translation = jMask.translation[mask.charAt(caretPos - 1)];
-                    if (!translation) {
-                        caretPos = determineCaretPos(caretPos + 1);
-                    } else {
-                        caretPos = Math.min(caretPos + newValL - currValL - maskDif, newValL);
-                    }
-                    return caretPos;
-                };
 
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
 
@@ -188,7 +189,7 @@
                     if (changeCaret && !(keyCode === 65 && e.ctrlKey)) {
                         // Avoid adjusting caret on backspace or delete
                         if (!(keyCode === 8 || keyCode === 46)) {
-                            caretPos = determineCaretPos(caretPos);
+                            caretPos = p.determineCaretPos(caretPos, currValL, newValL, maskDif);
                         }
                         p.setCaret(caretPos);
                     }
@@ -289,7 +290,8 @@
         // public methods
         jMask.remove = function() {
             var caret = p.getCaret();
-            var maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret);
+            // use -1 to cater for the case when caret is on a mask character (i.e. move before the mask character)
+            var maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret - 1);
             p.destroyEvents();
             p.val(jMask.getCleanVal()).removeAttr('maxlength');
             p.setCaret(caret - maskedCharacterCountBefore);
