@@ -71,7 +71,11 @@
                 el.attr('autocomplete', 'off');
                 p.destroyEvents();
                 p.events();
+                var caret = p.getCaret();
+                // use + 1 to cater for the case when caret is on a mask character (i.e. ensure we move after the mask character)
+                var maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret + 1);
                 p.val(p.getMasked());
+                p.setCaret(caret + maskedCharacterCountBefore);
             });
         };
 
@@ -143,9 +147,30 @@
                     ? (isInput ? el.val(v) : el.text(v)) 
                     : (isInput ? el.val() : el.text());
             },
+            getMaskCharactersBeforeCount: function(index) {
+                var count = 0;
+                for (var i = 0; i <= index; i++) {
+                    var translation = jMask.translation[mask.charAt(i)];
+                    if (!translation) {
+                        count++;
+                    }
+                }
+                return count;
+            },
+            determineCaretPos: function (originalCaretPos, oldLength, newLength, maskDif) {
+                var translation = jMask.translation[mask.charAt(originalCaretPos - 1)],
+                    caretPos;
+                if (!translation) {
+                    caretPos = p.determineCaretPos(originalCaretPos + 1, oldLength, newLength, maskDif);
+                } else {
+                    caretPos = Math.min(originalCaretPos + newLength - oldLength - maskDif, newLength);
+                }
+                return caretPos;
+            },
             behaviour: function(e) {
                 e = e || window.event;
                 var keyCode = e.keyCode || e.which;
+
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
 
                     var caretPos = p.getCaret(),
@@ -154,17 +179,17 @@
                         changeCaret = caretPos < currValL;
 
                     var newVal = p.getMasked(),
-                        newValL = newVal.length;
+                        newValL = newVal.length,
+                        maskDif = p.getMaskCharactersBeforeCount(newValL) - p.getMaskCharactersBeforeCount(currValL);
                     if (newVal !== currVal) {
                         p.val(newVal);
                     }
 
                     // change caret but avoid CTRL+A
                     if (changeCaret && !(keyCode === 65 && e.ctrlKey)) {
-                        if (newValL != currValL) {
-                            if (newVal.substring(0, caretPos) != currVal.substring(0, caretPos)) {
-                                caretPos = Math.min(caretPos + newValL - currValL, newValL);
-                            }
+                        // Avoid adjusting caret on backspace or delete
+                        if (!(keyCode === 8 || keyCode === 46)) {
+                            caretPos = p.determineCaretPos(caretPos, currValL, newValL, maskDif);
                         }
                         p.setCaret(caretPos);
                     }
@@ -264,8 +289,12 @@
 
         // public methods
         jMask.remove = function() {
-          p.destroyEvents();
-          p.val(jMask.getCleanVal()).removeAttr('maxlength');
+            var caret = p.getCaret();
+            // use -1 to cater for the case when caret is on a mask character (i.e. move before the mask character)
+            var maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret - 1);
+            p.destroyEvents();
+            p.val(jMask.getCleanVal()).removeAttr('maxlength');
+            p.setCaret(caret - maskedCharacterCountBefore);
         };
 
         // get value without mask
@@ -277,6 +306,7 @@
     };
 
     $.fn.mask = function(mask, options) {
+        this.unmask();
         return this.each(function() {
             $(this).data('mask', new Mask(this, mask, options));
         });
