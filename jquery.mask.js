@@ -71,7 +71,10 @@
                 el.attr('autocomplete', 'off');
                 p.destroyEvents();
                 p.events();
+                var caret = p.getCaret();
+                var maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret + 1);
                 p.val(p.getMasked());
+                p.setCaret(caret + maskedCharacterCountBefore);
             });
         };
 
@@ -285,8 +288,11 @@
 
         // public methods
         jMask.remove = function() {
-          p.destroyEvents();
-          p.val(jMask.getCleanVal()).removeAttr('maxlength');
+            var caret = p.getCaret();
+            var maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret);
+            p.destroyEvents();
+            p.val(jMask.getCleanVal()).removeAttr('maxlength');
+            p.setCaret(caret - maskedCharacterCountBefore);
         };
 
         // get value without mask
@@ -298,6 +304,7 @@
     };
 
     $.fn.mask = function(mask, options) {
+        this.unmask();
         return this.each(function() {
             $(this).data('mask', new Mask(this, mask, options));
         });
