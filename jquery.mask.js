@@ -71,8 +71,10 @@
                 el.attr('autocomplete', 'off');
                 p.destroyEvents();
                 p.events();
-                var caret = p.getCaret();
-                var maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret, true);
+                
+                var caret = p.getCaret(),
+                maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret, true);
+
                 p.val(p.getMasked());
                 p.setCaret(caret + maskedCharacterCountBefore);
             });
@@ -131,8 +133,9 @@
                     var el = $(e.target);
                     if (el.prop("defaultValue") != el.val()) {
                         el.prop("defaultValue", el.val());
-                        if(!el.data("changeCalled"))
+                        if (!el.data("changeCalled")) {
                             el.trigger("change");
+                        }
                     }
                     el.data("changeCalled", false);
                 });
@@ -147,9 +150,8 @@
                     : (isInput ? el.val() : el.text());
             },
             getMaskCharactersBeforeCount: function(index, onCleanVal) {
-                var count = 0;
-                for (var i = 0; i < mask.length && i < index; i++) {
-                    var translation = jMask.translation[mask.charAt(i)];
+                for (var translation, count = 0, i = 0, maskL = mask.length; i < maskL && i < index; i++) {
+                    translation = jMask.translation[mask.charAt(i)];
                     if (!translation) {
                         count++;
                         index = onCleanVal ? index + 1 : index;
@@ -289,8 +291,9 @@
 
         // public methods
         jMask.remove = function() {
-            var caret = p.getCaret();
-            var maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret);
+            var caret = p.getCaret(),
+                maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret);
+
             p.destroyEvents();
             p.val(jMask.getCleanVal()).removeAttr('maxlength');
             p.setCaret(caret - maskedCharacterCountBefore);
