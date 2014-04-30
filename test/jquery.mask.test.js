@@ -107,7 +107,7 @@ $(document).ready(function(){
 
     test('When I typed a char thats the same as the mask char', function(){
       testfield.mask('00/00/0000');
-      
+
       equal( typeTest("00/"), "00/");
       equal( typeTest("00a"), "00/");
       equal( typeTest("00a00/00"), "00/00/00");
@@ -417,7 +417,6 @@ $(document).ready(function(){
     };
 
     testfield.on("change", function(e){
-      console.log("aaa");
       ok(true, "Change event!!");
     });
 
