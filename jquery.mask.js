@@ -72,8 +72,7 @@
                 p.destroyEvents();
                 p.events();
                 var caret = p.getCaret();
-                // use + 1 to cater for the case when caret is on a mask character (i.e. ensure we move after the mask character)
-                var maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret + 1);
+                var maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret, true);
                 p.val(p.getMasked());
                 p.setCaret(caret + maskedCharacterCountBefore);
             });
@@ -147,12 +146,13 @@
                     ? (isInput ? el.val(v) : el.text(v)) 
                     : (isInput ? el.val() : el.text());
             },
-            getMaskCharactersBeforeCount: function(index) {
+            getMaskCharactersBeforeCount: function(index, onCleanVal) {
                 var count = 0;
-                for (var i = 0; i <= index; i++) {
+                for (var i = 0; i < index; i++) {
                     var translation = jMask.translation[mask.charAt(i)];
                     if (!translation) {
                         count++;
+                        index = onCleanVal ? index + 1 : index;
                     }
                 }
                 return count;
@@ -180,7 +180,7 @@
 
                     var newVal = p.getMasked(),
                         newValL = newVal.length,
-                        maskDif = p.getMaskCharactersBeforeCount(newValL) - p.getMaskCharactersBeforeCount(currValL);
+                        maskDif = p.getMaskCharactersBeforeCount(newValL - 1) - p.getMaskCharactersBeforeCount(currValL - 1);
                     if (newVal !== currVal) {
                         p.val(newVal);
                     }
@@ -290,8 +290,7 @@
         // public methods
         jMask.remove = function() {
             var caret = p.getCaret();
-            // use -1 to cater for the case when caret is on a mask character (i.e. move before the mask character)
-            var maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret - 1);
+            var maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret);
             p.destroyEvents();
             p.val(jMask.getCleanVal()).removeAttr('maxlength');
             p.setCaret(caret - maskedCharacterCountBefore);
