@@ -149,7 +149,7 @@
             },
             getMaskCharactersBeforeCount: function(index) {
                 var count = 0;
-                for (var i = 0; i <= index; i++) {
+                for (var i = 0; i < index; i++) {
                     var translation = jMask.translation[mask.charAt(i)];
                     if (!translation) {
                         count++;
@@ -180,7 +180,7 @@
 
                     var newVal = p.getMasked(),
                         newValL = newVal.length,
-                        maskDif = p.getMaskCharactersBeforeCount(newValL) - p.getMaskCharactersBeforeCount(currValL);
+                        maskDif = p.getMaskCharactersBeforeCount(newValL - 1) - p.getMaskCharactersBeforeCount(currValL - 1);
                     if (newVal !== currVal) {
                         p.val(newVal);
                     }
