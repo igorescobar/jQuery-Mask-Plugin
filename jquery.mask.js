@@ -128,9 +128,9 @@
                     el.data("changeCalled", true);
                 });
                 el.on("blur.mask", function(e){
-                    var el = $(e.target)
+                    var el = $(e.target);
                     if (el.prop("defaultValue") != el.val()) {
-                        el.prop("defaultValue", el.val())
+                        el.prop("defaultValue", el.val());
                         if(!el.data("changeCalled"))
                             el.trigger("change");
                     }
@@ -148,7 +148,7 @@
             },
             getMaskCharactersBeforeCount: function(index, onCleanVal) {
                 var count = 0;
-                for (var i = 0; i < index; i++) {
+                for (var i = 0; i < mask.length && i < index; i++) {
                     var translation = jMask.translation[mask.charAt(i)];
                     if (!translation) {
                         count++;
