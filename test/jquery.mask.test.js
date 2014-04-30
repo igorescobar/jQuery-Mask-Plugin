@@ -420,7 +420,7 @@ $(document).ready(function(){
       ok(true, "Change event!!");
     });
 
-    testfield.mask('000.(000).000/0-1');
+    testfield.mask('000.(000).000/0-0');
 
     typeAndBlur("1");
     typeAndBlur("12");
@@ -435,7 +435,7 @@ $(document).ready(function(){
     typeAndBlur("1234567891");
     typeAndBlur("12345678912");
 
-    equal( testfield.val(), "123.(456).789/1-1" );
+    equal( testfield.val(), "123.(456).789/1-2" );
 
     testfield.off("change");
   });
