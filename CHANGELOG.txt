@@ -1,3 +1,16 @@
+== v1.5.7 (May/01 2014 18:37 -0300 by Igor Escobar) ==
+
+Changes:
+
+* some cleanup and stuff
+
+== v1.5.6 (May/01 2014 18:30 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* Bug in calculating difference between mask characters between old and new field values
+* Fix stack limit exceeded
+
 == v1.5.5 (Apr/27 2014 13:47 -0300 by Igor Escobar) ==
 
 Changes:
