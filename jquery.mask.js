@@ -160,7 +160,7 @@
                 return count;
             },
             determineCaretPos: function (originalCaretPos, oldLength, newLength, maskDif) {
-                var translation = jMask.translation[mask.charAt(originalCaretPos - 1)],
+                var translation = jMask.translation[mask.charAt(Math.min(originalCaretPos - 1, mask.length - 1))],
                     caretPos;
                 if (!translation) {
                     caretPos = p.determineCaretPos(originalCaretPos + 1, oldLength, newLength, maskDif);
