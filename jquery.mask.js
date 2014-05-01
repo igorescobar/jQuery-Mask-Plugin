@@ -160,14 +160,10 @@
                 return count;
             },
             determineCaretPos: function (originalCaretPos, oldLength, newLength, maskDif) {
-                var translation = jMask.translation[mask.charAt(Math.min(originalCaretPos - 1, mask.length - 1))],
-                    caretPos;
-                if (!translation) {
-                    caretPos = p.determineCaretPos(originalCaretPos + 1, oldLength, newLength, maskDif);
-                } else {
-                    caretPos = Math.min(originalCaretPos + newLength - oldLength - maskDif, newLength);
-                }
-                return caretPos;
+                var translation = jMask.translation[mask.charAt(Math.min(originalCaretPos - 1, mask.length - 1))];
+
+                return !translation ? p.determineCaretPos(originalCaretPos + 1, oldLength, newLength, maskDif)
+                                    : Math.min(originalCaretPos + newLength - oldLength - maskDif, newLength);
             },
             behaviour: function(e) {
                 e = e || window.event;
@@ -178,11 +174,11 @@
                     var caretPos = p.getCaret(),
                         currVal = p.val(),
                         currValL = currVal.length,
-                        changeCaret = caretPos < currValL;
-
-                    var newVal = p.getMasked(),
+                        changeCaret = caretPos < currValL,
+                        newVal = p.getMasked(),
                         newValL = newVal.length,
                         maskDif = p.getMaskCharactersBeforeCount(newValL - 1) - p.getMaskCharactersBeforeCount(currValL - 1);
+                   
                     if (newVal !== currVal) {
                         p.val(newVal);
                     }
