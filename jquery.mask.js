@@ -90,7 +90,6 @@
 
                 // IE Support
                 if (dSel && !~navigator.appVersion.indexOf("MSIE 10")) {
-                    ctrl.focus();
                     sel = dSel.createRange();
                     sel.moveStart('character', el.is("input") ? -el.val().length : -el.text().length);
                     pos = sel.text.length;
@@ -106,7 +105,6 @@
                 var range, ctrl = el.get(0);
 
                 if (ctrl.setSelectionRange) {
-                    ctrl.focus();
                     ctrl.setSelectionRange(pos,pos);
                 } else if (ctrl.createTextRange) {
                     range = ctrl.createTextRange();
