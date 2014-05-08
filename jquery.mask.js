@@ -137,9 +137,16 @@
                     }
                     el.data("changeCalled", false);
                 });
+
+                // clear the value if it not complete the mask
+                el.on("focusout.mask", function() {
+                    if (options.clearIfNotMatch && p.val().length < mask.length) {
+                       p.val('');
+                   }
+                });
             },
             destroyEvents: function() {
-                el.off('keydown.mask keyup.mask paste.mask drop.mask change.mask blur.mask').removeData("changeCalled");
+                el.off('keydown.mask keyup.mask paste.mask drop.mask change.mask blur.mask focusout.mask').removeData("changeCalled");
             },
             val: function(v) {
                 var isInput = el.is('input');
@@ -331,6 +338,10 @@
 
         if (input.attr('data-mask-maxlength') === 'false') {
             options.maxlength = false;
+        }
+
+        if (input.attr('data-mask-clearifnotmatch') === 'true') {
+            options.clearIfNotMatch = true;
         }
 
         input.mask(input.attr('data-mask'), options);

@@ -4,6 +4,7 @@ $(document).ready(function(){
     var testfield = $('.simple-field'),
         testfieldDataMask = $('.simple-field-data-mask'),
         testfieldDataMaskWithReverse = $('.simple-field-data-mask-reverse'),
+        testfieldDataMaskWithClearIfNotMatch = $('.simple-field-data-mask-clearifnotmatch'),
         testdiv = $('.simple-div'),
         typeTest = function (typedValue, obj) {
           obj = typeof obj === "undefined" ? testfield : obj;
@@ -442,5 +443,46 @@ $(document).ready(function(){
 
   test('onDrop Test', function(){
     ok(true, "todo");
+  });
+
+  module('testing Remove If Not Match Feature');
+
+  test('test when clearifnotmatch javascript notation', 4, function(){
+    var typeAndFocusOut = function(typedValue){
+      testfield.keydown().val(typedValue).keyup();
+      testfield.triggerHandler("focusout");
+    };
+
+    testfield.mask('000');
+
+    typeAndFocusOut("1");
+    equal( testfield.val(), "1" );
+
+    testfield.mask('000', {clearIfNotMatch: true});
+
+    typeAndFocusOut("1");
+    equal( testfield.val(), "" );
+
+    typeAndFocusOut("12");
+    equal( testfield.val(), "" );
+
+    typeAndFocusOut("123");
+    equal( testfield.val(), "123" );
+  });
+
+  test('test when clearifnotmatch is HTML notation', 3, function(){
+    var typeAndFocusOut = function(typedValue){
+      testfieldDataMaskWithClearIfNotMatch.keydown().val(typedValue).keyup();
+      testfieldDataMaskWithClearIfNotMatch.triggerHandler("focusout");
+    };
+
+    typeAndFocusOut("1");
+    equal( testfieldDataMaskWithClearIfNotMatch.val(), "" );
+
+    typeAndFocusOut("12");
+    equal( testfieldDataMaskWithClearIfNotMatch.val(), "" );
+
+    typeAndFocusOut("123");
+    equal( testfieldDataMaskWithClearIfNotMatch.val(), "123" );
   });
 });
