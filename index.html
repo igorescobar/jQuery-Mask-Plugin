@@ -48,6 +48,8 @@
       <input type="text" class="crazy_cep"/>
       <label>Money</label>
       <input type="text" class="money"/>
+      <label>Mask placeholder option</label>
+      <input type="text" class="placeholder"/>
       <label>Masks on div elements!</label>
       <div class="mask-on-div">12345678909</div> <input type="button" class="bt-mask-it" value="Mask it!"/>
     </div>
@@ -66,8 +68,8 @@
       <input type="text" class="cpf"/>
       <label>IP Address</label>
       <input type="text" class="ip_address"/>
-      <label>Percent</label>
-      <input type="text" class="percent"/>
+      <label>Mask with Clear If Not Match Option</label>
+      <input type="text" class="clear-if-not-match"/>
     </div>
     <div class="col center banner">
       <p>The <a href="http://igorescobar.github.com/jQuery-Mask-Plugin/">jQuery Mask Plugin</a> was written by <a href="http://www.igorescobar.com/" rel="author" target="_blank">Igor Escobar</a> and the source-code's available in <a href="https://github.com/igorescobar/jQuery-Mask-Plugin" target="_blank">GitHub</a>.</p>
@@ -95,6 +97,8 @@ $(document).ready(function(){
   $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': {pattern: /[0-9]/, optional: true}}});
   $('.ip_address').mask('099.099.099.099');
   $('.percent').mask('##0,00%', {reverse: true});
+  $('.clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
+  $('.placeholder').mask("00/00/0000", {palceholder: "__/__/____"});
 );</pre>
 
     <h3>Callback Examples</h3>
@@ -135,11 +139,25 @@ var celphoneMask = function(phone, e, currentField, options){
 $(".sp_celphones").mask(celphoneMask);
 </pre>
     
-    <h3>Mask using data-mask attribute</h3>
+    <h3>Using HTML Notation Exemples</h3>
 
     To get your mask applied with the data-mask attribute just use it as the same way you use with the $.mask function. <br/> <br/>
 <pre>
 &lt;input type=&quot;text&quot; name=&quot;field-name&quot; data-mask=&quot;00/00/0000&quot; /&gt;
+</pre>
+  Activating a reversible mask <br/> <br/>
+<pre>
+&lt;input type=&quot;text&quot; name=&quot;field-name&quot; data-mask=&quot;00/00/0000&quot; data-mask-reverse=&quot;true&quot; /&gt;
+</pre>
+
+  Disabling automatic maxlength <br/> <br/>
+<pre>
+&lt;input type=&quot;text&quot; name=&quot;field-name&quot; data-mask=&quot;00/00/0000&quot; data-mask-maxlength=&quot;false&quot; /&gt;
+</pre>
+
+  Using clearIfNotMatch option <br/> <br/>
+<pre>
+&lt;input type=&quot;text&quot; name=&quot;field-name&quot; data-mask=&quot;00/00/0000&quot; data-mask-clearifnotmatch=&quot;true&quot; /&gt;
 </pre>
 
 <h2>Customization</h2>
@@ -244,6 +262,8 @@ $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': {pattern: /[0-9]/,
     $('.mixed').mask('AAA 000-S0S');
     $('.ip_address').mask('099.099.099.099');
     $('.percent').mask('##0,00%', {reverse: true});
+    $('.clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
+    $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
 
     $('.cep_with_callback').mask('00000-000', {onComplete: function(cep) {
         console.log('Mask is done!:', cep);
