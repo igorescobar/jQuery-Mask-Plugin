@@ -12,7 +12,7 @@ http://igorescobar.github.io/jQuery-Mask-Plugin/
 
   * Lightweight (~2kb minified, ~1kb gziped).
   * Masks on any HTML element (no need to server-side mask anymore!)!
-  * data-mask attribute support.
+  * HTML notation support (data-mask, data-mask-recursive, data-mask-maxlength, data-mask-clearifnotmatch).
   * String/Numeric/Alpha/Mixed masks.
   * Reverse mask support for masks on numeric fields.
   * Sanitization.
@@ -24,7 +24,10 @@ http://igorescobar.github.io/jQuery-Mask-Plugin/
   * On-the-fly mask change.
   * Mask removal.
   * Full customization.
-  * Compatibility with Zepto.js
+  * Compatibility with Zepto.js.
+  * UMD compatible.
+  * HTML5 placeholder support.
+  * Clear the field if it not matches support.
 
 ##Tutorials
 ### English
