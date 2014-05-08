@@ -58,7 +58,7 @@ jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
 ## Help us!
 [![Click here to lend your support to: jQuery Mask Plugin and make a donation at pledgie.com !](https://pledgie.com/campaigns/22649.png?skin_name=chrome)](https://pledgie.com/campaigns/22649)
 
-[![Flattr this](//api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=igorescobar&url=https%3A%2F%2Fflattr.com%2Fprofile%2Figorescobar)
+[![Flattr this](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=igorescobar&url=https%3A%2F%2Fflattr.com%2Fprofile%2Figorescobar)
 
 ## Donators (Thanks!)
  * Rinaldo Morato
