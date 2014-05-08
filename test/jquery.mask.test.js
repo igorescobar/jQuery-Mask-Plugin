@@ -485,4 +485,14 @@ $(document).ready(function(){
     typeAndFocusOut("123");
     equal( testfieldDataMaskWithClearIfNotMatch.val(), "123" );
   });
+
+  module('testing Remove If Not Match Feature');
+
+  test('test when clearifnotmatch javascript notation', 1, function(){
+
+    testfield.mask('000', {placeholder: '___'});
+    equal( testfield.attr('placeholder'), "___" );
+
+  });
+
 });

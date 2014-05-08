@@ -68,6 +68,10 @@
                     el.attr('maxlength', mask.length);
                 }
 
+                if (options.placeholder) {
+                    el.attr('placeholder' , options.placeholder);
+                }
+                
                 el.attr('autocomplete', 'off');
                 p.destroyEvents();
                 p.events();
