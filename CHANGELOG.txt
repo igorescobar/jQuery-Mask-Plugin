@@ -1,3 +1,14 @@
+== v1.6.0 (May/07 2014 21:13 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing autofocus bug
+
+Features:
+
+* adding support to the clearIfNotMatch option
+* HTML5 placeholder support
+
 == v1.5.7 (May/01 2014 18:37 -0300 by Igor Escobar) ==
 
 Changes:
