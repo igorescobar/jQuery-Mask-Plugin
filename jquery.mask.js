@@ -1,4 +1,4 @@
- /**
+/**
  * jquery.mask.js
  * @version: v1.6.0
  * @author: Igor Escobar
@@ -30,6 +30,9 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
+/*jshint laxbreak: true */
+/* global define */
+
 // UMD (Universal Module Definition) patterns for JavaScript modules that work everywhere.
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 (function (factory) {
@@ -133,7 +136,7 @@
                 });
                 el.on("blur.mask", function(e){
                     var el = $(e.target);
-                    if (el.prop("defaultValue") != el.val()) {
+                    if (el.prop("defaultValue") !== el.val()) {
                         el.prop("defaultValue", el.val());
                         if (!el.data("changeCalled")) {
                             el.trigger("change");
