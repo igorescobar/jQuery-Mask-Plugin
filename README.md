@@ -53,7 +53,7 @@ jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
  * [Mark Simmons](https://github.com/Markipelago)
  * [Gabriel Schammah](https://github.com/gschammah)
  * [Marcelo Manzan](https://github.com/kawamanza)
- 
+ * [See the full list](https://github.com/igorescobar/jQuery-Mask-Plugin/graphs/contributors)
 ## Help us!
 [![Click here to lend your support to: jQuery Mask Plugin and make a donation at pledgie.com !](https://pledgie.com/campaigns/22649.png?skin_name=chrome)](https://pledgie.com/campaigns/22649)
 
