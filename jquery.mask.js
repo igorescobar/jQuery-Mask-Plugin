@@ -1,6 +1,6 @@
  /**
  * jquery.mask.js
- * @version: v1.5.7
+ * @version: v1.6.0
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
