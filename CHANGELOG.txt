@@ -1,3 +1,9 @@
+== v1.6.3 (May/08 2014 23:51 -0300 by Igor Escobar) ==
+
+Changes:
+
+* testing some deployment stunts
+
 == v1.6.2 (May/08 2014 23:45 -0300 by Igor Escobar) ==
 
 Bugfixes:
