@@ -71,7 +71,10 @@ puts '# UPGRATING CHANGELOG'
 
 puts '# UPGRADING gh-pages'
 `git checkout gh-pages`
+
 minFile = File.open(GHPAGES_JMASK_MIN_FILE, 'w')
+minFile.puts("// jQuery Mask Plugin #{JMASK_VERSION}")
+minFile.puts("// github.com/igorescobar/jQuery-Mask-Plugin") 
 minFile.puts(jquery_mask_min_file)
 minFile.close 
 `git commit -am "upgrading plugin file"`
