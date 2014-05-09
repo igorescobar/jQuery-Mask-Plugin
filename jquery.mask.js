@@ -79,11 +79,10 @@
                 p.destroyEvents();
                 p.events();
                 
-                var caret = p.getCaret(),
-                maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret, true);
+                var caret = p.getCaret();
 
                 p.val(p.getMasked());
-                p.setCaret(caret + maskedCharacterCountBefore);
+                p.setCaret(caret + p.getMaskCharactersBeforeCount(caret, true));
             });
         };
 
@@ -109,16 +108,18 @@
                 return pos;
             },
             setCaret: function(pos) {
-                var range, ctrl = el.get(0);
+                if (el.is(":focus")) {
+                    var range, ctrl = el.get(0);
 
-                if (ctrl.setSelectionRange) {
-                    ctrl.setSelectionRange(pos,pos);
-                } else if (ctrl.createTextRange) {
-                    range = ctrl.createTextRange();
-                    range.collapse(true);
-                    range.moveEnd('character', pos);
-                    range.moveStart('character', pos);
-                    range.select();
+                    if (ctrl.setSelectionRange) {
+                        ctrl.setSelectionRange(pos,pos);
+                    } else if (ctrl.createTextRange) {
+                        range = ctrl.createTextRange();
+                        range.collapse(true);
+                        range.moveEnd('character', pos);
+                        range.moveStart('character', pos);
+                        range.select();
+                    }
                 }
             },
             events: function() {
@@ -162,11 +163,10 @@
                     : (isInput ? el.val() : el.text());
             },
             getMaskCharactersBeforeCount: function(index, onCleanVal) {
-                for (var translation, count = 0, i = 0, maskL = mask.length; i < maskL && i < index; i++) {
-                    translation = jMask.translation[mask.charAt(i)];
-                    if (!translation) {
-                        count++;
+                for (var count = 0, i = 0, maskL = mask.length; i < maskL && i < index; i++) {
+                    if (!jMask.translation[mask.charAt(i)]) {
                         index = onCleanVal ? index + 1 : index;
+                        count++;
                     }
                 }
                 return count;
@@ -337,17 +337,18 @@
     // looking for inputs with data-mask attribute
     $('*[data-mask]').each(function() {
         var input = $(this),
-            options = {};
+            options = {}
+            prefix = "data-mask-";
 
-        if (input.attr('data-mask-reverse') === 'true') {
+        if (input.attr(prefix + 'reverse') === 'true') {
             options.reverse = true;
         }
 
-        if (input.attr('data-mask-maxlength') === 'false') {
+        if (input.attr(prefix + 'maxlength') === 'false') {
             options.maxlength = false;
         }
 
-        if (input.attr('data-mask-clearifnotmatch') === 'true') {
+        if (input.attr(prefix + 'clearifnotmatch') === 'true') {
             options.clearIfNotMatch = true;
         }
 
