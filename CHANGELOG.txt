@@ -1,3 +1,9 @@
+== v1.6.2 (May/08 2014 23:45 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* fuckin typo
+
 == v1.6.1 (May/08 2014 23:39 -0300 by Igor Escobar) ==
 
 Bugfixes:
