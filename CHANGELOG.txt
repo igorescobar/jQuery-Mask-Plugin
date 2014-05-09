@@ -1,3 +1,9 @@
+== v1.6.1 (May/08 2014 23:39 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing autofocus bug
+
 == v1.6.0 (May/07 2014 21:13 -0300 by Igor Escobar) ==
 
 Bugfixes:
