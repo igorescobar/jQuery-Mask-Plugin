@@ -337,7 +337,7 @@
     // looking for inputs with data-mask attribute
     $('*[data-mask]').each(function() {
         var input = $(this),
-            options = {}
+            options = {},
             prefix = "data-mask-";
 
         if (input.attr(prefix + 'reverse') === 'true') {
