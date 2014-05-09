@@ -4,6 +4,7 @@ require 'zlib'
 JQUERY_MANIFEST_FILE = 'mask.jquery.json'
 JMASK_FILE = 'jquery.mask.js'
 JMASK_MIN_FILE = 'jquery.mask.min.js'
+GHPAGES_JMASK_MIN_FILE = 'js/jquery.mask.min.js'
 JMASK_GZIP_FILE = 'jquery.mask.min.js.gz'
 JMASK_VERSION = `stepup version --next-release`.delete("\n")
 BOWER_MANIFEST_FILE = 'bower.json'
@@ -36,11 +37,13 @@ File.open(JQUERY_MANIFEST_FILE, 'w') do |file|
 end
 
 puts '# GENERATING MIN FILE'
+jquery_mask_min_file = nil
 File.open(JMASK_FILE, 'r') do |file| 
   minFile = File.open(JMASK_MIN_FILE, 'w')
   minFile.puts("// jQuery Mask Plugin #{JMASK_VERSION}")
   minFile.puts("// github.com/igorescobar/jQuery-Mask-Plugin") 
-  minFile.puts(`java -jar ../clojure-compiler/compiler.jar --js jquery.mask.js --charset UTF-8`)
+  jquery_mask_min_file = `java -jar ../clojure-compiler/compiler.jar --js jquery.mask.js --charset UTF-8`
+  minFile.puts(jquery_mask_min_file)
   minFile.close
 end
 
@@ -65,5 +68,14 @@ puts '# UPGRATING CHANGELOG'
 `stepup changelog --format=wiki > CHANGELOG.txt`
 `git commit -am "upgrading changelog"`
 `git push`
+
+puts '# UPGRADING gh-pages'
+`git checkout gh-pages`
+minFile = File.open(GHPAGES_JMASK_MIN_FILE, 'w')
+minFile.puts(jquery_mask_min_file)
+minFile.close 
+`git commit -am "upgrading plugin file"`
+`git push`
+`git checkout master`
 
 puts '# DONE'
