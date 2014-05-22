@@ -335,24 +335,26 @@
     };
 
     // looking for inputs with data-mask attribute
-    $('*[data-mask]').each(function() {
-        var input = $(this),
-            options = {},
-            prefix = "data-mask-";
+    $(document).ready(function(){
+        $('*[data-mask]').each(function() {
+            var input = $(this),
+                options = {},
+                prefix = "data-mask-";
 
-        if (input.attr(prefix + 'reverse') === 'true') {
-            options.reverse = true;
-        }
+            if (input.attr(prefix + 'reverse') === 'true') {
+                options.reverse = true;
+            }
 
-        if (input.attr(prefix + 'maxlength') === 'false') {
-            options.maxlength = false;
-        }
+            if (input.attr(prefix + 'maxlength') === 'false') {
+                options.maxlength = false;
+            }
 
-        if (input.attr(prefix + 'clearifnotmatch') === 'true') {
-            options.clearIfNotMatch = true;
-        }
+            if (input.attr(prefix + 'clearifnotmatch') === 'true') {
+                options.clearIfNotMatch = true;
+            }
 
-        input.mask(input.attr('data-mask'), options);
-    });
+            input.mask(input.attr('data-mask'), options);
+        });
 
+    })
 }));
