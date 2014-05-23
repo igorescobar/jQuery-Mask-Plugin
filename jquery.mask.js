@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.6.4
+ * @version: v1.6.5
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -144,6 +144,13 @@
                         }
                     }
                     el.data("changeCalled", false);
+                });
+
+                el.on('focus.mask', function (e) {
+                    var el = $(e.target);
+                    if (options.selectonfocus !== false) {
+                        el.select();
+                    }
                 });
 
                 // clear the value if it not complete the mask
@@ -350,6 +357,10 @@
 
         if (input.attr(prefix + 'clearifnotmatch') === 'true') {
             options.clearIfNotMatch = true;
+        }
+
+        if (input.attr(prefix + 'selectonfocus') === 'true') {
+            options.selectonfocus = true;
         }
 
         input.mask(input.attr('data-mask'), options);

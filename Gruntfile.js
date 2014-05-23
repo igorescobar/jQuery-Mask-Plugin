@@ -22,12 +22,20 @@ module.exports = function(grunt) {
         			]
     			}
     		}
-    	}
+    	},
+		uglify: {
+		  build: {
+			src:  'jquery.mask.js',
+			dest: 'jquery.mask.min.js'
+		  }
+		}
 	});
 
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   
+   grunt.registerTask('build', ['uglify']);
   // A convenient task alias.
   grunt.registerTask('test', ['connect', 'qunit']);
    
