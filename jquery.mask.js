@@ -148,10 +148,21 @@
 
                 // clear the value if it not complete the mask
                 el.on("focusout.mask", function() {
-                    if (options.clearIfNotMatch && p.val().length < mask.length) {
+                    if (options.clearIfNotMatch && p.val().length < p.requiredLength()) {
                        p.val('');
                    }
                 });
+            },
+            requiredLength: function() {
+                var length = 0;
+
+                for (var i in mask) {
+                    if (jMask.translation[mask[i]].optional !== true) {
+                        length++;
+                    }
+                }
+
+                return length;
             },
             destroyEvents: function() {
                 el.off('keydown.mask keyup.mask paste.mask drop.mask change.mask blur.mask focusout.mask').removeData("changeCalled");
