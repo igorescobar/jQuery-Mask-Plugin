@@ -496,20 +496,33 @@ $(document).ready(function(){
 
   });
 
-  test('test when clearifnotmatch with optional mask', 3, function(){
-    var typeAndBlur = function(typedValue){
-      testfieldDataMaskWithClearIfNotMatchAndOptionalMask.keydown().val(typedValue).keyup();
-      testfieldDataMaskWithClearIfNotMatchAndOptionalMask.triggerHandler("focusout");
+  test('test when clearifnotmatch with optional mask', 6, function(){
+    // html notation
+    var typeAndBlur = function(field, typedValue){
+      field.keydown().val(typedValue).keyup();
+      field.triggerHandler("focusout");
     };
 
-    typeAndBlur("1");
+    typeAndBlur(testfieldDataMaskWithClearIfNotMatchAndOptionalMask, "1");
     equal( testfieldDataMaskWithClearIfNotMatchAndOptionalMask.val(), "" );
 
-    typeAndBlur("12");
+    typeAndBlur(testfieldDataMaskWithClearIfNotMatchAndOptionalMask, "12");
     equal( testfieldDataMaskWithClearIfNotMatchAndOptionalMask.val(), "12" );
 
-    typeAndBlur("123");
+    typeAndBlur(testfieldDataMaskWithClearIfNotMatchAndOptionalMask, "123");
     equal( testfieldDataMaskWithClearIfNotMatchAndOptionalMask.val(), "123" );
+
+    // javascript notation
+    testfield.mask('009', {clearIfNotMatch: true});
+
+    typeAndBlur(testfield, "1");
+    equal( testfield.val(), "" );
+
+    typeAndBlur(testfield, "12");
+    equal( testfield.val(), "12" );
+
+    typeAndBlur(testfield, "123");
+    equal( testfield.val(), "123" );
   });
 
 });
