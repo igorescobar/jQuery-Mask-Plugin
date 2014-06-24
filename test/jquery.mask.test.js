@@ -5,6 +5,7 @@ $(document).ready(function(){
         testfieldDataMask = $('.simple-field-data-mask'),
         testfieldDataMaskWithReverse = $('.simple-field-data-mask-reverse'),
         testfieldDataMaskWithClearIfNotMatch = $('.simple-field-data-mask-clearifnotmatch'),
+        testfieldDataMaskWithClearIfNotMatchAndOptionalMask = $('.simple-field-data-mask-clearifnotmatch-and-optional-mask'),
         testdiv = $('.simple-div'),
         typeTest = function (typedValue, obj) {
           obj = typeof obj === "undefined" ? testfield : obj;
@@ -493,6 +494,35 @@ $(document).ready(function(){
     testfield.mask('000', {placeholder: '___'});
     equal( testfield.attr('placeholder'), "___" );
 
+  });
+
+  test('test when clearifnotmatch with optional mask', 6, function(){
+    // html notation
+    var typeAndBlur = function(field, typedValue){
+      field.keydown().val(typedValue).keyup();
+      field.triggerHandler("focusout");
+    };
+
+    typeAndBlur(testfieldDataMaskWithClearIfNotMatchAndOptionalMask, "1");
+    equal( testfieldDataMaskWithClearIfNotMatchAndOptionalMask.val(), "" );
+
+    typeAndBlur(testfieldDataMaskWithClearIfNotMatchAndOptionalMask, "12");
+    equal( testfieldDataMaskWithClearIfNotMatchAndOptionalMask.val(), "12" );
+
+    typeAndBlur(testfieldDataMaskWithClearIfNotMatchAndOptionalMask, "123");
+    equal( testfieldDataMaskWithClearIfNotMatchAndOptionalMask.val(), "123" );
+
+    // javascript notation
+    testfield.mask('009', {clearIfNotMatch: true});
+
+    typeAndBlur(testfield, "1");
+    equal( testfield.val(), "" );
+
+    typeAndBlur(testfield, "12");
+    equal( testfield.val(), "12" );
+
+    typeAndBlur(testfield, "123");
+    equal( testfield.val(), "123" );
   });
 
 });
