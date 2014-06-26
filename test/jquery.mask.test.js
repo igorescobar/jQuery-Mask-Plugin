@@ -496,7 +496,7 @@ $(document).ready(function(){
 
   });
 
-  test('test when clearifnotmatch with optional mask', 6, function(){
+  test('test when clearifnotmatch with optional mask', 8, function(){
     // html notation
     var typeAndBlur = function(field, typedValue){
       field.keydown().val(typedValue).keyup();
@@ -523,6 +523,15 @@ $(document).ready(function(){
 
     typeAndBlur(testfield, "123");
     equal( testfield.val(), "123" );
+
+    // inexistent translation
+    testfield.mask('0-0', {clearIfNotMatch: true});
+
+    typeAndBlur(testfield, "1");
+    equal( testfield.val(), "" );
+
+    typeAndBlur(testfield, "12");
+    equal( testfield.val(), "1-2" );
   });
 
 });

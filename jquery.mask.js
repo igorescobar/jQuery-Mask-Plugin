@@ -157,7 +157,7 @@
                 var length = 0;
 
                 for (var i in mask) {
-                    if (jMask.translation[mask[i]].optional !== true) {
+                    if (typeof jMask.translation[mask[i]] === 'undefined' || typeof jMask.translation[mask[i]].optional === 'undefined' || jMask.translation[mask[i]].optional !== true) {
                         length++;
                     }
                 }
