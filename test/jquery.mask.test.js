@@ -496,7 +496,7 @@ $(document).ready(function(){
 
   });
 
-  test('test when clearifnotmatch with optional mask', 6, function(){
+  test('test when clearifnotmatch with optional mask', 17, function(){
     // html notation
     var typeAndBlur = function(field, typedValue){
       field.keydown().val(typedValue).keyup();
@@ -523,6 +523,45 @@ $(document).ready(function(){
 
     typeAndBlur(testfield, "123");
     equal( testfield.val(), "123" );
+
+    // inexistent translation
+    testfield.mask('0-0', {clearIfNotMatch: true});
+
+    typeAndBlur(testfield, "1");
+    equal( testfield.val(), "" );
+
+    typeAndBlur(testfield, "12");
+    equal( testfield.val(), "1-2" );
+
+    // some other use cases
+    testfield.mask('099.099.099.099', {clearIfNotMatch: true});
+
+    typeAndBlur(testfield, "8888");
+    equal( testfield.val(), "" );
+
+    typeAndBlur(testfield, "8.8.8.8");
+    equal( testfield.val(), "8.8.8.8" );
+
+    typeAndBlur(testfield, "192");
+    equal( testfield.val(), "" );
+
+    typeAndBlur(testfield, "192168");
+    equal( testfield.val(), "" );
+
+    typeAndBlur(testfield, "192168254");
+    equal( testfield.val(), "" );
+
+    typeAndBlur(testfield, "1921682541");
+    equal( testfield.val(), "192.168.254.1" );
+
+    typeAndBlur(testfield, "17216.10099");
+    equal( testfield.val(), "172.16.100.99" );
+
+    typeAndBlur(testfield, "1721610099");
+    equal( testfield.val(), "172.161.009.9" );
+
+    typeAndBlur(testfield, "172161009");
+    equal( testfield.val(), "" );
   });
 
 });
