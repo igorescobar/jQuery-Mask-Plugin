@@ -51,9 +51,9 @@
 
         mask = typeof mask === "function" ? mask(el.val(), undefined, el,  options) : mask;
 
-        jMask.init = function() {
+        jMask.init = function () {
             options = options || {};
-
+            
             jMask.byPassKeys = [9, 16, 17, 18, 36, 37, 38, 39, 40, 91];
             jMask.translation = {
                 '0': {pattern: /\d/},
@@ -148,6 +148,13 @@
                         }
                     }
                     el.data("changeCalled", false);
+                });
+
+                el.on('focus.mask', function (e) {
+                    var el = $(e.target);
+                    if (options.selectonfocus === true) {
+                        el.select();
+                    }
                 });
 
                 // clear the value if it not complete the mask
@@ -387,6 +394,10 @@
 
         if (input.attr(prefix + 'clearifnotmatch') === 'true') {
             options.clearIfNotMatch = true;
+        }
+
+        if (input.attr(prefix + 'selectonfocus') === 'true') {
+            options.selectonfocus = true;
         }
 
         input.mask(input.attr('data-mask'), options);
