@@ -496,7 +496,7 @@ $(document).ready(function(){
 
   });
 
-  test('test when clearifnotmatch with optional mask', 6, function(){
+  test('test when clearifnotmatch with optional mask', 9, function(){
     // html notation
     var typeAndBlur = function(field, typedValue){
       field.keydown().val(typedValue).keyup();
@@ -513,16 +513,47 @@ $(document).ready(function(){
     equal( testfieldDataMaskWithClearIfNotMatchAndOptionalMask.val(), "123" );
 
     // javascript notation
-    testfield.mask('009', {clearIfNotMatch: true});
+    testfield.mask('099.099.099.099', {clearIfNotMatch: true});
 
     typeAndBlur(testfield, "1");
     equal( testfield.val(), "" );
 
-    typeAndBlur(testfield, "12");
-    equal( testfield.val(), "12" );
+    typeAndBlur(testfield, "123.");
+    equal( testfield.val(), "" );
 
-    typeAndBlur(testfield, "123");
-    equal( testfield.val(), "123" );
+    typeAndBlur(testfield, "123.0");
+    equal( testfield.val(), "" );
+
+    typeAndBlur(testfield, "123.01.000.");
+    equal( testfield.val(), "" );
+
+    typeAndBlur(testfield, "123.01.000.123");
+    equal( testfield.val(), "123.01.000.123" );
+
+    typeAndBlur(testfield, "0.0.0.0");
+    equal( testfield.val(), "0.0.0.0" );
   });
 
+  test('test when clearifnotmatch with recursive mask', 4, function(){
+    // html notation
+    var typeAndBlur = function(field, typedValue){
+      field.keydown().val(typedValue).keyup();
+      field.triggerHandler("focusout");
+    };
+
+    // javascript notation
+    testfield.mask('#.##0,00', {clearIfNotMatch: true, reverse: true, maxlength: false});
+
+    typeAndBlur(testfield, "0");
+    equal( testfield.val(), "" );
+
+    typeAndBlur(testfield, "00");
+    equal( testfield.val(), "" );
+
+    typeAndBlur(testfield, "0,00");
+    equal( testfield.val(), "0,00" );
+
+    typeAndBlur(testfield, "1.000,00");
+    equal( testfield.val(), "1.000,00" );
+  });
 });

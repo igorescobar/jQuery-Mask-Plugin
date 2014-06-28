@@ -46,7 +46,7 @@
 }(function ($) {
     "use strict";
     var Mask = function (el, mask, options) {
-        var jMask = this, old_value;
+        var jMask = this, old_value, regexMask;
         el = $(el);
 
         mask = typeof mask === "function" ? mask(el.val(), undefined, el,  options) : mask;
@@ -66,6 +66,8 @@
             jMask.translation = $.extend({}, jMask.translation, options.translation);
             jMask = $.extend(true, {}, jMask, options);
 
+            regexMask = p.getRegexMask();
+
             el.each(function() {
                 if (options.maxlength !== false) {
                     el.attr('maxlength', mask.length);
@@ -84,6 +86,8 @@
                 p.val(p.getMasked());
                 p.setCaret(caret + p.getMaskCharactersBeforeCount(caret, true));
             });
+
+
         };
 
         var p = {
@@ -148,21 +152,43 @@
 
                 // clear the value if it not complete the mask
                 el.on("focusout.mask", function() {
-                    if (options.clearIfNotMatch && p.val().length < p.requiredLength()) {
+                    if (options.clearIfNotMatch && !regexMask.test(p.val())) {
                        p.val('');
                    }
                 });
             },
-            requiredLength: function() {
-                var length = 0;
+            getRegexMask: function() {
+                var maskChunks = [], translation, pattern, optional, recursive, oRecursive, r;
 
                 for (var i in mask) {
-                    if (jMask.translation[mask[i]].optional !== true) {
-                        length++;
+                    translation = jMask.translation[mask[i]];
+
+                    if (translation) {
+                        
+                        pattern = translation.pattern.toString().replace(/.{1}$/, "").replace(/^.{1}/, "");
+                        optional = translation.optional;
+                        recursive = translation.recursive;
+                        
+                        if (!optional && !recursive) {
+                            maskChunks.push(pattern);
+                        } else if (optional) {
+                            maskChunks.push(pattern + "?");
+                        } else if (recursive) {
+                            maskChunks.push(mask[i]);
+                            oRecursive = {digit: mask[i], pattern: pattern};
+                        }
+                    } else {
+                        maskChunks.push("\\" + mask[i]);
                     }
                 }
+                r = maskChunks.join("");
+                
+                if (oRecursive) {
+                    r = r.replace(new RegExp("(" + oRecursive.digit + "(.*" + oRecursive.digit + ")?)"), "(\$1)?")
+                    r = r.replace(new RegExp(oRecursive.digit, "g"), oRecursive.pattern)
+                }
 
-                return length;
+                return new RegExp(r);
             },
             destroyEvents: function() {
                 el.off('keydown.mask keyup.mask paste.mask drop.mask change.mask blur.mask focusout.mask').removeData("changeCalled");
