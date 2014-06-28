@@ -180,6 +180,7 @@
                         maskChunks.push("\\" + mask[i]);
                     }
                 }
+                
                 r = maskChunks.join("");
                 
                 if (oRecursive) {
