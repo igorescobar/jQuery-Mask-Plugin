@@ -169,14 +169,13 @@
                         optional = translation.optional;
                         recursive = translation.recursive;
                         
-                        if (!optional && !recursive) {
-                            maskChunks.push(pattern);
-                        } else if (optional) {
-                            maskChunks.push(pattern + "?");
-                        } else if (recursive) {
+                        if (recursive) {
                             maskChunks.push(mask[i]);
                             oRecursive = {digit: mask[i], pattern: pattern};
+                        } else {
+                            maskChunks.push((!optional && !recursive) ? pattern : (pattern + "?"));
                         }
+
                     } else {
                         maskChunks.push("\\" + mask[i]);
                     }
@@ -185,7 +184,7 @@
                 
                 if (oRecursive) {
                     r = r.replace(new RegExp("(" + oRecursive.digit + "(.*" + oRecursive.digit + ")?)"), "(\$1)?")
-                    r = r.replace(new RegExp(oRecursive.digit, "g"), oRecursive.pattern)
+                         .replace(new RegExp(oRecursive.digit, "g"), oRecursive.pattern);
                 }
 
                 return new RegExp(r);
