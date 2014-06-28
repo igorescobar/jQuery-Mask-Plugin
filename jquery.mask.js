@@ -165,7 +165,7 @@
 
                     if (translation) {
                         
-                        pattern = translation.pattern.toString().replace(/.{1}$/, "").replace(/^.{1}/, "");
+                        pattern = translation.pattern.toString().replace(/.{1}$|^.{1}/g, "");
                         optional = translation.optional;
                         recursive = translation.recursive;
                         
