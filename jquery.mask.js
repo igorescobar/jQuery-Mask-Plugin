@@ -160,7 +160,7 @@
             getRegexMask: function() {
                 var maskChunks = [], translation, pattern, optional, recursive, oRecursive, r;
 
-                for (var i in mask) {
+                for (var i = 0; i < mask.length; i++) {
                     translation = jMask.translation[mask[i]];
 
                     if (translation) {
@@ -184,7 +184,7 @@
                 r = maskChunks.join("");
                 
                 if (oRecursive) {
-                    r = r.replace(new RegExp("(" + oRecursive.digit + "(.*" + oRecursive.digit + ")?)"), "(\$1)?")
+                    r = r.replace(new RegExp("(" + oRecursive.digit + "(.*" + oRecursive.digit + ")?)"), "($1)?")
                          .replace(new RegExp(oRecursive.digit, "g"), oRecursive.pattern);
                 }
 
