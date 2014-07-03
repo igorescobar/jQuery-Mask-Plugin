@@ -38,6 +38,9 @@ http://igorescobar.github.io/jQuery-Mask-Plugin/
 ### Portuguese
   * [Mascaras com JQuery Mask Plugin](http://bit.ly/mascaras-com-jquery-mask-plugin)
   * [Mascara Javascript para os novos telefones de São Paulo](http://bit.ly/mascara-javascript-para-os-novos-telefones-de-sao-paulo)
+  * 
+### Russian
+  * [jQuery Mask Plugin](http://zencoder.ru/jquery-mask-plugin/)
 
 ## Compatibility
 jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
