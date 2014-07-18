@@ -293,7 +293,11 @@
                         } else if (translation.optional) {
                             m += offset;
                             v -= offset;
-                        }
+                        } else if (translation.defaults) {
+							buf[addMethod](translation.defaults);
+							m += offset;
+							v -= offset;
+						}
                         v += offset;
                     } else {
                         if (!skipMaskChars) {

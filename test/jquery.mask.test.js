@@ -556,4 +556,15 @@ $(document).ready(function(){
     typeAndBlur(testfield, "1.000,00");
     equal( testfield.val(), "1.000,00" );
   });
+  
+  test("test the translation defaults",function(){
+    testfield.mask('99t00', {'translation': {'t': {pattern: /[:,\\.]/, defaults: ':'}}});
+
+	equal( typeTest('1'), '1');
+	equal( typeTest('13'), '13');
+	equal( typeTest('137'), '13:3');
+    equal( typeTest('1337'), '13:37');
+	equal( typeTest('6.66'), '6.66');
+    equal( typeTest(',42'), ',42');
+  });
 });
