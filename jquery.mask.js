@@ -348,10 +348,57 @@
         jMask.getCleanVal = function() {
            return p.getMasked(true);
         };
+        
+        jMask.applyHtmlNotation = function() {
+        	$('*[data-mask]').each(function() {
+                var input = $(this),
+                    options = {},
+                    prefix = "data-mask-";
 
+                if (input.attr(prefix + 'reverse') === 'true') {
+                    options.reverse = true;
+                }
+
+                if (input.attr(prefix + 'maxlength') === 'false') {
+                    options.maxlength = false;
+                }
+
+                if (input.attr(prefix + 'clearifnotmatch') === 'true') {
+                    options.clearIfNotMatch = true;
+                }
+
+                input.mask(input.attr('data-mask'), options);
+            });
+        };
+        
+        
         jMask.init();
     };
 
+    $.jMask = {};
+    
+    $.jMask.applyHtmlNotation = function() {
+    	$('*[data-mask]').each(function() {
+            var input = $(this),
+                options = {},
+                prefix = "data-mask-";
+
+            if (input.attr(prefix + 'reverse') === 'true') {
+                options.reverse = true;
+            }
+
+            if (input.attr(prefix + 'maxlength') === 'false') {
+                options.maxlength = false;
+            }
+
+            if (input.attr(prefix + 'clearifnotmatch') === 'true') {
+                options.clearIfNotMatch = true;
+            }
+
+            input.mask(input.attr('data-mask'), options);
+        });
+      };
+    
     $.fn.mask = function(mask, options) {
         this.unmask();
         return this.each(function() {
@@ -370,26 +417,14 @@
     $.fn.cleanVal = function() {
         return $(this).data('mask').getCleanVal();
     };
-
-    // looking for inputs with data-mask attribute
-    $('*[data-mask]').each(function() {
-        var input = $(this),
-            options = {},
-            prefix = "data-mask-";
-
-        if (input.attr(prefix + 'reverse') === 'true') {
-            options.reverse = true;
-        }
-
-        if (input.attr(prefix + 'maxlength') === 'false') {
-            options.maxlength = false;
-        }
-
-        if (input.attr(prefix + 'clearifnotmatch') === 'true') {
-            options.clearIfNotMatch = true;
-        }
-
-        input.mask(input.attr('data-mask'), options);
-    });
-
+    
+    
 }));
+
+//looking for inputs with data-mask attribute
+$(function(){jQuery.jMask.applyHtmlNotation();});
+
+//every ajax success request will reapply the html notation
+$(document).ajaxSuccess(function(event, xhr, settings) {
+	jQuery.jMask.applyHtmlNotation();
+});
