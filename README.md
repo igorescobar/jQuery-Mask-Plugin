@@ -11,6 +11,7 @@ http://igorescobar.github.io/jQuery-Mask-Plugin/
 ##Features
 
   * Lightweight (~2kb minified, ~1kb gziped).
+  * Built-in support for dynamically added elements.
   * Masks on any HTML element (no need to server-side mask anymore!)!
   * HTML notation support (data-mask, data-mask-recursive, data-mask-maxlength, data-mask-clearifnotmatch).
   * String/Numeric/Alpha/Mixed masks.
