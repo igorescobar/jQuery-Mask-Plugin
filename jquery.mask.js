@@ -191,7 +191,8 @@
                 return new RegExp(r);
             },
             destroyEvents: function() {
-                el.off('keydown.mask keyup.mask paste.mask drop.mask change.mask blur.mask focusout.mask DOMNodeInserted.mask').removeData("changeCalled");
+                el.off(['keydown', 'keyup', 'paste', 'drop', 'change', 'blur', 'focusout', 'DOMNodeInserted', ''].join('.mask '))
+                  .removeData("changeCalled");
             },
             val: function(v) {
                 var isInput = el.is('input');
@@ -369,7 +370,8 @@
 
         input.mask(input.attr('data-mask'), options);
     },
-    watchers = {};
+    watchers = {},
+    live = 'DOMNodeInserted.mask';
 
     $.fn.mask = function(mask, options) {
         this.unmask();
