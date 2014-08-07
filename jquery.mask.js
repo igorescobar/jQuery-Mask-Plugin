@@ -92,39 +92,43 @@
 
         var p = {
             getCaret: function () {
-                var sel,
-                    pos = 0,
-                    ctrl = el.get(0),
-                    dSel = document.selection,
-                    cSelStart = ctrl.selectionStart;
+                try {
+                    var sel,
+                        pos = 0,
+                        ctrl = el.get(0),
+                        dSel = document.selection,
+                        cSelStart = ctrl.selectionStart;
 
-                // IE Support
-                if (dSel && !~navigator.appVersion.indexOf("MSIE 10")) {
-                    sel = dSel.createRange();
-                    sel.moveStart('character', el.is("input") ? -el.val().length : -el.text().length);
-                    pos = sel.text.length;
-                }
-                // Firefox support
-                else if (cSelStart || cSelStart === '0') {
-                    pos = cSelStart;
-                }
-                
-                return pos;
+                    // IE Support
+                    if (dSel && !~navigator.appVersion.indexOf("MSIE 10")) {
+                        sel = dSel.createRange();
+                        sel.moveStart('character', el.is("input") ? -el.val().length : -el.text().length);
+                        pos = sel.text.length;
+                    }
+                    // Firefox support
+                    else if (cSelStart || cSelStart === '0') {
+                        pos = cSelStart;
+                    }
+                    
+                    return pos;    
+                } catch (e) {}
             },
             setCaret: function(pos) {
-                if (el.is(":focus")) {
-                    var range, ctrl = el.get(0);
+                try {
+                    if (el.is(":focus")) {
+                        var range, ctrl = el.get(0);
 
-                    if (ctrl.setSelectionRange) {
-                        ctrl.setSelectionRange(pos,pos);
-                    } else if (ctrl.createTextRange) {
-                        range = ctrl.createTextRange();
-                        range.collapse(true);
-                        range.moveEnd('character', pos);
-                        range.moveStart('character', pos);
-                        range.select();
+                        if (ctrl.setSelectionRange) {
+                            ctrl.setSelectionRange(pos,pos);
+                        } else if (ctrl.createTextRange) {
+                            range = ctrl.createTextRange();
+                            range.collapse(true);
+                            range.moveEnd('character', pos);
+                            range.moveStart('character', pos);
+                            range.select();
+                        }
                     }
-                }
+                } catch (e) {}
             },
             events: function() {
                 el.on('keydown.mask', function() {
@@ -384,7 +388,7 @@
             // dynamically added elements.
             watchers[selector] = true;
             setTimeout(function(){
-                $(document).on('DOMNodeInserted.mask', selector, maskFunction); 
+                $(document).on(live, selector, maskFunction); 
             }, 500);
             
         }
@@ -407,6 +411,6 @@
     $('*[data-mask]').each(HTMLNotationSupport);
 
     // dynamically added elements with data-mask html notation.
-    $(document).on('DOMNodeInserted.mask', '*[data-mask]', HTMLNotationSupport);
+    $(document).on(live, '*[data-mask]', HTMLNotationSupport);
 
 }));
