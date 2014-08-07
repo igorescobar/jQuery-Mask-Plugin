@@ -191,7 +191,7 @@
                 return new RegExp(r);
             },
             destroyEvents: function() {
-                el.off('keydown.mask keyup.mask paste.mask drop.mask change.mask blur.mask focusout.mask').removeData("changeCalled");
+                el.off('keydown.mask keyup.mask paste.mask drop.mask change.mask blur.mask focusout.mask DOMNodeInserted.mask').removeData("changeCalled");
             },
             val: function(v) {
                 var isInput = el.is('input');
@@ -350,27 +350,7 @@
         jMask.init();
     };
 
-    $.fn.mask = function(mask, options) {
-        this.unmask();
-        return this.each(function() {
-            $(this).data('mask', new Mask(this, mask, options));
-        });
-    };
-
-    $.fn.unmask = function() {
-        return this.each(function() {
-            try {
-                $(this).data('mask').remove();
-            } catch (e) {}
-        });
-    };
-
-    $.fn.cleanVal = function() {
-        return $(this).data('mask').getCleanVal();
-    };
-
-    // looking for inputs with data-mask attribute
-    $('*[data-mask]').each(function() {
+    var HTMLNotationSupport = function () {
         var input = $(this),
             options = {},
             prefix = "data-mask-";
@@ -388,6 +368,43 @@
         }
 
         input.mask(input.attr('data-mask'), options);
-    });
+    },
+    watchers = {};
+
+    $.fn.mask = function(mask, options) {
+        this.unmask();
+        var selector = this.selector,
+            maskFunction = function() {
+                $(this).data('mask', new Mask(this, mask, options));    
+            };
+
+        if (selector && !watchers[selector]){
+            // dynamically added elements.
+            watchers[selector] = true;
+            setTimeout(function(){
+                $(document).on('DOMNodeInserted.mask', selector, maskFunction); 
+            }, 500);
+            
+        }
+        return this.each(maskFunction);
+    };
+
+    $.fn.unmask = function() {
+        return this.each(function() {
+            try {
+                $(this).data('mask').remove();
+            } catch (e) {}
+        });
+    };
+
+    $.fn.cleanVal = function() {
+        return $(this).data('mask').getCleanVal();
+    };
+
+    // looking for inputs with data-mask attribute
+    $('*[data-mask]').each(HTMLNotationSupport);
+
+    // dynamically added elements with data-mask html notation.
+    $(document).on('DOMNodeInserted.mask', '*[data-mask]', HTMLNotationSupport);
 
 }));
