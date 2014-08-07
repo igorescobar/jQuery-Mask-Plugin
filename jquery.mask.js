@@ -336,12 +336,10 @@
 
         // public methods
         jMask.remove = function() {
-            var caret = p.getCaret(),
-                maskedCharacterCountBefore = p.getMaskCharactersBeforeCount(caret);
-
             p.destroyEvents();
             p.val(jMask.getCleanVal()).removeAttr('maxlength');
-            p.setCaret(caret - maskedCharacterCountBefore);
+            p.setCaret(p.getCaret() - p.getMaskCharactersBeforeCount(caret));
+            p.removeData('mask');
         };
 
         // get value without mask
