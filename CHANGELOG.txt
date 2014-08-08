@@ -1,3 +1,9 @@
+== v1.7.0 (Aug/07 2014 23:56 -0300 by Igor Escobar) ==
+
+Features:
+
+* applying masks to dynamically added elements. (html/javascript notation)
+
 == v1.6.5 (Jun/30 2014 10:24 -0300 by Igor Escobar) ==
 
 Bugfixes:
