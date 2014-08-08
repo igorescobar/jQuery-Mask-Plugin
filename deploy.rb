@@ -27,30 +27,6 @@ end
   end
 }
 
-# puts '# UPGRADING BOWER MANIFEST FILE'
-# bower_manifest_file = File.open(BOWER_MANIFEST_FILE, 'rb') { |file| file.read }
-# File.open(BOWER_MANIFEST_FILE, 'w') do |file|
-#   file.write(bower_manifest_file.gsub(/"version": "([0-9.+]+)"/, "\"version\": \"#{JMASK_VERSION.gsub("v", "")}\""))
-# end
-
-# puts '# UPGRADING PACKAGE.JSON MANIFEST FILE'
-# npm_manifest_file = File.open(NPM_MANIFEST_FILE, 'rb') { |file| file.read }
-# File.open(NPM_MANIFEST_FILE, 'w') do |file|
-#   file.write(npm_manifest_file.gsub(/"version": "([0-9.+]+)"/, "\"version\": \"#{JMASK_VERSION.gsub("v", "")}\""))
-# end
-
-# puts '# UPGRADING PACKAGE.JSON MANIFEST FILE'
-# component_manifest_file = File.open(COMPONENT_MANIFEST_FILE, 'rb') { |file| file.read }
-# File.open(COMPONENT_MANIFEST_FILE, 'w') do |file|
-#   file.write(component_manifest_file.gsub(/"version": "([0-9.+]+)"/, "\"version\": \"#{JMASK_VERSION.gsub("v", "")}\""))
-# end
-
-# puts '# UPGRADING JQUERY PLUGINS MANIFEST FILE'
-# jquery_manifest_file = File.open(JQUERY_MANIFEST_FILE, 'rb') { |file| file.read }
-# File.open(JQUERY_MANIFEST_FILE, 'w') do |file| 
-#   file.write(jquery_manifest_file.gsub(/"version": "([0-9.+]+)"/, "\"version\": \"#{JMASK_VERSION.gsub("v", "")}\""))
-# end
-
 puts '# GENERATING MIN FILE'
 jquery_mask_min_file = nil
 File.open(JMASK_FILE, 'r') do |file| 
