@@ -86,8 +86,6 @@
                 p.val(p.getMasked());
                 p.setCaret(caret + p.getMaskCharactersBeforeCount(caret, true));
             });
-
-
         };
 
         var p = {
@@ -131,31 +129,27 @@
                 } catch (e) {}
             },
             events: function() {
-                el.on('keydown.mask', function() {
+                el
+                .on('keydown.mask', function() {
                     old_value = p.val();
-                });
-                el.on('keyup.mask', p.behaviour);
-                el.on("paste.mask drop.mask", function() {
+                })
+                .on('keyup.mask', p.behaviour)
+                .on("paste.mask drop.mask", function() {
                     setTimeout(function() {
                         el.keydown().keyup();
                     }, 100);
-                });
-                el.on("change.mask", function() {
+                })
+                .on("change.mask", function() {
                     el.data("changeCalled", true);
-                });
-                el.on("blur.mask", function(e){
-                    var el = $(e.target);
-                    if (el.prop("defaultValue") !== el.val()) {
-                        el.prop("defaultValue", el.val());
-                        if (!el.data("changeCalled")) {
-                            el.trigger("change");
-                        }
+                })
+                .on("blur.mask", function(){
+                    if (old_value !== el.val() && !el.data("changeCalled")) {
+                        el.trigger("change");
                     }
                     el.data("changeCalled", false);
-                });
-
+                })
                 // clear the value if it not complete the mask
-                el.on("focusout.mask", function() {
+                .on("focusout.mask", function() {
                     if (options.clearIfNotMatch && !regexMask.test(p.val())) {
                        p.val('');
                    }
@@ -196,7 +190,7 @@
             },
             destroyEvents: function() {
                 el.off(['keydown', 'keyup', 'paste', 'drop', 'change', 'blur', 'focusout', 'DOMNodeInserted', ''].join('.mask '))
-                  .removeData("changeCalled");
+                .removeData("changeCalled");
             },
             val: function(v) {
                 var isInput = el.is('input');
@@ -344,7 +338,6 @@
             p.destroyEvents();
             p.val(jMask.getCleanVal()).removeAttr('maxlength');
             p.setCaret(p.getCaret() - p.getMaskCharactersBeforeCount(caret));
-            p.removeData('mask');
         };
 
         // get value without mask
