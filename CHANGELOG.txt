@@ -1,3 +1,9 @@
+== v1.7.1 (Aug/08 2014 00:55 -0300 by Igor Escobar) ==
+
+Changes:
+
+* upgrading zepto, smaller syntax and fixing build
+
 == v1.7.0 (Aug/07 2014 23:56 -0300 by Igor Escobar) ==
 
 Features:
