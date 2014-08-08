@@ -84,7 +84,7 @@
                 var caret = p.getCaret();
 
                 p.val(p.getMasked());
-                p.setCaret(caret + p.getMaskCharactersBeforeCount(caret, true));
+                p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
             });
         };
 
@@ -140,13 +140,13 @@
                     }, 100);
                 })
                 .on("change.mask", function() {
-                    el.data("changeCalled", true);
+                    el.data("changed", true);
                 })
                 .on("blur.mask", function(){
-                    if (old_value !== el.val() && !el.data("changeCalled")) {
+                    if (old_value !== el.val() && !el.data("changed")) {
                         el.trigger("change");
                     }
-                    el.data("changeCalled", false);
+                    el.data("changed", false);
                 })
                 // clear the value if it not complete the mask
                 .on("focusout.mask", function() {
@@ -171,7 +171,7 @@
                             maskChunks.push(mask[i]);
                             oRecursive = {digit: mask[i], pattern: pattern};
                         } else {
-                            maskChunks.push((!optional && !recursive) ? pattern : (pattern + "?"));
+                            maskChunks.push(!optional && !recursive ? pattern : (pattern + "?"));
                         }
 
                     } else {
@@ -198,7 +198,7 @@
                     ? (isInput ? el.val(v) : el.text(v)) 
                     : (isInput ? el.val() : el.text());
             },
-            getMaskCharactersBeforeCount: function(index, onCleanVal) {
+            getMCharsBeforeCount: function(index, onCleanVal) {
                 for (var count = 0, i = 0, maskL = mask.length; i < maskL && i < index; i++) {
                     if (!jMask.translation[mask.charAt(i)]) {
                         index = onCleanVal ? index + 1 : index;
@@ -207,10 +207,10 @@
                 }
                 return count;
             },
-            determineCaretPos: function (originalCaretPos, oldLength, newLength, maskDif) {
+            caretPos: function (originalCaretPos, oldLength, newLength, maskDif) {
                 var translation = jMask.translation[mask.charAt(Math.min(originalCaretPos - 1, mask.length - 1))];
 
-                return !translation ? p.determineCaretPos(originalCaretPos + 1, oldLength, newLength, maskDif)
+                return !translation ? p.caretPos(originalCaretPos + 1, oldLength, newLength, maskDif)
                                     : Math.min(originalCaretPos + newLength - oldLength - maskDif, newLength);
             },
             behaviour: function(e) {
@@ -225,7 +225,7 @@
                         changeCaret = caretPos < currValL,
                         newVal = p.getMasked(),
                         newValL = newVal.length,
-                        maskDif = p.getMaskCharactersBeforeCount(newValL - 1) - p.getMaskCharactersBeforeCount(currValL - 1);
+                        maskDif = p.getMCharsBeforeCount(newValL - 1) - p.getMCharsBeforeCount(currValL - 1);
                    
                     if (newVal !== currVal) {
                         p.val(newVal);
@@ -235,7 +235,7 @@
                     if (changeCaret && !(keyCode === 65 && e.ctrlKey)) {
                         // Avoid adjusting caret on backspace or delete
                         if (!(keyCode === 8 || keyCode === 46)) {
-                            caretPos = p.determineCaretPos(caretPos, currValL, newValL, maskDif);
+                            caretPos = p.caretPos(caretPos, currValL, newValL, maskDif);
                         }
                         p.setCaret(caretPos);
                     }
@@ -316,7 +316,7 @@
             },
             callbacks: function (e) {
                 var val = p.val(),
-                    changed = p.val() !== old_value;
+                    changed = val !== old_value;
                 if (changed === true) {
                     if (typeof options.onChange === "function") {
                         options.onChange(val, e, el, options);
@@ -351,36 +351,36 @@
         jMask.init();
     };
 
-    var HTMLNotationSupport = function () {
-        var input = $(this),
-            options = {},
-            prefix = "data-mask-";
+    var watchers = {},
+        live = 'DOMNodeInserted.mask',
+        HTMLAttributes = function () {
+            var input = $(this),
+                options = {},
+                prefix = "data-mask-";
 
-        if (input.attr(prefix + 'reverse') === 'true') {
-            options.reverse = true;
-        }
+            if (input.attr(prefix + 'reverse') === 'true') {
+                options.reverse = true;
+            }
 
-        if (input.attr(prefix + 'maxlength') === 'false') {
-            options.maxlength = false;
-        }
+            if (input.attr(prefix + 'maxlength') === 'false') {
+                options.maxlength = false;
+            }
 
-        if (input.attr(prefix + 'clearifnotmatch') === 'true') {
-            options.clearIfNotMatch = true;
-        }
+            if (input.attr(prefix + 'clearifnotmatch') === 'true') {
+                options.clearIfNotMatch = true;
+            }
 
-        input.mask(input.attr('data-mask'), options);
-    },
-    watchers = {},
-    live = 'DOMNodeInserted.mask';
+            input.mask(input.attr('data-mask'), options);
+        };
 
     $.fn.mask = function(mask, options) {
         this.unmask();
         var selector = this.selector,
             maskFunction = function() {
-                $(this).data('mask', new Mask(this, mask, options));    
+                $(this).data('mask', new Mask(this, mask, options));
             };
 
-        if (selector && !watchers[selector]){
+        if (selector && !watchers[selector]) {
             // dynamically added elements.
             watchers[selector] = true;
             setTimeout(function(){
@@ -392,21 +392,21 @@
     };
 
     $.fn.unmask = function() {
-        return this.each(function() {
-            try {
+        try {
+            return this.each(function() {
                 $(this).data('mask').remove();
-            } catch (e) {}
-        });
+            });
+        } catch(e) {};
     };
 
     $.fn.cleanVal = function() {
-        return $(this).data('mask').getCleanVal();
+        return this.data('mask').getCleanVal();
     };
 
     // looking for inputs with data-mask attribute
-    $('*[data-mask]').each(HTMLNotationSupport);
+    $('*[data-mask]').each(HTMLAttributes);
 
     // dynamically added elements with data-mask html notation.
-    $(document).on(live, '*[data-mask]', HTMLNotationSupport);
+    $(document).on(live, '*[data-mask]', HTMLAttributes);
 
 }));
