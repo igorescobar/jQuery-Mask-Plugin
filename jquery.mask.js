@@ -51,43 +51,6 @@
 
         mask = typeof mask === "function" ? mask(el.val(), undefined, el,  options) : mask;
 
-        jMask.init = function() {
-            options = options || {};
-
-            jMask.byPassKeys = [9, 16, 17, 18, 36, 37, 38, 39, 40, 91];
-            jMask.translation = {
-                '0': {pattern: /\d/},
-                '9': {pattern: /\d/, optional: true},
-                '#': {pattern: /\d/, recursive: true},
-                'A': {pattern: /[a-zA-Z0-9]/},
-                'S': {pattern: /[a-zA-Z]/}
-            };
-
-            jMask.translation = $.extend({}, jMask.translation, options.translation);
-            jMask = $.extend(true, {}, jMask, options);
-
-            regexMask = p.getRegexMask();
-
-            el.each(function() {
-                if (options.maxlength !== false) {
-                    el.attr('maxlength', mask.length);
-                }
-
-                if (options.placeholder) {
-                    el.attr('placeholder' , options.placeholder);
-                }
-                
-                el.attr('autocomplete', 'off');
-                p.destroyEvents();
-                p.events();
-                
-                var caret = p.getCaret();
-
-                p.val(p.getMasked());
-                p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
-            });
-        };
-
         var p = {
             getCaret: function () {
                 try {
@@ -333,6 +296,7 @@
             }
         };
 
+
         // public methods
         jMask.remove = function() {
             var caret;
@@ -348,7 +312,42 @@
            return p.getMasked(true);
         };
 
-        jMask.init();
+       jMask.init = function() {
+            options = options || {};
+
+            jMask.byPassKeys = [9, 16, 17, 18, 36, 37, 38, 39, 40, 91];
+            jMask.translation = {
+                '0': {pattern: /\d/},
+                '9': {pattern: /\d/, optional: true},
+                '#': {pattern: /\d/, recursive: true},
+                'A': {pattern: /[a-zA-Z0-9]/},
+                'S': {pattern: /[a-zA-Z]/}
+            };
+
+            jMask.translation = $.extend({}, jMask.translation, options.translation);
+            jMask = $.extend(true, {}, jMask, options);
+
+            regexMask = p.getRegexMask();
+
+            if (options.maxlength !== false) {
+                el.attr('maxlength', mask.length);
+            }
+
+            if (options.placeholder) {
+                el.attr('placeholder' , options.placeholder);
+            }
+            
+            el.attr('autocomplete', 'off');
+            p.destroyEvents();
+            p.events();
+            
+            var caret = p.getCaret();
+
+            p.val(p.getMasked());
+            p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
+            
+        }();
+
     };
 
     var watchers = {},
@@ -358,7 +357,7 @@
                 options = {},
                 prefix = "data-mask-";
 
-            if (input.attr(prefix + 'reverse') === 'true') {
+            if (input.attr(prefix + 'reverse')) {
                 options.reverse = true;
             }
 
@@ -366,7 +365,7 @@
                 options.maxlength = false;
             }
 
-            if (input.attr(prefix + 'clearifnotmatch') === 'true') {
+            if (input.attr(prefix + 'clearifnotmatch')) {
                 options.clearIfNotMatch = true;
             }
 
@@ -374,21 +373,23 @@
         };
 
     $.fn.mask = function(mask, options) {
-        this.unmask();
         var selector = this.selector,
-            maskFunction = function() {
-                $(this).data('mask', new Mask(this, mask, options));
+            maskFunction = function(e) {
+                if (!e.originalEvent || !e.originalEvent.relatedNode.isEqualNode($(this).get(0))) {
+                    return $(this).data('mask', new Mask(this, mask, options));    
+                }
+                
             };
+        
+        this.each(maskFunction);
 
         if (selector && !watchers[selector]) {
             // dynamically added elements.
             watchers[selector] = true;
             setTimeout(function(){
-                $(document).on(live, selector, maskFunction); 
+                $(document).on(live, selector, maskFunction);
             }, 500);
-            
         }
-        return this.each(maskFunction);
     };
 
     $.fn.unmask = function() {
