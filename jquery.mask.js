@@ -375,7 +375,7 @@
     $.fn.mask = function(mask, options) {
         var selector = this.selector,
             maskFunction = function(e) {
-                if (!e.originalEvent || !e.originalEvent.relatedNode.isEqualNode(this)) {
+                if (!e.originalEvent || !($(e.originalEvent.relatedNode)[0] == $(this)[0])) {
                     return $(this).data('mask', new Mask(this, mask, options));    
                 }
                 
