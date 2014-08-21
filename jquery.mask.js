@@ -46,7 +46,7 @@
 }(function ($) {
     "use strict";
     var Mask = function (el, mask, options) {
-        var jMask = this, old_value, regexMask;
+        var jMask = this, old_value, regexMask,currVal,real_value;
         el = $(el);
 
         mask = typeof mask === "function" ? mask(el.val(), undefined, el,  options) : mask;
@@ -93,13 +93,24 @@
             },
             events: function() {
                 el
-                .on('keydown.mask', function() {
+                .on('keydown.mask', function(e) {
                     old_value = p.val();
+                    var keyCode = e.keyCode || e.which;
+                    if( keyCode == 8 || keyCode == 46)
+                        setTimeout(function(){
+                            currVal = p.val();
+                            p.behaviour(e);
+                        },0);
                 })
-                .on('keyup.mask', p.behaviour)
+                .on('keypress.mask', function(e){
+                    var keyCode = e.keyCode || e.which;
+                    e.preventDefault();
+                    currVal = old_value + String.fromCharCode(keyCode);
+                    p.behaviour(e);
+                })
                 .on("paste.mask drop.mask", function() {
                     setTimeout(function() {
-                        el.keydown().keyup();
+                        el.keydown().keypress();
                     }, 100);
                 })
                 .on("change.mask", function() {
@@ -152,7 +163,7 @@
                 return new RegExp(r);
             },
             destroyEvents: function() {
-                el.off(['keydown', 'keyup', 'paste', 'drop', 'change', 'blur', 'focusout', 'DOMNodeInserted', ''].join('.mask '))
+                el.off(['keydown', 'keypress', 'paste', 'drop', 'change', 'blur', 'focusout', 'DOMNodeInserted', ''].join('.mask '))
                 .removeData("changeCalled");
             },
             val: function(v) {
@@ -176,29 +187,31 @@
                 return !translation ? p.caretPos(originalCaretPos + 1, oldLength, newLength, maskDif)
                                     : Math.min(originalCaretPos + newLength - oldLength - maskDif, newLength);
             },
-            behaviour: function(e) {
+            behaviour: function(e,prevent) {
                 e = e || window.event;
-                var keyCode = e.keyCode || e.which;
+                var keyCode = e.keyCode || e.which;                
 
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
 
                     var caretPos = p.getCaret(),
-                        currVal = p.val(),
                         currValL = currVal.length,
                         changeCaret = caretPos < currValL,
-                        newVal = p.getMasked(),
-                        newValL = newVal.length,
-                        maskDif = p.getMCharsBeforeCount(newValL - 1) - p.getMCharsBeforeCount(currValL - 1);
+                        newVal = p.getMasked(undefined,currVal),
+                        newValL = newVal.length; 
+                    var maskDif = p.getMCharsBeforeCount(newValL - 1) - p.getMCharsBeforeCount(old_value.length - 1);
                    
-                    if (newVal !== currVal) {
-                        p.val(newVal);
-                    }
+                    if (newVal !== currVal)
+                        real_value = newVal;
+                    else
+                        real_value = currVal;
+
+                    p.val(real_value);
 
                     // change caret but avoid CTRL+A
                     if (changeCaret && !(keyCode === 65 && e.ctrlKey)) {
                         // Avoid adjusting caret on backspace or delete
                         if (!(keyCode === 8 || keyCode === 46)) {
-                            caretPos = p.caretPos(caretPos, currValL, newValL, maskDif);
+                            caretPos = p.caretPos(caretPos+1, old_value.length, newValL, maskDif);
                         }
                         p.setCaret(caretPos);
                     }
@@ -206,9 +219,9 @@
                     return p.callbacks(e);
                 }
             },
-            getMasked: function (skipMaskChars) {
+            getMasked: function (skipMaskChars,val) {
                 var buf = [],
-                    value = p.val(),
+                    value = val || p.val(),
                     m = 0, maskLen = mask.length,
                     v = 0, valLen = value.length,
                     offset = 1, addMethod = "push",
@@ -222,7 +235,7 @@
                     lastMaskChar = 0;
                     m = maskLen - 1;
                     v = valLen - 1;
-                    check = function () {
+                    check = function () { 
                         return m > -1 && v > -1;
                     };
                 } else {
