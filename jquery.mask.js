@@ -179,7 +179,6 @@
             behaviour: function(e) {
                 e = e || window.event;
                 var keyCode = e.keyCode || e.which;
-
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
 
                     var caretPos = p.getCaret(),
@@ -189,7 +188,7 @@
                         newVal = p.getMasked(),
                         newValL = newVal.length,
                         maskDif = p.getMCharsBeforeCount(newValL - 1) - p.getMCharsBeforeCount(currValL - 1);
-                   
+
                     if (newVal !== currVal) {
                         p.val(newVal);
                     }
@@ -298,6 +297,8 @@
 
 
         // public methods
+        jMask.mask = mask;
+        jMask.options = options;
         jMask.remove = function() {
             var caret;
             p.destroyEvents();
@@ -305,6 +306,7 @@
             
             caret = p.getCaret();
             p.setCaret(caret - p.getMCharsBeforeCount(caret));
+            return el;
         };
 
         // get value without mask
@@ -374,11 +376,13 @@
 
     $.fn.mask = function(mask, options) {
         var selector = this.selector,
-            maskFunction = function(e) {
-                if (!e.originalEvent || !($(e.originalEvent.relatedNode)[0] === $(this)[0])) {
-                    return $(this).data('mask', new Mask(this, mask, options));    
+            maskFunction = function() {
+                var maskObject = $(this).data('mask'),
+                    stringify = JSON.stringify;
+
+                if (typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask) {
+                    return $(this).data('mask', new Mask(this, mask, options));
                 }
-                
             };
         
         this.each(maskFunction);
@@ -395,7 +399,7 @@
     $.fn.unmask = function() {
         try {
             return this.each(function() {
-                $(this).data('mask').remove();
+                $(this).data('mask').remove().removeData('mask');
             });
         } catch(e) {};
     };
