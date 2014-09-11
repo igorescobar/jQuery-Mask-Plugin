@@ -1,3 +1,9 @@
+== v1.7.7 (Sep/10 2014 22:31 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing clojure compile issue
+
 == v1.7.6 (Sep/10 2014 22:14 -0300 by Igor Escobar) ==
 
 Bugfixes:
