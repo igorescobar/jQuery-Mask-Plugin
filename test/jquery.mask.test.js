@@ -477,6 +477,29 @@ $(document).ready(function(){
     equal( testfield.val(), "123" );
   });
 
+  test('test when clearifnotmatch javascript notation #2', 4, function(){
+    var typeAndFocusOut = function(typedValue){
+      testfield.keydown().val(typedValue).keyup();
+      testfield.trigger("focusout");
+    };
+
+    testfield.mask('7 (000) 000-0000');
+
+    typeAndFocusOut("1");
+    equal( testfield.val(), "7 (1" );
+
+    testfield.mask('7 (000) 000-0000', {clearIfNotMatch: true});
+
+    typeAndFocusOut("1");
+    equal( testfield.val(), "" );
+
+    typeAndFocusOut("12");
+    equal( testfield.val(), "" );
+
+    typeAndFocusOut("7 (123) 123-1234");
+    equal( testfield.val(), "7 (123) 123-1234" );
+  });
+
   test('test when clearifnotmatch is HTML notation', 3, function(){
     var typeAndFocusOut = function(typedValue){
       testfieldDataMaskWithClearIfNotMatch.keydown().val(typedValue).keyup();

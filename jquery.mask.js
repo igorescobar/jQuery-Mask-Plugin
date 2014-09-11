@@ -138,7 +138,7 @@
                         }
 
                     } else {
-                        maskChunks.push("\\" + mask[i]);
+                        maskChunks.push(mask[i].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
                     }
                 }
                 
