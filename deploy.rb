@@ -73,4 +73,4 @@ minFile.close
 `git push`
 `git checkout master`
 
-puts '# DONE'
+puts '# DONE!'
