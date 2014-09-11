@@ -1,3 +1,9 @@
+== v1.7.6 (Sep/10 2014 22:14 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing clearifnotmatch in masks with literal digits
+
 == v1.7.5 (Sep/09 2014 15:43 -0300 by Igor Escobar) ==
 
 Bugfixes:
