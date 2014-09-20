@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.7.7
+ * @version: v1.7.8
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -300,11 +300,10 @@
         jMask.mask = mask;
         jMask.options = options;
         jMask.remove = function() {
-            var caret;
+            var caret = p.getCaret();
             p.destroyEvents();
             p.val(jMask.getCleanVal()).removeAttr('maxlength');
             
-            caret = p.getCaret();
             p.setCaret(caret - p.getMCharsBeforeCount(caret));
             return el;
         };

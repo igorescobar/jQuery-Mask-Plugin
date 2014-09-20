@@ -22,11 +22,23 @@ module.exports = function(grunt) {
         			]
     			}
     		}
-    	}
+    	},
+
+        uglify: {
+                options: {
+                	banner: '// jQuery Mask Plugin v1.7.8\r\n// github.com/igorescobar/jQuery-Mask-Plugin\r\n'
+                },
+                dist: {
+                        files: {
+                                'jquery.mask.min.js': ['jquery.mask.js']
+                        }
+                }
+        }
 	});
 
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   
   // A convenient task alias.
   grunt.registerTask('test', ['connect', 'qunit']);
