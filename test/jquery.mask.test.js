@@ -136,7 +136,7 @@ $(document).ready(function(){
     });
 
 
-    module('Masks with numbers and especial characters');
+    module('Masks with numbers and special characters');
 
     test("Masks with numbers and special characters.", function(){
       testfield.mask('(123) 456-7899');
@@ -151,7 +151,7 @@ $(document).ready(function(){
 
     });
 
-    test("Testing masks with a annonymous function", function(){
+    test("Testing masks with a anonymous function", function(){
       testfield.mask(function(){
         return "(123) 456-7899"
       });
@@ -342,21 +342,21 @@ $(document).ready(function(){
 
   module('personalized settings')
 
-  test("when adding more itens to the table translation",function(){
+  test("when adding more items to the table translation",function(){
     testfield.mask('00/00/0000', {'translation': {0: {pattern: /[0-9*]/}}});
 
     equal( typeTest('12/34/5678'), '12/34/5678');
     equal( typeTest('**/34/5678'), '**/34/5678');
   });
 
-  test("when adding more itens to the table translation #2",function(){
+  test("when adding more items to the table translation #2",function(){
     testfield.mask('00/YY/0000', {'translation': {'Y': {pattern: /[0-9*]/}}});
 
     equal( typeTest('12/34/5678'), '12/34/5678');
     equal( typeTest('12/**/5678'), '12/**/5678');
   });
 
-  test("when adding opcional chars",function(){
+  test("when adding optional chars",function(){
     testfield.mask('099.099.099.099');
 
     equal( typeTest('0.0.0.0'), '0.0.0.0');

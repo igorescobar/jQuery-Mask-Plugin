@@ -376,6 +376,7 @@
 
     $.fn.mask = function(mask, options) {
         var selector = this.selector,
+            runonce = options ? options.runonce : false,
             maskFunction = function() {
                 var maskObject = $(this).data('mask'),
                     stringify = JSON.stringify;
@@ -387,7 +388,7 @@
         
         this.each(maskFunction);
 
-        if (selector && !watchers[selector]) {
+        if (!runonce && selector && !watchers[selector]) {
             // dynamically added elements.
             watchers[selector] = true;
             setTimeout(function(){
