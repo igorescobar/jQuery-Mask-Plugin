@@ -317,6 +317,8 @@
        jMask.init = function() {
             options = options || {};
 
+            options.watch = true;
+
             jMask.byPassKeys = [9, 16, 17, 18, 36, 37, 38, 39, 40, 91];
             jMask.translation = {
                 '0': {pattern: /\d/},
@@ -376,7 +378,6 @@
 
     $.fn.mask = function(mask, options) {
         var selector = this.selector,
-            runonce = options ? options.runonce : false,
             maskFunction = function() {
                 var maskObject = $(this).data('mask'),
                     stringify = JSON.stringify;
@@ -388,7 +389,7 @@
         
         this.each(maskFunction);
 
-        if (!runonce && selector && !watchers[selector]) {
+        if (options.watch && selector && !watchers[selector]) {
             // dynamically added elements.
             watchers[selector] = true;
             setTimeout(function(){
