@@ -591,7 +591,6 @@ $(document).ready(function(){
     expect(5);
 
     var $container = $('#container-dy-non-inputs');
-    var spy = this.spy();
     var clock = this.clock;
     var ticker;
     var tester;
