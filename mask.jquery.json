@@ -23,6 +23,6 @@
   "homepage": "https://github.com/igorescobar/jQuery-Mask-Plugin",
   "docs": "http://igorescobar.github.com/jQuery-Mask-Plugin/",
   "dependencies": {
-    "jquery": ">=1.5"
+    "jquery": ">=1.7"
   }
 }
