@@ -153,7 +153,7 @@
             },
             destroyEvents: function() {
                 el.off(['keydown', 'keyup', 'paste', 'drop', 'change', 'blur', 'focusout', 'DOMNodeInserted', ''].join('.mask '))
-                .removeData("changeCalled");
+                .removeData("changed");
             },
             val: function(v) {
                 var isInput = el.is('input');
