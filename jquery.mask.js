@@ -377,12 +377,14 @@
     $.fn.mask = function(mask, options) {
         var selector = this.selector,
             maskFunction = function() {
-                var maskObject = $(this).data('mask'),
+                try {
+                    var maskObject = $(this).data('mask'),
                     stringify = JSON.stringify;
 
-                if (typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask) {
-                    return $(this).data('mask', new Mask(this, mask, options));
-                }
+                    if (typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask) {
+                        return $(this).data('mask', new Mask(this, mask, options));
+                    }
+                } catch (e) {}
             };
         
         this.each(maskFunction);

@@ -585,4 +585,46 @@ $(document).ready(function(){
     typeAndBlur(testfield, "1.000,00");
     equal( testfield.val(), "1.000,00" );
   });
+
+  module('dynamically loaded elements')
+  test('#non-inputs', function(){
+    expect(5);
+
+    var $container = $('#container-dy-non-inputs');
+    var spy = this.spy();
+    var clock = this.clock;
+    var ticker;
+    var tester;
+    var c = 0;
+
+    function write() {
+    
+      if (c >= 5) {
+          clearInterval(ticker);
+          clearInterval(tester);
+          return;
+      }
+
+      c++;
+
+      $container.append('<div class="c">' + c + c + c + c + '</div>');      
+      clock.tick(1000);
+    };
+
+    function testIt() {
+     
+      var cs = $container.find('.c');
+      $.each(cs, function(k, field){
+        var t = k + 1;
+        equal($(field).text(), '' + t + t + ':' + t + t);
+        t++;
+      });
+    };
+
+    ticker = setInterval(write, 1000);
+
+    write();
+    $('.c', $container).mask('00:00');
+    testIt()
+  });
 });
