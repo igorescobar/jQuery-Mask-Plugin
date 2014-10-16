@@ -374,7 +374,7 @@
             input.mask(input.attr('data-mask'), options);
         },
         globalOptions = $.extend({
-            watchDataMask : true // indicate if should watch for data-mask attribute in elements
+            watchDataMask : true // indicates if should watch for data-mask attribute in elements
         }, $.fn.maskGlobalOptions);
 
     $.fn.mask = function(mask, options) {
