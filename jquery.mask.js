@@ -317,6 +317,8 @@
        jMask.init = function() {
             options = options || {};
 
+            options.watch = true;
+
             jMask.byPassKeys = [9, 16, 17, 18, 36, 37, 38, 39, 40, 91];
             jMask.translation = {
                 '0': {pattern: /\d/},
@@ -389,7 +391,7 @@
         
         this.each(maskFunction);
 
-        if (selector && !watchers[selector]) {
+        if (options.watch && selector && !watchers[selector]) {
             // dynamically added elements.
             watchers[selector] = true;
             setTimeout(function(){
