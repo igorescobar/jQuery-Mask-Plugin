@@ -374,7 +374,7 @@
             input.mask(input.attr('data-mask'), options);
         },
         globalOptions = $.extend({
-            observe : true
+            watchDataMask : true // indicate if should watch for data-mask attribute in elements
         }, $.fn.maskGlobalOptions);
 
     $.fn.mask = function(mask, options) {
@@ -392,7 +392,7 @@
         
         this.each(maskFunction);
 
-        if (globalOptions.observe && selector && !watchers[selector]) {
+        if (globalOptions.watchDataMask && selector && !watchers[selector]) {
             // dynamically added elements.
             watchers[selector] = true;
             setTimeout(function(){
@@ -413,7 +413,7 @@
         return this.data('mask').getCleanVal();
     };
     
-    if (globalOptions.observe) {
+    if (globalOptions.watchDataMask) {
         // looking for inputs with data-mask attribute
         $('*[data-mask]').each(HTMLAttributes);
     
