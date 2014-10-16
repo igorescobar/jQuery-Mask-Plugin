@@ -374,8 +374,8 @@
             input.mask(input.attr('data-mask'), options);
         },
         globalOptions = $.extend({
-		observe : true
-	}, $.fn.maskGlobalOptions);
+            observe : true
+        }, $.fn.maskGlobalOptions);
 
     $.fn.mask = function(mask, options) {
         var selector = this.selector,
