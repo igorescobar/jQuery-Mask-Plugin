@@ -29,6 +29,14 @@ http://igorescobar.github.io/jQuery-Mask-Plugin/
   * HTML5 placeholder support.
   * Clear the field if it not matches support.
 
+##AngularJS Users
+If you are using jQuery Mask Plugin in a AngularJS directive, you don't need to use our data-mask watcher. So, you could disable it by placing this code before import jQuery Mask Plugin:
+```
+$.fn.maskGlobalOptions = {
+	watchDataMask: true
+};
+```
+
 ##Tutorials
 ### English
   * [Masks with jQuery Mask Plugin](http://bit.ly/masks-with-jquery-mask-plugin)

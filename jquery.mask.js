@@ -365,7 +365,10 @@
             }
 
             input.mask(input.attr('data-mask'), options);
-        };
+        },
+        globalOptions = $.extend({
+            watchDataMask : true // indicates if should watch for data-mask attribute in elements
+        }, $.fn.maskGlobalOptions);
 
     $.fn.mask = function(mask, options) {
         var selector = this.selector,
@@ -382,7 +385,7 @@
         
         this.each(maskFunction);
 
-        if (selector && !watchers[selector]) {
+        if (globalOptions.watchDataMask && selector && !watchers[selector]) {
             // dynamically added elements.
             watchers[selector] = true;
             setTimeout(function(){
@@ -402,11 +405,13 @@
     $.fn.cleanVal = function() {
         return this.data('mask').getCleanVal();
     };
-
-    // looking for inputs with data-mask attribute
-    $('*[data-mask]').each(HTMLAttributes);
-
-    // dynamically added elements with data-mask html notation.
-    $(document).on(live, '*[data-mask]', HTMLAttributes);
+    
+    if (globalOptions.watchDataMask) {
+        // looking for inputs with data-mask attribute
+        $('*[data-mask]').each(HTMLAttributes);
+    
+        // dynamically added elements with data-mask html notation.
+        $(document).on(live, '*[data-mask]', HTMLAttributes);
+    }
 
 }));
