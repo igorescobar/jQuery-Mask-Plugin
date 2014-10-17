@@ -412,6 +412,7 @@
             }
 
             setInterval(function(){
+                $(document).find(globals.nonInput).filter('*[data-mask]').each(HTMLAttributes);
                 $(document).find('*[data-mask]').each(HTMLAttributes);
             }, 300);
         }
