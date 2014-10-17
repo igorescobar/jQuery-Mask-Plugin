@@ -1,3 +1,19 @@
+== v1.8.0 (Oct/17 2014 11:35 -0300 by Igor Escobar) ==
+
+Changes:
+
+* removing automatic maxlength support
+* making a few optimizations to make it faster and retro compatible with other libraries
+* creating globalOptions to make it more fast and flexible
+
+Bugfixes:
+
+* fixing issue #196
+
+Features:
+
+* adding the fallback translation option
+
 == v1.7.8 (Oct/15 2014 10:55 -0300 by Igor Escobar) ==
 
 Bugfixes:
