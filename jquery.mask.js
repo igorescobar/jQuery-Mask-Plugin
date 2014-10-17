@@ -394,6 +394,7 @@
     $.fn.mask = function(mask, options) {
         options = options || {};
         var selector = this.selector,
+            globals = $.jMaskGlobals,
             maskFunction = function() {
                 if (notSameMaskObject(this, mask, options)) {
                     return $(this).data('mask', new Mask(this, mask, options));
@@ -402,18 +403,23 @@
 
         $(this).each(maskFunction);
 
-        if (!options.watch) {
-            if (selector && selector !== "" && !watchers[selector]) {
-                watchers[selector] = true;
-
-                setInterval(function(){
-                    $(document).find(selector).each(maskFunction);
-                }, 300);
-            }
+        if (globals.watchInputs && selector && selector !== "" && !watchers[selector]) {
+            watchers[selector] = true;
 
             setInterval(function(){
+                $(document).find(selector).each(maskFunction);
+            }, 300);
+
+        }
+
+        // looking for inputs with data-mask attribute
+        if (globals.dataMask) {            
+            $('*[data-mask]').each(HTMLAttributes);
+        }
+
+        if (globals.watchDataMask) {
+            setInterval(function(){
                 $(document).find(globals.nonInput).filter('*[data-mask]').each(HTMLAttributes);
-                $(document).find('*[data-mask]').each(HTMLAttributes);
             }, 300);
         }
         
@@ -430,8 +436,11 @@
     $.fn.cleanVal = function() {
         return this.data('mask').getCleanVal();
     };
-
-    // looking for inputs with data-mask attribute
-    $('*[data-mask]').each(HTMLAttributes);
     
+    $.jMaskGlobals = {
+        nonInput: 'td,span,div',
+        dataMask: true,
+        watchInputs: true,
+        watchDataMask: false
+    };
 }));
