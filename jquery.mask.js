@@ -357,6 +357,7 @@
                 p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
 
             } else {
+                p.events();
                 p.val(p.getMasked());
             }
         };
