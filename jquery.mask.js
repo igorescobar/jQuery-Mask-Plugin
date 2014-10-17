@@ -152,14 +152,22 @@
                 return new RegExp(r);
             },
             destroyEvents: function() {
-                el.off(['keydown', 'keyup', 'paste', 'drop', 'change', 'blur', 'focusout', 'DOMNodeInserted', ''].join('.mask '))
+                el.off(['keydown', 'keyup', 'paste', 'drop', 'change', 'blur', 'focusout', ''].join('.mask '))
                 .removeData("changed");
             },
             val: function(v) {
-                var isInput = el.is('input');
-                return arguments.length > 0 
-                    ? (isInput ? el.val(v) : el.text(v)) 
-                    : (isInput ? el.val() : el.text());
+                var isInput = el.is('input'),
+                    method = isInput ? 'val' : 'text',
+                    r;
+
+                if (arguments.length > 0) {
+                    el[method](v);
+                    r = el;
+                } else {
+                    r = el[method]();
+                }
+
+                return r;
             },
             getMCharsBeforeCount: function(index, onCleanVal) {
                 for (var count = 0, i = 0, maskL = mask.length; i < maskL && i < index; i++) {
@@ -315,7 +323,8 @@
            return p.getMasked(true);
         };
 
-       jMask.init = function() {
+       jMask.init = function(only_mask) {
+            only_mask = only_mask || false;
             options = options || {};
 
             jMask.byPassKeys = [9, 16, 17, 18, 36, 37, 38, 39, 40, 91];
@@ -331,30 +340,37 @@
             jMask = $.extend(true, {}, jMask, options);
 
             regexMask = p.getRegexMask();
+            
+            if (only_mask === false) {
+                
+                if (options.placeholder) {
+                    el.attr('placeholder' , options.placeholder);
+                }
+                
+                el.attr('autocomplete', 'off');
+                p.destroyEvents();
+                p.events();
 
-            if (options.placeholder) {
-                el.attr('placeholder' , options.placeholder);
+                var caret = p.getCaret();
+
+                p.val(p.getMasked());
+                p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
+
+            } else {
+                p.val(p.getMasked());
             }
-            
-            el.attr('autocomplete', 'off');
-            p.destroyEvents();
-            p.events();
-            
-            var caret = p.getCaret();
+        };
 
-            p.val(p.getMasked());
-            p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
-            
-        }();
+        jMask.init(!el.is("input")); 
 
     };
 
     var watchers = {},
-        live = 'DOMNodeInserted.mask',
         HTMLAttributes = function () {
             var input = $(this),
                 options = {},
-                prefix = "data-mask-";
+                prefix = "data-mask-",
+                mask = input.attr('data-mask');
 
             if (input.attr(prefix + 'reverse')) {
                 options.reverse = true;
@@ -363,32 +379,42 @@
             if (input.attr(prefix + 'clearifnotmatch')) {
                 options.clearIfNotMatch = true;
             }
-
-            input.mask(input.attr('data-mask'), options);
-        };
+            
+            if (notSameMaskObject(input, mask, options)) {
+                return input.data('mask', new Mask(this, mask, options));
+            }
+        },
+        notSameMaskObject = function(field, mask, options) {
+            options = options || {};
+            var maskObject = $(field).data('mask'), stringify = JSON.stringify;
+            return typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask
+        }
 
     $.fn.mask = function(mask, options) {
+        options = options || {};
         var selector = this.selector,
             maskFunction = function() {
-                try {
-                    var maskObject = $(this).data('mask'),
-                    stringify = JSON.stringify;
-
-                    if (typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask) {
-                        return $(this).data('mask', new Mask(this, mask, options));
-                    }
-                } catch (e) {}
+                if (notSameMaskObject(this, mask, options)) {
+                    return $(this).data('mask', new Mask(this, mask, options));
+                }
             };
-        
-        this.each(maskFunction);
 
-        if (selector && !watchers[selector]) {
-            // dynamically added elements.
-            watchers[selector] = true;
-            setTimeout(function(){
-                $(document).on(live, selector, maskFunction);
-            }, 500);
+        $(this).each(maskFunction);
+
+        if (!options.watch) {
+            if (selector && selector !== "" && !watchers[selector]) {
+                watchers[selector] = true;
+
+                setInterval(function(){
+                    $(document).find(selector).each(maskFunction);
+                }, 300);
+            }
+
+            setInterval(function(){
+                $(document).find('*[data-mask]').each(HTMLAttributes);
+            }, 300);
         }
+        
     };
 
     $.fn.unmask = function() {
@@ -405,8 +431,5 @@
 
     // looking for inputs with data-mask attribute
     $('*[data-mask]').each(HTMLAttributes);
-
-    // dynamically added elements with data-mask html notation.
-    $(document).on(live, '*[data-mask]', HTMLAttributes);
-
+    
 }));
