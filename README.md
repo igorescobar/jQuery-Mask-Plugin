@@ -13,13 +13,12 @@ http://igorescobar.github.io/jQuery-Mask-Plugin/
   * Lightweight (~2kb minified, ~1kb gziped).
   * Built-in support for dynamically added elements.
   * Masks on any HTML element (no need to server-side mask anymore!)!
-  * HTML notation support (data-mask, data-mask-recursive, data-mask-maxlength, data-mask-clearifnotmatch).
+  * HTML notation support (data-mask, data-mask-recursive, data-mask-clearifnotmatch).
   * String/Numeric/Alpha/Mixed masks.
   * Reverse mask support for masks on numeric fields.
   * Sanitization.
   * Optional digits.
   * Recursive Digits.
-  * Automatic maxlength.
   * Advanced mask initialization.
   * Callbacks.
   * On-the-fly mask change.

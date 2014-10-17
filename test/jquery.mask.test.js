@@ -21,20 +21,6 @@ $(document).ready(function(){
       equal( typeof testfield.mask , "function" , "mask function should exists" );
     });
 
-    module("Disabling Automatic Maxlength");
-    test("maxlength should be 11", function(){
-      testfield.mask('999-9990-99', {maxlength: false});
-      equal( testfield.attr('maxlength'), undefined)
-    });
-
-    module("Automatic Maxlength");
-    test("maxlength should be 11", function(){
-      testfield.mask('999-9990-99');
-      equal( testfield.attr('maxlength'), 11)
-    });
-
-    
-
     module('Simple Masks');
     test("Masks with only numbers.", function(){
       testfield.mask('000000');
@@ -333,7 +319,7 @@ $(document).ready(function(){
   });
 
   test("when I get the unmasked value with recursive mask", function(){
-    testfield.mask('#.##0,00', {reverse:true, maxlength: false});
+    testfield.mask('#.##0,00', {reverse:true});
 
     equal( typeTest("123123123123123123", testfield), "1.231.231.231.231.231,23");
     equal( testfield.cleanVal(), "123123123123123123");
@@ -571,7 +557,7 @@ $(document).ready(function(){
     };
 
     // javascript notation
-    testfield.mask('#.##0,00', {clearIfNotMatch: true, reverse: true, maxlength: false});
+    testfield.mask('#.##0,00', {clearIfNotMatch: true, reverse: true});
 
     typeAndBlur(testfield, "0");
     equal( testfield.val(), "" );

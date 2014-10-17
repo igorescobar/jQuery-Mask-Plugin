@@ -302,7 +302,7 @@
         jMask.remove = function() {
             var caret = p.getCaret();
             p.destroyEvents();
-            p.val(jMask.getCleanVal()).removeAttr('maxlength');            
+            p.val(jMask.getCleanVal());
             p.setCaret(caret - p.getMCharsBeforeCount(caret));
             return el;
         };
@@ -328,10 +328,6 @@
             jMask = $.extend(true, {}, jMask, options);
 
             regexMask = p.getRegexMask();
-
-            if (options.maxlength !== false) {
-                el.attr('maxlength', mask.length);
-            }
 
             if (options.placeholder) {
                 el.attr('placeholder' , options.placeholder);
@@ -359,10 +355,6 @@
 
             if (input.attr(prefix + 'reverse')) {
                 options.reverse = true;
-            }
-
-            if (input.attr(prefix + 'maxlength') === 'false') {
-                options.maxlength = false;
             }
 
             if (input.attr(prefix + 'clearifnotmatch')) {
