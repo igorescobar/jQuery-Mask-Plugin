@@ -342,6 +342,43 @@ $(document).ready(function(){
     equal( typeTest('12/**/5678'), '12/**/5678');
   });
 
+  test("when adding more itens to the table translation #fallback",function(){
+    testfield.mask('zz/z0/0000', {'translation': {'z': {pattern: /[0-9*]/, fallback: '*'}}});
+
+    equal( typeTest('12/:4/5678'), '12/*4/5678');
+    equal( typeTest('::/:4/5678'), '**/*4/5678');
+  });
+
+  test("test the translation #fallback #2" , function(){
+    testfield.mask('00t00', {'translation': {'t': {pattern: /[:,.]/, fallback: ':'}}});
+
+    equal( typeTest('1'), '1');
+    equal( typeTest('13'), '13');
+    equal( typeTest('137'), '13:');
+    equal( typeTest('1337'), '13:7');
+    equal( typeTest('13z00'), '13:00');
+  });
+
+  test("test the translation #fallback #2" , function(){
+    testfield.mask('00/t0/t0', {'translation': {'t': {pattern: /[:,.*]/, fallback: '*'}}});
+
+    equal( typeTest('1'), '1');
+    equal( typeTest('13'), '13');
+    equal( typeTest('13/'), '13/');
+    equal( typeTest('13/a'), '13/*');
+    equal( typeTest('13/a1z1'), '13/*1/*1');
+  });
+
+  test("test the translation #fallback #3" , function(){
+    testfield.mask('tt/00/00', {'translation': {'t': {pattern: /[:,.*]/, fallback: '*'}}});
+
+    equal( typeTest('*'), '*');
+    equal( typeTest('13'), '**');
+    equal( typeTest('13/'), '**/');
+    equal( typeTest('13/a'), '**/');
+    equal( typeTest('13/a1z1'), '**/11');
+  });
+
   test("when adding opcional chars",function(){
     testfield.mask('099.099.099.099');
 

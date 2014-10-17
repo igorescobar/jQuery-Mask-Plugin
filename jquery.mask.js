@@ -254,6 +254,9 @@
                         } else if (translation.optional) {
                             m += offset;
                             v -= offset;
+                        } else if (translation.fallback) {
+                            buf[addMethod](translation.fallback);
+                            m += offset;
                         }
                         v += offset;
                     } else {
