@@ -330,8 +330,12 @@
             regexMask = p.getRegexMask();
 
             if (options.maxlength !== false) {
-                el.attr('maxlength', mask.length);
-            }
+				if ($.isNumeric(options.maxlength)) {
+					el.attr('maxlength', options.maxlength);
+				} else {
+					el.attr('maxlength', mask.length);
+				}
+			}
 
             if (options.placeholder) {
                 el.attr('placeholder' , options.placeholder);
