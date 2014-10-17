@@ -70,6 +70,8 @@
       <input type="text" class="ip_address"/>
       <label>Mask with Clear If Not Match Option</label>
       <input type="text" class="clear-if-not-match"/>
+      <label>Mask with Clear If Not Match Option</label>
+      <input type="text" class="fallback"/>
     </div>
     <div class="col center banner">
       <p>The <a href="http://igorescobar.github.com/jQuery-Mask-Plugin/">jQuery Mask Plugin</a> was written by <a href="http://www.igorescobar.com/" rel="author" target="_blank">Igor Escobar</a> and the source-code's available in <a href="https://github.com/igorescobar/jQuery-Mask-Plugin" target="_blank">GitHub</a>.</p>
@@ -96,12 +98,27 @@ $(document).ready(function(){
   $('.mixed').mask('AAA 000-S0S');
   $('.cpf').mask('000.000.000-00', {reverse: true});
   $('.money').mask('000.000.000.000.000,00', {reverse: true});
-  $('.money2').mask("#.##0,00", {reverse: true, maxlength: false});
-  $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': {pattern: /[0-9]/, optional: true}}});
+  $('.money2').mask("#.##0,00", {reverse: true});
+  $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
+    translation: {
+      'Z': {
+        pattern: /[0-9]/, optional: true
+      }
+    }
+  });
   $('.ip_address').mask('099.099.099.099');
   $('.percent').mask('##0,00%', {reverse: true});
   $('.clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
   $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
+  $('.fallback').mask("00r00r0000", {
+      translation: {
+        'r': {
+          pattern: /[\/]/, 
+          fallback: '/'
+        }, 
+        placeholder: "__/__/____"
+      }
+    });
 );</pre>
 
     <h3>Callback Examples</h3>
@@ -153,33 +170,10 @@ $(".sp_celphones").mask(celphoneMask);
 &lt;input type=&quot;text&quot; name=&quot;field-name&quot; data-mask=&quot;00/00/0000&quot; data-mask-reverse=&quot;true&quot; /&gt;
 </pre>
 
-  Disabling automatic maxlength <br/> <br/>
-<pre>
-&lt;input type=&quot;text&quot; name=&quot;field-name&quot; data-mask=&quot;00/00/0000&quot; data-mask-maxlength=&quot;false&quot; /&gt;
-</pre>
-
   Using clearIfNotMatch option <br/> <br/>
 <pre>
 &lt;input type=&quot;text&quot; name=&quot;field-name&quot; data-mask=&quot;00/00/0000&quot; data-mask-clearifnotmatch=&quot;true&quot; /&gt;
 </pre>
-
-<h2>Customization</h2>
-
-jQuery Mask Plugin has a few default options that you can overwrite as you like:
-
-<pre>
-var custom_options = {
-  byPassKeys: [8, 9, 37, 38, 39, 40],
-  translation: {
-                '0': {pattern: /\d/}, 
-                '9': {pattern: /\d/, optional: true}, 
-                '#': {pattern: /\d/, recursive: true}, 
-                'A': {pattern: /[a-zA-Z0-9]/}, 
-                'S': {pattern: /[a-zA-Z]/}
-            };
-};</pre>
-<strong> byPassKeys </strong> list of keyboard's <a href="http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes" target="_blank">keyCode</a> that you want to be ignored when it was pressed. <br />
-<strong> translation </strong> object with all digits that should be interpreted as a special chars and its regex representation. <br />
 
 <br />
 <h3>Translation</h3>
@@ -225,23 +219,60 @@ $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': {pattern: /[0-9]/,
 
     You can also use that kind of feature to define what kind of data could be typed inside of a field:
     <pre>$('.example').mask('0#');</pre>
-    Now only numbers will be allowed inside your form field and no maxlength will be set.
+    Now only numbers will be allowed inside your form field. <br /> <br />
 
-    <br/><br /><h3>Removing the mask</h3>
+    <h4>Fallback digits</h4>
+
+    When a user types a invalid char for the current position the plugin will replace it by its fallback instead of erasing them.
+
+<pre>
+$('.field_with_fallback').mask("00r00r0000", {
+  translation: {
+    'r': {
+      pattern: /[\/]/, 
+      fallback: '/'
+    }, 
+    placeholder: "__/__/____"
+  }
+});
+</pre>
+
+    <br /><h3>Removing the mask</h3>
     <pre>$('.date').unmask();</pre>
 
-    <br/><br /><h3>Getting the unmasked typed value</h3>
+    <br /><h3>Getting the unmasked typed value</h3>
     <pre>$('.date').cleanVal();</pre>
+<br />
+<h2>Customization</h2>
 
-    <h4>Default Mask Legend</h4>
-    <ul>
-      <li><strong>0</strong>: Only Numbers.</li>
-      <li><strong>9</strong>: Only Numbers but optional.</li>
-      <li><strong>#</strong>: Only Numbers but recusive.</li>
-      <li><strong>A</strong>: Numbers and Letters.</li>
-      <li><strong>S</strong>: Only A-Z and a-z characters.</li>
-    </ul>
-
+jQuery Mask Plugin has a few default options that you can overwrite as you like:
+<h3>Field Options</h3>
+<pre>
+var custom_options = {
+  byPassKeys: [8, 9, 37, 38, 39, 40],
+  translation: {
+                '0': {pattern: /\d/}, 
+                '9': {pattern: /\d/, optional: true}, 
+                '#': {pattern: /\d/, recursive: true}, 
+                'A': {pattern: /[a-zA-Z0-9]/}, 
+                'S': {pattern: /[a-zA-Z]/}
+            };
+};</pre>
+<strong> byPassKeys </strong> list of keyboard's <a href="http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes" target="_blank">keyCode</a> that you want to be ignored when it was pressed. <br />
+<strong> translation </strong> object with all digits that should be interpreted as a special chars and its regex representation. <br /> <br />
+<h3>Global Options</h3>
+<pre>
+// nonInput: elements we consider nonInput
+// dataMask: we mask data-mask elements by default
+// watchInputs: watch for dynamically added inputs by default
+// watchDataMask: by default we disabled the watcher for dynamically added data-mask elements by default (performance reasons)
+ $.jMaskGlobals = {
+    nonInput: 'td,span,div', 
+    dataMask: true, 
+    watchInputs: true, 
+    watchDataMask: false 
+  };
+</pre>
   </div>
 
 <br clear="all" />
@@ -267,6 +298,15 @@ $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': {pattern: /[0-9]/,
     $('.percent').mask('##0,00%', {reverse: true});
     $('.clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
     $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
+    $('.fallback').mask("00r00r0000", {
+      translation: {
+        'r': {
+          pattern: /[\/]/, 
+          fallback: '/'
+        }, 
+        placeholder: "__/__/____"
+      }
+    });
 
     $('.cep_with_callback').mask('00000-000', {onComplete: function(cep) {
         console.log('Mask is done!:', cep);
@@ -283,7 +323,7 @@ $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': {pattern: /[0-9]/,
     }});
 
     $('.cpf').mask('000.000.000-00', {reverse: true});
-    $('.money').mask('#.##0,00', {reverse: true, maxlength: false});
+    $('.money').mask('#.##0,00', {reverse: true});
 
     var SaoPauloCelphoneMask = function(phone, e, currentField, options){
       return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? '(00) 00000-0000' : '(00) 0000-0000';
