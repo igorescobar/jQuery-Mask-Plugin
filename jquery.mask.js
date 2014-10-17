@@ -300,11 +300,9 @@
         jMask.mask = mask;
         jMask.options = options;
         jMask.remove = function() {
-            var caret;
+            var caret = p.getCaret();
             p.destroyEvents();
-            p.val(jMask.getCleanVal()).removeAttr('maxlength');
-            
-            caret = p.getCaret();
+            p.val(jMask.getCleanVal()).removeAttr('maxlength');            
             p.setCaret(caret - p.getMCharsBeforeCount(caret));
             return el;
         };
