@@ -19,13 +19,13 @@ http://igorescobar.github.io/jQuery-Mask-Plugin/
   * Sanitization.
   * Optional digits.
   * Recursive Digits.
+  * Fallback Digits.
   * Advanced mask initialization.
-  * Callbacks.
+  * Advanced Callbacks.
   * On-the-fly mask change.
   * Mask removal.
   * Full customization.
-  * Compatibility with Zepto.js.
-  * UMD compatible.
+  * Compatibility with UMD/Zepto.js/Angular.JS.
   * HTML5 placeholder support.
   * Clear the field if it not matches support.
 
