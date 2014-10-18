@@ -1,3 +1,9 @@
+== v1.9.1 (Oct/18 2014 12:27 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* cant convert circular json exception
+
 == v1.9.0 (Oct/18 2014 12:07 -0300 by Igor Escobar) ==
 
 Features:
