@@ -1,3 +1,9 @@
+== v1.9.0 (Oct/18 2014 12:07 -0300 by Igor Escobar) ==
+
+Features:
+
+* adding onInvalid callback
+
 == v1.8.0 (Oct/17 2014 11:35 -0300 by Igor Escobar) ==
 
 Changes:
