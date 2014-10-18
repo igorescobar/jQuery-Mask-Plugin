@@ -52,6 +52,7 @@
         mask = typeof mask === "function" ? mask(el.val(), undefined, el,  options) : mask;
 
         var p = {
+            invalid: [],
             getCaret: function () {
                 try {
                     var sel,
@@ -186,6 +187,7 @@
             },
             behaviour: function(e) {
                 e = e || window.event;
+                p.invalid = [];
                 var keyCode = e.keyCode || e.which;
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
 
@@ -265,6 +267,8 @@
                         } else if (translation.fallback) {
                             buf[addMethod](translation.fallback);
                             m += offset;
+                        } else {
+                          p.invalid.push({p: v, v: valDigit, e: translation.pattern});
                         }
                         v += offset;
                     } else {
@@ -289,20 +293,18 @@
             },
             callbacks: function (e) {
                 var val = p.val(),
-                    changed = val !== old_value;
-                if (changed === true) {
-                    if (typeof options.onChange === "function") {
-                        options.onChange(val, e, el, options);
-                    }
-                }
-
-                if (changed === true && typeof options.onKeyPress === "function") {
-                    options.onKeyPress(val, e, el, options);
-                }
-
-                if (typeof options.onComplete === "function" && val.length === mask.length) {
-                    options.onComplete(val, e, el, options);
-                }
+                    changed = val !== old_value,
+                    defaultArgs = [val, e, el, options],
+                    callback = function(name, criteria, args) {
+                        if (typeof options[name] === "function" && criteria) {
+                            options[name].apply(this, args)
+                        }
+                    };
+                
+                callback('onChange', changed === true, defaultArgs);
+                callback('onKeyPress', changed === true, defaultArgs);
+                callback('onComplete', val.length === mask.length, defaultArgs);
+                callback('onInvalid', p.invalid.length > 0, [val, e, el, p.invalid, options]);
             }
         };
 

@@ -93,7 +93,31 @@ $(document).ready(function(){
      
     });
 
+    test("#onInvalid callback. should call when invalid", function(){
+      testfield.mask('00/00/0000', {onInvalid: function(val, e, el, invalid, options){
+        equal(val, "1")
+        equal(typeof e, "object")
+        equal(typeof el, "object")
+        equal(invalid.length, 1);
+        equal(invalid[0]["e"], "/\\d/");
+        equal(invalid[0]["p"], 1);
+        equal(invalid[0]["v"], "a");
+        equal(typeof options.onInvalid, "function");
+      }});
+
+      equal( typeTest("1a") , "1");
+    });
+
+    test("#onInvalid callback. should not call when valid", function(){
+      var callback = sinon.spy();
+      testfield.mask('00/00/0000', {onInvalid: callback});
+
+      equal( typeTest("11") , "11");
+      equal(callback.called, false)
+    });
+
     test('When I typed a char thats the same as the mask char', function(){
+      testfield.unmask();
       testfield.mask('00/00/0000');
 
       equal( typeTest("00/"), "00/");
