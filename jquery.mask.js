@@ -390,7 +390,9 @@
         notSameMaskObject = function(field, mask, options) {
             options = options || {};
             var maskObject = $(field).data('mask'), stringify = JSON.stringify;
-            return typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask
+            try {
+                return typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask    
+            } catch (e) {}
         }
 
     $.fn.mask = function(mask, options) {
