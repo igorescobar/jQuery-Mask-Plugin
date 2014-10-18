@@ -42,7 +42,7 @@
       <input type="text" class="date_time"/>
       <label>Zip-Code</label>
       <input type="text" class="cep"/>
-      <label>Zip-Code With Callbacks</label>
+      <label>With Callbacks (open console)</label>
       <input type="text" class="cep_with_callback"/>
       <label>Crazy Zip-Code</label>
       <input type="text" class="crazy_cep"/>
@@ -70,7 +70,7 @@
       <input type="text" class="ip_address"/>
       <label>Mask with Clear If Not Match Option</label>
       <input type="text" class="clear-if-not-match"/>
-      <label>Mask with Clear If Not Match Option</label>
+      <label>Mask with a Fallback Digit</label>
       <input type="text" class="fallback"/>
     </div>
     <div class="col center banner">
@@ -133,6 +133,10 @@ var options =  {
   },
   onChange: function(cep){
     console.log('cep changed! ', cep);
+  },
+  onInvalid: function(val, e, f, invalid, options){
+    var error = invalid[0];
+    console.log ("Digit: ", error.v, " is invalid for the position: ", error.p, ". We expect something like: ", error.e);
   }
 };
 
@@ -313,6 +317,10 @@ var custom_options = {
       },
        onKeyPress: function(cep, event, currentField, options){
         console.log('An key was pressed!:', cep, ' event: ', event, 'currentField: ', currentField.attr('class'), ' options: ', options);
+      },
+      onInvalid: function(val, e, field, invalid, options){
+        var error = invalid[0];
+        console.log ("Digit: ", error.v, " is invalid for the position: ", error.p, ". We expect something like: ", error.e);
       }
     });
 
