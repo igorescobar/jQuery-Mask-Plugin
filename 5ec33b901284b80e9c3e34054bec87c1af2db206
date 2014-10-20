@@ -1,0 +1,1 @@
+onChange event fired at the wrong time when the field already has a value.
