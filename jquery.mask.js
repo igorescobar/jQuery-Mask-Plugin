@@ -46,9 +46,10 @@
 }(function ($) {
     "use strict";
     var Mask = function (el, mask, options) {
-        var jMask = this, old_value = "", regexMask;
         el = $(el);
 
+        var jMask = this, old_value = el.val(), regexMask;
+    
         mask = typeof mask === "function" ? mask(el.val(), undefined, el,  options) : mask;
 
         var p = {
