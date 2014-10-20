@@ -6,5 +6,5 @@
   "scripts": [
     "jquery.mask.js"
   ],
-  "main": "jquery.mask.js"
+  "main": "dist/jquery.mask.js"
 }
