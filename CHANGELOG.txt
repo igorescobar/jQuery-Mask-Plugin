@@ -1,3 +1,9 @@
+== v1.9.2 (Oct/20 2014 10:08 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing fallback digits implementation. Thanks @A1rPun
+
 == v1.9.1 (Oct/18 2014 12:27 -0300 by Igor Escobar) ==
 
 Bugfixes:
