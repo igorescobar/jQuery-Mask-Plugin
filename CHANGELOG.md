@@ -1,3 +1,9 @@
+== v1.10.0 (Oct/20 2014 10:56 -0200 by Igor Escobar) ==
+
+Features:
+
+* adding a way to change global settings like translation object and the byPassKeys object.
+
 == v1.9.2 (Oct/20 2014 10:08 -0200 by Igor Escobar) ==
 
 Bugfixes:
