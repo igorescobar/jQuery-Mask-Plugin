@@ -373,13 +373,13 @@ $(document).ready(function(){
     equal( typeTest('::/:4/5678'), '**/*4/5678');
   });
 
-  test("test the translation #fallback #2" , function(){
+  test("test the translation #fallback #1" , function(){
     testfield.mask('00t00', {'translation': {'t': {pattern: /[:,.]/, fallback: ':'}}});
 
     equal( typeTest('1'), '1');
     equal( typeTest('13'), '13');
-    equal( typeTest('137'), '13:');
-    equal( typeTest('1337'), '13:7');
+    equal( typeTest('137'), '13:7');
+    equal( typeTest('1337'), '13:37');
     equal( typeTest('13z00'), '13:00');
   });
 
@@ -397,10 +397,10 @@ $(document).ready(function(){
     testfield.mask('tt/00/00', {'translation': {'t': {pattern: /[:,.*]/, fallback: '*'}}});
 
     equal( typeTest('*'), '*');
-    equal( typeTest('13'), '**');
-    equal( typeTest('13/'), '**/');
-    equal( typeTest('13/a'), '**/');
-    equal( typeTest('13/a1z1'), '**/11');
+    equal( typeTest('13'), '**/13');
+    equal( typeTest('13/'), '**/13/');
+    equal( typeTest('13/a'), '**/13/');
+    equal( typeTest('13/a1z1'), '**/13/11');
   });
 
   test("when adding opcional chars",function(){

@@ -267,6 +267,7 @@
                         } else if (translation.fallback) {
                             buf[addMethod](translation.fallback);
                             m += offset;
+                            v -= offset;
                         } else {
                           p.invalid.push({p: v, v: valDigit, e: translation.pattern});
                         }
