@@ -1,3 +1,9 @@
+== v1.10.2 (Oct/20 2014 16:38 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* onChange event fired at the wrong time when the field already has a value.
+
 == v1.10.1 (Oct/20 2014 16:08 -0200 by Igor Escobar) ==
 
 Bugfixes:
