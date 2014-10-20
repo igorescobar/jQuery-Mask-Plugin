@@ -1,3 +1,9 @@
+== v1.10.1 (Oct/20 2014 16:08 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing onChange event behaviour
+
 == v1.10.0 (Oct/20 2014 10:56 -0200 by Igor Escobar) ==
 
 Features:
