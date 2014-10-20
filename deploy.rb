@@ -56,7 +56,7 @@ puts '# CREATING NEW VERSION'
 `stepup version create --no-editor`
 
 puts '# UPGRATING CHANGELOG'
-`stepup changelog --format=wiki > CHANGELOG.txt`
+`stepup changelog --format=wiki > CHANGELOG.md`
 `git commit -am "upgrading changelog"`
 `git push`
 
