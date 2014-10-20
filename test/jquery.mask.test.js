@@ -481,7 +481,11 @@ $(document).ready(function(){
 
   // TODO: need to understand why zepto.js isnt calling change event!
   if(!window.Zepto) {
-    test('onChange Test', 12, function(){
+    test('onChange Test', 2, function(){
+      testfield.unmask();
+
+      var callback = sinon.spy();
+      var mock = sinon.mock()
       var typeAndBlur = function(typedValue){
         testfield.trigger('keydown');
         testfield.val(typedValue);
@@ -489,12 +493,11 @@ $(document).ready(function(){
         testfield.trigger("blur");
       };
 
-      testfield.on("change", function(e){
-        ok(true, "Change event!!");
-      });
-
       testfield.mask('000.(000).000/0-0');
 
+      testfield.on("change", callback);
+
+      typeAndBlur("");
       typeAndBlur("1");
       typeAndBlur("12");
       typeAndBlur("123");
@@ -508,9 +511,13 @@ $(document).ready(function(){
       typeAndBlur("1234567891");
       typeAndBlur("12345678912");
 
-      equal( testfield.val(), "123.(456).789/1-2" );
+      equal(testfield.val(), "123.(456).789/1-2" );
+      
+      equal(true, sinon.match(11).or(12).test(callback.callCount))
 
       testfield.off("change");
+      testfield.unmask();
+
     });
   }
   

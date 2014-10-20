@@ -46,7 +46,7 @@
 }(function ($) {
     "use strict";
     var Mask = function (el, mask, options) {
-        var jMask = this, old_value, regexMask;
+        var jMask = this, old_value = "", regexMask;
         el = $(el);
 
         mask = typeof mask === "function" ? mask(el.val(), undefined, el,  options) : mask;
@@ -103,14 +103,10 @@
                         el.keydown().keyup();
                     }, 100);
                 })
-                .on("change.mask", function() {
-                    el.data("changed", true);
-                })
                 .on("blur.mask", function(){
-                    if (old_value !== el.val() && !el.data("changed")) {
+                    if (old_value !== el.val()) {
                         el.trigger("change");
                     }
-                    el.data("changed", false);
                 })
                 // clear the value if it not complete the mask
                 .on("focusout.mask", function() {
@@ -153,8 +149,7 @@
                 return new RegExp(r);
             },
             destroyEvents: function() {
-                el.off(['keydown', 'keyup', 'paste', 'drop', 'change', 'blur', 'focusout', ''].join('.mask '))
-                .removeData("changed");
+                el.off(['keydown', 'keyup', 'paste', 'drop', 'blur', 'focusout', ''].join('.mask '));
             },
             val: function(v) {
                 var isInput = el.is('input'),
