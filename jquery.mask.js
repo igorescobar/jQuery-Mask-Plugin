@@ -330,14 +330,8 @@
             only_mask = only_mask || false;
             options = options || {};
 
-            jMask.byPassKeys = [9, 16, 17, 18, 36, 37, 38, 39, 40, 91];
-            jMask.translation = {
-                '0': {pattern: /\d/},
-                '9': {pattern: /\d/, optional: true},
-                '#': {pattern: /\d/, recursive: true},
-                'A': {pattern: /[a-zA-Z0-9]/},
-                'S': {pattern: /[a-zA-Z]/}
-            };
+            jMask.byPassKeys = $.jMaskGlobals.byPassKeys;
+            jMask.translation = $.jMaskGlobals.translation;
 
             jMask.translation = $.extend({}, jMask.translation, options.translation);
             jMask = $.extend(true, {}, jMask, options);
@@ -446,6 +440,14 @@
         nonInput: 'td,span,div',
         dataMask: true,
         watchInputs: true,
-        watchDataMask: false
+        watchDataMask: false,
+        byPassKeys: [9, 16, 17, 18, 36, 37, 38, 39, 40, 91],
+        translation: {
+            '0': {pattern: /\d/},
+            '9': {pattern: /\d/, optional: true},
+            '#': {pattern: /\d/, recursive: true},
+            'A': {pattern: /[a-zA-Z0-9]/},
+            'S': {pattern: /[a-zA-Z]/}
+        }
     };
 }));

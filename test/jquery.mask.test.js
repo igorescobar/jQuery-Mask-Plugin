@@ -366,6 +366,26 @@ $(document).ready(function(){
     equal( typeTest('12/**/5678'), '12/**/5678');
   });
 
+  test("when adding more itens to the table translation #3",function(){
+    var old_translation = $.jMaskGlobals.translation
+    $.jMaskGlobals.translation = {
+      '1': {pattern: /\d/},
+      '9': {pattern: /\d/, optional: true},
+      '#': {pattern: /\d/, recursive: true},
+      'A': {pattern: /[a-zA-Z0-9]/},
+      'S': {pattern: /[a-zA-Z]/}
+    };
+
+    testfield.mask('00/11/1111');
+
+    equal( typeTest('12/12/5678'), '00/12/1256');
+
+    testfield.mask('11/00/1111');
+    equal( typeTest('12/12/5678'), '12/00/1256');
+    
+    $.jMaskGlobals.translation = old_translation;
+  });
+
   test("when adding more itens to the table translation #fallback",function(){
     testfield.mask('zz/z0/0000', {'translation': {'z': {pattern: /[0-9*]/, fallback: '*'}}});
 
