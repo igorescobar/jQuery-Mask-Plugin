@@ -93,20 +93,26 @@
                 } catch (e) {}
             },
             events: function() {
-                el
-                .on('keydown.mask', function() {
-                    old_value = p.val();
-                })
+                el                
                 .on('keyup.mask', p.behaviour)
                 .on("paste.mask drop.mask", function() {
                     setTimeout(function() {
                         el.keydown().keyup();
                     }, 100);
                 })
+                .on('change.mask', function(){
+                    el.data('changed', true);
+                })
                 .on("blur.mask", function(){
-                    if (old_value !== el.val()) {
+                    if (old_value !== el.val() && !el.data('changed')) {
                         el.trigger("change");
                     }
+                    el.data('changed', false);
+                })
+                // it's very important that this callback remains in this position
+                // otherwhise old_value it's going to work buggy
+                .on('keydown.mask, blur.mask', function() {
+                    old_value = el.val();
                 })
                 // clear the value if it not complete the mask
                 .on("focusout.mask", function() {
@@ -296,7 +302,7 @@
                             options[name].apply(this, args)
                         }
                     };
-                
+
                 callback('onChange', changed === true, defaultArgs);
                 callback('onKeyPress', changed === true, defaultArgs);
                 callback('onComplete', val.length === mask.length, defaultArgs);
