@@ -19,6 +19,9 @@ File.open(JMASK_FILE, 'w') do |file|
   file.write(unversioned_jmask_file.gsub(/\* @version: (v[0-9.+]+)/, "\* @version: #{JMASK_VERSION}"))
 end
 
+puts '# COPYING NEW JMASK FILE TO DIST/'
+`yes | cp #{JMASK_FILE} dist/`
+
 [BOWER_MANIFEST_FILE, NPM_MANIFEST_FILE, COMPONENT_MANIFEST_FILE, JQUERY_MANIFEST_FILE].each { |manifest_name|
   puts "# UPGRADING #{manifest_name} "
   manifest_file = File.open(manifest_name, 'rb') { |file| file.read }
