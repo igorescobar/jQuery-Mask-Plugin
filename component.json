@@ -4,7 +4,7 @@
   "version": "1.10.2.1",
   "keywords": ["javascript", "mask", "form"],
   "scripts": [
-    "jquery.mask.js"
+    "dist/jquery.mask.js"
   ],
   "main": "dist/jquery.mask.js"
 }

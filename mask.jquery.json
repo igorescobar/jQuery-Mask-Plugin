@@ -11,12 +11,12 @@
   "version": "1.10.2.1",
   "author": {
     "name": "Igor Escobar",
-    "url": "https://github.com/igorescobar/jQuery-Mask-Plugin/blob/master/README.md"
+    "url": "https://raw.githubusercontent.com/igorescobar/jQuery-Mask-Plugin/master/README.md"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/igorescobar/jQuery-Mask-Plugin/blob/master/jquery.mask.js"
+      "url": "https://raw.githubusercontent.com/igorescobar/jQuery-Mask-Plugin/master/LICENSE"
     }
   ],
   "bugs": "https://github.com/igorescobar/jQuery-Mask-Plugin/issues",
