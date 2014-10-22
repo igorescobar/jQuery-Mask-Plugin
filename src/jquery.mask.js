@@ -390,12 +390,14 @@
             try {
                 return typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask    
             } catch (e) {}
-        }
+        };
+
 
     $.fn.mask = function(mask, options) {
         options = options || {};
         var selector = this.selector,
             globals = $.jMaskGlobals,
+            maskAttr = '*[data-mask]',
             maskFunction = function() {
                 if (notSameMaskObject(this, mask, options)) {
                     return $(this).data('mask', new Mask(this, mask, options));
@@ -412,12 +414,12 @@
 
         // looking for inputs with data-mask attribute
         if (globals.dataMask) {            
-            $('*[data-mask]').each(HTMLAttributes);
+            $(maskAttr).each(HTMLAttributes);
         }
 
         if (globals.watchDataMask) {
             setInterval(function(){
-                $(document).find(globals.nonInput).filter('*[data-mask]').each(HTMLAttributes);
+                $(document).find(globals.nonInput).filter(maskAttr).each(HTMLAttributes);
             }, 300);
         }
         
