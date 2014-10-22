@@ -1,3 +1,9 @@
+== v1.10.3 (Oct/22 2014 09:50 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing unmask method.
+
 == v1.10.2 (Oct/20 2014 16:38 -0200 by Igor Escobar) ==
 
 Bugfixes:
