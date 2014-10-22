@@ -365,8 +365,8 @@
 
     };
 
-    var watchers = {},
-        HTMLAttributes = function () {
+    $.maskWatchers = {};
+    var HTMLAttributes = function () {
             var input = $(this),
                 options = {},
                 prefix = "data-mask-",
@@ -404,13 +404,10 @@
 
         $(this).each(maskFunction);
 
-        if (globals.watchInputs && selector && selector !== "" && !watchers[selector]) {
-            watchers[selector] = true;
-
-            setInterval(function(){
+        if (globals.watchInputs && selector && selector !== "" && !$.maskWatchers[selector]) {
+            $.maskWatchers[selector] = setInterval(function(){
                 $(document).find(selector).each(maskFunction);
             }, 300);
-
         }
 
         // looking for inputs with data-mask attribute
@@ -427,8 +424,12 @@
     };
 
     $.fn.unmask = function() {
+        clearInterval($.maskWatchers[this.selector]);
+        delete $.maskWatchers[this.selector];
         return this.each(function() {
-            $(this).data('mask').remove();
+            if ($(this).data('mask')) {
+                $(this).data('mask').remove().removeData('mask');
+            }
         });
     };
 
