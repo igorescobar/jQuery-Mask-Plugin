@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.10.2.1
+ * @version: v1.10.3
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -365,8 +365,8 @@
 
     };
 
-    var watchers = {},
-        HTMLAttributes = function () {
+    $.maskWatchers = {};
+    var HTMLAttributes = function () {
             var input = $(this),
                 options = {},
                 prefix = "data-mask-",
@@ -390,12 +390,14 @@
             try {
                 return typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask    
             } catch (e) {}
-        }
+        };
+
 
     $.fn.mask = function(mask, options) {
         options = options || {};
         var selector = this.selector,
             globals = $.jMaskGlobals,
+            maskAttr = '*[data-mask]',
             maskFunction = function() {
                 if (notSameMaskObject(this, mask, options)) {
                     return $(this).data('mask', new Mask(this, mask, options));
@@ -404,34 +406,33 @@
 
         $(this).each(maskFunction);
 
-        if (globals.watchInputs && selector && selector !== "" && !watchers[selector]) {
-            watchers[selector] = true;
-
-            setInterval(function(){
+        if (globals.watchInputs && selector && selector !== "" && !$.maskWatchers[selector]) {
+            $.maskWatchers[selector] = setInterval(function(){
                 $(document).find(selector).each(maskFunction);
             }, 300);
-
         }
 
         // looking for inputs with data-mask attribute
         if (globals.dataMask) {            
-            $('*[data-mask]').each(HTMLAttributes);
+            $(maskAttr).each(HTMLAttributes);
         }
 
         if (globals.watchDataMask) {
             setInterval(function(){
-                $(document).find(globals.nonInput).filter('*[data-mask]').each(HTMLAttributes);
+                $(document).find(globals.nonInput).filter(maskAttr).each(HTMLAttributes);
             }, 300);
         }
         
     };
 
     $.fn.unmask = function() {
-        try {
-            return this.each(function() {
+        clearInterval($.maskWatchers[this.selector]);
+        delete $.maskWatchers[this.selector];
+        return this.each(function() {
+            if ($(this).data('mask')) {
                 $(this).data('mask').remove().removeData('mask');
-            });
-        } catch(e) {};
+            }
+        });
     };
 
     $.fn.cleanVal = function() {
