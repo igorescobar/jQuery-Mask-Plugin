@@ -300,7 +300,7 @@
                     defaultArgs = [val, e, el, options],
                     callback = function(name, criteria, args) {
                         if (typeof options[name] === "function" && criteria) {
-                            options[name].apply(this, args)
+                            options[name].apply(this, args);
                         }
                     };
 
@@ -388,7 +388,7 @@
             options = options || {};
             var maskObject = $(field).data('mask'), stringify = JSON.stringify;
             try {
-                return typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask    
+                return typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask;
             } catch (e) {}
         };
 
