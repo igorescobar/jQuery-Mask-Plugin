@@ -427,11 +427,9 @@
     };
 
     $.fn.unmask = function() {
-        try {
-            return this.each(function() {
-                $(this).data('mask').remove().removeData('mask');
-            });
-        } catch(e) {};
+        return this.each(function() {
+            $(this).data('mask').remove();
+        });
     };
 
     $.fn.cleanVal = function() {
