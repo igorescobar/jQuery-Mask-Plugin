@@ -406,7 +406,7 @@
 
         $(this).each(maskFunction);
 
-        if (globals.watchInputs && selector && selector !== "" && !$.maskWatchers[selector]) {
+        if (globals.watchInputs && selector && selector !== "" && notSameMaskObject(this, mask, options)) {
             $.maskWatchers[selector] = setInterval(function(){
                 $(document).find(selector).each(maskFunction);
             }, 300);
