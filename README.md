@@ -51,6 +51,9 @@ jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
  * Safari 3.2+ (Win, Mac, iPhone);
  * Opera 8+ (Win, Mac, Linux, Android, iPhone).
 
+## Problems & Bugs?
+Make sure that you have a *functional* [jsfiddle](http://jsfiddle.net/) exemplifying your problem and open an [Issue](https://github.com/igorescobar/jQuery-Mask-Plugin/issues) for us.
+
 ## Contributors
  * [Igor Lima](https://github.com/igorlima)
  * [Mark Simmons](https://github.com/Markipelago)
