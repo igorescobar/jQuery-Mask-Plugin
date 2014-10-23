@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.10.3
+ * @version: v1.10.4
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -300,7 +300,7 @@
                     defaultArgs = [val, e, el, options],
                     callback = function(name, criteria, args) {
                         if (typeof options[name] === "function" && criteria) {
-                            options[name].apply(this, args)
+                            options[name].apply(this, args);
                         }
                     };
 
@@ -388,7 +388,7 @@
             options = options || {};
             var maskObject = $(field).data('mask'), stringify = JSON.stringify;
             try {
-                return typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask    
+                return typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask;
             } catch (e) {}
         };
 
@@ -406,7 +406,7 @@
 
         $(this).each(maskFunction);
 
-        if (globals.watchInputs && selector && selector !== "" && !$.maskWatchers[selector]) {
+        if (globals.watchInputs && selector && selector !== "" && notSameMaskObject(this, mask, options)) {
             $.maskWatchers[selector] = setInterval(function(){
                 $(document).find(selector).each(maskFunction);
             }, 300);
