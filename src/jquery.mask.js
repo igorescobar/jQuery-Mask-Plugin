@@ -353,7 +353,7 @@
                 if (p.val() != p.getMasked()) {
                     var caret = p.getCaret();
                     p.val(p.getMasked());
-                    p.setCaret(caret + p.getMCharsBeforeCount(caret, true));    
+                    p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
                 }
 
             } else {
