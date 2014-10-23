@@ -1,3 +1,9 @@
+== v1.10.4 (Oct/23 2014 11:02 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing on the fly mask change feature.
+
 == v1.10.3 (Oct/22 2014 09:50 -0200 by Igor Escobar) ==
 
 Bugfixes:
