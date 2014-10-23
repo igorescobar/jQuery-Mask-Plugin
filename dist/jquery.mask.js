@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.10.4
+ * @version: v1.10.4.1
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -350,10 +350,11 @@
                 p.destroyEvents();
                 p.events();
 
-                var caret = p.getCaret();
-
-                p.val(p.getMasked());
-                p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
+                if (p.val() != p.getMasked()) {
+                    var caret = p.getCaret();
+                    p.val(p.getMasked());
+                    p.setCaret(caret + p.getMCharsBeforeCount(caret, true));    
+                }
 
             } else {
                 p.events();
