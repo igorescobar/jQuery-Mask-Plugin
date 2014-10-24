@@ -155,12 +155,16 @@ $('.crazy_cep').mask('00000-000', options);
 
     <h3>Mask as a function</h3>
 <pre>
-var celphoneMask = function(phone, e, currentField, options){
-  return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? 
-  '(00) 00000-0000' : '(00) 0000-0000';
+var SPMaskBehavior = function (val) {
+  return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+},
+spOptions = {
+  onKeyPress: function(val, e, field, options) {
+      field.mask(SPMaskBehavior.apply({}, arguments), options);
+    }
 };
 
-$(".sp_celphones").mask(celphoneMask);
+$('.sp_celphones').mask(SPMaskBehavior, spOptions);
 </pre>
     
     <h3>Using HTML Notation Exemples</h3>
@@ -341,11 +345,16 @@ var custom_options = {
     $('.cpf').mask('000.000.000-00', {reverse: true});
     $('.money').mask('#.##0,00', {reverse: true});
 
-    var SaoPauloCelphoneMask = function(phone, e, currentField, options){
-      return phone.match(/^(\(?11\)? ?9(5[0-9]|6[0-9]|7[01234569]|8[0-9]|9[0-9])[0-9]{1})/g) ? '(00) 00000-0000' : '(00) 0000-0000';
+    var SPMaskBehavior = function (val) {
+      return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+    },
+    spOptions = {
+      onKeyPress: function(val, e, field, options) {
+          field.mask(SPMaskBehavior.apply({}, arguments), options);
+        }
     };
 
-    $(".sp_celphones").mask('(00) 00009-0000');
+    $('.sp_celphones').mask(SPMaskBehavior, spOptions);
 
     $(".bt-mask-it").click(function(){
       $(".mask-on-div").mask("000.000.000-00");
