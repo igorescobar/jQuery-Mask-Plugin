@@ -144,10 +144,10 @@ $('.cep_with_callback').mask('00000-000', options);
 </pre>
     <h3>On-the-fly mask change</h3>
 <pre>
-var options =  {onKeyPress: function(cep){
+var options =  {onKeyPress: function(cep, e, field, options){
   var masks = ['00000-000', '0-00-00-00'];
     mask = (cep.length>7) ? masks[1] : masks[0];
-  $('.crazy_cep').mask(mask, this);
+  $('.crazy_cep').mask(mask, options);
 }};
 
 $('.crazy_cep').mask('00000-000', options);
@@ -332,10 +332,10 @@ var custom_options = {
       }
     });
 
-    $('.crazy_cep').mask('00000-000', {onKeyPress: function(cep){
+    $('.crazy_cep').mask('00000-000', {onKeyPress: function(cep, e, field, options){
       var masks = ['00000-000', '0-00-00-00'];
         mask = (cep.length>7) ? masks[1] : masks[0];
-      $('.crazy_cep').mask(mask, this);
+      $('.crazy_cep').mask(mask, options);
     }});
 
     $('.cpf').mask('000.000.000-00', {reverse: true});
