@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.10.5
+ * @version: v1.10.6
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -407,7 +407,7 @@
 
         $(this).each(maskFunction);
 
-        if (globals.watchInputs && selector && selector !== "" && notSameMaskObject(this, mask, options)) {
+        if (globals.watchInputs && selector && selector !== "" && (notSameMaskObject(this, mask, options) || !$.maskWatchers[selector])) {
             $.maskWatchers[selector] = setInterval(function(){
                 $(document).find(selector).each(maskFunction);
             }, 300);
