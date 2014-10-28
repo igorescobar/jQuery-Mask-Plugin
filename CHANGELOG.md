@@ -1,3 +1,16 @@
+== v1.10.6 (Oct/28 2014 13:59 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing weird cursor problems in weird cases.
+* dynamically added inputs wasnt working
+
+== v1.10.5 (Oct/23 2014 11:41 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing weird cursor problems in weird cases.
+
 == v1.10.4 (Oct/23 2014 11:02 -0200 by Igor Escobar) ==
 
 Bugfixes:
