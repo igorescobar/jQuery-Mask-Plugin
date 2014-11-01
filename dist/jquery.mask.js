@@ -419,13 +419,6 @@
         if (globals.dataMask) {            
             $(maskAttr).each(HTMLAttributes);
         }
-
-        if (globals.watchDataMask) {
-            setInterval(function(){
-                $(document).find(globals.nonInput).filter(maskAttr).each(HTMLAttributes);
-            }, interval);
-        }
-        
     };
 
     $.fn.unmask = function() {
@@ -457,4 +450,12 @@
             'S': {pattern: /[a-zA-Z]/}
         }
     };
+
+    // data-mask fields
+    var globals = $.jMaskGlobals;
+    if (globals.watchDataMask) {
+        setInterval(function(){
+            $(document).find(globals.nonInput).filter(maskAttr).each(HTMLAttributes);
+        }, interval);
+    }
 }));
