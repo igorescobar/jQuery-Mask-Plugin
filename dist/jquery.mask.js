@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.10.6
+ * @version: v1.10.7
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -398,6 +398,7 @@
         options = options || {};
         var selector = this.selector,
             globals = $.jMaskGlobals,
+            interval = $.jMaskGlobals.watchInterval,
             maskAttr = '*[data-mask]',
             maskFunction = function() {
                 if (notSameMaskObject(this, mask, options)) {
@@ -407,10 +408,11 @@
 
         $(this).each(maskFunction);
 
-        if (globals.watchInputs && selector && selector !== "" && (notSameMaskObject(this, mask, options) || !$.maskWatchers[selector])) {
+        if (selector && selector !== "" && globals.watchInputs) {
+            clearInterval($.maskWatchers[selector]);
             $.maskWatchers[selector] = setInterval(function(){
                 $(document).find(selector).each(maskFunction);
-            }, 300);
+            }, interval);
         }
 
         // looking for inputs with data-mask attribute
@@ -421,7 +423,7 @@
         if (globals.watchDataMask) {
             setInterval(function(){
                 $(document).find(globals.nonInput).filter(maskAttr).each(HTMLAttributes);
-            }, 300);
+            }, interval);
         }
         
     };
@@ -443,6 +445,7 @@
     $.jMaskGlobals = {
         nonInput: 'td,span,div',
         dataMask: true,
+        watchInterval: 300,
         watchInputs: true,
         watchDataMask: false,
         byPassKeys: [9, 16, 17, 18, 36, 37, 38, 39, 40, 91],
