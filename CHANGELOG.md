@@ -1,3 +1,9 @@
+== v1.10.7 (Nov/01 2014 13:18 -0200 by Igor Escobar) ==
+
+Changes:
+
+* little optimization
+
 == v1.10.6 (Oct/28 2014 13:59 -0200 by Igor Escobar) ==
 
 Bugfixes:
