@@ -1,3 +1,9 @@
+== v1.10.8 (Nov/01 2014 13:49 -0200 by Igor Escobar) ==
+
+Changes:
+
+* we dont need to seek for data-mask every time
+
 == v1.10.7 (Nov/01 2014 13:18 -0200 by Igor Escobar) ==
 
 Changes:
