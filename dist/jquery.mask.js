@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.10.7
+ * @version: v1.10.8
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -419,6 +419,13 @@
         if (globals.dataMask) {            
             $(maskAttr).each(HTMLAttributes);
         }
+
+        if (globals.watchDataMask) {
+            setInterval(function(){
+                $(document).find(globals.nonInput).filter(maskAttr).each(HTMLAttributes);
+            }, interval);
+        }
+        
     };
 
     $.fn.unmask = function() {
@@ -450,12 +457,4 @@
             'S': {pattern: /[a-zA-Z]/}
         }
     };
-
-    // data-mask fields
-    var globals = $.jMaskGlobals;
-    if (globals.watchDataMask) {
-        setInterval(function(){
-            $(document).find(globals.nonInput).filter(maskAttr).each(HTMLAttributes);
-        }, interval);
-    }
 }));
