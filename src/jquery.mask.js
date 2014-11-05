@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.10.8.1
+ * @version: v1.10.9
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -445,7 +445,7 @@
             'S': {pattern: /[a-zA-Z]/}
         }
     };
-
+    
     // looking for inputs with data-mask attribute
     if (globals.dataMask) {            
         $(globals.dataMaskAttr).each(HTMLAttributes);
