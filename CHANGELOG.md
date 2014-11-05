@@ -1,3 +1,9 @@
+== v1.10.9 (Nov/05 2014 10:52 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* data-mask wasnt working
+
 == v1.10.8 (Nov/01 2014 13:49 -0200 by Igor Escobar) ==
 
 Changes:
