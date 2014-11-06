@@ -445,7 +445,7 @@
     };
 
     $.jMaskGlobals = $.jMaskGlobals || {};
-    globals = $.jMaskGlobals = $.extend(true, {}, globals, $.jMaskGlobals)
+    globals = $.jMaskGlobals = $.extend(true, {}, globals, $.jMaskGlobals);
     
     // looking for inputs with data-mask attribute
     if (globals.dataMask) {            
