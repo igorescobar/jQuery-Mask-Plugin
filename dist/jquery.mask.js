@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.10.9
+ * @version: v1.10.10
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -428,8 +428,9 @@
     $.fn.cleanVal = function() {
         return this.data('mask').getCleanVal();
     };
-    
-    var globals = $.jMaskGlobals = {
+
+    $.jMaskGlobals = $.jMaskGlobals || {};
+    var globals = {
         nonInput: 'td,span,div',
         dataMaskAttr: '*[data-mask]',
         dataMask: true,
@@ -445,6 +446,8 @@
             'S': {pattern: /[a-zA-Z]/}
         }
     };
+
+    globals = $.jMaskGlobals = $.extend(true, {}, globals, $.jMaskGlobals)
     
     // looking for inputs with data-mask attribute
     if (globals.dataMask) {            
