@@ -63,7 +63,7 @@
                         cSelStart = ctrl.selectionStart;
 
                     // IE Support
-                    if (dSel && !~navigator.appVersion.indexOf("MSIE 10")) {
+                    if (dSel && navigator.appVersion.indexOf("MSIE 10") === -1) {
                         sel = dSel.createRange();
                         sel.moveStart('character', el.is("input") ? -el.val().length : -el.text().length);
                         pos = sel.text.length;
@@ -346,6 +346,9 @@
                     el.attr('placeholder' , options.placeholder);
                 }
                 
+                // autocomplete needs to be off. we can't intercept events
+                // the browser doesn't  fire any kind of event when something is 
+                // selected in a autocomplete list so we can't sanitize it.
                 el.attr('autocomplete', 'off');
                 p.destroyEvents();
                 p.events();
