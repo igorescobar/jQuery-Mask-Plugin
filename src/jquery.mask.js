@@ -164,7 +164,9 @@
                     r;
 
                 if (arguments.length > 0) {
-                    el[method](v);
+                    if (el[method]() !== v) {
+                        el[method](v);
+                    }
                     r = el;
                 } else {
                     r = el[method]();
@@ -201,9 +203,7 @@
                         newValL = newVal.length,
                         maskDif = p.getMCharsBeforeCount(newValL - 1) - p.getMCharsBeforeCount(currValL - 1);
 
-                    if (newVal !== currVal) {
-                        p.val(newVal);
-                    }
+                    p.val(newVal);
 
                     // change caret but avoid CTRL+A
                     if (changeCaret && !(keyCode === 65 && e.ctrlKey)) {
@@ -350,11 +350,9 @@
                 p.destroyEvents();
                 p.events();
 
-                if (p.val() != p.getMasked()) {
-                    var caret = p.getCaret();
-                    p.val(p.getMasked());
-                    p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
-                }
+                var caret = p.getCaret();
+                p.val(p.getMasked());
+                p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
 
             } else {
                 p.events();
