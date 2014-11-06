@@ -1,3 +1,9 @@
+== v1.10.11 (Nov/06 2014 11:26 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* we need to revaluate dataMask flags everytime
+
 == v1.10.10 (Nov/06 2014 10:41 -0200 by Igor Escobar) ==
 
 Bugfixes:
