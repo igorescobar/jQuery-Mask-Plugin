@@ -1,3 +1,9 @@
+== v1.10.12 (Nov/06 2014 13:08 -0200 by Igor Escobar) ==
+
+Changes:
+
+* making a few improvements to make selection, copy events easier
+
 == v1.10.11 (Nov/06 2014 11:26 -0200 by Igor Escobar) ==
 
 Bugfixes:
