@@ -1,3 +1,9 @@
+== v1.10.10 (Nov/06 2014 10:41 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing dynamically data-mask added elements
+
 == v1.10.9 (Nov/05 2014 10:52 -0200 by Igor Escobar) ==
 
 Bugfixes:
