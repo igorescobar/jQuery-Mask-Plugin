@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.10.12
+ * @version: v1.10.13
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -63,7 +63,7 @@
                         cSelStart = ctrl.selectionStart;
 
                     // IE Support
-                    if (dSel && !~navigator.appVersion.indexOf("MSIE 10")) {
+                    if (dSel && navigator.appVersion.indexOf("MSIE 10") === -1) {
                         sel = dSel.createRange();
                         sel.moveStart('character', el.is("input") ? -el.val().length : -el.text().length);
                         pos = sel.text.length;
@@ -346,6 +346,9 @@
                     el.attr('placeholder' , options.placeholder);
                 }
                 
+                // autocomplete needs to be off. we can't intercept events
+                // the browser doesn't  fire any kind of event when something is 
+                // selected in a autocomplete list so we can't sanitize it.
                 el.attr('autocomplete', 'off');
                 p.destroyEvents();
                 p.events();
@@ -385,8 +388,13 @@
         },
         notSameMaskObject = function(field, mask, options) {
             options = options || {};
-            var maskObject = $(field).data('mask'), stringify = JSON.stringify;
+            var maskObject = $(field).data('mask'), 
+                stringify = JSON.stringify,
+                value = $(field).val() || $(field).text();
             try {
+                if (typeof mask === "function") {
+                    mask = mask(value);
+                }
                 return typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask;
             } catch (e) {}
         };
@@ -417,8 +425,9 @@
         clearInterval($.maskWatchers[this.selector]);
         delete $.maskWatchers[this.selector];
         return this.each(function() {
-            if ($(this).data('mask')) {
-                $(this).data('mask').remove().removeData('mask');
+            var dataMask = $(this).data('mask');
+            if (dataMask) {
+                dataMask.remove().removeData('mask');
             }
         });
     };
@@ -445,7 +454,7 @@
     };
 
     $.jMaskGlobals = $.jMaskGlobals || {};
-    globals = $.jMaskGlobals = $.extend(true, {}, globals, $.jMaskGlobals)
+    globals = $.jMaskGlobals = $.extend(true, {}, globals, $.jMaskGlobals);
     
     // looking for inputs with data-mask attribute
     if (globals.dataMask) {            
