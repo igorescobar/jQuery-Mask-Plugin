@@ -1,3 +1,9 @@
+== v1.10.13 (Nov/19 2014 16:06 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing bug with watchInputs feature when mask is used as a function and not a string.
+
 == v1.10.12 (Nov/06 2014 13:08 -0200 by Igor Escobar) ==
 
 Changes:
