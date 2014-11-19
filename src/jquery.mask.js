@@ -388,8 +388,13 @@
         },
         notSameMaskObject = function(field, mask, options) {
             options = options || {};
-            var maskObject = $(field).data('mask'), stringify = JSON.stringify;
+            var maskObject = $(field).data('mask'), 
+                stringify = JSON.stringify,
+                value = $(field).val() || $(field).text();
             try {
+                if (typeof mask === "function") {
+                    mask = mask(value);
+                }
                 return typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask;
             } catch (e) {}
         };
@@ -420,8 +425,9 @@
         clearInterval($.maskWatchers[this.selector]);
         delete $.maskWatchers[this.selector];
         return this.each(function() {
-            if ($(this).data('mask')) {
-                $(this).data('mask').remove().removeData('mask');
+            var dataMask = $(this).data('mask');
+            if (dataMask) {
+                dataMask.remove().removeData('mask');
             }
         });
     };
