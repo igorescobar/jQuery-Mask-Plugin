@@ -1,0 +1,1 @@
+fixing bug with watchInputs feature when mask is used as a function and not a string.
