@@ -55,12 +55,12 @@ jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
 Did you read our [docs](http://igorescobar.github.io/jQuery-Mask-Plugin/)? Yes? Cool! So now... make sure that you have a *functional* [jsfiddle](http://jsfiddle.net/) exemplifying your problem and open an [Issue](https://github.com/igorescobar/jQuery-Mask-Plugin/issues) for us.
 
 ## Contributing
- * Issues: Yes! You can contribute opening [issues](https://github.com/igorescobar/jQuery-Mask-Plugin/issues)!
- * Documentation: Do you think that something in our [docs](https://github.com/igorescobar/jQuery-Mask-Plugin/tree/gh-pages) should be better? Do you have a cool idea to make to increase the awesomeness? Summit your pull request with your idea!
- * Bug Fixing: No time to lose? Fix it and help others! Write some [tests](https://github.com/igorescobar/jQuery-Mask-Plugin/tree/master/test) to make sure that everything are working propertly.
- * New Features: Open an [issue](https://github.com/igorescobar/jQuery-Mask-Plugin/issues) and lets discuss it. Just to make sure that you're on the right track.
- * Share: Yes! Have we saved some of your time? Are you enjoying our mask plugin? Sharing is caring! Tweet it! Facebook it! Linkedin It(?!) :D
- * Donate: Hey, now that you don't need to worry about masks again... buy me a coffee, a beer or a PlayStation 4 (Xbox One also accepted!) :o)
+ * *Bug Reporting*: Yes! You can contribute opening [issues](https://github.com/igorescobar/jQuery-Mask-Plugin/issues)!
+ * *Documenting*: Do you think that something in our [docs](https://github.com/igorescobar/jQuery-Mask-Plugin/tree/gh-pages) should be better? Do you have a cool idea to make to increase the awesomeness? Summit your pull request with your idea!
+ * *Bug Fixing*: No time to lose? Fix it and help others! Write some [tests](https://github.com/igorescobar/jQuery-Mask-Plugin/tree/master/test) to make sure that everything are working propertly.
+ * *Improving*: Open an [issue](https://github.com/igorescobar/jQuery-Mask-Plugin/issues) and lets discuss it. Just to make sure that you're on the right track.
+ * *Sharing*: Yes! Have we saved some of your time? Are you enjoying our mask plugin? Sharing is caring! Tweet it! Facebook it! Linkedin It(?!) :D
+ * *Donating*: Hey, now that you don't need to worry about masks again... buy me a coffee, beer or a PlayStation 4 (Xbox One also accepted!) :o)
  
 ### Unit Tests
 We use [QUnit](http://qunitjs.com/) and [GruntJS](http://gruntjs.com/). Do run our test suit is just run: ```grunt test``` in your console or you can open those ```test-for*.html``` files inside of our ```test/``` folder. 
