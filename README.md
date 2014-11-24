@@ -56,7 +56,7 @@ Did you read our [docs](http://igorescobar.github.io/jQuery-Mask-Plugin/)? Yes? 
 
 ## Contributing
  * **Bug Reporting**: Yes! You can contribute opening [issues](https://github.com/igorescobar/jQuery-Mask-Plugin/issues)!
- * **Documenting**: Do you think that something in our [docs](https://github.com/igorescobar/jQuery-Mask-Plugin/tree/gh-pages) should be better? Do you have a cool idea to make to increase the awesomeness? Summit your pull request with your idea!
+ * **Documenting**: Do you think that something in our [docs](https://github.com/igorescobar/jQuery-Mask-Plugin/tree/gh-pages) should be better? Do you have a cool idea to increase the awesomeness? Summit your pull request with your idea!
  * **Bug Fixing**: No time to lose? Fix it and help others! Write some [tests](https://github.com/igorescobar/jQuery-Mask-Plugin/tree/master/test) to make sure that everything are working propertly.
  * **Improving**: Open an [issue](https://github.com/igorescobar/jQuery-Mask-Plugin/issues) and lets discuss it. Just to make sure that you're on the right track.
  * **Sharing**: Yes! Have we saved some of your time? Are you enjoying our mask plugin? Sharing is caring! Tweet it! Facebook it! Linkedin It(?!) :D
