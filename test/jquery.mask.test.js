@@ -115,15 +115,17 @@ $(document).ready(function(){
 
       equal( typeTest("11") , "11");
       equal(callbackInvalid.called, false);
-      equal(callbackValid.called, true);
+      equal(callbackValid.called, false);
     });
 
     test("#onValid callback. should call when valid", function(){
+       window.myOne = true;
        var callback = sinon.spy();
-       testfield.mask('00/00/0000', {onValid: callback});
+       testfield.mask('09999999', {onValid: callback});
 
        equal( typeTest("11") , "11");
-       equal(callback.called, true)
+       equal(callback.called, true);
+       window.myOne = false;
      });
 
     test('When I typed a char thats the same as the mask char', function(){

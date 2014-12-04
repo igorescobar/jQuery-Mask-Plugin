@@ -146,14 +146,14 @@
                     }
                 }
                 
-                r = maskChunks.join("");
+                jMask.maskRegex = r = maskChunks.join("");
                 
                 if (oRecursive) {
                     r = r.replace(new RegExp("(" + oRecursive.digit + "(.*" + oRecursive.digit + ")?)"), "($1)?")
                          .replace(new RegExp(oRecursive.digit, "g"), oRecursive.pattern);
                 }
 
-                return new RegExp(r);
+                return jMask.maskRegex = new RegExp(r);
             },
             destroyEvents: function() {
                 el.off(['keydown', 'keyup', 'paste', 'drop', 'blur', 'focusout', ''].join('.mask '));
@@ -308,7 +308,7 @@
                 callback('onKeyPress', changed === true, defaultArgs);
                 callback('onComplete', val.length === mask.length, defaultArgs);
                 callback('onInvalid', p.invalid.length > 0, [val, e, el, p.invalid, options]);
-                callback('onValid', p.invalid.length === 0, defaultArgs);
+                callback('onValid', jMask.maskRegex.test(val), defaultArgs);
             }
         };
 
