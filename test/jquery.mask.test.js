@@ -109,12 +109,22 @@ $(document).ready(function(){
     });
 
     test("#onInvalid callback. should not call when valid", function(){
-      var callback = sinon.spy();
-      testfield.mask('00/00/0000', {onInvalid: callback});
+      var callbackInvalid = sinon.spy();
+      var callbackValid = sinon.spy();
+      testfield.mask('00/00/0000', {onInvalid: callbackInvalid});
 
       equal( typeTest("11") , "11");
-      equal(callback.called, false)
+      equal(callbackInvalid.called, false);
+      equal(callbackValid.called, true);
     });
+
+    test("#onValid callback. should call when valid", function(){
+       var callback = sinon.spy();
+       testfield.mask('00/00/0000', {onValid: callback});
+
+       equal( typeTest("11") , "11");
+       equal(callback.called, true)
+     });
 
     test('When I typed a char thats the same as the mask char', function(){
       testfield.unmask();

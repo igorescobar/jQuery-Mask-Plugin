@@ -308,6 +308,7 @@
                 callback('onKeyPress', changed === true, defaultArgs);
                 callback('onComplete', val.length === mask.length, defaultArgs);
                 callback('onInvalid', p.invalid.length > 0, [val, e, el, p.invalid, options]);
+                callback('onValid', p.invalid.length === 0, defaultArgs);
             }
         };
 
