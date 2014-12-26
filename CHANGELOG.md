@@ -1,3 +1,10 @@
+== v1.11.0 (Dec/26 2014 15:33 -0200 by Igor Escobar) ==
+
+Features:
+
+* implementing selectOnFocus and data-mask-selectonfocus option
+* adding public method called: .applyDataMask in case you want to decide whether to apply masks in data-mask fields
+
 == v1.10.13 (Nov/19 2014 16:06 -0200 by Igor Escobar) ==
 
 Bugfixes:
