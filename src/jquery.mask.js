@@ -447,6 +447,10 @@
         return this.data('mask').getCleanVal();
     };
 
+    $.applyMasksFromHTML = function() {
+      $(document).find($.jMaskGlobals.maskElements).filter(globals.dataMaskAttr).each(HTMLAttributes);
+    }
+
     var globals = {
         maskElements: 'input,td,span,div',
         dataMaskAttr: '*[data-mask]',
@@ -468,13 +472,9 @@
     globals = $.jMaskGlobals = $.extend(true, {}, globals, $.jMaskGlobals);
     
     // looking for inputs with data-mask attribute
-    if (globals.dataMask) {            
-        $(globals.dataMaskAttr).each(HTMLAttributes);
-    }
+    if (globals.dataMask) { $.applyMasksFromHTML(); }
 
     setInterval(function(){
-        if ($.jMaskGlobals.watchDataMask) {
-            $(document).find($.jMaskGlobals.maskElements).filter(globals.dataMaskAttr).each(HTMLAttributes);
-        }
+        if ($.jMaskGlobals.watchDataMask) { $.applyMasksFromHTML(); }
     }, globals.watchInterval);
 }));
