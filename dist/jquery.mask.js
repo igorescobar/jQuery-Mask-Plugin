@@ -440,7 +440,6 @@
                 dataMask.remove().removeData('mask');
             }
         });
-        return this;
     };
 
     $.fn.cleanVal = function() {
