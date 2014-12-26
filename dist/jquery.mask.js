@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.10.13
+ * @version: v1.11.0
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -114,6 +114,12 @@
                 // otherwhise old_value it's going to work buggy
                 .on('keydown.mask, blur.mask', function() {
                     old_value = el.val();
+                })
+                // select all text on focus
+                .on('focus.mask', function (e) {
+                    if (options.selectOnFocus === true) {
+                        $(e.target).select();
+                    }
                 })
                 // clear the value if it not complete the mask
                 .on("focusout.mask", function() {
@@ -363,8 +369,7 @@
             }
         };
 
-        jMask.init(!el.is("input")); 
-
+        jMask.init(!el.is("input"));
     };
 
     $.maskWatchers = {};
@@ -382,6 +387,10 @@
                 options.clearIfNotMatch = true;
             }
             
+            if (input.attr(prefix + 'selectonfocus') === 'true') {
+               options.selectOnFocus = true;
+            }
+
             if (notSameMaskObject(input, mask, options)) {
                 return input.data('mask', new Mask(this, mask, options));
             }
@@ -418,7 +427,8 @@
             $.maskWatchers[selector] = setInterval(function(){
                 $(document).find(selector).each(maskFunction);
             }, interval);
-        }        
+        }
+        return this;
     };
 
     $.fn.unmask = function() {
@@ -430,11 +440,16 @@
                 dataMask.remove().removeData('mask');
             }
         });
+        return this;
     };
 
     $.fn.cleanVal = function() {
         return this.data('mask').getCleanVal();
     };
+
+    $.applyDataMask = function() {
+      $(document).find($.jMaskGlobals.maskElements).filter(globals.dataMaskAttr).each(HTMLAttributes);
+    }
 
     var globals = {
         maskElements: 'input,td,span,div',
@@ -457,13 +472,9 @@
     globals = $.jMaskGlobals = $.extend(true, {}, globals, $.jMaskGlobals);
     
     // looking for inputs with data-mask attribute
-    if (globals.dataMask) {            
-        $(globals.dataMaskAttr).each(HTMLAttributes);
-    }
+    if (globals.dataMask) { $.applyDataMask(); }
 
     setInterval(function(){
-        if ($.jMaskGlobals.watchDataMask) {
-            $(document).find($.jMaskGlobals.maskElements).filter(globals.dataMaskAttr).each(HTMLAttributes);
-        }
+        if ($.jMaskGlobals.watchDataMask) { $.applyDataMask(); }
     }, globals.watchInterval);
 }));
