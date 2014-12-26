@@ -72,6 +72,8 @@
       <input type="text" class="clear-if-not-match"/>
       <label>Mask with a Fallback Digit</label>
       <input type="text" class="fallback"/>
+      <label>Mask with selectOnFocus</label>
+      <input type="text" class="selectonfocus"/>
     </div>
     <div class="col center banner">
       <p>The <a href="http://igorescobar.github.com/jQuery-Mask-Plugin/">jQuery Mask Plugin</a> was written by <a href="http://www.igorescobar.com/" rel="author" target="_blank">Igor Escobar</a> and the source-code's available in <a href="https://github.com/igorescobar/jQuery-Mask-Plugin" target="_blank">GitHub</a>.</p>
@@ -119,6 +121,7 @@ $(document).ready(function(){
         placeholder: "__/__/____"
       }
     });
+  $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
 );</pre>
 
     <h3>Callback Examples</h3>
@@ -181,6 +184,11 @@ $('.sp_celphones').mask(SPMaskBehavior, spOptions);
   Using clearIfNotMatch option <br/> <br/>
 <pre>
 &lt;input type=&quot;text&quot; name=&quot;field-name&quot; data-mask=&quot;00/00/0000&quot; data-mask-clearifnotmatch=&quot;true&quot; /&gt;
+</pre>
+
+ Using selectOnFocus option <br/> <br/>
+<pre>
+&lt;input type=&quot;text&quot; name=&quot;field-name&quot; data-mask=&quot;00/00/0000&quot; data-mask-selectonfocus=&quot;true&quot; /&gt;
 </pre>
 
 <br />
@@ -268,6 +276,41 @@ var custom_options = {
 };</pre>
 <strong> byPassKeys </strong> list of keyboard's <a href="http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes" target="_blank">keyCode</a> that you want to be ignored when it was pressed. <br />
 <strong> translation </strong> object with all digits that should be interpreted as a special chars and its regex representation. <br /> <br />
+
+<h3>Public Methods</h3>
+<pre>
+/**
+ * Applies the mask to the matching selector elements. 
+ * 
+ * @selector elements to be masked.
+ * @mask should be a string or a function.
+ * @options should be an object.
+ **/
+$(selector).mask(mask [, options]);
+
+/**
+ * Seek and destroy.
+ * 
+ * @selector elements to be masked.
+ **/
+$(selector).unmask();
+
+/**
+ * Gets the value of the field without the mask.
+ * 
+ * @selector elements to be masked.
+ **/
+$(selector).cleanVal();
+
+/**
+ * Applies the mask to the matching selector elements. 
+ * 
+ * @selector elements to be masked.
+ * @mask should be a string or a function.
+ * @options should be an object.
+ **/
+$.applyDataMask();
+</pre>
 <h3>Global Options</h3>
 <pre>
 // nonInput: elements we consider nonInput
@@ -275,18 +318,19 @@ var custom_options = {
 // watchInputs: watch for dynamically added inputs by default
 // watchDataMask: by default we disabled the watcher for dynamically added data-mask elements by default (performance reasons)
  $.jMaskGlobals = {
-    nonInput: 'td,span,div', 
-    dataMask: true, 
+    maskElements: 'input,td,span,div',
+    dataMaskAttr: '*[data-mask]',
+    dataMask: true,
     watchInterval: 300,
-    watchInputs: true, 
+    watchInputs: true,
     watchDataMask: false,
     byPassKeys: [9, 16, 17, 18, 36, 37, 38, 39, 40, 91],
     translation: {
-      '0': {pattern: /\d/},
-      '9': {pattern: /\d/, optional: true},
-      '#': {pattern: /\d/, recursive: true},
-      'A': {pattern: /[a-zA-Z0-9]/},
-      'S': {pattern: /[a-zA-Z]/}
+        '0': {pattern: /\d/},
+        '9': {pattern: /\d/, optional: true},
+        '#': {pattern: /\d/, recursive: true},
+        'A': {pattern: /[a-zA-Z0-9]/},
+        'S': {pattern: /[a-zA-Z]/}
     }
   };
 </pre>
@@ -324,6 +368,8 @@ var custom_options = {
         placeholder: "__/__/____"
       }
     });
+
+    $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
 
     $('.cep_with_callback').mask('00000-000', {onComplete: function(cep) {
         console.log('Mask is done!:', cep);
