@@ -1,3 +1,9 @@
+== v1.11.2 (Dec/26 2014 15:36 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* unreachable code
+
 == v1.11.1 (Dec/26 2014 15:34 -0200 by Igor Escobar) ==
 
 Bugfixes:
