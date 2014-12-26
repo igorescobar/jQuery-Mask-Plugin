@@ -418,7 +418,8 @@
             $.maskWatchers[selector] = setInterval(function(){
                 $(document).find(selector).each(maskFunction);
             }, interval);
-        }        
+        }
+        return this;
     };
 
     $.fn.unmask = function() {
@@ -430,6 +431,7 @@
                 dataMask.remove().removeData('mask');
             }
         });
+        return this;
     };
 
     $.fn.cleanVal = function() {
