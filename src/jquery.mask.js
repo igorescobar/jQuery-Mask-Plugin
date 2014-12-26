@@ -115,6 +115,12 @@
                 .on('keydown.mask, blur.mask', function() {
                     old_value = el.val();
                 })
+                // select all text on focus
+                .on('focus.mask', function (e) {
+                    if (options.selectOnFocus === true) {
+                        $(e.target).select();
+                    }
+                })
                 // clear the value if it not complete the mask
                 .on("focusout.mask", function() {
                     if (options.clearIfNotMatch && !regexMask.test(p.val())) {
@@ -363,8 +369,7 @@
             }
         };
 
-        jMask.init(!el.is("input")); 
-
+        jMask.init(!el.is("input"));
     };
 
     $.maskWatchers = {};
@@ -382,6 +387,10 @@
                 options.clearIfNotMatch = true;
             }
             
+            if (input.attr(prefix + 'selectonfocus') === 'true') {
+               options.selectOnFocus = true;
+            }
+
             if (notSameMaskObject(input, mask, options)) {
                 return input.data('mask', new Mask(this, mask, options));
             }
