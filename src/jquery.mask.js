@@ -132,7 +132,7 @@
                 var maskChunks = [], translation, pattern, optional, recursive, oRecursive, r;
 
                 for (var i = 0; i < mask.length; i++) {
-                    translation = jMask.translation[mask[i]];
+                    translation = jMask.translation[mask.charAt(i)];
 
                     if (translation) {
                         
@@ -141,14 +141,14 @@
                         recursive = translation.recursive;
                         
                         if (recursive) {
-                            maskChunks.push(mask[i]);
-                            oRecursive = {digit: mask[i], pattern: pattern};
+                            maskChunks.push(mask.charAt(i));
+                            oRecursive = {digit: mask.charAt(i), pattern: pattern};
                         } else {
                             maskChunks.push(!optional && !recursive ? pattern : (pattern + "?"));
                         }
 
                     } else {
-                        maskChunks.push(mask[i].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+                        maskChunks.push(mask.charAt(i).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
                     }
                 }
                 
