@@ -1,3 +1,9 @@
+== v1.11.3 (Jan/28 2015 15:41 -0200 by Igor Escobar) ==
+
+Changes:
+
+* Added commonjs module definition
+
 == v1.11.2 (Dec/26 2014 15:36 -0200 by Igor Escobar) ==
 
 Bugfixes:
