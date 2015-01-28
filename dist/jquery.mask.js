@@ -34,14 +34,11 @@
 /* global define */
 
 // UMD (Universal Module Definition) patterns for JavaScript modules that work everywhere.
-// https://github.com/umdjs/umd/blob/master/jqueryPluginCommonjs.js
+// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 (function (factory) {
     if (typeof define === "function" && define.amd) {
         // AMD. Register as an anonymous module.
         define(["jquery"], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS
-        factory(require('jquery'));
     } else {
         // Browser globals
         factory(window.jQuery || window.Zepto);
@@ -135,7 +132,7 @@
                 var maskChunks = [], translation, pattern, optional, recursive, oRecursive, r;
 
                 for (var i = 0; i < mask.length; i++) {
-                    translation = jMask.translation[mask.charAt(i)];
+                    translation = jMask.translation[mask[i]];
 
                     if (translation) {
                         
@@ -144,14 +141,14 @@
                         recursive = translation.recursive;
                         
                         if (recursive) {
-                            maskChunks.push(mask.charAt(i));
-                            oRecursive = {digit: mask.charAt(i), pattern: pattern};
+                            maskChunks.push(mask[i]);
+                            oRecursive = {digit: mask[i], pattern: pattern};
                         } else {
                             maskChunks.push(!optional && !recursive ? pattern : (pattern + "?"));
                         }
 
                     } else {
-                        maskChunks.push(mask.charAt(i).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+                        maskChunks.push(mask[i].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
                     }
                 }
                 
