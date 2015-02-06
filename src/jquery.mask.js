@@ -120,6 +120,10 @@
                 })
                 // select all text on focus
                 .on('focus.mask', function (e) {
+                    // in case masked element has been cloned with events
+                    // apply the same mask to the clone as well
+                    e.target !== el[0] && $(e.target).data('mask', new Mask(this, mask, options));
+                    
                     if (options.selectOnFocus === true) {
                         $(e.target).select();
                     }
@@ -165,7 +169,7 @@
                 return new RegExp(r);
             },
             destroyEvents: function() {
-                el.off(['keydown', 'keyup', 'paste', 'drop', 'blur', 'focusout', ''].join('.mask '));
+                el.off(['keydown', 'keyup', 'paste', 'drop', 'blur', 'focus', 'focusout', ''].join('.mask '));
             },
             val: function(v) {
                 var isInput = el.is('input'),
