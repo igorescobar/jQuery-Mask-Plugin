@@ -1,3 +1,34 @@
+== v1.11.3 (Jan/28 2015 15:41 -0200 by Igor Escobar) ==
+
+Changes:
+
+* Added commonjs module definition
+
+== v1.11.2 (Dec/26 2014 15:36 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* unreachable code
+
+== v1.11.1 (Dec/26 2014 15:34 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* unreachable code
+
+== v1.11.0 (Dec/26 2014 15:33 -0200 by Igor Escobar) ==
+
+Features:
+
+* implementing selectOnFocus and data-mask-selectonfocus option
+* adding public method called: .applyDataMask in case you want to decide whether to apply masks in data-mask fields
+
+== v1.10.13 (Nov/19 2014 16:06 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing bug with watchInputs feature when mask is used as a function and not a string.
+
 == v1.10.12 (Nov/06 2014 13:08 -0200 by Igor Escobar) ==
 
 Changes:

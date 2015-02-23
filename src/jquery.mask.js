@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.10.12
+ * @version: v1.11.3
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -34,11 +34,14 @@
 /* global define */
 
 // UMD (Universal Module Definition) patterns for JavaScript modules that work everywhere.
-// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
+// https://github.com/umdjs/umd/blob/master/jqueryPluginCommonjs.js
 (function (factory) {
     if (typeof define === "function" && define.amd) {
         // AMD. Register as an anonymous module.
         define(["jquery"], factory);
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS
+        factory(require('jquery'));
     } else {
         // Browser globals
         factory(window.jQuery || window.Zepto);
@@ -115,6 +118,12 @@
                 .on('keydown.mask, blur.mask', function() {
                     old_value = el.val();
                 })
+                // select all text on focus
+                .on('focus.mask', function (e) {
+                    if (options.selectOnFocus === true) {
+                        $(e.target).select();
+                    }
+                })
                 // clear the value if it not complete the mask
                 .on("focusout.mask", function() {
                     if (options.clearIfNotMatch && !regexMask.test(p.val())) {
@@ -126,7 +135,7 @@
                 var maskChunks = [], translation, pattern, optional, recursive, oRecursive, r;
 
                 for (var i = 0; i < mask.length; i++) {
-                    translation = jMask.translation[mask[i]];
+                    translation = jMask.translation[mask.charAt(i)];
 
                     if (translation) {
                         
@@ -135,14 +144,14 @@
                         recursive = translation.recursive;
                         
                         if (recursive) {
-                            maskChunks.push(mask[i]);
-                            oRecursive = {digit: mask[i], pattern: pattern};
+                            maskChunks.push(mask.charAt(i));
+                            oRecursive = {digit: mask.charAt(i), pattern: pattern};
                         } else {
                             maskChunks.push(!optional && !recursive ? pattern : (pattern + "?"));
                         }
 
                     } else {
-                        maskChunks.push(mask[i].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+                        maskChunks.push(mask.charAt(i).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
                     }
                 }
                 
@@ -363,8 +372,7 @@
             }
         };
 
-        jMask.init(!el.is("input")); 
-
+        jMask.init(!el.is("input"));
     };
 
     $.maskWatchers = {};
@@ -382,14 +390,23 @@
                 options.clearIfNotMatch = true;
             }
             
+            if (input.attr(prefix + 'selectonfocus') === 'true') {
+               options.selectOnFocus = true;
+            }
+
             if (notSameMaskObject(input, mask, options)) {
                 return input.data('mask', new Mask(this, mask, options));
             }
         },
         notSameMaskObject = function(field, mask, options) {
             options = options || {};
-            var maskObject = $(field).data('mask'), stringify = JSON.stringify;
+            var maskObject = $(field).data('mask'), 
+                stringify = JSON.stringify,
+                value = $(field).val() || $(field).text();
             try {
+                if (typeof mask === "function") {
+                    mask = mask(value);
+                }
                 return typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask;
             } catch (e) {}
         };
@@ -413,15 +430,17 @@
             $.maskWatchers[selector] = setInterval(function(){
                 $(document).find(selector).each(maskFunction);
             }, interval);
-        }        
+        }
+        return this;
     };
 
     $.fn.unmask = function() {
         clearInterval($.maskWatchers[this.selector]);
         delete $.maskWatchers[this.selector];
         return this.each(function() {
-            if ($(this).data('mask')) {
-                $(this).data('mask').remove().removeData('mask');
+            var dataMask = $(this).data('mask');
+            if (dataMask) {
+                dataMask.remove().removeData('mask');
             }
         });
     };
@@ -429,6 +448,10 @@
     $.fn.cleanVal = function() {
         return this.data('mask').getCleanVal();
     };
+
+    $.applyDataMask = function() {
+      $(document).find($.jMaskGlobals.maskElements).filter(globals.dataMaskAttr).each(HTMLAttributes);
+    }
 
     var globals = {
         maskElements: 'input,td,span,div',
@@ -451,13 +474,9 @@
     globals = $.jMaskGlobals = $.extend(true, {}, globals, $.jMaskGlobals);
     
     // looking for inputs with data-mask attribute
-    if (globals.dataMask) {            
-        $(globals.dataMaskAttr).each(HTMLAttributes);
-    }
+    if (globals.dataMask) { $.applyDataMask(); }
 
     setInterval(function(){
-        if ($.jMaskGlobals.watchDataMask) {
-            $(document).find($.jMaskGlobals.maskElements).filter(globals.dataMaskAttr).each(HTMLAttributes);
-        }
+        if ($.jMaskGlobals.watchDataMask) { $.applyDataMask(); }
     }, globals.watchInterval);
 }));
