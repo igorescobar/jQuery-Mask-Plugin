@@ -451,8 +451,9 @@
         return this.data('mask').getCleanVal();
     };
 
-    $.applyDataMask = function() {
-      $(document).find($.jMaskGlobals.maskElements).filter(globals.dataMaskAttr).each(HTMLAttributes);
+    $.applyDataMask = function(selector) {
+      selector = selector || $.jMaskGlobals.maskElements;
+      $(selector).filter($.jMaskGlobals.dataMaskAttr).each(HTMLAttributes);
     };
 
     var globals = {
@@ -479,6 +480,6 @@
     if (globals.dataMask) { $.applyDataMask(); }
 
     if ($.jMaskGlobals.watchDataMask) {
-      setInterval($.applyDataMask, globals.watchInterval);
+      setInterval($.applyDataMask, $.jMaskGlobals.watchInterval);
     }
 }));
