@@ -453,8 +453,10 @@
 
     $.applyDataMask = function(selector) {
       selector = selector || $.jMaskGlobals.maskElements;
-      $(selector).filter($.jMaskGlobals.dataMaskAttr).each(HTMLAttributes);
+      $body.find(selector).filter($.jMaskGlobals.dataMaskAttr).each(HTMLAttributes);
     };
+
+    var $body = $('body');
 
     var globals = {
         maskElements: 'input,td,span,div',
