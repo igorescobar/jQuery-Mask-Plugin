@@ -479,7 +479,7 @@
     // looking for inputs with data-mask attribute
     if (globals.dataMask) { $.applyDataMask(); }
 
-    if ($.jMaskGlobals.watchDataMask) {
-      setInterval($.applyDataMask, $.jMaskGlobals.watchInterval);
-    }
+    setInterval(function(){
+        if ($.jMaskGlobals.watchDataMask) { $.applyDataMask(); }
+    }, globals.watchInterval);
 }));
