@@ -305,11 +305,9 @@ $(selector).cleanVal();
 /**
  * Applies the mask to the matching selector elements. 
  * 
- * @selector elements to be masked.
- * @mask should be a string or a function.
- * @options should be an object.
+ * @selector optional: elements to be masked. The default behaviour it's to lookup for all elements with data-mask attribute.
  **/
-$.applyDataMask();
+$.applyDataMask([selector]);
 </pre>
 <h3>Global Options</h3>
 <pre>
