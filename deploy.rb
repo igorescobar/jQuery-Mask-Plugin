@@ -76,4 +76,7 @@ minFile.close
 `git push`
 `git checkout master`
 
+puts '# PUBLISHING NPM PACKAGE'
+`npm publish` 
+
 puts '# DONE!'
