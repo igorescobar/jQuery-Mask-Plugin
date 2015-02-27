@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'zlib'
 
-JQUERY_MANIFEST_FILE = 'mask.jquery.json'
 JMASK_FILE = 'src/jquery.mask.js'
 JMASK_MIN_FILE = 'dist/jquery.mask.min.js'
 GHPAGES_JMASK_MIN_FILE = 'js/jquery.mask.min.js'
@@ -22,7 +21,7 @@ end
 puts '# COPYING NEW JMASK FILE TO DIST/'
 `yes | cp #{JMASK_FILE} dist/`
 
-[BOWER_MANIFEST_FILE, NPM_MANIFEST_FILE, COMPONENT_MANIFEST_FILE, JQUERY_MANIFEST_FILE].each { |manifest_name|
+[BOWER_MANIFEST_FILE, NPM_MANIFEST_FILE, COMPONENT_MANIFEST_FILE].each { |manifest_name|
   puts "# UPGRADING #{manifest_name} "
   manifest_file = File.open(manifest_name, 'rb') { |file| file.read }
   File.open(manifest_name, 'w') do |file|
