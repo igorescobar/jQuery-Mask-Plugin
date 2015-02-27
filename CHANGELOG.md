@@ -1,3 +1,10 @@
+== v1.11.4 (Feb/26 2015 22:11 -0300 by Igor Escobar) ==
+
+Changes:
+
+* grunt, jshint and better applyDataMask. Thanks to @lagden
+* automated deploy to npm
+
 == v1.11.3 (Jan/28 2015 15:41 -0200 by Igor Escobar) ==
 
 Changes:
