@@ -303,6 +303,25 @@
                     buf.push(lastMaskCharDigit);
                 }
 
+				if (options.reverse) {
+					var maxLen = el.attr('maxlength'),
+						bufLen = buf.length;
+
+					if (maxLen < bufLen) {
+						var countRemove = bufLen - maxLen,
+							elMask = mask.replace(/[0|9|#|A|S]/g, '').split('');
+
+						buf = buf.splice(countRemove);
+
+						for (var i = 0, len = elMask.length; i < len; i++) {
+							if (elMask[i] == buf[0]) {
+								delete buf[0];
+								break;
+							}
+						}
+					}
+				}
+
                 return buf.join('');
             },
             callbacks: function (e) {
