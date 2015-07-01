@@ -275,8 +275,9 @@
                             }
                             m += offset;
                         } else if (translation.optional) {
-                            m += offset;
-                            v -= offset;
+                            // just skip char
+                            //m += offset;
+                            //v -= offset;
                         } else if (translation.fallback) {
                             buf[addMethod](translation.fallback);
                             m += offset;
