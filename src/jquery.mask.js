@@ -357,10 +357,13 @@
                     el.attr('placeholder' , options.placeholder);
                 }
 
-                // autocomplete needs to be off. we can't intercept events
-                // the browser doesn't  fire any kind of event when something is
-                // selected in a autocomplete list so we can't sanitize it.
-                el.attr('autocomplete', 'off');
+                // autocomplete by default needs to be off because
+                // we can't sanitize it. Here is why:
+                // http://stackoverflow.com/a/11710295/1250728
+                // if you still need it, make sure that you're using this:
+                // https://github.com/tbosch/autofill-event
+
+                el.attr('autocomplete', $.jMaskGlobals.autocomplete);
                 p.destroyEvents();
                 p.events();
 
@@ -460,6 +463,7 @@
     var globals = {
         maskElements: 'input,td,span,div',
         dataMaskAttr: '*[data-mask]',
+        autocomplete: 'off',
         dataMask: true,
         watchInterval: 300,
         watchInputs: true,
