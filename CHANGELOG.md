@@ -1,3 +1,18 @@
+== v1.13.0 (Jul/07 2015 15:26 -0300 by Igor Escobar) ==
+
+Changes:
+
+* removing the autocomplete default.
+
+Bugfixes:
+
+* fixing bower file thanks to @lazyants
+
+Features:
+
+* prevent glitch when invalid chars.
+* turning off autocomplete when browsers doesn't support oninput event.
+
 == v1.12.0 (Jul/07 2015 11:37 -0300 by Igor Escobar) ==
 
 Features:
