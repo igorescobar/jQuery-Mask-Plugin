@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.13.0
+ * @version: v1.13.1
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -167,7 +167,7 @@
                 return new RegExp(r);
             },
             destroyEvents: function() {
-                el.off(['keydown', 'keyup', 'paste', 'drop', 'blur', 'focusout', ''].join('.mask '));
+                el.off(['input', 'keydown', 'keyup', 'paste', 'drop', 'blur', 'focusout', ''].join('.mask '));
             },
             val: function(v) {
                 var isInput = el.is('input'),
