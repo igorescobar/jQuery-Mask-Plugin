@@ -100,7 +100,7 @@
             },
             events: function() {
                 el
-                .on('keyup.mask', p.behaviour)
+                .on('input.mask keyup.mask', p.behaviour)
                 .on('paste.mask drop.mask', function() {
                     setTimeout(function() {
                         el.keydown().keyup();
