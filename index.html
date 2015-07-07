@@ -315,9 +315,11 @@ $.applyDataMask([selector]);
 // dataMask: we mask data-mask elements by default
 // watchInputs: watch for dynamically added inputs by default
 // watchDataMask: by default we disabled the watcher for dynamically added data-mask elements by default (performance reasons)
+// autocomplete: to enable autofill/autocomplete you have to use it along with https://github.com/tbosch/autofill-event
  $.jMaskGlobals = {
     maskElements: 'input,td,span,div',
     dataMaskAttr: '*[data-mask]',
+    autocomplete: 'off',
     dataMask: true,
     watchInterval: 300,
     watchInputs: true,
