@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.12.0
+ * @version: v1.13.0
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -100,7 +100,7 @@
             },
             events: function() {
                 el
-                .on('keyup.mask', p.behaviour)
+                .on('input.mask keyup.mask', p.behaviour)
                 .on('paste.mask drop.mask', function() {
                     setTimeout(function() {
                         el.keydown().keyup();
@@ -357,13 +357,13 @@
                     el.attr('placeholder' , options.placeholder);
                 }
 
-                // autocomplete by default needs to be off because
-                // we can't sanitize it. Here is why:
-                // http://stackoverflow.com/a/11710295/1250728
-                // if you still need it, make sure that you're using this:
-                // https://github.com/tbosch/autofill-event
+                // this is necessary, otherwise if the user submit the form
+                // and then press the "back" button, the autocomplete will erase
+                // the data. Works fine on IE9+, FF, Opera, Safari.
+                if ('oninput' in $('input')[0] === false && el.attr('autocomplete') === 'on') {
+                  el.attr('autocomplete', 'off');
+                }
 
-                el.attr('autocomplete', $.jMaskGlobals.autocomplete);
                 p.destroyEvents();
                 p.events();
 
@@ -463,7 +463,6 @@
     var globals = {
         maskElements: 'input,td,span,div',
         dataMaskAttr: '*[data-mask]',
-        autocomplete: 'off',
         dataMask: true,
         watchInterval: 300,
         watchInputs: true,
