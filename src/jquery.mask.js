@@ -357,11 +357,12 @@
                     el.attr('placeholder' , options.placeholder);
                 }
 
-                // autocomplete by default needs to be off because
-                // we can't sanitize it. Here is why:
-                // http://stackoverflow.com/a/11710295/1250728
-                // if you still need it, make sure that you're using this:
-                // https://github.com/tbosch/autofill-event
+                // this is necessary, otherwise if the user submit the form
+                // and then press the "back" button, the autocomplete will erase
+                // the data. Works fine on IE9+, FF, Opera, Safari.
+                if ('oninput' in $('input')[0] === false && el.attr('autocomplete') === 'on') {
+                  el.attr('autocomplete', 'off');
+                }
 
                 p.destroyEvents();
                 p.events();
