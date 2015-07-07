@@ -363,7 +363,6 @@
                 // if you still need it, make sure that you're using this:
                 // https://github.com/tbosch/autofill-event
 
-                el.attr('autocomplete', $.jMaskGlobals.autocomplete);
                 p.destroyEvents();
                 p.events();
 
@@ -463,7 +462,6 @@
     var globals = {
         maskElements: 'input,td,span,div',
         dataMaskAttr: '*[data-mask]',
-        autocomplete: 'off',
         dataMask: true,
         watchInterval: 300,
         watchInputs: true,
