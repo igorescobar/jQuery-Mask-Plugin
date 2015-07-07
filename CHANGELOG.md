@@ -1,3 +1,9 @@
+== v1.13.1 (Jul/07 2015 15:38 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* destroying input event too
+
 == v1.13.0 (Jul/07 2015 15:26 -0300 by Igor Escobar) ==
 
 Changes:
