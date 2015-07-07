@@ -1,3 +1,9 @@
+== v1.12.0 (Jul/07 2015 11:37 -0300 by Igor Escobar) ==
+
+Features:
+
+* giving an alternative to the autocomplete/autofill problem.
+
 == v1.11.4 (Feb/26 2015 22:11 -0300 by Igor Escobar) ==
 
 Changes:
