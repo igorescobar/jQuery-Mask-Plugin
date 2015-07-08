@@ -1,3 +1,62 @@
+== v1.13.1 (Jul/07 2015 15:38 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* destroying input event too
+
+== v1.13.0 (Jul/07 2015 15:26 -0300 by Igor Escobar) ==
+
+Changes:
+
+* removing the autocomplete default.
+
+Bugfixes:
+
+* fixing bower file thanks to @lazyants
+
+Features:
+
+* prevent glitch when invalid chars.
+* turning off autocomplete when browsers doesn't support oninput event.
+
+== v1.12.0 (Jul/07 2015 11:37 -0300 by Igor Escobar) ==
+
+Features:
+
+* giving an alternative to the autocomplete/autofill problem.
+
+== v1.11.4 (Feb/26 2015 22:11 -0300 by Igor Escobar) ==
+
+Changes:
+
+* grunt, jshint and better applyDataMask. Thanks to @lagden
+* automated deploy to npm
+
+== v1.11.3 (Jan/28 2015 15:41 -0200 by Igor Escobar) ==
+
+Changes:
+
+* Added commonjs module definition
+
+== v1.11.2 (Dec/26 2014 15:36 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* unreachable code
+
+== v1.11.1 (Dec/26 2014 15:34 -0200 by Igor Escobar) ==
+
+Bugfixes:
+
+* unreachable code
+
+== v1.11.0 (Dec/26 2014 15:33 -0200 by Igor Escobar) ==
+
+Features:
+
+* implementing selectOnFocus and data-mask-selectonfocus option
+* adding public method called: .applyDataMask in case you want to decide whether to apply masks in data-mask fields
+
 == v1.10.13 (Nov/19 2014 16:06 -0200 by Igor Escobar) ==
 
 Bugfixes:
