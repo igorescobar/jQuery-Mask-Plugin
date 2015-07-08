@@ -304,14 +304,14 @@
                         }
                     };
 
-                callback('onChange', changed === true, defaultArgs);
+                callback('onChange',   changed === true, defaultArgs);
                 callback('onKeyPress', changed === true, defaultArgs);
                 callback('onComplete', val.length === mask.length, defaultArgs);
-                callback('onInvalid', p.invalid.length > 0, [val, e, el, p.invalid, options]);
-                callback('onValid', jMask.maskRegex.test(val), defaultArgs);
+                callback('onInvalid',  p.invalid.length > 0, [val, e, el, p.invalid, options]);
+
+                callback('onValid',    jMask.maskRegex.test(val), defaultArgs);
             }
         };
-
 
         // public methods
         jMask.mask = mask;

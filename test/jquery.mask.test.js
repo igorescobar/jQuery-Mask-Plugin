@@ -122,7 +122,7 @@ $(document).ready(function(){
        var callback = sinon.spy();
        testfield.mask('09999999', {onValid: callback});
 
-       equal( typeTest("11") , "11");
+       equal(typeTest("11") , "11");
        equal(callback.called, true);
      });
 
