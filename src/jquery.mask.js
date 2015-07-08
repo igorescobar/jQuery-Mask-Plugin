@@ -53,7 +53,7 @@
     var Mask = function (el, mask, options) {
         el = $(el);
 
-        var jMask = this, old_value = el.val(), regexMask;
+        var jMask = this, oldValue = el.val(), regexMask;
 
         mask = typeof mask === 'function' ? mask(el.val(), undefined, el,  options) : mask;
 
