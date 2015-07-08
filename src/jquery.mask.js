@@ -165,7 +165,8 @@
                          .replace(new RegExp(oRecursive.digit, 'g'), oRecursive.pattern);
                 }
 
-                return jMask.maskRegex = new RegExp(r);
+                jMask.maskRegex = new RegExp(r)
+                return jMask.maskRegex;
             },
             destroyEvents: function() {
                 el.off(['input', 'keydown', 'keyup', 'paste', 'drop', 'blur', 'focusout', ''].join('.mask '));
