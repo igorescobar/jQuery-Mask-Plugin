@@ -49,11 +49,11 @@ $(document).ready(function(){
 
     test("When I change the mask on-the-fly with onChange callback things should work normally", function(){
 
-      var masks = ['0000.00009', '0.0000.0000']; 
+      var masks = ['0000.00009', '0.0000.0000'];
       var SPphoneMask = function(phone){
         return phone.length <= 9 ? masks[0] : masks[1];
       };
-      
+
       testfield.mask(SPphoneMask, {onChange: function(phone, e, currentField, options){
         $(currentField).mask(SPphoneMask(phone), options);
       }});
@@ -67,16 +67,16 @@ $(document).ready(function(){
       equal( typeTest("1234567"), "1234.567");
       equal( typeTest("12345678"), "1234.5678");
       equal( typeTest("123456789"), "1.2345.6789");
-     
+
     });
 
     test("When I change the mask on-the-fly with onKeyPress callback things should work normally", function(){
 
-      var masks = ['0000.00009', '0.0000.0000']; 
+      var masks = ['0000.00009', '0.0000.0000'];
       var SPphoneMask = function(phone){
         return phone.length <= 9 ? masks[0] : masks[1];
       };
-      
+
       testfield.mask(SPphoneMask, {onKeyPress: function(phone, e, currentField, options){
         $(currentField).mask(SPphoneMask(phone), options);
       }});
@@ -90,7 +90,7 @@ $(document).ready(function(){
       equal( typeTest("1234567"), "1234.567");
       equal( typeTest("12345678"), "1234.5678");
       equal( typeTest("123456789"), "1.2345.6789");
-     
+
     });
 
     test("#onInvalid callback. should call when invalid", function(){
@@ -115,15 +115,17 @@ $(document).ready(function(){
 
       equal( typeTest("11") , "11");
       equal(callbackInvalid.called, false);
-      equal(callbackValid.called, true);
+      equal(callbackValid.called, false);
     });
 
     test("#onValid callback. should call when valid", function(){
+       window.myOne = true;
        var callback = sinon.spy();
-       testfield.mask('00/00/0000', {onValid: callback});
+       testfield.mask('09999999', {onValid: callback});
 
        equal( typeTest("11") , "11");
-       equal(callback.called, true)
+       equal(callback.called, true);
+       window.myOne = false;
      });
 
     test('When I typed a char thats the same as the mask char', function(){
@@ -148,10 +150,10 @@ $(document).ready(function(){
       equal( typeTest("00/00/0"), "00/00/0");
       equal( typeTest("00/00/00"), "00/00/00");
     });
-    
+
     test("Testing masks with a literal on the last char", function () {
       testfield.mask("(99)");
-      
+
       equal( typeTest("(99"), "(99)");
     });
 
@@ -236,7 +238,7 @@ $(document).ready(function(){
       equal( typeTest("12.345.678-90"), "12.345.678-90");
       equal( typeTest("123.456.789-00"), "123.456.789-00");
       equal( typeTest("123.456.789-00"), "123.456.789-00");
-      
+
       equal( typeTest("123.456.789a00"), "123.456.789-00");
       equal( typeTest("123-a5"), "12-35");
 
@@ -276,7 +278,7 @@ $(document).ready(function(){
     equal(typeTest("12.345.678,9"), "1.234.567,89");
     equal(typeTest("1.234.567,8"), "123.456,78");
   });
-    
+
   test("Testing numbers with recursive mask", function(){
     testfield.mask("0#.#");
 
@@ -294,7 +296,7 @@ $(document).ready(function(){
     equal(typeTest("12.34.56"), "12.34.56");
     equal(typeTest("12.34.5"), "12.34.5");
   });
-  
+
   test("Testing numbers with recursive mask with one #", function(){
     testfield.mask("0#", {});
 
@@ -329,7 +331,7 @@ $(document).ready(function(){
   });
   test("Testing reversible masks with a literal on the last char", function () {
       testfield.mask("(99)");
-      
+
       equal( typeTest("(99"), "(99)");
     });
 
@@ -392,7 +394,7 @@ $(document).ready(function(){
 
     testfield.mask('11/00/1111');
     equal( typeTest('12/12/5678'), '12/00/1256');
-    
+
     $.jMaskGlobals.translation = old_translation;
   });
 
@@ -467,11 +469,11 @@ $(document).ready(function(){
     equal( typeDivTest('00000000'), '00/00/0000');
     equal( typeDivTest('00/00/0000'), '00/00/0000');
     equal( typeDivTest('0a/00/0000'), '00/00/000');
-  
+
   });
 
   module('Testing data-mask attribute support');
-  
+
   test("Testing data-mask attribute", function(){
     equal( typeTest("00/", testfieldDataMask), "00/");
     equal( typeTest("00a", testfieldDataMask), "00/");
@@ -529,7 +531,7 @@ $(document).ready(function(){
 
     });
   }
-  
+
 
   test('onDrop Test', function(){
     ok(true, "todo");
@@ -680,7 +682,7 @@ $(document).ready(function(){
     var c = 0;
 
     function write() {
-    
+
       if (c >= 5) {
           clearInterval(ticker);
           clearInterval(tester);
@@ -689,12 +691,12 @@ $(document).ready(function(){
 
       c++;
 
-      $container.append('<div class="c">' + c + c + c + c + '</div>');      
+      $container.append('<div class="c">' + c + c + c + c + '</div>');
       clock.tick(1000);
     };
 
     function testIt() {
-     
+
       var cs = $container.find('.c');
       $.each(cs, function(k, field){
         var t = k + 1;

@@ -49,7 +49,7 @@
         el = $(el);
 
         var jMask = this, old_value = el.val(), regexMask;
-    
+
         mask = typeof mask === "function" ? mask(el.val(), undefined, el,  options) : mask;
 
         var p = {
@@ -72,8 +72,8 @@
                     else if (cSelStart || cSelStart === '0') {
                         pos = cSelStart;
                     }
-                    
-                    return pos;    
+
+                    return pos;
                 } catch (e) {}
             },
             setCaret: function(pos) {
@@ -94,7 +94,7 @@
                 } catch (e) {}
             },
             events: function() {
-                el                
+                el
                 .on('keyup.mask', p.behaviour)
                 .on("paste.mask drop.mask", function() {
                     setTimeout(function() {
@@ -129,11 +129,11 @@
                     translation = jMask.translation[mask[i]];
 
                     if (translation) {
-                        
+
                         pattern = translation.pattern.toString().replace(/.{1}$|^.{1}/g, "");
                         optional = translation.optional;
                         recursive = translation.recursive;
-                        
+
                         if (recursive) {
                             maskChunks.push(mask[i]);
                             oRecursive = {digit: mask[i], pattern: pattern};
@@ -145,15 +145,15 @@
                         maskChunks.push(mask[i].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
                     }
                 }
-                
-                r = maskChunks.join("");
-                
+
+                jMask.maskRegex = r = maskChunks.join("");
+
                 if (oRecursive) {
                     r = r.replace(new RegExp("(" + oRecursive.digit + "(.*" + oRecursive.digit + ")?)"), "($1)?")
                          .replace(new RegExp(oRecursive.digit, "g"), oRecursive.pattern);
                 }
 
-                return new RegExp(r);
+                return jMask.maskRegex = new RegExp(r);
             },
             destroyEvents: function() {
                 el.off(['keydown', 'keyup', 'paste', 'drop', 'blur', 'focusout', ''].join('.mask '));
@@ -278,7 +278,7 @@
                         if (!skipMaskChars) {
                             buf[addMethod](maskDigit);
                         }
-                        
+
                         if (valDigit === maskDigit) {
                             v += offset;
                         }
@@ -286,12 +286,12 @@
                         m += offset;
                     }
                 }
-                
+
                 var lastMaskCharDigit = mask.charAt(lastMaskChar);
                 if (maskLen === valLen + 1 && !jMask.translation[lastMaskCharDigit]) {
                     buf.push(lastMaskCharDigit);
                 }
-                
+
                 return buf.join("");
             },
             callbacks: function (e) {
@@ -308,7 +308,7 @@
                 callback('onKeyPress', changed === true, defaultArgs);
                 callback('onComplete', val.length === mask.length, defaultArgs);
                 callback('onInvalid', p.invalid.length > 0, [val, e, el, p.invalid, options]);
-                callback('onValid', p.invalid.length === 0, defaultArgs);
+                callback('onValid', jMask.maskRegex.test(val), defaultArgs);
             }
         };
 
@@ -340,15 +340,15 @@
             jMask = $.extend(true, {}, jMask, options);
 
             regexMask = p.getRegexMask();
-            
+
             if (only_mask === false) {
-                
+
                 if (options.placeholder) {
                     el.attr('placeholder' , options.placeholder);
                 }
-                
+
                 // autocomplete needs to be off. we can't intercept events
-                // the browser doesn't  fire any kind of event when something is 
+                // the browser doesn't  fire any kind of event when something is
                 // selected in a autocomplete list so we can't sanitize it.
                 el.attr('autocomplete', 'off');
                 p.destroyEvents();
@@ -364,7 +364,7 @@
             }
         };
 
-        jMask.init(!el.is("input")); 
+        jMask.init(!el.is("input"));
 
     };
 
@@ -382,14 +382,14 @@
             if (input.attr(prefix + 'clearifnotmatch')) {
                 options.clearIfNotMatch = true;
             }
-            
+
             if (notSameMaskObject(input, mask, options)) {
                 return input.data('mask', new Mask(this, mask, options));
             }
         },
         notSameMaskObject = function(field, mask, options) {
             options = options || {};
-            var maskObject = $(field).data('mask'), 
+            var maskObject = $(field).data('mask'),
                 stringify = JSON.stringify,
                 value = $(field).val() || $(field).text();
             try {
@@ -419,7 +419,7 @@
             $.maskWatchers[selector] = setInterval(function(){
                 $(document).find(selector).each(maskFunction);
             }, interval);
-        }        
+        }
     };
 
     $.fn.unmask = function() {
@@ -456,9 +456,9 @@
 
     $.jMaskGlobals = $.jMaskGlobals || {};
     globals = $.jMaskGlobals = $.extend(true, {}, globals, $.jMaskGlobals);
-    
+
     // looking for inputs with data-mask attribute
-    if (globals.dataMask) {            
+    if (globals.dataMask) {
         $(globals.dataMaskAttr).each(HTMLAttributes);
     }
 
