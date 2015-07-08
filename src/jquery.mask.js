@@ -165,7 +165,7 @@
                          .replace(new RegExp(oRecursive.digit, 'g'), oRecursive.pattern);
                 }
 
-                jMask.maskRegex = new RegExp(r)
+                jMask.maskRegex = new RegExp(r);
                 return jMask.maskRegex;
             },
             destroyEvents: function() {
