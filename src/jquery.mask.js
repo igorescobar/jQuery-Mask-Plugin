@@ -117,7 +117,7 @@
                 })
                 // it's very important that this callback remains in this position
                 // otherwhise oldValue it's going to work buggy
-                .on('keydown.mask, blur.mask', function() {
+                .on('blur.mask', function() {
                     oldValue = el.val();
                 })
                 // select all text on focus
