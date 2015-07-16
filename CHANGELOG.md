@@ -1,3 +1,9 @@
+== v1.13.2 (Jul/16 2015 16:06 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* change event wasnt being triggered in some cases
+
 == v1.13.1 (Jul/07 2015 15:38 -0300 by Igor Escobar) ==
 
 Bugfixes:
