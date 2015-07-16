@@ -1,3 +1,9 @@
+== v1.13.3 (Jul/16 2015 16:11 -0300 by Igor Escobar) ==
+
+Changes:
+
+* adding main property to package.json
+
 == v1.13.2 (Jul/16 2015 16:06 -0300 by Igor Escobar) ==
 
 Bugfixes:
