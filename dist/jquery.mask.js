@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.13.1
+ * @version: v1.13.2
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -117,7 +117,7 @@
                 })
                 // it's very important that this callback remains in this position
                 // otherwhise oldValue it's going to work buggy
-                .on('keydown.mask, blur.mask', function() {
+                .on('blur.mask', function() {
                     oldValue = el.val();
                 })
                 // select all text on focus
