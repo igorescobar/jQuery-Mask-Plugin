@@ -699,4 +699,16 @@ $(document).ready(function(){
     $('.c', $container).mask('00:00');
     testIt()
   });
+
+  module("Testing $(this).mask()");
+  test('$(this).mask() within an event handler', function(){
+
+    testfield.mask("00 00");
+
+    testfield.on("keydown", function(){
+      $(this).mask("000 000 000", {});
+    });
+
+    equal( typeTest("1234567890"), "123 456 789");
+  });
 });
