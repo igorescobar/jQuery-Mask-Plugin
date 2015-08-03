@@ -436,7 +436,7 @@
                 $(document).find(selector).each(maskFunction);
             }, interval);
         } else if( $(this).length > 0 ) {   // If $(this).mask() is being called from the client code.
-            clearInterval($.maskWatchers[$(this)]);
+            clearInterval($.maskWatchers[$(this)[0]]);
             $.maskWatchers[$(this)[0]] = (function($this){
                 return setInterval(function(){
                     $this.each(maskFunction);
