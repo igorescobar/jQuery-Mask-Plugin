@@ -360,7 +360,7 @@
                 // this is necessary, otherwise if the user submit the form
                 // and then press the "back" button, the autocomplete will erase
                 // the data. Works fine on IE9+, FF, Opera, Safari.
-                if ('oninput' in $('input')[0] === false && el.attr('autocomplete') === 'on') {
+                if ($('input').length && 'oninput' in $('input')[0] === false && el.attr('autocomplete') === 'on') {
                   el.attr('autocomplete', 'off');
                 }
 
