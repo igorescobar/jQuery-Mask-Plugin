@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.13.3
+ * @version: v1.13.4
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -360,7 +360,7 @@
                 // this is necessary, otherwise if the user submit the form
                 // and then press the "back" button, the autocomplete will erase
                 // the data. Works fine on IE9+, FF, Opera, Safari.
-                if ('oninput' in $('input')[0] === false && el.attr('autocomplete') === 'on') {
+                if ($('input').length && 'oninput' in $('input')[0] === false && el.attr('autocomplete') === 'on') {
                   el.attr('autocomplete', 'off');
                 }
 
