@@ -1,3 +1,9 @@
+== v1.13.4 (Aug/07 2015 14:21 -0300 by Igor Escobar) ==
+
+Bugfixes:
+
+* Add check to ensure that there are input elements before using them
+
 == v1.13.3 (Jul/16 2015 16:11 -0300 by Igor Escobar) ==
 
 Changes:
