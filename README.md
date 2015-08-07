@@ -62,7 +62,16 @@ Did you read our [docs](https://igorescobar.github.io/jQuery-Mask-Plugin/)? Yes?
  * **Donating**: Hey, now that you don't need to worry about masks again... buy me a coffee, beer or a PlayStation 4 (Xbox One also accepted!) :o)
  
 ### Unit Tests
-We use [QUnit](http://qunitjs.com/) and [GruntJS](http://gruntjs.com/). Do run our test suit is just run: ```grunt test``` in your console or you can open those ```test-for*.html``` files inside of our ```test/``` folder. 
+We use [QUnit](http://qunitjs.com/) and [GruntJS](http://gruntjs.com/). To run our test suit is just run: ```grunt test``` in your console or you can open those ```test-for*.html``` files inside of our ```test/``` folder. 
+
+In case you're familiar with [Docker](https://www.docker.com/) here is how you can use it:
+```bash
+docker build -t jquery-mask .
+CONTAINER_ID=$(docker run -d -v $PWD:/app/jquery-mask-plugin jquery-mask)
+docker exec $CONTAINER_ID sh -c "npm install && npm install -g grunt-cli"
+docker exec -it $CONTAINER_ID /bin/bash
+grunt test
+```
  
 ## Contributors
  * [Igor Lima](https://github.com/igorlima)
