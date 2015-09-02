@@ -53,9 +53,9 @@
     var Mask = function (el, mask, options) {
         el = $(el);
 
-        var jMask = this, oldValue = el.val(), regexMask;
+        var jMask = this, oldValue = el.val() || el.text(), regexMask;
 
-        mask = typeof mask === 'function' ? mask(el.val(), undefined, el,  options) : mask;
+        mask = typeof mask === 'function' ? mask(el.val() || el.text(), undefined, el,  options) : mask;
 
         var p = {
             invalid: [],
