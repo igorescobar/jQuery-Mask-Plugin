@@ -111,7 +111,7 @@
                 })
                 .on('blur.mask', function(){
                     if (oldValue !== el.val() && !el.data('changed')) {
-                        el.triggerHandler('change');
+                        el.trigger('change');
                     }
                     el.data('changed', false);
                 })
