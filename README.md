@@ -32,7 +32,7 @@ https://igorescobar.github.io/jQuery-Mask-Plugin/
 ### English
   * [Masks with jQuery Mask Plugin](http://bit.ly/masks-with-jquery-mask-plugin)
   * [Using jQuery Mask Plugin With Zepto.js](http://bit.ly/using-jquery-mask-plugin-with-zeptojs)
-  
+
 ### Portuguese
   * [Mascaras com JQuery Mask Plugin](http://bit.ly/mascaras-com-jquery-mask-plugin)
   * [Mascara Javascript para os novos telefones de São Paulo](http://bit.ly/mascara-javascript-para-os-novos-telefones-de-sao-paulo)
@@ -59,19 +59,19 @@ Did you read our [docs](https://igorescobar.github.io/jQuery-Mask-Plugin/)? Yes?
  * **Improving**: Open an [issue](https://github.com/igorescobar/jQuery-Mask-Plugin/issues) and lets discuss it. Just to make sure that you're on the right track.
  * **Sharing**: Yes! Have we saved some of your time? Are you enjoying our mask plugin? Sharing is caring! Tweet it! Facebook it! Linkedin It(?!) :D
  * **Donating**: Hey, now that you don't need to worry about masks again... buy me a coffee, beer or a PlayStation 4 (Xbox One also accepted!) :o)
- 
+
 ### Unit Tests
-We use [QUnit](http://qunitjs.com/) and [GruntJS](http://gruntjs.com/). To run our test suit is just run: ```grunt test``` in your console or you can open those ```test-for*.html``` files inside of our ```test/``` folder. 
+We use [QUnit](http://qunitjs.com/) and [GruntJS](http://gruntjs.com/). To run our test suit is just run: ```grunt test``` in your console or you can open those ```test-for*.html``` files inside of our ```test/``` folder.
 
 In case you're familiar with [Docker](https://www.docker.com/) here is how you can use it:
 ```bash
 docker build -t jquery-mask .
 CONTAINER_ID=$(docker run -d -v $PWD:/app/jquery-mask-plugin jquery-mask)
-docker exec $CONTAINER_ID sh -c "npm install && npm install -g grunt-cli"
+docker exec $CONTAINER_ID sh -c "npm install"
 docker exec -it $CONTAINER_ID /bin/bash
 grunt test
 ```
- 
+
 ## Contributors
  * [Igor Lima](https://github.com/igorlima)
  * [Mark Simmons](https://github.com/Markipelago)

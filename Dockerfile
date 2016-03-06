@@ -21,10 +21,10 @@ RUN mkdir /app/clojure-compiler
 
 # Clojure compiler
 RUN \
-  curl -O http://dl.google.com/closure-compiler/compiler-latest.zip && \ 
+  curl -O http://dl.google.com/closure-compiler/compiler-latest.zip && \
   unzip compiler-latest.zip -d /app/clojure-compiler && \
   chmod a+x /app/clojure-compiler && \
-  rm compiler-latest.zip 
+  rm compiler-latest.zip
 
 RUN gem install bundler pry step-up --no-rdoc --no-ri
 
@@ -32,4 +32,5 @@ RUN gem install bundler pry step-up --no-rdoc --no-ri
 RUN curl --silent --location https://deb.nodesource.com/setup_0.12 | sudo bash -
 RUN apt-get install --yes nodejs
 
+RUN npm install -g grunt-cli
 WORKDIR /app/jquery-mask-plugin

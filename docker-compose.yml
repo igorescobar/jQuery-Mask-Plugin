@@ -1,0 +1,4 @@
+web:
+  build: .
+  volumes:
+    - ./:/app/jquery-mask-plugin
