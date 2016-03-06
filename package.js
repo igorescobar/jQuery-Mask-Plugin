@@ -1,6 +1,6 @@
 Package.describe({
   "name": "igorescobar:jquery-mask-plugin",
-  "version": "1.13.7",
+  "version": "1.13.8",
   "summary": "A jQuery Plugin to make masks on form fields and HTML elements.",
   "git": "git@github.com:igorescobar/jQuery-Mask-Plugin.git",
   "documentation": "README.md"
