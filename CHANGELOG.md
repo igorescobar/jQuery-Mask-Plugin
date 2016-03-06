@@ -1,3 +1,9 @@
+== v1.13.6 (Mar/06 2016 22:14 +0000 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing deploy procedure
+
 == v1.13.5 (Mar/06 2016 22:01 +0000 by Igor Escobar) ==
 
 Changes:
