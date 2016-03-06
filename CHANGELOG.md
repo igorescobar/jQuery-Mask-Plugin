@@ -1,3 +1,9 @@
+== v1.13.8 (Mar/06 2016 23:25 +0000 by Igor Escobar) ==
+
+Changes:
+
+* adding support for meteor
+
 == v1.13.7 (Mar/06 2016 22:46 +0000 by Igor Escobar) ==
 
 Bugfixes:
