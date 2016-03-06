@@ -1,3 +1,9 @@
+== v1.13.7 (Mar/06 2016 22:46 +0000 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing onChange behaviour
+
 == v1.13.6 (Mar/06 2016 22:14 +0000 by Igor Escobar) ==
 
 Bugfixes:
