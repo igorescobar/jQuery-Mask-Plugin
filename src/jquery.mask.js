@@ -51,11 +51,6 @@
 }(function ($) {
 
     var Mask = function (el, mask, options) {
-        el = $(el);
-
-        var jMask = this, oldValue = el.val(), regexMask;
-
-        mask = typeof mask === 'function' ? mask(el.val(), undefined, el,  options) : mask;
 
         var p = {
             invalid: [],
@@ -70,7 +65,7 @@
                     // IE Support
                     if (dSel && navigator.appVersion.indexOf('MSIE 10') === -1) {
                         sel = dSel.createRange();
-                        sel.moveStart('character', el.is('input') ? -el.val().length : -el.text().length);
+                        sel.moveStart('character', -p.val().length);
                         pos = sel.text.length;
                     }
                     // Firefox support
@@ -110,7 +105,7 @@
                     el.data('changed', true);
                 })
                 .on('blur.mask', function(){
-                    if (oldValue !== el.val() && !el.data('changed')) {
+                    if (oldValue !== p.val() && !el.data('changed')) {
                         el.triggerHandler('change');
                     }
                     el.data('changed', false);
@@ -118,7 +113,7 @@
                 // it's very important that this callback remains in this position
                 // otherwhise oldValue it's going to work buggy
                 .on('blur.mask', function() {
-                    oldValue = el.val();
+                    oldValue = p.val();
                 })
                 // select all text on focus
                 .on('focus.mask', function (e) {
@@ -321,6 +316,11 @@
                 callback('onInvalid', p.invalid.length > 0, [val, e, el, p.invalid, options]);
             }
         };
+
+        el = $(el);
+        var jMask = this, oldValue = p.val(), regexMask;
+
+        mask = typeof mask === 'function' ? mask(p.val(), undefined, el,  options) : mask;
 
 
         // public methods
