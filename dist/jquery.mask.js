@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.13.4
+ * @version: v1.13.5
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -51,11 +51,6 @@
 }(function ($) {
 
     var Mask = function (el, mask, options) {
-        el = $(el);
-
-        var jMask = this, oldValue = el.val(), regexMask;
-
-        mask = typeof mask === 'function' ? mask(el.val(), undefined, el,  options) : mask;
 
         var p = {
             invalid: [],
@@ -70,7 +65,7 @@
                     // IE Support
                     if (dSel && navigator.appVersion.indexOf('MSIE 10') === -1) {
                         sel = dSel.createRange();
-                        sel.moveStart('character', el.is('input') ? -el.val().length : -el.text().length);
+                        sel.moveStart('character', -p.val().length);
                         pos = sel.text.length;
                     }
                     // Firefox support
@@ -86,21 +81,20 @@
                     if (el.is(':focus')) {
                         var range, ctrl = el.get(0);
 
-                        if (ctrl.setSelectionRange) {
-                            ctrl.setSelectionRange(pos,pos);
-                        } else if (ctrl.createTextRange) {
-                            range = ctrl.createTextRange();
-                            range.collapse(true);
-                            range.moveEnd('character', pos);
-                            range.moveStart('character', pos);
-                            range.select();
-                        }
+                        range = ctrl.createTextRange();
+                        range.collapse(true);
+                        range.moveEnd('character', pos);
+                        range.moveStart('character', pos);
+                        range.select();
                     }
                 } catch (e) {}
             },
             events: function() {
                 el
-                .on('input.mask keyup.mask', p.behaviour)
+                .on('keydown.mask', function(e) {
+                    el.data('mask-keycode', e.keyCode || e.which);
+                })
+                .on($.jMaskGlobals.useInput ? 'input.mask' : 'keyup.mask', p.behaviour)
                 .on('paste.mask drop.mask', function() {
                     setTimeout(function() {
                         el.keydown().keyup();
@@ -110,7 +104,7 @@
                     el.data('changed', true);
                 })
                 .on('blur.mask', function(){
-                    if (oldValue !== el.val() && !el.data('changed')) {
+                    if (oldValue !== p.val() && !el.data('changed')) {
                         el.triggerHandler('change');
                     }
                     el.data('changed', false);
@@ -118,7 +112,7 @@
                 // it's very important that this callback remains in this position
                 // otherwhise oldValue it's going to work buggy
                 .on('blur.mask', function() {
-                    oldValue = el.val();
+                    oldValue = p.val();
                 })
                 // select all text on focus
                 .on('focus.mask', function (e) {
@@ -203,21 +197,21 @@
             behaviour: function(e) {
                 e = e || window.event;
                 p.invalid = [];
-                var keyCode = e.keyCode || e.which;
-                if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
 
-                    var caretPos = p.getCaret(),
-                        currVal = p.val(),
-                        currValL = currVal.length,
-                        changeCaret = caretPos < currValL,
-                        newVal = p.getMasked(),
-                        newValL = newVal.length,
-                        maskDif = p.getMCharsBeforeCount(newValL - 1) - p.getMCharsBeforeCount(currValL - 1);
+                var keyCode = el.data('mask-keycode');
+
+                if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
+                    var caretPos    = p.getCaret(),
+                        currVal     = p.val(),
+                        currValL    = currVal.length,
+                        newVal      = p.getMasked(),
+                        newValL     = newVal.length,
+                        maskDif     = p.getMCharsBeforeCount(newValL - 1) - p.getMCharsBeforeCount(currValL - 1),
+                        changeCaret = caretPos < currValL;
 
                     p.val(newVal);
 
-                    // change caret but avoid CTRL+A
-                    if (changeCaret && !(keyCode === 65 && e.ctrlKey)) {
+                    if (changeCaret) {
                         // Avoid adjusting caret on backspace or delete
                         if (!(keyCode === 8 || keyCode === 46)) {
                             caretPos = p.caretPos(caretPos, currValL, newValL, maskDif);
@@ -322,6 +316,11 @@
             }
         };
 
+        el = $(el);
+        var jMask = this, oldValue = p.val(), regexMask;
+
+        mask = typeof mask === 'function' ? mask(p.val(), undefined, el,  options) : mask;
+
 
         // public methods
         jMask.mask = mask;
@@ -343,10 +342,10 @@
             onlyMask = onlyMask || false;
             options = options || {};
 
-            jMask.byPassKeys = $.jMaskGlobals.byPassKeys;
-            jMask.translation = $.jMaskGlobals.translation;
+            jMask.clearIfNotMatch  = $.jMaskGlobals.clearIfNotMatch;
+            jMask.byPassKeys       = $.jMaskGlobals.byPassKeys;
+            jMask.translation      = $.extend({}, $.jMaskGlobals.translation, options.translation);
 
-            jMask.translation = $.extend({}, jMask.translation, options.translation);
             jMask = $.extend(true, {}, jMask, options);
 
             regexMask = p.getRegexMask();
@@ -360,7 +359,7 @@
                 // this is necessary, otherwise if the user submit the form
                 // and then press the "back" button, the autocomplete will erase
                 // the data. Works fine on IE9+, FF, Opera, Safari.
-                if ($('input').length && 'oninput' in $('input')[0] === false && el.attr('autocomplete') === 'on') {
+                if (el.data('mask')) {
                   el.attr('autocomplete', 'off');
                 }
 
@@ -382,40 +381,52 @@
 
     $.maskWatchers = {};
     var HTMLAttributes = function () {
-            var input = $(this),
-                options = {},
-                prefix = 'data-mask-',
-                mask = input.attr('data-mask');
+        var input = $(this),
+            options = {},
+            prefix = 'data-mask-',
+            mask = input.attr('data-mask');
 
-            if (input.attr(prefix + 'reverse')) {
-                options.reverse = true;
+        if (input.attr(prefix + 'reverse')) {
+            options.reverse = true;
+        }
+
+        if (input.attr(prefix + 'clearifnotmatch')) {
+            options.clearIfNotMatch = true;
+        }
+
+        if (input.attr(prefix + 'selectonfocus') === 'true') {
+           options.selectOnFocus = true;
+        }
+
+        if (notSameMaskObject(input, mask, options)) {
+            return input.data('mask', new Mask(this, mask, options));
+        }
+    },
+    notSameMaskObject = function(field, mask, options) {
+        options = options || {};
+        var maskObject = $(field).data('mask'),
+            stringify = JSON.stringify,
+            value = $(field).val() || $(field).text();
+        try {
+            if (typeof mask === 'function') {
+                mask = mask(value);
             }
+            return typeof maskObject !== 'object' || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask;
+        } catch (e) {}
+    },
+    eventSupported = function(eventName) {
+        var el = document.createElement("div");
+        eventName = "on" + eventName;
 
-            if (input.attr(prefix + 'clearifnotmatch')) {
-                options.clearIfNotMatch = true;
-            }
+        var isSupported = (eventName in el);
+        if ( !isSupported ) {
+            el.setAttribute(eventName, "return;");
+            isSupported = typeof el[eventName] === "function";
+        }
+        el = null;
 
-            if (input.attr(prefix + 'selectonfocus') === 'true') {
-               options.selectOnFocus = true;
-            }
-
-            if (notSameMaskObject(input, mask, options)) {
-                return input.data('mask', new Mask(this, mask, options));
-            }
-        },
-        notSameMaskObject = function(field, mask, options) {
-            options = options || {};
-            var maskObject = $(field).data('mask'),
-                stringify = JSON.stringify,
-                value = $(field).val() || $(field).text();
-            try {
-                if (typeof mask === 'function') {
-                    mask = mask(value);
-                }
-                return typeof maskObject !== 'object' || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask;
-            } catch (e) {}
-        };
-
+        return isSupported;
+    };
 
     $.fn.mask = function(mask, options) {
         options = options || {};
@@ -466,6 +477,7 @@
         dataMask: true,
         watchInterval: 300,
         watchInputs: true,
+        useInput: eventSupported('input'),
         watchDataMask: false,
         byPassKeys: [9, 16, 17, 18, 36, 37, 38, 39, 40, 91],
         translation: {
