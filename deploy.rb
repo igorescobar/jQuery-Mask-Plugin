@@ -80,4 +80,7 @@ minFile.close
 puts '# PUBLISHING NPM PACKAGE'
 `npm publish`
 
+puts '# PUBLISHING METEOR PACKAGE'
+`meteor publish`
+
 puts '# DONE!'
