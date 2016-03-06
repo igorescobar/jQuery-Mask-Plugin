@@ -81,21 +81,20 @@
                     if (el.is(':focus')) {
                         var range, ctrl = el.get(0);
 
-                        if (ctrl.setSelectionRange) {
-                            ctrl.setSelectionRange(pos,pos);
-                        } else if (ctrl.createTextRange) {
-                            range = ctrl.createTextRange();
-                            range.collapse(true);
-                            range.moveEnd('character', pos);
-                            range.moveStart('character', pos);
-                            range.select();
-                        }
+                        range = ctrl.createTextRange();
+                        range.collapse(true);
+                        range.moveEnd('character', pos);
+                        range.moveStart('character', pos);
+                        range.select();
                     }
                 } catch (e) {}
             },
             events: function() {
                 el
-                .on('input.mask keyup.mask', p.behaviour)
+                .on('keydown.mask', function(e) {
+                    el.data('mask-keycode', e.keyCode || e.which);
+                })
+                .on($.jMaskGlobals.useInput ? 'input.mask' : 'keyup.mask', p.behaviour)
                 .on('paste.mask drop.mask', function() {
                     setTimeout(function() {
                         el.keydown().keyup();
