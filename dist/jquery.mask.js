@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.13.6
+ * @version: v1.13.7
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -105,7 +105,7 @@
                 })
                 .on('blur.mask', function(){
                     if (oldValue !== p.val() && !el.data('changed')) {
-                        el.triggerHandler('change');
+                        el.trigger('change');
                     }
                     el.data('changed', false);
                 })
@@ -415,13 +415,13 @@
         } catch (e) {}
     },
     eventSupported = function(eventName) {
-        var el = document.createElement("div");
-        eventName = "on" + eventName;
+        var el = document.createElement('div');
+        eventName = 'on' + eventName;
 
         var isSupported = (eventName in el);
         if ( !isSupported ) {
-            el.setAttribute(eventName, "return;");
-            isSupported = typeof el[eventName] === "function";
+            el.setAttribute(eventName, 'return;');
+            isSupported = typeof el[eventName] === 'function';
         }
         el = null;
 
