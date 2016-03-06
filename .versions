@@ -1,0 +1,11 @@
+babel-compiler@5.8.24_1
+babel-runtime@0.1.4
+base64@1.0.4
+check@1.1.0
+ecmascript@0.1.6
+ecmascript-runtime@0.2.6
+ejson@1.0.7
+igorescobar:jquery-mask-plugin@1.13.7
+meteor@1.1.10
+promise@0.5.1
+underscore@1.0.4
