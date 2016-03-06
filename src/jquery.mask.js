@@ -342,10 +342,10 @@
             onlyMask = onlyMask || false;
             options = options || {};
 
-            jMask.byPassKeys = $.jMaskGlobals.byPassKeys;
-            jMask.translation = $.jMaskGlobals.translation;
+            jMask.clearIfNotMatch  = $.jMaskGlobals.clearIfNotMatch;
+            jMask.byPassKeys       = $.jMaskGlobals.byPassKeys;
+            jMask.translation      = $.extend({}, $.jMaskGlobals.translation, options.translation);
 
-            jMask.translation = $.extend({}, jMask.translation, options.translation);
             jMask = $.extend(true, {}, jMask, options);
 
             regexMask = p.getRegexMask();
