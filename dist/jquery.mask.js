@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.13.8.1
+ * @version: v1.13.9
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -415,10 +415,11 @@
         } catch (e) {}
     },
     eventSupported = function(eventName) {
-        var el = document.createElement('div');
-        eventName = 'on' + eventName;
+        var el = document.createElement('div'), isSupported;
 
-        var isSupported = (eventName in el);
+        eventName = 'on' + eventName;
+        isSupported = (eventName in el);
+
         if ( !isSupported ) {
             el.setAttribute(eventName, 'return;');
             isSupported = typeof el[eventName] === 'function';
