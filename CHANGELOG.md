@@ -1,3 +1,9 @@
+== v1.13.9 (Mar/20 2016 16:17 +0000 by Igor Escobar) ==
+
+Changes:
+
+* giving the opportunity to pass watchInputs locally
+
 == v1.13.8 (Mar/06 2016 23:25 +0000 by Igor Escobar) ==
 
 Changes:
