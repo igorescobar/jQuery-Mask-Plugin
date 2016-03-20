@@ -432,7 +432,8 @@
         options = options || {};
         var selector = this.selector,
             globals = $.jMaskGlobals,
-            interval = $.jMaskGlobals.watchInterval,
+            interval = globals.watchInterval,
+            watchInputs = options.watchInputs || globals.watchInputs,
             maskFunction = function() {
                 if (notSameMaskObject(this, mask, options)) {
                     return $(this).data('mask', new Mask(this, mask, options));
@@ -441,7 +442,7 @@
 
         $(this).each(maskFunction);
 
-        if (selector && selector !== '' && globals.watchInputs) {
+        if (selector && selector !== '' && watchInputs) {
             clearInterval($.maskWatchers[selector]);
             $.maskWatchers[selector] = setInterval(function(){
                 $(document).find(selector).each(maskFunction);
