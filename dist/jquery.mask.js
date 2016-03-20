@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.13.8
+ * @version: v1.13.8.1
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -432,7 +432,8 @@
         options = options || {};
         var selector = this.selector,
             globals = $.jMaskGlobals,
-            interval = $.jMaskGlobals.watchInterval,
+            interval = globals.watchInterval,
+            watchInputs = options.watchInputs || globals.watchInputs,
             maskFunction = function() {
                 if (notSameMaskObject(this, mask, options)) {
                     return $(this).data('mask', new Mask(this, mask, options));
@@ -441,7 +442,7 @@
 
         $(this).each(maskFunction);
 
-        if (selector && selector !== '' && globals.watchInputs) {
+        if (selector && selector !== '' && watchInputs) {
             clearInterval($.maskWatchers[selector]);
             $.maskWatchers[selector] = setInterval(function(){
                 $(document).find(selector).each(maskFunction);
