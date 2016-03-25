@@ -4,7 +4,6 @@ require 'zlib'
 JMASK_FILE = 'src/jquery.mask.js'
 JMASK_MIN_FILE = 'dist/jquery.mask.min.js'
 GHPAGES_JMASK_MIN_FILE = 'js/jquery.mask.min.js'
-JMASK_GZIP_FILE = 'dist/jquery.mask.min.js.gz'
 JMASK_VERSION = `stepup version --next-release`.delete("\n")
 BOWER_MANIFEST_FILE = 'bower.json'
 NPM_MANIFEST_FILE = 'package.json'
@@ -39,14 +38,6 @@ File.open(JMASK_FILE, 'r') do |file|
   jquery_mask_min_file = `java -jar ../clojure-compiler/compiler.jar --js src/jquery.mask.js --charset UTF-8`
   minFile.puts(jquery_mask_min_file)
   minFile.close
-end
-
-puts '# GENERATING GZIP FILE'
-File.open(JMASK_GZIP_FILE, 'w') do |f|
-  minFile = File.open(JMASK_MIN_FILE, 'r').read
-  gz = Zlib::GzipWriter.new(f)
-  gz.write minFile
-  gz.close
 end
 
 puts '# GENERATING A NEW COMMIT WITH VERSIONED FILEs'
