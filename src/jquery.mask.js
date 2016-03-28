@@ -345,7 +345,7 @@
             jMask.clearIfNotMatch  = $.jMaskGlobals.clearIfNotMatch;
             jMask.byPassKeys       = $.jMaskGlobals.byPassKeys;
             jMask.translation      = $.extend({}, $.jMaskGlobals.translation, options.translation);
-
+            jMask.selector		   = el.selector
             jMask = $.extend(true, {}, jMask, options);
 
             regexMask = p.getRegexMask();
@@ -439,7 +439,7 @@
                 if (notSameMaskObject(this, mask, options)) {
                     return $(this).data('mask', new Mask(this, mask, options));
                 }
-            };
+            }.bind(this);
 
         $(this).each(maskFunction);
 
@@ -452,9 +452,9 @@
         return this;
     };
 
-    $.fn.unmask = function() {
-        clearInterval($.maskWatchers[this.selector]);
-        delete $.maskWatchers[this.selector];
+    $.fn.unmask = function(selector) {
+        clearInterval($.maskWatchers[this.selector||selector]);
+        delete $.maskWatchers[this.selector||selector];
         return this.each(function() {
             var dataMask = $(this).data('mask');
             if (dataMask) {
