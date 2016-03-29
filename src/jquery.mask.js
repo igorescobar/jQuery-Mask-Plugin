@@ -222,9 +222,9 @@
                     return p.callbacks(e);
                 }
             },
-            getMasked: function(skipMaskChars) {
+            getMasked: function(skipMaskChars, val) {
                 var buf = [],
-                    value = p.val(),
+                    value = val === undefined ? p.val() : val + '',
                     m = 0, maskLen = mask.length,
                     v = 0, valLen = value.length,
                     offset = 1, addMethod = 'push',
@@ -336,6 +336,11 @@
         // get value without mask
         jMask.getCleanVal = function() {
            return p.getMasked(true);
+        };
+
+        // get masked value without the value being in the input or element
+        jMask.getMaskedVal = function(val) {
+           return p.getMasked(false, val);
         };
 
        jMask.init = function(onlyMask) {
@@ -465,6 +470,10 @@
 
     $.fn.cleanVal = function() {
         return this.data('mask').getCleanVal();
+    };
+
+    $.fn.maskedVal = function(val) {
+        return this.data('mask').getMaskedVal(val);
     };
 
     $.applyDataMask = function(selector) {
