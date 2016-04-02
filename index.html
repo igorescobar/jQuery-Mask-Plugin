@@ -30,7 +30,7 @@
   <div class="container">
   <h1><span class="jq-label">jQuery</span> <span class="plugin-name">Mask Plugin</span></h1>
   <span class="subtitle">A jQuery Plugin to make masks on form fields and html elements.</span> <br /> <br />
-  <h2>Demonstrations</h2> 
+  <h2>Demonstrations</h2>
 
   <div id="examples">
     <div class="col">
@@ -118,9 +118,9 @@ $(document).ready(function(){
   $('.fallback').mask("00r00r0000", {
       translation: {
         'r': {
-          pattern: /[\/]/, 
+          pattern: /[\/]/,
           fallback: '/'
-        }, 
+        },
         placeholder: "__/__/____"
       }
     });
@@ -129,12 +129,12 @@ $(document).ready(function(){
 
     <h3>Callback Examples</h3>
 <pre>
-var options =  { 
+var options =  {
   onComplete: function(cep) {
     alert('CEP Completed!:' + cep);
   },
   onKeyPress: function(cep, event, currentField, options){
-    console.log('An key was pressed!:', cep, ' event: ', event, 
+    console.log('An key was pressed!:', cep, ' event: ', event,
                 'currentField: ', currentField, ' options: ', options);
   },
   onChange: function(cep){
@@ -172,7 +172,7 @@ spOptions = {
 
 $('.sp_celphones').mask(SPMaskBehavior, spOptions);
 </pre>
-    
+
     <h3>Using HTML Notation Exemples</h3>
 
     To get your mask applied with the data-mask attribute just use it as the same way you use with the $.mask function. <br/> <br/>
@@ -199,7 +199,7 @@ $('.sp_celphones').mask(SPMaskBehavior, spOptions);
 Teach to jQuery Mask Plugin how to apply your mask: <br/><br/>
 
 <pre>
-// now the digit 0 on your mask pattern will be interpreted 
+// now the digit 0 on your mask pattern will be interpreted
 // as valid characters like 0,1,2,3,4,5,6,7,8,9 and *
 $('.your-field').mask('00/00/0000', {'translation': {0: {pattern: /[0-9*]/}}});
 </pre>
@@ -209,8 +209,8 @@ $('.your-field').mask('00/00/0000', {'translation': {0: {pattern: /[0-9*]/}}});
 
 <pre>
 $('.your-field').mask('AA/SS/YYYY', {'translation': {
-                                        A: {pattern: /[A-Za-z0-9]/}, 
-                                        S: {pattern: /[A-Za-z]/},  
+                                        A: {pattern: /[A-Za-z0-9]/},
+                                        S: {pattern: /[A-Za-z]/},
                                         Y: {pattern: /[0-9]/}
                                       }
                                 });
@@ -248,9 +248,9 @@ $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': {pattern: /[0-9]/,
 $('.field_with_fallback').mask("00r00r0000", {
   translation: {
     'r': {
-      pattern: /[\/]/, 
+      pattern: /[\/]/,
       fallback: '/'
-    }, 
+    },
     placeholder: "__/__/____"
   }
 });
@@ -261,6 +261,10 @@ $('.field_with_fallback').mask("00r00r0000", {
 
     <br /><h3>Getting the unmasked typed value</h3>
     <pre>$('.date').cleanVal();</pre>
+
+    <br /><h3>Getting a masked value programmatically</h3>
+    <pre>$('.date').masked('19840807');</pre>
+
 <br />
 <h2>Customization</h2>
 
@@ -270,10 +274,10 @@ jQuery Mask Plugin has a few default options that you can overwrite as you like:
 var custom_options = {
   byPassKeys: [8, 9, 37, 38, 39, 40],
   translation: {
-                '0': {pattern: /\d/}, 
-                '9': {pattern: /\d/, optional: true}, 
-                '#': {pattern: /\d/, recursive: true}, 
-                'A': {pattern: /[a-zA-Z0-9]/}, 
+                '0': {pattern: /\d/},
+                '9': {pattern: /\d/, optional: true},
+                '#': {pattern: /\d/, recursive: true},
+                'A': {pattern: /[a-zA-Z0-9]/},
                 'S': {pattern: /[a-zA-Z]/}
             };
 };</pre>
@@ -283,8 +287,8 @@ var custom_options = {
 <h3>Public Methods</h3>
 <pre>
 /**
- * Applies the mask to the matching selector elements. 
- * 
+ * Applies the mask to the matching selector elements.
+ *
  * @selector elements to be masked.
  * @mask should be a string or a function.
  * @options should be an object.
@@ -293,21 +297,21 @@ $(selector).mask(mask [, options]);
 
 /**
  * Seek and destroy.
- * 
+ *
  * @selector elements to be masked.
  **/
 $(selector).unmask();
 
 /**
  * Gets the value of the field without the mask.
- * 
+ *
  * @selector elements to be masked.
  **/
 $(selector).cleanVal();
 
 /**
- * Applies the mask to the matching selector elements. 
- * 
+ * Applies the mask to the matching selector elements.
+ *
  * @selector optional: elements to be masked. The default behaviour it's to lookup for all elements with data-mask attribute.
  **/
 $.applyDataMask([selector]);
@@ -363,9 +367,9 @@ $.applyDataMask([selector]);
     $('.fallback').mask("00r00r0000", {
       translation: {
         'r': {
-          pattern: /[\/]/, 
+          pattern: /[\/]/,
           fallback: '/'
-        }, 
+        },
         placeholder: "__/__/____"
       }
     });
