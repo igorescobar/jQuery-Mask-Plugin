@@ -503,7 +503,14 @@
     // looking for inputs with data-mask attribute
     if (globals.dataMask) { $.applyDataMask(); }
 
-    setInterval(function(){
-        if ($.jMaskGlobals.watchDataMask) { $.applyDataMask(); }
-    }, globals.watchInterval);
+
+    /*
+        ISSUE: 333 - Moved setInterval into a conditional check, as an infinite timeout was being applied from the default
+        settings previously, also caching inside   $.maskWatchers for future reference.  N.B. Due to the nature of how
+        this scans HTML data attributes, this condition can NOT be tested.
+     */
+    if($.jMaskGlobals.watchDataMask){
+        $.maskWatchers.watchDataMask = setInterval($.applyDataMask,globals.watchInterval );
+    }
+
 }));
