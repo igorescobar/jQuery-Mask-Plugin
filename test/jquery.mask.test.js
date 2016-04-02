@@ -354,7 +354,7 @@ $(document).ready(function(){
   test("when I get the masked value programmatically", function(){
     testfield.mask('(00) 0000-0000');
     typeTest("1299999999", testfield);
-    equal( testfield.maskedVal("3488888888"), "(34) 8888-8888");
+    equal( testfield.masked("3488888888"), "(34) 8888-8888");
   });
 
   module('personalized settings')

@@ -463,6 +463,10 @@
         return this;
     };
 
+    $.fn.masked = function(val) {
+        return this.data('mask').getMaskedVal(val);
+    };
+
     $.fn.unmask = function() {
         clearInterval($.maskWatchers[this.selector]);
         delete $.maskWatchers[this.selector];
@@ -476,10 +480,6 @@
 
     $.fn.cleanVal = function() {
         return this.data('mask').getCleanVal();
-    };
-
-    $.fn.maskedVal = function(val) {
-        return this.data('mask').getMaskedVal(val);
     };
 
     $.applyDataMask = function(selector) {
@@ -510,9 +510,13 @@
     globals = $.jMaskGlobals = $.extend(true, {}, globals, $.jMaskGlobals);
 
     // looking for inputs with data-mask attribute
-    if (globals.dataMask) { $.applyDataMask(); }
+    if (globals.dataMask) {
+        $.applyDataMask();
+    }
 
-    setInterval(function(){
-        if ($.jMaskGlobals.watchDataMask) { $.applyDataMask(); }
+    setInterval(function() {
+        if ($.jMaskGlobals.watchDataMask) {
+            $.applyDataMask();
+        }
     }, globals.watchInterval);
 }));
