@@ -1,6 +1,6 @@
 {
   "name": "jquery-mask-plugin",
-  "version": "1.13.9",
+  "version": "1.14.0",
   "description": "A jQuery Plugin to make masks on form fields and html elements.",
   "author": "Igor Escobar <blog@igorescobar.com>",
   "homepage": "http://igorescobar.github.io/jQuery-Mask-Plugin/",

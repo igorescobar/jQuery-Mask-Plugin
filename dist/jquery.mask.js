@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.13.9
+ * @version: v1.14.0
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -81,11 +81,17 @@
                     if (el.is(':focus')) {
                         var range, ctrl = el.get(0);
 
-                        range = ctrl.createTextRange();
-                        range.collapse(true);
-                        range.moveEnd('character', pos);
-                        range.moveStart('character', pos);
-                        range.select();
+                        // Firefox, WebKit, etc..
+                        if (ctrl.setSelectionRange) {
+                            ctrl.focus();
+                            ctrl.setSelectionRange(pos, pos);
+                        } else { // IE
+                            range = ctrl.createTextRange();
+                            range.collapse(true);
+                            range.moveEnd('character', pos);
+                            range.moveStart('character', pos);
+                            range.select();
+                        }
                     }
                 } catch (e) {}
             },
@@ -222,9 +228,9 @@
                     return p.callbacks(e);
                 }
             },
-            getMasked: function(skipMaskChars) {
+            getMasked: function(skipMaskChars, val) {
                 var buf = [],
-                    value = p.val(),
+                    value = val === undefined ? p.val() : val + '',
                     m = 0, maskLen = mask.length,
                     v = 0, valLen = value.length,
                     offset = 1, addMethod = 'push',
@@ -336,6 +342,11 @@
         // get value without mask
         jMask.getCleanVal = function() {
            return p.getMasked(true);
+        };
+
+        // get masked value without the value being in the input or element
+        jMask.getMaskedVal = function(val) {
+           return p.getMasked(false, val);
         };
 
        jMask.init = function(onlyMask) {
@@ -452,6 +463,10 @@
         return this;
     };
 
+    $.fn.masked = function(val) {
+        return this.data('mask').getMaskedVal(val);
+    };
+
     $.fn.unmask = function() {
         clearInterval($.maskWatchers[this.selector]);
         delete $.maskWatchers[this.selector];
@@ -495,9 +510,13 @@
     globals = $.jMaskGlobals = $.extend(true, {}, globals, $.jMaskGlobals);
 
     // looking for inputs with data-mask attribute
-    if (globals.dataMask) { $.applyDataMask(); }
+    if (globals.dataMask) {
+        $.applyDataMask();
+    }
 
-    setInterval(function(){
-        if ($.jMaskGlobals.watchDataMask) { $.applyDataMask(); }
+    setInterval(function() {
+        if ($.jMaskGlobals.watchDataMask) {
+            $.applyDataMask();
+        }
     }, globals.watchInterval);
 }));
