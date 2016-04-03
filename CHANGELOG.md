@@ -1,3 +1,13 @@
+== v1.14.0 (Apr/03 2016 17:52 +0100 by Igor Escobar) ==
+
+Bugfixes:
+
+* Fix cursor jumping while editing in non-IE browsers. Thanks to @archwyrm
+
+Features:
+
+* adding masked function for better angular use
+
 == v1.13.9 (Mar/20 2016 16:17 +0000 by Igor Escobar) ==
 
 Changes:
