@@ -66,6 +66,8 @@
       <input type="text" class="mixed"/>
       <label>CPF</label>
       <input type="text" class="cpf"/>
+      <label>CNPJ</label>
+      <input type="text" class="cnpj"/>
       <label>IP Address</label>
       <input type="text" class="ip_address"/>
       <label>Mask with Clear If Not Match Option</label>
@@ -99,6 +101,7 @@ $(document).ready(function(){
   $('.phone_us').mask('(000) 000-0000');
   $('.mixed').mask('AAA 000-S0S');
   $('.cpf').mask('000.000.000-00', {reverse: true});
+  $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
   $('.money').mask('000.000.000.000.000,00', {reverse: true});
   $('.money2').mask("#.##0,00", {reverse: true});
   $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
