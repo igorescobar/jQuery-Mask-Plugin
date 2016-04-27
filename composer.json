@@ -23,5 +23,10 @@
   ],
   "support": {
     "issues": "https://github.com/igorescobar/jQuery-Mask-Plugin/issues"
-  }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "v1.14.0"
+    }
+  },
 }
