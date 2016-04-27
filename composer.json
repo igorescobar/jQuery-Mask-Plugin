@@ -11,9 +11,7 @@
       "email": "blog@igorescobar.com",
       "homepage": "https://about.me/igorescobar",
       "role": "Developer"
-    }
-  ],
-  "contributors": [
+    },
     {
       "name": "Thiago Pereira Rosa",
       "email": "thiagor@engineer.com",
@@ -28,5 +26,5 @@
     "branch-alias": {
       "dev-master": "v1.14.0"
     }
-  },
+  }
 }
