@@ -12,12 +12,6 @@
       "homepage": "https://about.me/igorescobar",
       "role": "Developer"
     },
-    {
-      "name": "Thiago Pereira Rosa",
-      "email": "thiagor@engineer.com",
-      "homepage": "http://coderi.com.br",
-      "role": "Contributor"
-    }
   ],
   "support": {
     "issues": "https://github.com/igorescobar/jQuery-Mask-Plugin/issues"
