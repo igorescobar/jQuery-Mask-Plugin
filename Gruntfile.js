@@ -28,7 +28,8 @@ module.exports = function(grunt) {
             'http://localhost:9001/test/test-for-jquery-1.8.3.html',
             'http://localhost:9001/test/test-for-jquery-1.9.1.html',
             'http://localhost:9001/test/test-for-jquery-2.1.1.html',
-            // 'http://localhost:9001/test/test-for-zepto.html'
+            'http://localhost:9001/test/test-for-jquery-3.0.0.html',
+            'http://localhost:9001/test/test-for-zepto.html'
           ]
         }
       }

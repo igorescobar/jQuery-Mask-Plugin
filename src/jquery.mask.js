@@ -32,13 +32,13 @@
  */
 
 /* jshint laxbreak: true */
-/* global define, jQuery, Zepto */
+/* global define */
 
 'use strict';
 
 // UMD (Universal Module Definition) patterns for JavaScript modules that work everywhere.
 // https://github.com/umdjs/umd/blob/master/jqueryPluginCommonjs.js
-(function (factory) {
+(function (factory, jQuery, Zepto) {
 
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], factory);
@@ -519,4 +519,4 @@
             $.applyDataMask();
         }
     }, globals.watchInterval);
-}));
+}, window.jQuery, window.Zepto));
