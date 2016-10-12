@@ -55,6 +55,7 @@ Before opening a new [issue](https://github.com/igorescobar/jQuery-Mask-Plugin/i
 #### [Negative numbers, or currency related problems](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/436#issuecomment-253176511)
 #### [Prefix or sufix on the Mask](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/166)
 #### [Add validation?](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/387#issuecomment-192998092)
+#### [Field type number, email not working?](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/450#issuecomment-253225719)
 
 ## Bugs?
 Did you read our [docs](https://igorescobar.github.io/jQuery-Mask-Plugin/)? Yes? Cool! So now... make sure that you have a *functional* [jsfiddle](http://jsfiddle.net/) exemplifying your problem and open an [issue](https://github.com/igorescobar/jQuery-Mask-Plugin/issues) for us. Don't know how to do it? Use this [fiddle example](http://jsfiddle.net/igorescobar/6pco4om7/).
