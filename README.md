@@ -51,9 +51,10 @@ jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
 
 ## Problems or Questions?
 Before opening a new [issue](https://github.com/igorescobar/jQuery-Mask-Plugin/issues) take a look on those frequently asked questions:
-### [Problems with old versions of Android keyboard](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/135)
-### [Negative numbers, or currency related problems](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/436#issuecomment-253176511)
-### [Prefix or sufix on the Mask](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/166)
+#### [Problems with old versions of Android keyboard](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/135)
+#### [Negative numbers, or currency related problems](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/436#issuecomment-253176511)
+#### [Prefix or sufix on the Mask](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/166)
+#### [Add validation?](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/387#issuecomment-192998092)
 
 ## Bugs?
 Did you read our [docs](https://igorescobar.github.io/jQuery-Mask-Plugin/)? Yes? Cool! So now... make sure that you have a *functional* [jsfiddle](http://jsfiddle.net/) exemplifying your problem and open an [issue](https://github.com/igorescobar/jQuery-Mask-Plugin/issues) for us. Don't know how to do it? Use this [fiddle example](http://jsfiddle.net/igorescobar/6pco4om7/).
