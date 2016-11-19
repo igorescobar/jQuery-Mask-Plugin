@@ -1,0 +1,19 @@
+{
+  "name": "igorescobar/jquery-mask-plugin",
+  "type": "library",
+  "description": "A jQuery Plugin to make masks on form fields and html elements.",
+  "keywords": ["jquery", "mask", "plugin"],
+  "homepage": "https://github.com/igorescobar/jQuery-Mask-Plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Igor Escobar",
+      "email": "blog@igorescobar.com",
+      "homepage": "https://about.me/igorescobar",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/igorescobar/jQuery-Mask-Plugin/issues"
+  }
+}
