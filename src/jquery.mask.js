@@ -279,7 +279,7 @@
                             // matched the last untranslated (raw) mask character that we encountered
                             // likely an insert offset the mask character from the last entry; fall
                             // through and only increment v
-                            lastUntranslatedMaskChar = undefined
+                            lastUntranslatedMaskChar = undefined;
                         } else if (translation.optional) {
                             m += offset;
                             v -= offset;
@@ -299,7 +299,7 @@
                         if (valDigit === maskDigit) {
                             v += offset;
                         } else {
-                            lastUntranslatedMaskChar = maskDigit
+                            lastUntranslatedMaskChar = maskDigit;
                         }
 
                         m += offset;
