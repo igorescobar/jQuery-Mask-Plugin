@@ -32,6 +32,7 @@
  */
 
 /* jshint laxbreak: true */
+/* jshint maxcomplexity:17 */
 /* global define */
 
 'use strict';
@@ -80,10 +81,10 @@
                 try {
                     if (el.is(':focus')) {
                         var range, ctrl = el.get(0);
+                        pos += 1;
 
                         // Firefox, WebKit, etc..
                         if (ctrl.setSelectionRange) {
-                            ctrl.focus();
                             ctrl.setSelectionRange(pos, pos);
                         } else { // IE
                             range = ctrl.createTextRange();
@@ -219,9 +220,10 @@
 
                     if (changeCaret) {
                         // Avoid adjusting caret on backspace or delete
-                        if (!(keyCode === 8 || keyCode === 46)) {
-                            caretPos = p.caretPos(caretPos, currValL, newValL, maskDif);
-                        }
+                        (!(keyCode === 8 || keyCode === 46))
+                            ? caretPos = p.caretPos(caretPos, currValL, newValL, maskDif)
+                            : caretPos -= 1;
+
                         p.setCaret(caretPos);
                     }
 
