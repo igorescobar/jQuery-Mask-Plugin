@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.14.1
+ * @version: v1.14.2
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -371,8 +371,10 @@
 
             regexMask = p.getRegexMask();
 
-            if (onlyMask === false) {
-
+            if (onlyMask) {
+                p.events();
+                p.val(p.getMasked());
+            } else {
                 if (options.placeholder) {
                     el.attr('placeholder' , options.placeholder);
                 }
@@ -384,16 +386,27 @@
                   el.attr('autocomplete', 'off');
                 }
 
+                // detect if is necessary let the user type freely.
+                // for is a lot faster than forEach.
+                for (var i = 0, maxlength = true; i < mask.length; i++) {
+                    var translation = jMask.translation[mask.charAt(i)]
+                    if (translation && translation.recursive) {
+                        maxlength = false;
+                        break;
+                    }
+                }
+
+                if (maxlength) {
+                    el.attr('maxlength', mask.length);
+                }
+
+
                 p.destroyEvents();
                 p.events();
 
                 var caret = p.getCaret();
                 p.val(p.getMasked());
                 p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
-
-            } else {
-                p.events();
-                p.val(p.getMasked());
             }
         };
 
