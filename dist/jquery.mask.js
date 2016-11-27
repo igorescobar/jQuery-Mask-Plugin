@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.14.0
+ * @version: v1.14.1
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -32,13 +32,14 @@
  */
 
 /* jshint laxbreak: true */
-/* global define, jQuery, Zepto */
+/* jshint maxcomplexity:17 */
+/* global define */
 
 'use strict';
 
 // UMD (Universal Module Definition) patterns for JavaScript modules that work everywhere.
 // https://github.com/umdjs/umd/blob/master/jqueryPluginCommonjs.js
-(function (factory) {
+(function (factory, jQuery, Zepto) {
 
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], factory);
@@ -80,10 +81,10 @@
                 try {
                     if (el.is(':focus')) {
                         var range, ctrl = el.get(0);
+                        pos += 1;
 
                         // Firefox, WebKit, etc..
                         if (ctrl.setSelectionRange) {
-                            ctrl.focus();
                             ctrl.setSelectionRange(pos, pos);
                         } else { // IE
                             range = ctrl.createTextRange();
@@ -219,9 +220,10 @@
 
                     if (changeCaret) {
                         // Avoid adjusting caret on backspace or delete
-                        if (!(keyCode === 8 || keyCode === 46)) {
-                            caretPos = p.caretPos(caretPos, currValL, newValL, maskDif);
-                        }
+                        (!(keyCode === 8 || keyCode === 46))
+                            ? caretPos = p.caretPos(caretPos, currValL, newValL, maskDif)
+                            : caretPos -= 1;
+
                         p.setCaret(caretPos);
                     }
 
@@ -254,6 +256,7 @@
                     };
                 }
 
+                var lastUntranslatedMaskChar;
                 while (check()) {
                     var maskDigit = mask.charAt(m),
                         valDigit = value.charAt(v),
@@ -274,6 +277,11 @@
                                 }
                             }
                             m += offset;
+                        } else if (valDigit === lastUntranslatedMaskChar) {
+                            // matched the last untranslated (raw) mask character that we encountered
+                            // likely an insert offset the mask character from the last entry; fall
+                            // through and only increment v
+                            lastUntranslatedMaskChar = undefined;
                         } else if (translation.optional) {
                             m += offset;
                             v -= offset;
@@ -292,6 +300,8 @@
 
                         if (valDigit === maskDigit) {
                             v += offset;
+                        } else {
+                            lastUntranslatedMaskChar = maskDigit;
                         }
 
                         m += offset;
@@ -519,4 +529,4 @@
             $.applyDataMask();
         }
     }, globals.watchInterval);
-}));
+}, window.jQuery, window.Zepto));
