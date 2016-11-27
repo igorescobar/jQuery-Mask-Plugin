@@ -1,3 +1,10 @@
+== v1.14.1 (Nov/27 2016 19:20 +0000 by Igor Escobar) ==
+
+Bugfixes:
+
+* Fix input value mangling when inserting before a static mask character
+* fixing caret position issue
+
 == v1.14.0 (Apr/03 2016 17:52 +0100 by Igor Escobar) ==
 
 Bugfixes:
