@@ -1,3 +1,9 @@
+== v1.14.2 (Nov/27 2016 20:04 +0000 by Igor Escobar) ==
+
+Bugfixes:
+
+* apply auto maxlength in case the mask doesn't have recursive pattern
+
 == v1.14.1 (Nov/27 2016 19:20 +0000 by Igor Escobar) ==
 
 Bugfixes:
