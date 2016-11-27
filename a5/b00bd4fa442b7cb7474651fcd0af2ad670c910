@@ -1,0 +1,1 @@
+apply auto maxlength in case the mask doesn't have recursive pattern
