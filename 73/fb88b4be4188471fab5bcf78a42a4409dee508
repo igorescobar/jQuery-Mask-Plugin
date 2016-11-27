@@ -1,0 +1,1 @@
+Fix input value mangling when inserting before a static mask character
