@@ -390,6 +390,7 @@
         jMask.init(!el.is('input'));
     };
 
+    $.maskWatchers = {};
     var HTMLAttributes = function () {
         var input = $(this),
             options = {},
@@ -451,6 +452,18 @@
         return this;
     };
 
+    $.mask = function(selector, mask, options) {
+        var globals = $.jMaskGlobals,
+            interval = globals.watchInterval;
+
+        clearInterval($.maskWatchers[selector]);
+        $.maskWatchers[selector] = setInterval(function(){
+            $(selector).mask(mask, options);
+        }, interval);
+
+        return $(selector).mask(mask, options);
+    };
+
     $.fn.masked = function(val) {
         return this.data('mask').getMaskedVal(val);
     };
@@ -462,6 +475,12 @@
                 dataMask.remove().removeData('mask');
             }
         });
+    };
+
+    $.unmask = function(selector) {
+        clearInterval($.maskWatchers[selector]);
+        delete $.maskWatchers[selector];
+        return $(selector).unmask();
     };
 
     $.fn.cleanVal = function() {
