@@ -81,11 +81,17 @@
                     if (el.is(':focus')) {
                         var range, ctrl = el.get(0);
 
-                        range = ctrl.createTextRange();
-                        range.collapse(true);
-                        range.moveEnd('character', pos);
-                        range.moveStart('character', pos);
-                        range.select();
+                        // Firefox, WebKit, etc..
+                        if (ctrl.setSelectionRange) {
+                            ctrl.focus();
+                            ctrl.setSelectionRange(pos, pos);
+                        } else { // IE
+                            range = ctrl.createTextRange();
+                            range.collapse(true);
+                            range.moveEnd('character', pos);
+                            range.moveStart('character', pos);
+                            range.select();
+                        }
                     }
                 } catch (e) {}
             },
