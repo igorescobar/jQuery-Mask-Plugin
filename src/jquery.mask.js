@@ -390,7 +390,6 @@
         jMask.init(!el.is('input'));
     };
 
-    $.maskWatchers = {};
     var HTMLAttributes = function () {
         var input = $(this),
             options = {},
@@ -442,24 +441,13 @@
 
     $.fn.mask = function(mask, options) {
         options = options || {};
-        var selector = this.selector,
-            globals = $.jMaskGlobals,
-            interval = globals.watchInterval,
-            watchInputs = options.watchInputs || globals.watchInputs,
-            maskFunction = function() {
+        var maskFunction = function() {
                 if (notSameMaskObject(this, mask, options)) {
                     return $(this).data('mask', new Mask(this, mask, options));
                 }
             };
 
         $(this).each(maskFunction);
-
-        if (selector && selector !== '' && watchInputs) {
-            clearInterval($.maskWatchers[selector]);
-            $.maskWatchers[selector] = setInterval(function(){
-                $(document).find(selector).each(maskFunction);
-            }, interval);
-        }
         return this;
     };
 
@@ -468,8 +456,6 @@
     };
 
     $.fn.unmask = function() {
-        clearInterval($.maskWatchers[this.selector]);
-        delete $.maskWatchers[this.selector];
         return this.each(function() {
             var dataMask = $(this).data('mask');
             if (dataMask) {
@@ -493,7 +479,6 @@
         dataMaskAttr: '*[data-mask]',
         dataMask: true,
         watchInterval: 300,
-        watchInputs: true,
         useInput: eventSupported('input'),
         watchDataMask: false,
         byPassKeys: [9, 16, 17, 18, 36, 37, 38, 39, 40, 91],
