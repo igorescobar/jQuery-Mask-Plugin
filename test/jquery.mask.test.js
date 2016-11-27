@@ -702,8 +702,8 @@ $(document).ready(function(){
 
     ticker = setInterval(write, 1000);
 
-    write();
     $('.c', $container).mask('00:00');
+    write();
     testIt()
   });
 });
