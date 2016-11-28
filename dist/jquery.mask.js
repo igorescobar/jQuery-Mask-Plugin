@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.14.2
+ * @version: v1.14.2.1
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -214,7 +214,7 @@
                         newVal      = p.getMasked(),
                         newValL     = newVal.length,
                         maskDif     = p.getMCharsBeforeCount(newValL - 1) - p.getMCharsBeforeCount(currValL - 1),
-                        changeCaret = caretPos < currValL;
+                        changeCaret = caretPos < currValL && newVal !== currVal;
 
                     p.val(newVal);
 
@@ -389,7 +389,7 @@
                 // detect if is necessary let the user type freely.
                 // for is a lot faster than forEach.
                 for (var i = 0, maxlength = true; i < mask.length; i++) {
-                    var translation = jMask.translation[mask.charAt(i)]
+                    var translation = jMask.translation[mask.charAt(i)];
                     if (translation && translation.recursive) {
                         maxlength = false;
                         break;
@@ -399,7 +399,6 @@
                 if (maxlength) {
                     el.attr('maxlength', mask.length);
                 }
-
 
                 p.destroyEvents();
                 p.events();
