@@ -1,3 +1,9 @@
+== v1.14.3 (Nov/28 2016 11:53 +0000 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing caret positioning on safari
+
 == v1.14.2 (Nov/27 2016 20:04 +0000 by Igor Escobar) ==
 
 Bugfixes:
