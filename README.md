@@ -28,6 +28,22 @@ https://igorescobar.github.io/jQuery-Mask-Plugin/
   * HTML5 placeholder support.
   * Clear the field if it not matches support.
 
+## Install it via Package Managers
+### Bower
+`bower install jquery-mask-plugin`
+### NPM
+`npm i jquery-mask-plugin`
+### Meteor
+`meteor add igorescobar:jquery-mask-plugin`
+### Packagist/Composer
+`composer require igorescobar/jquery-mask-plugin`
+
+## CDNs
+### CDNjs
+https://cdnjs.com/libraries/jquery.mask
+### JSDelivr
+http://www.jsdelivr.com/projects/jquery.mask
+
 ##Tutorials
 ### English
   * [Masks with jQuery Mask Plugin](http://bit.ly/masks-with-jquery-mask-plugin)
