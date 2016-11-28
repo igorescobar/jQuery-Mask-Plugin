@@ -664,6 +664,7 @@ $(document).ready(function(){
 
     typeAndBlur(testfield, "1.000,00");
     equal( testfield.val(), "1.000,00" );
+
   });
 
   module('dynamically loaded elements')
