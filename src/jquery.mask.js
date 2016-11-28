@@ -214,7 +214,7 @@
                         newVal      = p.getMasked(),
                         newValL     = newVal.length,
                         maskDif     = p.getMCharsBeforeCount(newValL - 1) - p.getMCharsBeforeCount(currValL - 1),
-                        changeCaret = caretPos < currValL && newVal != currVal;
+                        changeCaret = caretPos < currValL && newVal !== currVal;
 
                     p.val(newVal);
 
