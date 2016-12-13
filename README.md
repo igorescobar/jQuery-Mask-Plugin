@@ -44,6 +44,11 @@ https://cdnjs.com/libraries/jquery.mask
 ### JSDelivr
 http://www.jsdelivr.com/projects/jquery.mask
 
+## RubyGems
+```ruby
+gem 'jquery_mask_rails'
+```
+
 ##Tutorials
 ### English
   * [Masks with jQuery Mask Plugin](http://bit.ly/masks-with-jquery-mask-plugin)
