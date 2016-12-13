@@ -44,6 +44,26 @@ https://cdnjs.com/libraries/jquery.mask
 ### JSDelivr
 http://www.jsdelivr.com/projects/jquery.mask
 
+## RubyGems
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'jquery_mask_rails', '~> 0.1.0'
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install jquery_mask_rails
+
+And then insert into your application.js
+
+    //= require jquery.mask
+
 ##Tutorials
 ### English
   * [Masks with jQuery Mask Plugin](http://bit.ly/masks-with-jquery-mask-plugin)
