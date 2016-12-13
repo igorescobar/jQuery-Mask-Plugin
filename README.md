@@ -46,7 +46,7 @@ http://www.jsdelivr.com/projects/jquery.mask
 
 ## RubyGems
 ```ruby
-gem 'jquery_mask_rails', '~> 0.1.0'
+gem 'jquery_mask_rails'
 ```
 
 ##Tutorials
