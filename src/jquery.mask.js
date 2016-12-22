@@ -85,7 +85,9 @@
 
                         // Firefox, WebKit, etc..
                         if (ctrl.setSelectionRange) {
-                            ctrl.setSelectionRange(pos, pos);
+                            setTimeout(function(pos) {
+                                ctrl.setSelectionRange(pos, pos);
+                            }, navigator.userAgent.toLowerCase().indexOf('android') ? 100 : 0, pos);
                         } else { // IE
                             range = ctrl.createTextRange();
                             range.collapse(true);
