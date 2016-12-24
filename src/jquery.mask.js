@@ -195,9 +195,8 @@
                 }
                 return matched;
             },
-            calculateCaretPosition: function(newVal) {
-                var caretPos    = p.getCaret(),
-                    currVal     = p.val(),
+            calculateCaretPosition: function(caretPos, newVal) {
+                var currVal     = p.val(),
                     currValL    = currVal.length,
                     newValL     = newVal.length;
 
@@ -234,12 +233,16 @@
                 var keyCode = el.data('mask-keycode');
 
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
-                    var newVal = p.getMasked();
-                    var caretPos = p.calculateCaretPosition(newVal);
+                    var newVal   = p.getMasked(),
+                        caretPos = p.getCaret();
+
+                    // we got to adjust the cursor in here to avoid android glitches
+                    setTimeout(function(caretPos, newVal) {
+                      p.setCaret(p.calculateCaretPosition(caretPos, newVal));
+                    }, 0, caretPos, newVal);
 
                     p.val(newVal);
                     p.setCaret(caretPos);
-
                     return p.callbacks(e);
                 }
             },
