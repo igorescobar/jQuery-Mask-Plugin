@@ -99,6 +99,7 @@
                 el
                 .on('keydown.mask', function(e) {
                     el.data('mask-keycode', e.keyCode || e.which);
+                    el.data('mask-previus-value', el.val());
                 })
                 .on($.jMaskGlobals.useInput ? 'input.mask' : 'keyup.mask', p.behaviour)
                 .on('paste.mask drop.mask', function() {
@@ -185,45 +186,20 @@
 
                 return r;
             },
-            matchesAnyTranslation: function (str) {
-                var t = Object.keys(jMask.translation), matched = false;
-                for (var i = 0; i < t.length; i++) {
-                    if (jMask.translation[t[i]].pattern.test(str)) {
-                        matched = true;
-                        break;
-                    }
-                }
-                return matched;
-            },
             calculateCaretPosition: function(caretPos, newVal) {
-                var currVal     = p.val(),
-                    currValL    = currVal.length,
-                    newValL     = newVal.length;
-
-                // calculate caret adjustments
-                if (currValL < newValL) {
-                    caretPos = caretPos - (currValL - newValL);
-                } else if (currValL > newValL) {
-                    caretPos = caretPos + (currValL - newValL);
-                }
+                var newValL = newVal.length,
+                    oValue  = el.data('mask-previus-value'),
+                    oValueL = oValue.length;
 
                 // edge cases when erasing digits
-                if (el.data('mask-keycode') === 8) {
-                    if (caretPos - 1 > 0 && currValL > 0) {
-                        while (!p.matchesAnyTranslation(newVal.charAt(caretPos - 1))) {
-                            caretPos -= 1;
-                        }
-                    }
-                // edge cases when typing new digits
-                } else {
-                    // if the previus char is a special one add one more jump
-                    if (caretPos > 0) {
-                        if (!p.matchesAnyTranslation(newVal.charAt(caretPos - 1))) {
-                            caretPos += 1;
-                        }
-                    }
+                if (el.data('mask-keycode') === 8 && oValue !== newVal) {
+                    caretPos = caretPos - (newValL - oValueL) - 1;
 
+                // edge cases when typing new digits
+                } else if (oValue !== newVal) {
+                    caretPos = caretPos + (newValL - oValueL) - 1;
                 }
+
                 return caretPos;
             },
             behaviour: function(e) {
@@ -239,7 +215,7 @@
                     // we got to adjust the cursor in here to avoid android glitches
                     setTimeout(function(caretPos, newVal) {
                       p.setCaret(p.calculateCaretPosition(caretPos, newVal));
-                    }, 0, caretPos, newVal);
+                    }, 10, caretPos, newVal);
 
                     p.val(newVal);
                     p.setCaret(caretPos);

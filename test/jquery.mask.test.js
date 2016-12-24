@@ -149,7 +149,7 @@ $(document).ready(function(){
     module('Masks with numbers and especial characters');
 
     test("Masks with numbers and special characters.", function(){
-      testfield.mask('(123) 456-7899');
+      testfield.mask('(000) 000-0000');
 
       equal( typeTest("1"), "(1");
       equal( typeTest('12'), "(12");
