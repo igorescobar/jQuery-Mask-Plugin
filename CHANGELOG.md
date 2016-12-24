@@ -1,3 +1,9 @@
+== v1.14.4 (Dec/24 2016 14:38 +0000 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing android cursor positioning (special thanks to @felipejunges and @fernandobandeira)
+
 == v1.14.3 (Nov/28 2016 11:53 +0000 by Igor Escobar) ==
 
 Bugfixes:
