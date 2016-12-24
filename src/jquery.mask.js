@@ -81,13 +81,11 @@
                 try {
                     if (el.is(':focus')) {
                         var range, ctrl = el.get(0);
-                        pos += 1;
+                        // pos += 1;
 
                         // Firefox, WebKit, etc..
                         if (ctrl.setSelectionRange) {
-                            setTimeout(function(pos) {
-                                ctrl.setSelectionRange(pos, pos);
-                            }, navigator.userAgent.toLowerCase().indexOf('android') ? 100 : 0, pos);
+                            ctrl.setSelectionRange(pos, pos);
                         } else { // IE
                             range = ctrl.createTextRange();
                             range.collapse(true);
@@ -188,21 +186,21 @@
 
                 return r;
             },
-            getMCharsBeforeCount: function(index, onCleanVal) {
-                for (var count = 0, i = 0, maskL = mask.length; i < maskL && i < index; i++) {
-                    if (!jMask.translation[mask.charAt(i)]) {
-                        index = onCleanVal ? index + 1 : index;
-                        count++;
-                    }
-                }
-                return count;
-            },
-            caretPos: function (originalCaretPos, oldLength, newLength, maskDif) {
-                var translation = jMask.translation[mask.charAt(Math.min(originalCaretPos - 1, mask.length - 1))];
+            // getMCharsBeforeCount: function(index, onCleanVal) {
+            //     for (var count = 0, i = 0, maskL = mask.length; i < maskL && i < index; i++) {
+            //         if (!jMask.translation[mask.charAt(i)]) {
+            //             index = onCleanVal ? index + 1 : index;
+            //             count++;
+            //         }
+            //     }
+            //     return count;
+            // },
+            // caretPos: function (originalCaretPos, oldLength, newLength, maskDif) {
+            //     var translation = jMask.translation[mask.charAt(Math.min(originalCaretPos - 1, mask.length - 1))];
 
-                return !translation ? p.caretPos(originalCaretPos + 1, oldLength, newLength, maskDif)
-                                    : Math.min(originalCaretPos + newLength - oldLength - maskDif, newLength);
-            },
+            //     return !translation ? p.caretPos(originalCaretPos + 1, oldLength, newLength, maskDif)
+            //                         : Math.min(originalCaretPos + newLength - oldLength - maskDif, newLength);
+            // },
             behaviour: function(e) {
                 e = e || window.event;
                 p.invalid = [];
@@ -214,20 +212,33 @@
                         currVal     = p.val(),
                         currValL    = currVal.length,
                         newVal      = p.getMasked(),
-                        newValL     = newVal.length,
-                        maskDif     = p.getMCharsBeforeCount(newValL - 1) - p.getMCharsBeforeCount(currValL - 1),
-                        changeCaret = caretPos < currValL && newVal !== currVal;
+                        newValL     = newVal.length;
+
+                    // console.log(oldValue, currVal, currValL, newVal, newValL)
+                    if (currValL < newValL) {
+                        caretPos = caretPos - (currValL - newValL);
+                    } else if (currValL > newValL) {
+                        caretPos = caretPos + (currValL - newValL);
+                    }
+
+                    if (el.data('mask-keycode') === 8) {
+                        if (caretPos - 1 > 0 && currValL > 0) {
+                            while (!jMask.translation[mask.charAt(caretPos-1)]) {
+                                caretPos -= 1
+                            }
+                        }
+                    }
+                    // else {
+                        // if (currValL > 0) {
+                            // console.log(jMask.translation[mask.charAt(caretPos+1)])
+                            // while (!jMask.translation[mask.charAt(caretPos+1)]) {
+                                // caretPos -= 1
+                            // }
+                        // }
+                    // }
 
                     p.val(newVal);
-
-                    if (changeCaret) {
-                        // Avoid adjusting caret on backspace or delete
-                        (!(keyCode === 8 || keyCode === 46))
-                            ? caretPos = p.caretPos(caretPos, currValL, newValL, maskDif)
-                            : caretPos -= 1;
-
-                        p.setCaret(caretPos);
-                    }
+                    p.setCaret(caretPos);
 
                     return p.callbacks(e);
                 }
@@ -347,7 +358,7 @@
             var caret = p.getCaret();
             p.destroyEvents();
             p.val(jMask.getCleanVal());
-            p.setCaret(caret - p.getMCharsBeforeCount(caret));
+            p.setCaret(caret);
             return el;
         };
 
@@ -407,7 +418,7 @@
 
                 var caret = p.getCaret();
                 p.val(p.getMasked());
-                p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
+                p.setCaret(caret);
             }
         };
 
