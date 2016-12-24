@@ -185,10 +185,10 @@
 
                 return r;
             },
-            matchesAnyTranslation: function (char) {
+            matchesAnyTranslation: function (str) {
                 var t = Object.keys(jMask.translation), matched = false;
                 for (var i = 0; i < t.length; i++) {
-                    if (jMask.translation[t[i]].pattern.test(char)) {
+                    if (jMask.translation[t[i]].pattern.test(str)) {
                         matched = true;
                         break;
                     }
