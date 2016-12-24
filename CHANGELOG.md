@@ -1,3 +1,9 @@
+== v1.14.6 (Dec/24 2016 17:14 +0000 by Igor Escobar) ==
+
+Bugfixes:
+
+* fix caret positioning with multiple mask chars
+
 == v1.14.5 (Dec/24 2016 14:42 +0000 by Igor Escobar) ==
 
 Changes:
