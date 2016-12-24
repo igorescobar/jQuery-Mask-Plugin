@@ -1,3 +1,9 @@
+== v1.14.5 (Dec/24 2016 14:42 +0000 by Igor Escobar) ==
+
+Changes:
+
+* fixing reserved word
+
 == v1.14.4 (Dec/24 2016 14:38 +0000 by Igor Escobar) ==
 
 Bugfixes:
