@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.14.3
+ * @version: v1.14.4
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -81,7 +81,6 @@
                 try {
                     if (el.is(':focus')) {
                         var range, ctrl = el.get(0);
-                        pos += 1;
 
                         // Firefox, WebKit, etc..
                         if (ctrl.setSelectionRange) {
@@ -186,20 +185,46 @@
 
                 return r;
             },
-            getMCharsBeforeCount: function(index, onCleanVal) {
-                for (var count = 0, i = 0, maskL = mask.length; i < maskL && i < index; i++) {
-                    if (!jMask.translation[mask.charAt(i)]) {
-                        index = onCleanVal ? index + 1 : index;
-                        count++;
+            matchesAnyTranslation: function (char) {
+                var t = Object.keys(jMask.translation), matched = false;
+                for (var i = 0; i < t.length; i++) {
+                    if (jMask.translation[t[i]].pattern.test(char)) {
+                        matched = true;
+                        break;
                     }
                 }
-                return count;
+                return matched;
             },
-            caretPos: function (originalCaretPos, oldLength, newLength, maskDif) {
-                var translation = jMask.translation[mask.charAt(Math.min(originalCaretPos - 1, mask.length - 1))];
+            calculateCaretPosition: function(caretPos, newVal) {
+                var currVal     = p.val(),
+                    currValL    = currVal.length,
+                    newValL     = newVal.length;
 
-                return !translation ? p.caretPos(originalCaretPos + 1, oldLength, newLength, maskDif)
-                                    : Math.min(originalCaretPos + newLength - oldLength - maskDif, newLength);
+                // calculate caret adjustments
+                if (currValL < newValL) {
+                    caretPos = caretPos - (currValL - newValL);
+                } else if (currValL > newValL) {
+                    caretPos = caretPos + (currValL - newValL);
+                }
+
+                // edge cases when erasing digits
+                if (el.data('mask-keycode') === 8) {
+                    if (caretPos - 1 > 0 && currValL > 0) {
+                        while (!p.matchesAnyTranslation(newVal.charAt(caretPos - 1))) {
+                            caretPos -= 1;
+                        }
+                    }
+                // edge cases when typing new digits
+                } else {
+                    // if the previus char is a special one add one more jump
+                    if (caretPos > 0) {
+                        if (!p.matchesAnyTranslation(newVal.charAt(caretPos - 1))) {
+                            caretPos += 1;
+                        }
+                    }
+
+                }
+                return caretPos;
             },
             behaviour: function(e) {
                 e = e || window.event;
@@ -208,25 +233,16 @@
                 var keyCode = el.data('mask-keycode');
 
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
-                    var caretPos    = p.getCaret(),
-                        currVal     = p.val(),
-                        currValL    = currVal.length,
-                        newVal      = p.getMasked(),
-                        newValL     = newVal.length,
-                        maskDif     = p.getMCharsBeforeCount(newValL - 1) - p.getMCharsBeforeCount(currValL - 1),
-                        changeCaret = caretPos < currValL && newVal !== currVal;
+                    var newVal   = p.getMasked(),
+                        caretPos = p.getCaret();
+
+                    // we got to adjust the cursor in here to avoid android glitches
+                    setTimeout(function(caretPos, newVal) {
+                      p.setCaret(p.calculateCaretPosition(caretPos, newVal));
+                    }, 0, caretPos, newVal);
 
                     p.val(newVal);
-
-                    if (changeCaret) {
-                        // Avoid adjusting caret on backspace or delete
-                        (!(keyCode === 8 || keyCode === 46))
-                            ? caretPos = p.caretPos(caretPos, currValL, newValL, maskDif)
-                            : caretPos -= 1;
-
-                        p.setCaret(caretPos);
-                    }
-
+                    p.setCaret(caretPos);
                     return p.callbacks(e);
                 }
             },
@@ -337,7 +353,6 @@
 
         mask = typeof mask === 'function' ? mask(p.val(), undefined, el,  options) : mask;
 
-
         // public methods
         jMask.mask = mask;
         jMask.options = options;
@@ -345,7 +360,7 @@
             var caret = p.getCaret();
             p.destroyEvents();
             p.val(jMask.getCleanVal());
-            p.setCaret(caret - p.getMCharsBeforeCount(caret));
+            p.setCaret(caret);
             return el;
         };
 
@@ -405,7 +420,7 @@
 
                 var caret = p.getCaret();
                 p.val(p.getMasked());
-                p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
+                p.setCaret(caret);
             }
         };
 
