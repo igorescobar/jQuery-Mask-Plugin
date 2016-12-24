@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.14.4
+ * @version: v1.14.5
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -185,10 +185,10 @@
 
                 return r;
             },
-            matchesAnyTranslation: function (char) {
+            matchesAnyTranslation: function (str) {
                 var t = Object.keys(jMask.translation), matched = false;
                 for (var i = 0; i < t.length; i++) {
-                    if (jMask.translation[t[i]].pattern.test(char)) {
+                    if (jMask.translation[t[i]].pattern.test(str)) {
                         matched = true;
                         break;
                     }
