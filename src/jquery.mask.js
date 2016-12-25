@@ -193,11 +193,16 @@
 
                 // edge cases when erasing digits
                 if (el.data('mask-keycode') === 8 && oValue !== newVal) {
-                    caretPos = caretPos - (newValL - oValueL) - 1;
+                    caretPos = caretPos - (newVal.slice(0, caretPos).length - oValue.slice(0, caretPos).length);
 
                 // edge cases when typing new digits
                 } else if (oValue !== newVal) {
-                    caretPos = caretPos + (newValL - oValueL) - 1;
+                    // if the cursor is at the end keep it there
+                    if (caretPos >= oValueL) {
+                        caretPos = newValL;
+                    } else {
+                        caretPos = caretPos + (newVal.slice(0, caretPos).length - oValue.slice(0, caretPos).length);
+                    }
                 }
 
                 return caretPos;
