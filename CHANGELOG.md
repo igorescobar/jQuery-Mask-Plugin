@@ -1,3 +1,9 @@
+== v1.14.7 (Dec/25 2016 03:51 +0000 by Igor Escobar) ==
+
+Bugfixes:
+
+* improving caret positioning when cursor is on the middle
+
 == v1.14.6 (Dec/24 2016 17:14 +0000 by Igor Escobar) ==
 
 Bugfixes:
