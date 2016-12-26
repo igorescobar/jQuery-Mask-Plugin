@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.14.7
+ * @version: v1.14.8
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -217,7 +217,6 @@
                     var newVal   = p.getMasked(),
                         caretPos = p.getCaret();
 
-                    // we got to adjust the cursor in here to avoid android glitches
                     setTimeout(function(caretPos, newVal) {
                       p.setCaret(p.calculateCaretPosition(caretPos, newVal));
                     }, 10, caretPos, newVal);
@@ -512,7 +511,8 @@
         dataMask: true,
         watchInterval: 300,
         watchInputs: true,
-        useInput: eventSupported('input'),
+        // old versions of chrome dont work great with input event
+        useInput: !/Chrome\/28/.test(window.navigator.userAgent) && eventSupported('input'),
         watchDataMask: false,
         byPassKeys: [9, 16, 17, 18, 36, 37, 38, 39, 40, 91],
         translation: {
@@ -538,3 +538,4 @@
         }
     }, globals.watchInterval);
 }, window.jQuery, window.Zepto));
+
