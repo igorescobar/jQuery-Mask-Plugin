@@ -1,3 +1,9 @@
+== v1.14.8 (Dec/26 2016 13:18 +0000 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing caret on android with chrome 28
+
 == v1.14.7 (Dec/25 2016 03:51 +0000 by Igor Escobar) ==
 
 Bugfixes:
