@@ -58,6 +58,8 @@ gem 'jquery_mask_rails' # more details at http://bit.ly/jquery-mask-gem
   * [Mascaras com JQuery Mask Plugin](http://bit.ly/mascaras-com-jquery-mask-plugin)
   * [Mascara Javascript para os novos telefones de São Paulo](http://bit.ly/mascara-javascript-para-os-novos-telefones-de-sao-paulo)
 
+### Fun (or not) facts
+  * [I’ve had the chance to troll Donald Trump. But I didn’t.](http://www.igorescobar.com/blog/2016/08/21/ive-the-chance-to-troll-donald-trump-but-i-didnt/)
 ## Compatibility
 jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
 
