@@ -60,6 +60,7 @@ gem 'jquery_mask_rails' # more details at http://bit.ly/jquery-mask-gem
 
 ### Fun (or not) facts
   * [I’ve had the chance to troll Donald Trump. But I didn’t.](http://www.igorescobar.com/blog/2016/08/21/ive-the-chance-to-troll-donald-trump-but-i-didnt/)
+
 ## Compatibility
 jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
 
