@@ -24,7 +24,7 @@ https://igorescobar.github.io/jQuery-Mask-Plugin/
   * On-the-fly mask change.
   * Mask removal.
   * Full customization.
-  * Compatibility with UMD/Zepto.js/Angular.JS.
+  * Compatibility with React/UMD/Zepto.js/Angular.JS.
   * HTML5 placeholder support.
   * Clear the field if it not matches support.
 
@@ -70,6 +70,7 @@ jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
 
 ## Problems or Questions?
 Before opening a new [issue](https://github.com/igorescobar/jQuery-Mask-Plugin/issues) take a look on those frequently asked questions:
+#### [How to integrate with React.js?](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/498)
 #### [Problems with old versions of Android keyboard](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/135)
 #### [Negative numbers, or currency related problems](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/436#issuecomment-253176511)
 #### [Prefix or sufix on the Mask](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/166)
