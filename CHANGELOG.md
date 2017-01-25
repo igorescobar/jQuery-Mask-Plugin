@@ -1,3 +1,9 @@
+== v1.14.9 (Jan/25 2017 11:17 +0000 by Igor Escobar) ==
+
+Bugfixes:
+
+* don’t use input event when using samsung browser or old chrome versions
+
 == v1.14.8 (Dec/26 2016 13:18 +0000 by Igor Escobar) ==
 
 Bugfixes:
