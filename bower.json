@@ -1,6 +1,6 @@
 {
   "name": "jquery-mask-plugin",
-  "version": "1.14.8",
+  "version": "1.14.9",
   "main": "dist/jquery.mask.js",
   "ignore": [
     "deploy.rb",

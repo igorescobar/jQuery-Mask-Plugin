@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.14.8
+ * @version: v1.14.9
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -512,7 +512,7 @@
         watchInterval: 300,
         watchInputs: true,
         // old versions of chrome dont work great with input event
-        useInput: !/Chrome\/28/.test(window.navigator.userAgent) && eventSupported('input'),
+        useInput: !/Chrome\/[2-4][0-9]|SamsungBrowser/.test(window.navigator.userAgent) && eventSupported('input'),
         watchDataMask: false,
         byPassKeys: [9, 16, 17, 18, 36, 37, 38, 39, 40, 91],
         translation: {
