@@ -188,7 +188,7 @@
             },
             calculateCaretPosition: function(caretPos, newVal) {
                 var newValL = newVal.length,
-                    oValue  = el.data('mask-previus-value'),
+                    oValue  = el.data('mask-previus-value') || "",
                     oValueL = oValue.length;
 
                 // edge cases when erasing digits
