@@ -1,3 +1,9 @@
+== v1.14.10 (Feb/13 2017 14:18 +0000 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing exception when oValue in undefined
+
 == v1.14.9 (Jan/25 2017 11:17 +0000 by Igor Escobar) ==
 
 Bugfixes:
