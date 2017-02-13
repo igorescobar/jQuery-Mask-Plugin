@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.14.9
+ * @version: v1.14.10
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
@@ -188,7 +188,7 @@
             },
             calculateCaretPosition: function(caretPos, newVal) {
                 var newValL = newVal.length,
-                    oValue  = el.data('mask-previus-value'),
+                    oValue  = el.data('mask-previus-value') || '',
                     oValueL = oValue.length;
 
                 // edge cases when erasing digits
