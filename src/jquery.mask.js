@@ -217,7 +217,7 @@
                     var newVal   = p.getMasked(),
                         caretPos = p.getCaret();
                                    
-                    if (window.navigator.userAgent.toLowerCase().indexOf("android") > -1) {
+                    if (window.navigator.userAgent.toLowerCase().indexOf('android') > -1) {
                         setTimeout(function(caretPos, newVal) {
                             p.setCaret(p.calculateCaretPosition(caretPos, newVal));
                         }, 10, caretPos, newVal);
