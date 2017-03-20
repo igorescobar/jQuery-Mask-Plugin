@@ -1,0 +1,129 @@
+* {
+  box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #2E2E2E;
+  -webkit-font-smoothing: antialiased; }
+
+h1 {
+  font-size: 42px;
+  font-weight: 100;
+  letter-spacing: 2.2px;
+  margin: 0; }
+
+h2 {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  margin: 0; }
+
+h3 {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  margin: 0; }
+
+p {
+  margin: 0; }
+
+a {
+  text-decoration: none;
+  font-family: "Roboto Mono";
+  font-weight: 500;
+  color: #2E2E2E; }
+  a.button-large {
+    padding: 15px 36px 17px;
+    background: #167FFF;
+    color: #FFF;
+    border-radius: 6px; }
+    a.button-large:hover {
+      box-shadow: 0px 0px 0px 2px white, 0px 0px 0px 4px #167FFF; }
+  a.link-small {
+    font-size: 14px; }
+
+nav a {
+  font-size: 14px; }
+
+pre {
+  font-family: "Roboto Mono";
+  font-size: 14px;
+  line-height: 22px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: normal;
+  margin: 0; }
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px; }
+
+nav {
+  width: 100%;
+  margin: 40px 0 80px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  nav a {
+    padding: 2px 4px;
+    color: #B1B1B1; }
+    nav a:nth-child(2) {
+      margin: 0 40px; }
+  nav .selected {
+    color: #2E2E2E;
+    border-bottom: 2px solid #2E2E2E; }
+
+.hero {
+  height: 590px; }
+  .hero .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 100px;
+    border-bottom: 2px solid #EFF3F7; }
+  .hero h2 {
+    font-weight: 100;
+    color: #167FFF;
+    margin-bottom: 4px; }
+  .hero h1 {
+    max-width: 510px;
+    text-align: center;
+    margin-bottom: 60px; }
+  .hero .button-large {
+    margin-bottom: 60px; }
+
+.docs {
+  margin-top: 100px;
+  margin-bottom: 200px; }
+  .docs h2 {
+    margin-bottom: 80px; }
+  .docs h3 {
+    margin-bottom: 40px; }
+  .docs .container {
+    max-width: 600px; }
+  .docs .doc-point {
+    max-width: 600px;
+    margin-bottom: 60px;
+    padding-bottom: 60px; }
+    .docs .doc-point:not(:last-child) {
+      border-bottom: 2px solid #EFF3F7; }
+    .docs .doc-point p {
+      font-size: 14px;
+      line-height: 20px;
+      color: #8C8C8C;
+      margin-bottom: 20px; }
+    .docs .doc-point div:not(:last-child) {
+      margin-bottom: 60px; }
+    .docs .doc-point pre + p {
+      margin-top: 20px; }
+
+/*# sourceMappingURL=main.css.map */
