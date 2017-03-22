@@ -217,7 +217,7 @@
                     var newVal   = p.getMasked(),
                         caretPos = p.getCaret();
 
-                    if (window.navigator.userAgent.toLowerCase().indexOf('android') > -1) {
+                    if ($.jMaskGlobals.isAndroid) {
                         setTimeout(function(caretPos, newVal) {
                             p.setCaret(p.calculateCaretPosition(caretPos, newVal));
                         }, 10, caretPos, newVal);
@@ -515,6 +515,7 @@
         dataMask: true,
         watchInterval: 300,
         watchInputs: true,
+        isAndroid: window.navigator.userAgent.toLowerCase().indexOf('android') > -1,
         // old versions of chrome dont work great with input event
         useInput: !/Chrome\/[2-4][0-9]|SamsungBrowser/.test(window.navigator.userAgent) && eventSupported('input'),
         watchDataMask: false,
