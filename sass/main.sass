@@ -1,0 +1,264 @@
+$color-main: #167FFF
+$color-dark: #2E2E2E
+$color-borders: #EFF3F7
+
+*
+  box-sizing: border-box
+
+body
+  margin: 0
+  padding: 0
+  -webkit-box-sizing: border-box
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif
+  color: $color-dark
+  -webkit-font-smoothing: antialiased
+
+h1
+  font-size: 42px
+  font-weight: 100
+  letter-spacing: 2.2px
+  margin: 0
+
+h2
+  font-size: 28px
+  font-weight: 500
+  letter-spacing: 0.6px
+  margin: 0
+
+h3
+  font-size: 20px
+  font-weight: 500
+  letter-spacing: 0.2px
+  margin: 0
+
+p
+  margin: 0
+
+a
+  text-decoration: none
+  font-family: "Roboto Mono"
+  font-weight: 500
+  color: $color-dark
+
+  &:hover:not(.button-large)
+    opacity: .5
+
+  &.button-large
+    padding: 15px 36px 17px
+    background: $color-main
+    color: #FFF
+    border-radius: 6px
+
+    &:hover
+      box-shadow: 0px 0px 0px 2px white, 0px 0px 0px 4px $color-main
+
+  &.link-small
+    font-size: 14px
+
+ol,
+ul,
+li
+  list-style-type: none
+  padding: 0
+  margin: 0
+
+nav a
+  font-size: 14px
+
+pre
+  font-family: "Roboto Mono"
+  font-size: 14px
+  line-height: 22px
+  overflow-x: auto
+  white-space: pre-wrap
+  white-space: -moz-pre-wrap
+  white-space: -pre-wrap
+  white-space: -o-pre-wrap
+  word-wrap: normal
+  margin: 0
+
+.container
+  width: 100%
+  max-width: 1200px
+  margin: 0 auto
+  padding: 0 16px
+
+  &.container-small
+    max-width: 600px
+
+nav
+  width: 100%
+  margin: 40px 0 80px 0
+  display: flex
+  align-items: center
+  justify-content: center
+
+  a
+    padding: 2px 4px
+    color: #B1B1B1
+    &:nth-child(2)
+      margin: 0 40px
+
+  .selected
+    color: #2E2E2E
+    border-bottom: 2px solid #2E2E2E
+
+input[type=text],
+input[type=email],
+  -moz-appearance: none
+  -webkit-appearance: none
+  outline: none
+  border: none
+  border-bottom: 2px solid $color-borders
+  font-family: "Roboto Mono"
+  font-size: 14px
+  padding: 12px
+
+  &:focus
+    border-color: $color-dark
+
+
+label
+  font-family: "Roboto Mono"
+  font-weight: 500
+  color: $color-dark
+  font-size: 14px
+
+  &:hover
+    cursor: pointer
+
+.input-group
+  display: flex
+  align-items: center
+  margin-bottom: 20px
+
+  label
+    width: 100%
+    max-width: 170px
+
+  input
+    width: 100%
+    margin-left: 20px
+
+.examples
+  margin-top: 100px
+  margin-bottom: 120px
+
+  .inputs
+    margin-top: 80px
+
+.donate
+  width: 100%
+  height: 50px
+  background-color: $color-main
+
+  .container
+    height: 98%
+    display: flex
+    align-items: center
+    justify-content: center
+
+  p
+    margin-right: 30px
+    font-size: 14px
+    color: #FFFFFF
+
+  a
+    color: #FFFFFF
+
+  ul
+    display: flex
+    align-items: center
+    justify-content: center
+
+.hero
+  .container
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    padding-bottom: 100px
+    border-bottom: 2px solid $color-borders
+
+  h2
+    font-weight: 100
+    color: $color-main
+    margin-bottom: 4px
+
+  h1
+    max-width: 510px
+    text-align: center
+    margin-bottom: 60px
+
+  .button-large
+    margin-bottom: 60px
+    position: relative
+
+    &::after
+      content: ""
+      position: absolute
+      left: calc(50% - 2px)
+      top: 76px
+      display: inline-block
+      width: 2px
+      height: 20px
+      background-color: #DDDDDD
+
+.docs
+  margin-top: 100px
+  margin-bottom: 120px
+
+  h2
+    margin-bottom: 80px
+
+  h3
+    margin-bottom: 40px
+
+  .doc-point
+    max-width: 600px
+    margin-bottom: 60px
+    padding-bottom: 60px
+
+    &:not(:last-child)
+      border-bottom: 2px solid $color-borders
+
+    p
+      font-size: 14px
+      line-height: 20px
+      color: #8C8C8C
+      margin-bottom: 20px
+
+    div:not(:last-child)
+      margin-bottom: 60px
+
+    pre + p
+      margin-top: 20px
+
+footer
+  padding: 80px 0
+  background-color: #FAFAFA
+
+  .container
+    display: flex
+    flex-direction: column
+    align-items: center
+
+  img
+    max-width: 120px
+    margin-bottom: 40px
+
+  a
+    font-size: 14px
+
+  ol
+    display: flex
+    margin-top: 30px
+
+    li:nth-child(2)::before,
+    li:nth-child(2)::after
+      content: ""
+      display: inline-block
+      width: 12px
+      height: 2px
+      background-color: #DDDDDD
+      margin: 0 14px 4px 14px
