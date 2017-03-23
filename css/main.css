@@ -134,7 +134,11 @@ label {
 .donate {
   width: 100%;
   height: 50px;
-  background-color: #167FFF; }
+  background-color: #167FFF;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100; }
   .donate .container {
     height: 98%;
     display: flex;
@@ -150,34 +154,48 @@ label {
     display: flex;
     align-items: center;
     justify-content: center; }
+    .donate ul li:not(:last-child) a {
+      display: inline-block;
+      text-align: center;
+      border: 2px solid #FFFFFF;
+      width: 40px;
+      height: 26px;
+      margin-right: 10px;
+      opacity: 0.5; }
+      .donate ul li:not(:last-child) a:hover, .donate ul li:not(:last-child) a.active {
+        opacity: 1; }
+    .donate ul li:last-child a {
+      margin-left: 10px; }
 
-.hero .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding-bottom: 100px;
-  border-bottom: 2px solid #EFF3F7; }
-.hero h2 {
-  font-weight: 100;
-  color: #167FFF;
-  margin-bottom: 4px; }
-.hero h1 {
-  max-width: 510px;
-  text-align: center;
-  margin-bottom: 60px; }
-.hero .button-large {
-  margin-bottom: 60px;
-  position: relative; }
-  .hero .button-large::after {
-    content: "";
-    position: absolute;
-    left: calc(50% - 2px);
-    top: 76px;
-    display: inline-block;
-    width: 2px;
-    height: 20px;
-    background-color: #DDDDDD; }
+.hero {
+  margin-top: 50px; }
+  .hero .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 100px;
+    border-bottom: 2px solid #EFF3F7; }
+  .hero h2 {
+    font-weight: 100;
+    color: #167FFF;
+    margin-bottom: 4px; }
+  .hero h1 {
+    max-width: 510px;
+    text-align: center;
+    margin-bottom: 60px; }
+  .hero .button-large {
+    margin-bottom: 60px;
+    position: relative; }
+    .hero .button-large::after {
+      content: "";
+      position: absolute;
+      left: calc(50% - 2px);
+      top: 76px;
+      display: inline-block;
+      width: 2px;
+      height: 20px;
+      background-color: #DDDDDD; }
 
 .docs {
   margin-top: 100px;
