@@ -217,7 +217,7 @@
                     var newVal   = p.getMasked(),
                         caretPos = p.getCaret();
 
-                    setTimeout(function(caretPos, newVal) {
+                    setTimeout(function() {
                       p.setCaret(p.calculateCaretPosition(caretPos, newVal));
                     }, 10, caretPos, newVal);
 
