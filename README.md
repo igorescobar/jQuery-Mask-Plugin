@@ -71,6 +71,23 @@ jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
  * Opera 8+ (Win, Mac, Linux, Android, iPhone).
  * Android Default Browser v4+
 
+## Typescript support
+Definition can be found [here](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/jquery-mask-plugin).
+
+To install, open terminal and navigate to your working directory.
+
+### Typescript 1.x users
+  * Install [typings](https://github.com/typings/typings) by running `npm install typings --global`.
+  * Then install the definition by running `typings install dt~jquery-mask-plugin --global --save`.
+### Typescript 2.x users
+  * Use npm `npm install --save-dev @types/jquery-mask-plugin`.
+
+For configuration options and troubleshooting refer to these repositories: 
+* [Typings](https://github.com/typings/typings)
+* [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)
+* [Typescript](https://github.com/Microsoft/TypeScript)
+
+
 ## Problems or Questions?
 Before opening a new [issue](https://github.com/igorescobar/jQuery-Mask-Plugin/issues) take a look on those frequently asked questions:
 #### [How to integrate with React.js?](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/498)
