@@ -218,7 +218,7 @@
                         caretPos = p.getCaret();
                      	caretPos = p.newcaret || caretPos;
 
-                    setTimeout(function(caretPos, newVal) {
+                    setTimeout(function(caretPos) {
                       p.setCaret(caretPos);
                     }, 10, caretPos, newVal);
 
