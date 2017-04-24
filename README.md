@@ -1,13 +1,13 @@
-#jQuery Mask Plugin
+# jQuery Mask Plugin
 A jQuery Plugin to make masks on form fields and HTML elements.
 
 [![Build Status](https://travis-ci.org/igorescobar/jQuery-Mask-Plugin.png)](https://travis-ci.org/igorescobar/jQuery-Mask-Plugin)
 [![Code Climate](https://codeclimate.com/github/igorescobar/jQuery-Mask-Plugin.png)](https://codeclimate.com/github/igorescobar/jQuery-Mask-Plugin)
 
-#Documentation, Demos & Usage Examples
+# Documentation, Demos & Usage Examples
 https://igorescobar.github.io/jQuery-Mask-Plugin/
 
-##Features
+## Features
 
   * Lightweight (~2kb minified, ~1kb gziped).
   * Built-in support for dynamically added elements.
@@ -49,7 +49,7 @@ http://www.jsdelivr.com/projects/jquery.mask
 gem 'jquery_mask_rails' # more details at http://bit.ly/jquery-mask-gem
 ```
 
-##Tutorials
+## Tutorials
 ### English
   * [Masks with jQuery Mask Plugin](http://bit.ly/masks-with-jquery-mask-plugin)
   * [Using jQuery Mask Plugin With Zepto.js](http://bit.ly/using-jquery-mask-plugin-with-zeptojs)
