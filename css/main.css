@@ -5,26 +5,26 @@ body {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
-  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #2E2E2E;
+  font-family: Chivo, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #232E3C;
   -webkit-font-smoothing: antialiased; }
 
 h1 {
   font-size: 42px;
-  font-weight: 100;
-  letter-spacing: 2.2px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
   margin: 0; }
 
 h2 {
   font-size: 28px;
-  font-weight: 500;
-  letter-spacing: 0.6px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
   margin: 0; }
 
 h3 {
   font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 0.2px;
+  font-weight: 700;
+  letter-spacing: -0.14px;
   margin: 0; }
 
 p {
@@ -34,16 +34,16 @@ a {
   text-decoration: none;
   font-family: "Roboto Mono";
   font-weight: 500;
-  color: #2E2E2E; }
+  color: #232E3C; }
   a:hover:not(.button-large) {
     opacity: 0.5; }
   a.button-large {
     padding: 15px 36px 17px;
-    background: #167FFF;
+    background: #232E3C;
     color: #FFF;
     border-radius: 6px; }
     a.button-large:hover {
-      box-shadow: 0px 0px 0px 2px white, 0px 0px 0px 4px #167FFF; }
+      background: #2e3d4f; }
   a.link-small {
     font-size: 14px; }
 
@@ -104,12 +104,12 @@ input[type=email] {
   padding: 12px; }
   input[type=text]:focus,
   input[type=email]:focus {
-    border-color: #2E2E2E; }
+    border-color: #232E3C; }
 
 label {
   font-family: "Roboto Mono";
   font-weight: 500;
-  color: #2E2E2E;
+  color: #232E3C;
   font-size: 14px; }
   label:hover {
     cursor: pointer; }
@@ -196,6 +196,8 @@ label {
       width: 2px;
       height: 20px;
       background-color: #DDDDDD; }
+  .hero.home {
+    color: #167FFF; }
 
 .docs {
   margin-top: 100px;
@@ -210,10 +212,13 @@ label {
     padding-bottom: 60px; }
     .docs .doc-point:not(:last-child) {
       border-bottom: 2px solid #EFF3F7; }
+    .docs .doc-point h4 {
+      margin-bottom: 14px; }
     .docs .doc-point p {
       font-size: 14px;
       line-height: 20px;
-      color: #8C8C8C;
+      letter-spacing: 0.1px;
+      color: #6B737C;
       margin-bottom: 20px; }
     .docs .doc-point div:not(:last-child) {
       margin-bottom: 60px; }

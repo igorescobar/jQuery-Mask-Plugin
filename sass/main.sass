@@ -1,5 +1,6 @@
 $color-main: #167FFF
-$color-dark: #2E2E2E
+$color-dark: #232E3C
+$color-light: #6B737C
 $color-borders: #EFF3F7
 
 *
@@ -9,26 +10,26 @@ body
   margin: 0
   padding: 0
   -webkit-box-sizing: border-box
-  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif
+  font-family: Chivo, "Helvetica Neue", Helvetica, Arial, sans-serif
   color: $color-dark
   -webkit-font-smoothing: antialiased
 
 h1
   font-size: 42px
-  font-weight: 100
-  letter-spacing: 2.2px
+  font-weight: 700
+  letter-spacing: 0.1px
   margin: 0
 
 h2
   font-size: 28px
-  font-weight: 500
-  letter-spacing: 0.6px
+  font-weight: 700
+  letter-spacing: -0.2px
   margin: 0
 
 h3
   font-size: 20px
-  font-weight: 500
-  letter-spacing: 0.2px
+  font-weight: 700
+  letter-spacing: -0.14px
   margin: 0
 
 p
@@ -45,12 +46,12 @@ a
 
   &.button-large
     padding: 15px 36px 17px
-    background: $color-main
+    background: $color-dark
     color: #FFF
     border-radius: 6px
 
     &:hover
-      box-shadow: 0px 0px 0px 2px white, 0px 0px 0px 4px $color-main
+      background: lighten($color-dark, 6%)
 
   &.link-small
     font-size: 14px
@@ -226,6 +227,9 @@ label
       height: 20px
       background-color: #DDDDDD
 
+  &.home
+    color: $color-main
+
 .docs
   margin-top: 100px
   margin-bottom: 120px
@@ -244,10 +248,14 @@ label
     &:not(:last-child)
       border-bottom: 2px solid $color-borders
 
+    h4
+      margin-bottom: 14px
+
     p
       font-size: 14px
       line-height: 20px
-      color: #8C8C8C
+      letter-spacing: 0.1px
+      color: $color-light
       margin-bottom: 20px
 
     div:not(:last-child)
