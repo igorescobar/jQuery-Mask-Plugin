@@ -1,6 +1,6 @@
-$color-main: #167FFF
-$color-dark: #232E3C
-$color-light: #6B737C
+$color-main: #401EDF
+$color-dark: #1A232E
+$color-light: #A4ADB9
 $color-borders: #EFF3F7
 
 *
@@ -16,20 +16,21 @@ body
 
 h1
   font-size: 42px
+  line-height: 44px
   font-weight: 700
-  letter-spacing: 0.1px
+  letter-spacing: -0.77px
   margin: 0
 
 h2
-  font-size: 28px
+  font-size: 32px
   font-weight: 700
-  letter-spacing: -0.2px
+  letter-spacing: -0.58px
   margin: 0
 
 h3
-  font-size: 20px
+  font-size: 24px
   font-weight: 700
-  letter-spacing: -0.14px
+  letter-spacing: -0.36px
   margin: 0
 
 p
@@ -38,13 +39,15 @@ p
 a
   text-decoration: none
   font-family: "Roboto Mono"
-  font-weight: 500
+  font-weight: 700
   color: $color-dark
 
   &:hover:not(.button-large)
     opacity: .5
 
   &.button-large
+    display: block
+    font-size: 14px
     padding: 15px 36px 17px
     background: $color-dark
     color: #FFF
@@ -84,25 +87,30 @@ pre
   margin: 0 auto
   padding: 0 16px
 
+  &.container-narrow
+    max-width: 996px
+
   &.container-small
     max-width: 600px
 
-nav
-  width: 100%
-  margin: 40px 0 80px 0
-  display: flex
-  align-items: center
-  justify-content: center
+.navigation
+  margin-top: 110px
 
-  a
-    padding: 2px 4px
-    color: #B1B1B1
-    &:nth-child(2)
-      margin: 0 40px
+  nav
+    width: 100%
+    margin: 40px 0 80px 0
+    display: flex
+    align-items: center
 
-  .selected
-    color: #2E2E2E
-    border-bottom: 2px solid #2E2E2E
+    a
+      padding: 2px 4px
+      color: #B1B1B1
+      &:nth-child(2)
+        margin: 0 40px
+
+    .selected
+      color: #2E2E2E
+      border-bottom: 2px solid #2E2E2E
 
 input[type=text],
 input[type=email],
@@ -195,36 +203,36 @@ label
 .hero
   margin-top: 50px
 
-  .container
-    display: flex
-    justify-content: center
-    align-items: center
-    flex-direction: column
-    padding-bottom: 100px
+  .border-bottom
     border-bottom: 2px solid $color-borders
 
-  h2
-    font-weight: 100
-    color: $color-main
-    margin-bottom: 4px
+  .container-narrow
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding-bottom: 120px
 
   h1
     max-width: 510px
-    text-align: center
-    margin-bottom: 60px
+
+  ul
+    display: flex
+    align-items: center
+
+    li:first-child
+      margin-right: 80px
 
   .button-large
-    margin-bottom: 60px
     position: relative
 
     &::after
       content: ""
       position: absolute
-      left: calc(50% - 2px)
-      top: 76px
+      right: -50px
+      top: 26px
       display: inline-block
-      width: 2px
-      height: 20px
+      width: 20px
+      height: 2px
       background-color: #DDDDDD
 
   &.home
@@ -234,6 +242,32 @@ label
   margin-top: 100px
   margin-bottom: 120px
 
+  .container
+    display: flex
+    justify-content: space-between
+
+  .code-nav
+    max-width: 278px
+    margin-top: 116px
+
+    ol li
+      margin-bottom: 16px
+
+      a.active
+        color: $color-main
+
+        &::before
+          content: "—  "
+
+      a:not(.active)
+        color: $color-light
+
+        &:hover
+          margin-left: 3px
+
+  .docs-content
+    max-width: 590px
+
   h2
     margin-bottom: 80px
 
@@ -241,12 +275,8 @@ label
     margin-bottom: 40px
 
   .doc-point
-    max-width: 600px
-    margin-bottom: 60px
-    padding-bottom: 60px
-
-    &:not(:last-child)
-      border-bottom: 2px solid $color-borders
+    margin-bottom: 55px
+    padding-bottom: 55px
 
     h4
       margin-bottom: 14px
@@ -254,9 +284,9 @@ label
     p
       font-size: 14px
       line-height: 20px
-      letter-spacing: 0.1px
+      letter-spacing: -0.13px
       color: $color-light
-      margin-bottom: 20px
+      margin-bottom: 10px
 
     div:not(:last-child)
       margin-bottom: 60px
