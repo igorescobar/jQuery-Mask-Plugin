@@ -12,9 +12,9 @@ body {
 
 h1 {
   font-size: 52px;
-  line-height: 44px;
-  font-weight: 700;
-  letter-spacing: -0.77px;
+  line-height: 56px;
+  font-weight: 400;
+  letter-spacing: -2.22px;
   margin: 0; }
 
 h2 {
@@ -26,11 +26,15 @@ h2 {
 h3 {
   font-size: 24px;
   font-weight: 700;
-  letter-spacing: -0.36px;
+  letter-spacing: -0.38px;
   margin: 0; }
 
 p {
   margin: 0; }
+  p.large {
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.38px; }
 
 a {
   text-decoration: none;
@@ -42,12 +46,12 @@ a {
   a.button-large {
     display: block;
     font-size: 14px;
-    padding: 15px 36px 17px;
-    background: #1A232E;
+    padding: 13px 36px 16px;
+    background: #401EDF;
     color: #FFF;
-    border-radius: 6px; }
+    border-radius: 4px; }
     a.button-large:hover {
-      background: #253242; }
+      background: #381ac4; }
   a.link-small {
     font-size: 14px; }
 
@@ -83,21 +87,19 @@ pre {
   .container.container-small {
     max-width: 600px; }
 
-.navigation {
-  margin-top: 110px; }
-  .navigation nav {
-    width: 100%;
-    margin: 40px 0 80px 0;
-    display: flex;
-    align-items: center; }
-    .navigation nav a {
-      padding: 2px 4px;
-      color: #B1B1B1; }
-      .navigation nav a:nth-child(2) {
-        margin: 0 40px; }
-    .navigation nav .selected {
-      color: #2E2E2E;
-      border-bottom: 2px solid #2E2E2E; }
+.navigation nav {
+  width: 100%;
+  margin: 60px 0 80px 0;
+  display: flex;
+  align-items: center; }
+  .navigation nav a {
+    padding: 2px 4px;
+    color: #B1B1B1; }
+    .navigation nav a:nth-child(2) {
+      margin: 0 40px; }
+  .navigation nav .selected {
+    color: #2E2E2E;
+    border-bottom: 2px solid #2E2E2E; }
 
 input[type=text],
 input[type=email] {
@@ -105,10 +107,10 @@ input[type=email] {
   -webkit-appearance: none;
   outline: none;
   border: none;
-  border-bottom: 2px solid #EFF3F7;
+  border-bottom: 1px solid #EFF3F7;
   font-family: "Roboto Mono";
   font-size: 14px;
-  padding: 12px; }
+  padding: 12px 4px; }
   input[type=text]:focus,
   input[type=email]:focus {
     border-color: #1A232E; }
@@ -124,19 +126,32 @@ label {
 .input-group {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 20px; }
   .input-group label {
     width: 100%;
     max-width: 170px; }
   .input-group input {
     width: 100%;
-    margin-left: 20px; }
+    max-width: 380px;
+    margin-left: 32px; }
 
 .examples {
-  margin-top: 100px;
+  margin-top: 20px;
   margin-bottom: 120px; }
+  .examples .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+  .examples p {
+    margin-bottom: 100px; }
+  .examples p,
+  .examples h3 {
+    text-align: center; }
   .examples .inputs {
-    margin-top: 80px; }
+    margin-top: 80px;
+    width: 100%;
+    max-width: 600px; }
 
 .donate {
   width: 100%;
@@ -176,15 +191,8 @@ label {
 
 .hero {
   margin-top: 50px; }
-  .hero .border-bottom {
-    border-bottom: 2px solid #EFF3F7; }
-  .hero .container-narrow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 120px; }
   .hero h1 {
-    max-width: 510px; }
+    max-width: 580px; }
   .hero ul {
     display: flex;
     align-items: center; }
@@ -201,8 +209,24 @@ label {
       width: 20px;
       height: 2px;
       background-color: #DDDDDD; }
-  .hero.home {
-    color: #401EDF; }
+
+.hero.home::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 242px;
+  background: url(../img/background.svg) center center no-repeat;
+  background-size: cover;
+  margin-top: 40px; }
+.hero.home nav {
+  margin-bottom: 100px; }
+.hero.home .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+.hero.home h1 {
+  text-align: center;
+  margin-bottom: 60px; }
 
 .docs {
   margin-top: 100px;

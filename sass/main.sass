@@ -16,9 +16,9 @@ body
 
 h1
   font-size: 52px
-  line-height: 44px
-  font-weight: 700
-  letter-spacing: -0.77px
+  line-height: 56px
+  font-weight: 400
+  letter-spacing: -2.22px
   margin: 0
 
 h2
@@ -30,11 +30,16 @@ h2
 h3
   font-size: 24px
   font-weight: 700
-  letter-spacing: -0.36px
+  letter-spacing: -0.38px
   margin: 0
 
 p
   margin: 0
+
+  &.large
+    font-size: 18px
+    line-height: 28px
+    letter-spacing: -0.38px
 
 a
   text-decoration: none
@@ -48,13 +53,13 @@ a
   &.button-large
     display: block
     font-size: 14px
-    padding: 15px 36px 17px
-    background: $color-dark
+    padding: 13px 36px 16px
+    background: $color-main
     color: #FFF
-    border-radius: 6px
+    border-radius: 4px
 
     &:hover
-      background: lighten($color-dark, 6%)
+      background: darken($color-main, 6%)
 
   &.link-small
     font-size: 14px
@@ -94,11 +99,9 @@ pre
     max-width: 600px
 
 .navigation
-  margin-top: 110px
-
   nav
     width: 100%
-    margin: 40px 0 80px 0
+    margin: 60px 0 80px 0
     display: flex
     align-items: center
 
@@ -118,10 +121,10 @@ input[type=email],
   -webkit-appearance: none
   outline: none
   border: none
-  border-bottom: 2px solid $color-borders
+  border-bottom: 1px solid $color-borders
   font-family: "Roboto Mono"
   font-size: 14px
-  padding: 12px
+  padding: 12px 4px
 
   &:focus
     border-color: $color-dark
@@ -139,6 +142,7 @@ label
 .input-group
   display: flex
   align-items: center
+  justify-content: space-between
   margin-bottom: 20px
 
   label
@@ -147,14 +151,29 @@ label
 
   input
     width: 100%
-    margin-left: 20px
+    max-width: 380px
+    margin-left: 32px
 
 .examples
-  margin-top: 100px
+  margin-top: 20px
   margin-bottom: 120px
+
+  .container
+    display: flex
+    flex-direction: column
+    align-items: center
+
+  p
+    margin-bottom: 100px
+
+  p,
+  h3
+    text-align: center
 
   .inputs
     margin-top: 80px
+    width: 100%
+    max-width: 600px
 
 .donate
   width: 100%
@@ -203,17 +222,8 @@ label
 .hero
   margin-top: 50px
 
-  .border-bottom
-    border-bottom: 2px solid $color-borders
-
-  .container-narrow
-    display: flex
-    justify-content: space-between
-    align-items: center
-    padding-bottom: 120px
-
   h1
-    max-width: 510px
+    max-width: 580px
 
   ul
     display: flex
@@ -235,8 +245,28 @@ label
       height: 2px
       background-color: #DDDDDD
 
-  &.home
-    color: $color-main
+.hero.home
+
+  &::after
+    content: ""
+    display: block
+    width: 100%
+    height: 242px
+    background: url(../img/background.svg) center center no-repeat
+    background-size: cover
+    margin-top: 40px
+
+  nav
+    margin-bottom: 100px
+
+  .container
+    display: flex
+    flex-direction: column
+    align-items: center
+
+  h1
+    text-align: center
+    margin-bottom: 60px
 
 .docs
   margin-top: 100px
