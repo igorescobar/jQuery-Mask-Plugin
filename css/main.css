@@ -11,7 +11,7 @@ body {
   -webkit-font-smoothing: antialiased; }
 
 h1 {
-  font-size: 42px;
+  font-size: 52px;
   line-height: 44px;
   font-weight: 700;
   letter-spacing: -0.77px;
@@ -37,7 +37,7 @@ a {
   font-family: "Roboto Mono";
   font-weight: 700;
   color: #1A232E; }
-  a:hover:not(.button-large) {
+  a:hover:not(.button-large):not(.active) {
     opacity: 0.5; }
   a.button-large {
     display: block;
@@ -213,6 +213,8 @@ label {
   .docs .code-nav {
     max-width: 278px;
     margin-top: 116px; }
+    .docs .code-nav ol {
+      max-width: 278px; }
     .docs .code-nav ol li {
       margin-bottom: 16px; }
       .docs .code-nav ol li a.active {
@@ -223,6 +225,9 @@ label {
         color: #A4ADB9; }
         .docs .code-nav ol li a:not(.active):hover {
           margin-left: 3px; }
+  .docs .docs-nav.fixed ol {
+    position: fixed;
+    top: 120px; }
   .docs .docs-content {
     max-width: 590px; }
   .docs h2 {

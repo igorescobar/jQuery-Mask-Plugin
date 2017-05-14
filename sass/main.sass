@@ -15,7 +15,7 @@ body
   -webkit-font-smoothing: antialiased
 
 h1
-  font-size: 42px
+  font-size: 52px
   line-height: 44px
   font-weight: 700
   letter-spacing: -0.77px
@@ -42,7 +42,7 @@ a
   font-weight: 700
   color: $color-dark
 
-  &:hover:not(.button-large)
+  &:hover:not(.button-large):not(.active)
     opacity: .5
 
   &.button-large
@@ -250,6 +250,9 @@ label
     max-width: 278px
     margin-top: 116px
 
+    ol
+      max-width: 278px
+
     ol li
       margin-bottom: 16px
 
@@ -264,6 +267,11 @@ label
 
         &:hover
           margin-left: 3px
+
+  .docs-nav.fixed
+    ol
+      position: fixed
+      top: 120px
 
   .docs-content
     max-width: 590px

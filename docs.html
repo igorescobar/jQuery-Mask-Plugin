@@ -57,18 +57,15 @@
       <div class="container container-narrow">
         <nav class="code-nav docs-nav">
           <ol>
-            <li><a href="#" class="active">Basic usage</a></li>
-            <li><a href="#">Callback examples</a></li>
-            <li><a href="#">On-the-fly mask change</a></li>
-            <li><a href="#">Mask as a function</a></li>
-            <li><a href="#">Using HTML notation examples</a></li>
-            <li><a href="#">Translation</a></li>
-            <li><a href="#">Optional digits</a></li>
-            <li><a href="#">Recursive digits</a></li>
-            <li><a href="#">Fallback digits</a></li>
-            <li><a href="#">Removing the mask</a></li>
-            <li><a href="#">Getting the unmasked typed value</a></li>
-            <li><a href="#">Getting a masked value programmatically</a></li>
+            <li><a href="#basic-usage" class="active">Basic usage</a></li>
+            <li><a href="#callback-examples">Callback examples</a></li>
+            <li><a href="#on-the-fly-mask-changes">On-the-fly mask change</a></li>
+            <li><a href="#mask-as-a-function">Mask as a function</a></li>
+            <li><a href="#using-html-notation-examples">Using HTML notation examples</a></li>
+            <li><a href="#translation">Translation</a></li>
+            <li><a href="#removing-the-mask">Removing the mask</a></li>
+            <li><a href="#getting-the-unmasked-typed-value">Getting the unmasked typed value</a></li>
+            <li><a href="#getting-a-masked-value-programmatically">Getting a masked value programmatically</a></li>
           </ol>
         </nav>
 
@@ -76,7 +73,7 @@
           <h2>Documentation</h2>
 
           <div class="doc-point">
-            <h3>Basic Usage</h3>
+            <h3 id="basic-usage">Basic Usage</h3>
 
             <pre>
 $(document).ready(function(){
@@ -117,7 +114,7 @@ $(document).ready(function(){
           </div>
 
           <div class="doc-point">
-            <h3>Callback examples</h3>
+            <h3 id="callback-examples">Callback examples</h3>
 
             <pre>
 var options =  {
@@ -141,7 +138,7 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
           </div>
 
           <div class="doc-point">
-            <h3>On-the-fly mask change</h3>
+            <h3 id="on-the-fly-mask-changes">On-the-fly mask change</h3>
 
             <pre>
   var options =  {onKeyPress: function(cep, e, field, options){
@@ -154,7 +151,7 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
           </div>
 
           <div class="doc-point">
-            <h3>Mask as a function</h3>
+            <h3 id="mask-as-a-function">Mask as a function</h3>
 
             <pre>
   var SPMaskBehavior = function (val) {
@@ -170,7 +167,7 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
           </div>
 
           <div class="doc-point">
-            <h3>Using HTML notation examples</h3>
+            <h3 id="using-html-notation-examples">Using HTML notation examples</h3>
 
             <div>
               <p>To get your mask applied with the data-mask attribute just use it as the same way you use with the $.mask function.</p>
@@ -194,7 +191,7 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
           </div>
 
           <div class="doc-point">
-            <h3>Translation</h3>
+            <h3 id="translation">Translation</h3>
 
             <div>
               <p>Teach to jQuery Mask Plugin how to apply your mask:</p>
@@ -255,17 +252,17 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
           </div>
 
           <div class="doc-point">
-            <h3>Removing the mask</h3>
+            <h3 id="removing-the-mask">Removing the mask</h3>
             <pre>$('.date').unmask();</pre>
           </div>
 
           <div class="doc-point">
-            <h3>Getting the unmasked typed value</h3>
+            <h3 id="getting-the-unmasked-typed-value">Getting the unmasked typed value</h3>
             <pre>$('.date').cleanVal();</pre>
           </div>
 
           <div class="doc-point">
-            <h3>Getting a masked value programmatically</h3>
+            <h3 id="getting-a-masked-value-programmatically">Getting a masked value programmatically</h3>
             <pre>$('.date').masked('19840807');</pre>
           </div>
         </div>
@@ -374,4 +371,7 @@ $.jMaskGlobals = {
       </div>
     </footer>
   </body>
+
+  <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+  <script src="js/main.js"></script>
 </html>
