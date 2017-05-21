@@ -35,6 +35,7 @@ h3
 
 p
   margin: 0
+  letter-spacing: -0.19px
 
   &.large
     font-size: 18px
@@ -184,15 +185,36 @@ label
   top: 0
   left: 0
   z-index: 100
+  transition: top 200ms ease-in-out
+
+  &.hidden
+    top: -50px
+
+  &.top
+    position: absolute
 
   .container
     height: 98%
     display: flex
     align-items: center
     justify-content: center
+    position: relative
+
+  i
+    display: block
+    font-size: 0
+    width: 24px
+    height: 24px
+    background: url(../img/ic-close.svg) center center no-repeat
+    position: absolute
+    right: 0
+    cursor: pointer
+
+    &.hidden
+      display: none
 
   p
-    margin-right: 30px
+    margin-right: 60px
     font-size: 14px
     color: #FFFFFF
 
@@ -206,19 +228,26 @@ label
 
     li:not(:last-child) a
       display: inline-block
-      text-align: center
-      border: 2px solid #FFFFFF
-      width: 40px
-      height: 26px
-      margin-right: 10px
+      margin-right: 20px
       opacity: .5
 
       &:hover,
       &.active
         opacity: 1
 
-    li:last-child a
-      margin-left: 10px
+    li:nth-child(4)
+      position: relative
+      display: flex
+      align-items: center
+
+      &::after
+        content: ""
+        display: block
+        width: 20px
+        height: 2px
+        background-color: #FFFFFF
+        opacity: .4
+        margin-right: 20px
 
 .hero
   margin-top: 50px

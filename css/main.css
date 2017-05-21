@@ -30,7 +30,8 @@ h3 {
   margin: 0; }
 
 p {
-  margin: 0; }
+  margin: 0;
+  letter-spacing: -0.19px; }
   p.large {
     font-size: 18px;
     line-height: 28px;
@@ -161,14 +162,31 @@ label {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100; }
+  z-index: 100;
+  transition: top 200ms ease-in-out; }
+  .donate.hidden {
+    top: -50px; }
+  .donate.top {
+    position: absolute; }
   .donate .container {
     height: 98%;
     display: flex;
     align-items: center;
-    justify-content: center; }
+    justify-content: center;
+    position: relative; }
+  .donate i {
+    display: block;
+    font-size: 0;
+    width: 24px;
+    height: 24px;
+    background: url(../img/ic-close.svg) center center no-repeat;
+    position: absolute;
+    right: 0;
+    cursor: pointer; }
+    .donate i.hidden {
+      display: none; }
   .donate p {
-    margin-right: 30px;
+    margin-right: 60px;
     font-size: 14px;
     color: #FFFFFF; }
   .donate a {
@@ -179,16 +197,22 @@ label {
     justify-content: center; }
     .donate ul li:not(:last-child) a {
       display: inline-block;
-      text-align: center;
-      border: 2px solid #FFFFFF;
-      width: 40px;
-      height: 26px;
-      margin-right: 10px;
+      margin-right: 20px;
       opacity: 0.5; }
       .donate ul li:not(:last-child) a:hover, .donate ul li:not(:last-child) a.active {
         opacity: 1; }
-    .donate ul li:last-child a {
-      margin-left: 10px; }
+    .donate ul li:nth-child(4) {
+      position: relative;
+      display: flex;
+      align-items: center; }
+      .donate ul li:nth-child(4)::after {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 2px;
+        background-color: #FFFFFF;
+        opacity: 0.4;
+        margin-right: 20px; }
 
 .hero {
   margin-top: 50px; }
