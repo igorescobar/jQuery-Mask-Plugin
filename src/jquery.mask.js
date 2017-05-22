@@ -356,12 +356,15 @@
                 }
 
                 var newVal = buf.join('');
-                var maskDiff = options.reverse ? newVal.length - valLen : 0;
-                p.maskDigitPosMap = {};
-                for (var i = 0; i < maskDigitPosArr.length; i++) {
-                  p.maskDigitPosMap[maskDigitPosArr[i] + maskDiff] = 1;
-                }
+                p.mapMaskdigitPositions(newVal, maskDigitPosArr, valLen);
                 return newVal;
+            },
+            mapMaskdigitPositions: function(newVal, maskDigitPosArr, valLen) {
+              var maskDiff = options.reverse ? newVal.length - valLen : 0;
+              p.maskDigitPosMap = {};
+              for (var i = 0; i < maskDigitPosArr.length; i++) {
+                p.maskDigitPosMap[maskDigitPosArr[i] + maskDiff] = 1;
+              }
             },
             callbacks: function (e) {
                 var val = p.val(),
