@@ -188,8 +188,10 @@
 
                 return r;
             },
-            calculateCaretPosition: function(caretPosNew, newVal) {
-                var oldVal = el.data('mask-previus-value') || '';
+            calculateCaretPosition: function() {
+                var oldVal = el.data('mask-previus-value') || '',
+                    newVal = p.getMasked(),
+                    caretPosNew = p.getCaret();
                 if (oldVal !== newVal) {
                     var caretPosOld = el.data('mask-previus-caret-pos') || 0,
                         newValL = newVal.length,
@@ -230,7 +232,7 @@
                       // if the cursor is at the end keep it there
                       caretPosNew = newValL;
                     }
-                    else if (caretPosOld >= caretPosNew) {
+                    else if (caretPosOld >= caretPosNew && caretPosOld !== oldValL) {
                         if (!p.maskDigitPosMapOld[caretPosNew])  {
                           var caretPos = caretPosNew;
                           caretPosNew -= maskDigitsBeforeCaretAllOld - maskDigitsBeforeCaretAll;
@@ -257,9 +259,9 @@
                     var newVal   = p.getMasked(),
                         caretPos = p.getCaret();
 
-                    setTimeout(function(caretPos, newVal) {
-                      p.setCaret(p.calculateCaretPosition(caretPos, newVal));
-                    }, 10, caretPos, newVal);
+                    setTimeout(function() {
+                      p.setCaret(p.calculateCaretPosition());
+                    }, 10);
 
                     p.val(newVal);
                     p.setCaret(caretPos);
