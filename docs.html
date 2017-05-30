@@ -66,6 +66,9 @@
             <li><a href="#removing-the-mask">Removing the mask</a></li>
             <li><a href="#getting-the-unmasked-typed-value">Getting the unmasked typed value</a></li>
             <li><a href="#getting-a-masked-value-programmatically">Getting a masked value programmatically</a></li>
+            <li><a href="#field-options">Field options</a></li>
+            <li><a href="#public-methods">Public methods</a></li>
+            <li><a href="#global-options">Global options</a></li>
           </ol>
         </nav>
 
@@ -270,90 +273,95 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
     </section>
 
     <section class="docs">
-      <div class="container container-small">
-        <h2>Customization</h2>
+      <div class="container container-narrow">
+        <nav class="code-nav docs-nav">
+        </nav>
 
-        <div class="doc-point">
-          <h3>Field options</h3>
+        <div class="docs-content">
+          <h2>Customization</h2>
 
-          <pre>
-var custom_options = {
-  byPassKeys: [8, 9, 37, 38, 39, 40],
-  translation: {
-                '0': {pattern: /\d/},
-                '9': {pattern: /\d/, optional: true},
-                '#': {pattern: /\d/, recursive: true},
-                'A': {pattern: /[a-zA-Z0-9]/},
-                'S': {pattern: /[a-zA-Z]/}
-            };
-};</pre>
+          <div class="doc-point">
+            <h3 id="field-options">Field options</h3>
 
-        <p><strong>byPassKeys</strong> list of keyboard's keyCode that you want to be ignored when it was pressed.<br><strong>translation</strong> object with all digits that should be interpreted as a special chars and its regex representation.</p>
-        </div>
+            <pre>
+  var custom_options = {
+    byPassKeys: [8, 9, 37, 38, 39, 40],
+    translation: {
+                  '0': {pattern: /\d/},
+                  '9': {pattern: /\d/, optional: true},
+                  '#': {pattern: /\d/, recursive: true},
+                  'A': {pattern: /[a-zA-Z0-9]/},
+                  'S': {pattern: /[a-zA-Z]/}
+              };
+  };</pre>
 
-        <div class="doc-point">
-          <h3>Public methods</h3>
+          <p><strong>byPassKeys</strong> list of keyboard's keyCode that you want to be ignored when it was pressed.<br><strong>translation</strong> object with all digits that should be interpreted as a special chars and its regex representation.</p>
+          </div>
 
-          <pre>
-/**
-Applies the mask to the matching selector elements.
+          <div class="doc-point">
+            <h3 id="public-methods">Public methods</h3>
 
-@selector elements to be masked.
-@mask should be a string or a function.
-@options should be an object.
-**/
-$(selector).mask(mask [, options]);
+            <pre>
+  /**
+  Applies the mask to the matching selector elements.
 
-/**
-Seek and destroy.
+  @selector elements to be masked.
+  @mask should be a string or a function.
+  @options should be an object.
+  **/
+  $(selector).mask(mask [, options]);
 
-@selector elements to be masked.
-**/
-$(selector).unmask();
+  /**
+  Seek and destroy.
 
-/**
-Gets the value of the field without the mask.
+  @selector elements to be masked.
+  **/
+  $(selector).unmask();
 
-@selector elements to be masked.
-**/
-$(selector).cleanVal();
+  /**
+  Gets the value of the field without the mask.
 
-/**
-Applies the mask to the matching selector elements.
+  @selector elements to be masked.
+  **/
+  $(selector).cleanVal();
 
-@selector optional: elements to be masked. The default behaviour it's to lookup for all elements with data-mask attribute.
-**/
-$.applyDataMask([selector]);</pre>
-        </div>
+  /**
+  Applies the mask to the matching selector elements.
 
-        <div class="doc-point">
-          <h3>Global options</h3>
+  @selector optional: elements to be masked. The default behaviour it's to lookup for all elements with data-mask attribute.
+  **/
+  $.applyDataMask([selector]);</pre>
+          </div>
 
-          <pre>
-/**
-nonInput: elements we consider nonInput
-dataMask: we mask data-mask elements by default
-watchInputs: watch for dynamically added inputs by default
-watchDataMask: by default we disabled the watcher for dynamically
-added data-mask elements by default (performance reasons)
-**/
+          <div class="doc-point">
+            <h3 id="global-options">Global options</h3>
 
-$.jMaskGlobals = {
-  maskElements: 'input,td,span,div',
-  dataMaskAttr: '*[data-mask]',
-  dataMask: true,
-  watchInterval: 300,
-  watchInputs: true,
-  watchDataMask: false,
-  byPassKeys: [9, 16, 17, 18, 36, 37, 38, 39, 40, 91],
-  translation: {
-      '0': {pattern: /\d/},
-      '9': {pattern: /\d/, optional: true},
-      '#': {pattern: /\d/, recursive: true},
-      'A': {pattern: /[a-zA-Z0-9]/},
-      'S': {pattern: /[a-zA-Z]/}
-  }
-};</pre>
+            <pre>
+  /**
+  nonInput: elements we consider nonInput
+  dataMask: we mask data-mask elements by default
+  watchInputs: watch for dynamically added inputs by default
+  watchDataMask: by default we disabled the watcher for dynamically
+  added data-mask elements by default (performance reasons)
+  **/
+
+  $.jMaskGlobals = {
+    maskElements: 'input,td,span,div',
+    dataMaskAttr: '*[data-mask]',
+    dataMask: true,
+    watchInterval: 300,
+    watchInputs: true,
+    watchDataMask: false,
+    byPassKeys: [9, 16, 17, 18, 36, 37, 38, 39, 40, 91],
+    translation: {
+        '0': {pattern: /\d/},
+        '9': {pattern: /\d/, optional: true},
+        '#': {pattern: /\d/, recursive: true},
+        'A': {pattern: /[a-zA-Z0-9]/},
+        'S': {pattern: /[a-zA-Z]/}
+    }
+  };</pre>
+          </div>
         </div>
       </div>
     </section>
