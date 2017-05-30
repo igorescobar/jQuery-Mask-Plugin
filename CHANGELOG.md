@@ -1,3 +1,9 @@
+== v1.14.11 (May/30 2017 21:53 +0100 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing a lot of caret positioning issues. Thanks to @onuradsay
+
 == v1.14.10 (Feb/13 2017 14:18 +0000 by Igor Escobar) ==
 
 Bugfixes:
