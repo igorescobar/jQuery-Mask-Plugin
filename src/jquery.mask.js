@@ -116,6 +116,7 @@
                     if (oldValue !== p.val() && !el.data('changed')) {
                         el.trigger('change');
                     }
+                    p.val(jMask.getCleanVal());
                     el.data('changed', false);
                 })
                 // it's very important that this callback remains in this position
