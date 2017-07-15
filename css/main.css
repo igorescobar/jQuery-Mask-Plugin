@@ -11,10 +11,10 @@ body {
   -webkit-font-smoothing: antialiased; }
 
 h1 {
-  font-size: 52px;
+  font-size: 46px;
   line-height: 56px;
-  font-weight: 400;
-  letter-spacing: -2.22px;
+  font-weight: 700;
+  letter-spacing: -0.48px;
   margin: 0; }
 
 h2 {
@@ -25,8 +25,8 @@ h2 {
 
 h3 {
   font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.38px;
+  font-weight: 400;
+  letter-spacing: -0.01px;
   margin: 0; }
 
 p {
@@ -47,7 +47,7 @@ a {
   a.button-large {
     display: block;
     font-size: 14px;
-    padding: 13px 36px 16px;
+    padding: 13px 42px 16px;
     background: #401EDF;
     color: #FFF;
     border-radius: 4px; }
@@ -97,8 +97,8 @@ pre {
     .navigation nav a {
       padding: 2px 4px;
       color: #B1B1B1; }
-      .navigation nav a:nth-child(2) {
-        margin: 0 40px; }
+      .navigation nav a:nth-child(1), .navigation nav a:nth-child(2), .navigation nav a:nth-child(3) {
+        margin-right: 40px; }
     .navigation nav .selected {
       color: #2E2E2E;
       border-bottom: 2px solid #2E2E2E; }
@@ -221,36 +221,20 @@ label {
     flex-direction: column; }
   .hero h1 {
     max-width: 580px; }
-  .hero ul {
-    display: flex;
-    align-items: center; }
-    .hero ul li:first-child {
-      margin-right: 80px; }
-  .hero .button-large {
-    position: relative; }
-    .hero .button-large::after {
-      content: "";
-      position: absolute;
-      right: -50px;
-      top: 26px;
-      display: inline-block;
-      width: 20px;
-      height: 2px;
-      background-color: #DDDDDD; }
 
-.hero.home::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 242px;
-  background: url(../img/background.svg) center center no-repeat;
-  background-size: cover;
-  margin-top: 40px; }
 .hero.home .container {
   align-items: center; }
-.hero.home h1 {
-  text-align: center;
+.hero.home h3 {
+  margin-top: 14px;
   margin-bottom: 60px; }
+.hero.home .arrow-down {
+  display: block;
+  width: 48px;
+  height: 48px;
+  box-shadow: 0 5px 31px 0 rgba(61, 73, 87, 0.14);
+  border-radius: 100%;
+  margin-top: 120px;
+  margin-bottom: 50px; }
 
 .hero-docs {
   margin-bottom: 220px; }
