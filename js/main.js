@@ -1,17 +1,5 @@
 var elementPosition = $('.docs-nav').offset();
 
-var donationBar   = document.getElementsByClassName('donate')[0],
-    donationClose = donationBar.getElementsByTagName('i')[0];
-
-donationClose.addEventListener('click', function() {
-  donationBar.classList.add('hidden');
-
-  setTimeout(function(){
-    donationBar.classList.add('top');
-    donationBar.classList.remove('hidden');
-  }, 200);
-});
-
 var codeNavigationLinks = $('.code-nav a'),
     codeTopic = document.getElementsByClassName('doc-point');
 
@@ -42,24 +30,3 @@ var removeActiveCodeNavItem = function() {
       $(codeNavigationLinks[i]).removeClass('active');
   }
 }
-
-
-$(window).scroll(function(){
-  var position = $(this).scrollTop();
-
-  // if($(window).scrollTop() > elementPosition.top - 120){
-  //   $('.docs-nav').addClass('fixed');
-  // } else {
-  //   $('.docs-nav').removeClass('fixed');
-  // }
-
-  if ( $(window).scrollTop() > 600 ) {
-    donationClose.classList.remove('hidden');
-  } else {
-    donationClose.classList.add('hidden');
-  }
-
-  if ( $(window).scrollTop() == 0 ) {
-    donationBar.classList.remove('top');
-  }
-});

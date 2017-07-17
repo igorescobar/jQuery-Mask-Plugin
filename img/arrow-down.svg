@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="16px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow-down</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="home" transform="translate(-953.000000, -653.000000)" fill="#401EDE">
+            <polygon id="arrow-down" transform="translate(961.039062, 660.820312) rotate(90.000000) translate(-961.039062, -660.820312) " points="965.144727 659.81543 959.670508 654.188086 961.039062 652.78125 968.859375 660.820312 961.039062 668.859375 959.670508 667.452539 965.144727 661.825195 953.21875 661.825195 953.21875 659.81543"></polygon>
+        </g>
+    </g>
+</svg>

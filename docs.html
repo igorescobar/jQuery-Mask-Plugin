@@ -33,22 +33,23 @@
     </div>
 
     <div class="hero hero-docs">
-      <div class="container container-narrow">
+      <div class="container">
         <div class="navigation">
           <nav>
             <a href="./">Home</a>
             <a href="./docs.html" class="selected">Docs</a>
+            <a href="./docs.html">On Github</a>
             <a class="github-button" href="https://github.com/igorescobar/jQuery-Mask-Plugin" data-style="mega" data-count-href="/igorescobar/jQuery-Mask-Plugin/stargazers" data-count-api="/repos/igorescobar/jQuery-Mask-Plugin#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star igorescobar/jQuery-Mask-Plugin on GitHub">Star</a>
           </nav>
         </div>
 
-        <div class="hero-content">
-          <h1>Documentation &amp; Customization</h1>
+        <div class="hero-column-content">
+          <div class="title">
+            <h1>Documentation</h1>
+            <h3>Learn to use the plugin</h3>
+          </div>
 
-          <ul class="actions">
-            <li><a href="#" class="button-large">Download Now</a></li>
-            <li><a href="#" class="link-small">View on Github</a></li>
-          </ul>
+          <a href="#" class="button-large">Download Now</a>
         </div>
       </div>
     </div>
@@ -57,7 +58,8 @@
       <div class="container container-narrow">
         <nav class="code-nav docs-nav">
           <ol>
-            <li><a href="#basic-usage" class="active">Basic usage</a></li>
+            <li><p class="section-divider">Documentation</p></li>
+            <li><a href="#basic-usage">Basic usage</a></li>
             <li><a href="#callback-examples">Callback examples</a></li>
             <li><a href="#on-the-fly-mask-changes">On-the-fly mask change</a></li>
             <li><a href="#mask-as-a-function">Mask as a function</a></li>
@@ -66,6 +68,7 @@
             <li><a href="#removing-the-mask">Removing the mask</a></li>
             <li><a href="#getting-the-unmasked-typed-value">Getting the unmasked typed value</a></li>
             <li><a href="#getting-a-masked-value-programmatically">Getting a masked value programmatically</a></li>
+            <li><p class="section-divider">Customization</p></li>
             <li><a href="#field-options">Field options</a></li>
             <li><a href="#public-methods">Public methods</a></li>
             <li><a href="#global-options">Global options</a></li>
@@ -73,7 +76,7 @@
         </nav>
 
         <div class="docs-content">
-          <h2>Documentation</h2>
+          <h2 id="documentation">Documentation</h2>
 
           <div class="doc-point">
             <h3 id="basic-usage">Basic Usage</h3>
@@ -382,4 +385,5 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
 
   <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/donation.js"></script>
 </html>

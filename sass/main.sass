@@ -29,8 +29,8 @@ h2
 
 h3
   font-size: 24px
-  font-weight: 400
-  letter-spacing: -0.01px
+  font-weight: 700
+  letter-spacing: -0.08px
   margin: 0
 
 p
@@ -89,7 +89,7 @@ pre
 
 .container
   width: 100%
-  max-width: 1200px
+  max-width: 1000px
   margin: 0 auto
   padding: 0 16px
 
@@ -106,6 +106,7 @@ pre
     width: 100%
     display: flex
     align-items: center
+    justify-content: center
 
     a
       padding: 2px 4px
@@ -182,19 +183,22 @@ label
 
 .donate
   width: 100%
-  height: 50px
-  background-color: $color-main
+  height: 70px
   position: fixed
   top: 0
   left: 0
   z-index: 100
   transition: top 200ms ease-in-out
+  background: #FFFFFF
 
   &.hidden
     top: -50px
 
   &.top
     position: absolute
+
+  &.scrolled
+    box-shadow: 0 5px 26px 0 rgba(61,73,87,0.07)
 
   .container
     height: 98%
@@ -219,10 +223,6 @@ label
   p
     margin-right: 60px
     font-size: 14px
-    color: #FFFFFF
-
-  a
-    color: #FFFFFF
 
   ul
     display: flex
@@ -248,12 +248,17 @@ label
         display: block
         width: 20px
         height: 2px
-        background-color: #FFFFFF
+        background-color: #DBDEE3
         opacity: .4
         margin-right: 20px
 
+
+
+    li:last-child a
+      color: $color-main
+
 .hero
-  margin-top: 50px
+  margin-top: 90px
 
   .container
     display: flex
@@ -262,13 +267,18 @@ label
   h1
     max-width: 580px
 
+  h3
+    margin-top: 14px
+
+  .button-large
+    max-width: 185px
+
 .hero.home
 
   .container
     align-items: center
 
   h3
-    margin-top: 14px
     margin-bottom: 60px
 
   .arrow-down
@@ -279,13 +289,15 @@ label
     border-radius: 100%
     margin-top: 120px
     margin-bottom: 50px
+    background: url(../img/arrow-down.svg) center center no-repeat
 
 .hero-docs
-  margin-bottom: 220px
+  margin-bottom: 140px
 
-  .hero-content
+  .hero-column-content
     display: flex
     justify-content: space-between
+    align-items: center
 
 .docs
   margin-top: 100px
@@ -305,22 +317,27 @@ label
     ol li
       margin-bottom: 16px
 
-      a.active
-        color: $color-main
-
-        &::before
-          content: "—  "
-
-      a:not(.active)
+      a
         color: $color-light
 
-        &:hover
-          margin-left: 3px
+      .section-divider
+        font-family: "Roboto Mono"
+        font-weight: 700
+        font-size: 12px
+        color: #3D4957
+
+      &:nth-of-type(11)
+        margin-top: 30px
 
   .docs-nav.fixed
     ol
       position: fixed
       top: 120px
+
+  .docs-nav.fixed-bottom
+    ol
+      position: absolute
+      top: 7350px
 
   .docs-content
     max-width: 590px
