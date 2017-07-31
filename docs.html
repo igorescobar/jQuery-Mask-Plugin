@@ -10,7 +10,7 @@
 
 
     <link rel="stylesheet" href="css/main.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="https://yandex.st/highlightjs/7.3/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
 
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </head>
@@ -18,14 +18,14 @@
   <body>
     <div class="donate">
       <div class="container">
-        <p>Help to keep this project alive</p>
+        <p>Help keep this project alive</p>
 
         <ul>
-          <li><a href="#" class="link-small">$5</a></li>
-          <li><a href="#" class="link-small">$10</a></li>
-          <li><a href="#" class="link-small">$20</a></li>
-          <li><a href="#" class="link-small">$50</a></li>
-          <li><a href="#" class="link-small">Donate</a></li>
+          <li><a href="#" class="link-small paypal-amount" data-amount="5">$5</a></li>
+          <li><a href="#" class="link-small paypal-amount" data-amount="10">$10</a></li>
+          <li><a href="#" class="link-small paypal-amount" data-amount="20">$20</a></li>
+          <li><a href="#" class="link-small paypal-amount" data-amount="50">$50</a></li>
+          <li><a href="#" target="_blank" class="link-small paypal-donate">Donate</a></li>
         </ul>
 
         <i class="hidden">Close</i>
@@ -38,7 +38,7 @@
           <nav>
             <a href="./">Home</a>
             <a href="./docs.html" class="selected">Docs</a>
-            <a href="./docs.html">On Github</a>
+            <a href="https://github.com/igorescobar/jQuery-Mask-Plugin">On Github</a>
             <a class="github-button" href="https://github.com/igorescobar/jQuery-Mask-Plugin" data-style="mega" data-count-href="/igorescobar/jQuery-Mask-Plugin/stargazers" data-count-api="/repos/igorescobar/jQuery-Mask-Plugin#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star igorescobar/jQuery-Mask-Plugin on GitHub">Star</a>
           </nav>
         </div>
@@ -49,31 +49,33 @@
             <h3>Learn to use the plugin</h3>
           </div>
 
-          <a href="#" class="button-large">Download Now</a>
+          <a href="https://github.com/igorescobar/jQuery-Mask-Plugin/archive/master.zip" class="button-large">Download Now</a>
         </div>
       </div>
     </div>
 
     <section class="docs">
       <div class="container container-narrow">
-        <nav class="code-nav docs-nav">
-          <ol>
-            <li><p class="section-divider">Documentation</p></li>
-            <li><a href="#basic-usage">Basic usage</a></li>
-            <li><a href="#callback-examples">Callback examples</a></li>
-            <li><a href="#on-the-fly-mask-changes">On-the-fly mask change</a></li>
-            <li><a href="#mask-as-a-function">Mask as a function</a></li>
-            <li><a href="#using-html-notation-examples">Using HTML notation examples</a></li>
-            <li><a href="#translation">Translation</a></li>
-            <li><a href="#removing-the-mask">Removing the mask</a></li>
-            <li><a href="#getting-the-unmasked-typed-value">Getting the unmasked typed value</a></li>
-            <li><a href="#getting-a-masked-value-programmatically">Getting a masked value programmatically</a></li>
-            <li><p class="section-divider">Customization</p></li>
-            <li><a href="#field-options">Field options</a></li>
-            <li><a href="#public-methods">Public methods</a></li>
-            <li><a href="#global-options">Global options</a></li>
-          </ol>
-        </nav>
+        <div class="nav-container">
+          <nav class="code-nav docs-nav">
+            <ol>
+              <li><p class="section-divider">Documentation</p></li>
+              <li><a href="#basic-usage">Basic usage</a></li>
+              <li><a href="#callback-examples">Callback examples</a></li>
+              <li><a href="#on-the-fly-mask-changes">On-the-fly mask change</a></li>
+              <li><a href="#mask-as-a-function">Mask as a function</a></li>
+              <li><a href="#using-html-notation-examples">Using HTML notation examples</a></li>
+              <li><a href="#translation">Translation</a></li>
+              <li><a href="#removing-the-mask">Removing the mask</a></li>
+              <li><a href="#getting-the-unmasked-typed-value">Getting the unmasked typed value</a></li>
+              <li><a href="#getting-a-masked-value-programmatically">Getting a masked value programmatically</a></li>
+              <li><p class="section-divider">Customization</p></li>
+              <li><a href="#field-options">Field options</a></li>
+              <li><a href="#public-methods">Public methods</a></li>
+              <li><a href="#global-options">Global options</a></li>
+            </ol>
+          </nav>
+        </div>
 
         <div class="docs-content">
           <h2 id="documentation">Documentation</h2>
@@ -81,8 +83,7 @@
           <div class="doc-point">
             <h3 id="basic-usage">Basic Usage</h3>
 
-            <pre>
-$(document).ready(function(){
+<pre><code class="javascript">$(document).ready(function(){
   $('.date').mask('00/00/0000');
   $('.time').mask('00:00:00');
   $('.date_time').mask('00/00/0000 00:00:00');
@@ -116,14 +117,13 @@ $(document).ready(function(){
       }
     });
   $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
-});</pre>
+});</code></pre>
           </div>
 
           <div class="doc-point">
             <h3 id="callback-examples">Callback examples</h3>
 
-            <pre>
-var options =  {
+<pre><code class="javascript">var options =  {
   onComplete: function(cep) {
     alert('CEP Completed!:' + cep);
   },
@@ -140,36 +140,35 @@ var options =  {
   }
 };
 
-$('.cep_with_callback').mask('00000-000', options);</pre>
+$('.cep_with_callback').mask('00000-000', options);</code></pre>
           </div>
 
           <div class="doc-point">
             <h3 id="on-the-fly-mask-changes">On-the-fly mask change</h3>
 
-            <pre>
-  var options =  {onKeyPress: function(cep, e, field, options){
+            <pre><code class="javascript">var options =  {
+  onKeyPress: function(cep, e, field, options) {
     var masks = ['00000-000', '0-00-00-00'];
-      mask = (cep.length>7) ? masks[1] : masks[0];
+    var mask = (cep.length>7) ? masks[1] : masks[0];
     $('.crazy_cep').mask(mask, options);
-  }};
+}};
 
-  $('.crazy_cep').mask('00000-000', options);</pre>
+$('.crazy_cep').mask('00000-000', options);</code></pre>
           </div>
 
           <div class="doc-point">
             <h3 id="mask-as-a-function">Mask as a function</h3>
 
-            <pre>
-  var SPMaskBehavior = function (val) {
-    return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
-  },
-  spOptions = {
-    onKeyPress: function(val, e, field, options) {
-        field.mask(SPMaskBehavior.apply({}, arguments), options);
-      }
-  };
+            <pre><code class="javascript">var SPMaskBehavior = function (val) {
+  return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+},
+spOptions = {
+  onKeyPress: function(val, e, field, options) {
+      field.mask(SPMaskBehavior.apply({}, arguments), options);
+    }
+};
 
-  $('.sp_celphones').mask(SPMaskBehavior, spOptions);</pre>
+$('.sp_celphones').mask(SPMaskBehavior, spOptions);</code></pre>
           </div>
 
           <div class="doc-point">
@@ -177,22 +176,22 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
 
             <div>
               <p>To get your mask applied with the data-mask attribute just use it as the same way you use with the $.mask function.</p>
-              <pre><span><</span>input type="text" name="field-name" data-mask="00/00/0000" /></pre>
+              <pre><code class="javascript"><span><</span>input type="text" name="field-name" data-mask="00/00/0000" /></code></pre>
             </div>
 
             <div>
               <p>Activating a reversible mask</p>
-              <pre><span><</span>input type="text" name="field-name" data-mask="00/00/0000" data-mask-reverse="true" /></pre>
+              <pre><code class="javascript"><span><</span>input type="text" name="field-name" data-mask="00/00/0000" data-mask-reverse="true" /></code></pre>
             </div>
 
             <div>
               <p>Using clearIfNotMatch option</p>
-              <pre><span><</span>input type="text" name="field-name" data-mask="00/00/0000" data-mask-clearifnotmatch="true" /></pre>
+              <pre><code class="javascript"><span><</span>input type="text" name="field-name" data-mask="00/00/0000" data-mask-clearifnotmatch="true" /></code></pre>
             </div>
 
             <div>
               <p>Using selectOnFocus option</p>
-              <pre><span><</span>input type="text" name="field-name" data-mask="00/00/0000" data-mask-selectonfocus="true" /></pre>
+              <pre><code class="javascript"><span><</span>input type="text" name="field-name" data-mask="00/00/0000" data-mask-selectonfocus="true" /></code></pre>
             </div>
           </div>
 
@@ -201,21 +200,19 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
 
             <div>
               <p>Teach to jQuery Mask Plugin how to apply your mask:</p>
-              <pre>
-  // now the digit 0 on your mask pattern will be interpreted
-  // as valid characters like 0,1,2,3,4,5,6,7,8,9 and *
-  $('.your-field').mask('00/00/0000', {'translation': {0: {pattern: /[0-9*]/}}});</pre>
+              <pre><code class="javascript">// now the digit 0 on your mask pattern will be interpreted
+// as valid characters like 0,1,2,3,4,5,6,7,8,9 and *
+$('.your-field').mask('00/00/0000', {'translation': {0: {pattern: /[0-9*]/}}});</code></pre>
             </div>
 
             <div>
               <p>By default, jQuery Mask Plugin only reconizes the logical digit A (Numbers and Letters) and S (A-Za-z) but you can extend or modify this behaviour by telling to jQuery Mask Plugin how to interpret those logical digits.</p>
-              <pre>
-  $('.your-field').mask('AA/SS/YYYY', {'translation': {
-                                          A: {pattern: /[A-Za-z0-9]/},
-                                          S: {pattern: /[A-Za-z]/},
-                                          Y: {pattern: /[0-9]/}
-                                        }
-                                      });</pre>
+<pre><code class="javascript">$('.your-field').mask('AA/SS/YYYY', {'translation': {
+    A: {pattern: /[A-Za-z0-9]/},
+    S: {pattern: /[A-Za-z]/},
+    Y: {pattern: /[0-9]/}
+  }
+});</code></pre>
 
               <p>Now jQuery Mask Plugin knows the logic digit Y and you can create your own pattern. </p>
             </div>
@@ -225,11 +222,10 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
 
               <p>You can also tell to jQuery Mask which digit is optional, to create a IP mask for example: </p>
 
-              <pre>
-  // way 1
-  $('.ip_address').mask('099.099.099.099');
-  // way 2
-  $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': {pattern: /[0-9]/, optional: true}}});</pre>
+              <pre><code class="javascript">// way 1
+$('.ip_address').mask('099.099.099.099');
+// way 2
+$('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation:  {'Z': {pattern: /[0-9]/, optional: true}}});</code></pre>
 
               <p>Now, all Z digits in your masks is optional. </p>
             </div>
@@ -238,14 +234,14 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
               <h4>Recursive digits</h4>
               <p>With jQuery Mask Plugin you can also define recursive patterns inside your mask:</p>
 
-              <pre>$('.money_example').mask('#.##0,00', {reverse: true});</pre>
+              <pre><code class="javascript">$('.money_example').mask('#.##0,00', {reverse: true});</code></pre>
 
               <p>With example above the mask will be placed from the right to the left (that's why reverse:true is defined). As soon as you start typing, a "0,00" will be applied followed by repeating recursively the following pattern "#.##". The result could be something like: 1.234.567,890.</p>
             </div>
 
             <div>
               <p>You can also use that kind of feature to define what kind of data could be typed inside of a field:</p>
-              <pre>$('.example').mask('0#');</pre>
+              <pre><code class="javascript">$('.example').mask('0#');</code></pre>
               <p>Now only numbers will be allowed inside your form field.</p>
             </div>
 
@@ -253,23 +249,23 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
               <h4>Fallback digits</h4>
               <p>When a user types a invalid char for the current position the plugin will replace it by its fallback instead of erasing them.</p>
 
-              <pre>$('.money_example').mask('#.##0,00', {reverse: true});</pre>
+              <pre><code class="javascript">$('.money_example').mask('#.##0,00', { reverse: true });</code></pre>
             </div>
           </div>
 
           <div class="doc-point">
             <h3 id="removing-the-mask">Removing the mask</h3>
-            <pre>$('.date').unmask();</pre>
+            <pre><code class="javascript">$('.date').unmask();</code></pre>
           </div>
 
           <div class="doc-point">
             <h3 id="getting-the-unmasked-typed-value">Getting the unmasked typed value</h3>
-            <pre>$('.date').cleanVal();</pre>
+            <pre><code class="javascript">$('.date').cleanVal();</code></pre>
           </div>
 
           <div class="doc-point">
             <h3 id="getting-a-masked-value-programmatically">Getting a masked value programmatically</h3>
-            <pre>$('.date').masked('19840807');</pre>
+            <pre><code class="javascript">$('.date').masked('19840807');</code></pre>
           </div>
         </div>
       </div>
@@ -286,17 +282,16 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
           <div class="doc-point">
             <h3 id="field-options">Field options</h3>
 
-            <pre>
-  var custom_options = {
-    byPassKeys: [8, 9, 37, 38, 39, 40],
-    translation: {
-                  '0': {pattern: /\d/},
-                  '9': {pattern: /\d/, optional: true},
-                  '#': {pattern: /\d/, recursive: true},
-                  'A': {pattern: /[a-zA-Z0-9]/},
-                  'S': {pattern: /[a-zA-Z]/}
-              };
-  };</pre>
+<pre><code class="javascript">var custom_options = {
+  byPassKeys: [8, 9, 37, 38, 39, 40],
+  translation: {
+    '0': {pattern: /\d/},
+    '9': {pattern: /\d/, optional: true},
+    '#': {pattern: /\d/, recursive: true},
+    'A': {pattern: /[a-zA-Z0-9]/},
+    'S': {pattern: /[a-zA-Z]/}
+  };
+};</code></pre>
 
           <p><strong>byPassKeys</strong> list of keyboard's keyCode that you want to be ignored when it was pressed.<br><strong>translation</strong> object with all digits that should be interpreted as a special chars and its regex representation.</p>
           </div>
@@ -304,66 +299,64 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
           <div class="doc-point">
             <h3 id="public-methods">Public methods</h3>
 
-            <pre>
-  /**
-  Applies the mask to the matching selector elements.
+<pre><code class="javascript">/**
+Applies the mask to the matching selector elements.
 
-  @selector elements to be masked.
-  @mask should be a string or a function.
-  @options should be an object.
-  **/
-  $(selector).mask(mask [, options]);
+@selector elements to be masked.
+@mask should be a string or a function.
+@options should be an object.
+**/
+$(selector).mask(mask [, options]);
 
-  /**
-  Seek and destroy.
+/**
+Seek and destroy.
 
-  @selector elements to be masked.
-  **/
-  $(selector).unmask();
+@selector elements to be masked.
+**/
+$(selector).unmask();
 
-  /**
-  Gets the value of the field without the mask.
+/**
+Gets the value of the field without the mask.
 
-  @selector elements to be masked.
-  **/
-  $(selector).cleanVal();
+@selector elements to be masked.
+**/
+$(selector).cleanVal();
 
-  /**
-  Applies the mask to the matching selector elements.
+/**
+Applies the mask to the matching selector elements.
 
-  @selector optional: elements to be masked. The default behaviour it's to lookup for all elements with data-mask attribute.
-  **/
-  $.applyDataMask([selector]);</pre>
+@selector optional: elements to be masked. The default behaviour it's to lookup for all elements with data-mask attribute.
+**/
+$.applyDataMask([selector]);</code></pre>
           </div>
 
           <div class="doc-point">
             <h3 id="global-options">Global options</h3>
 
-            <pre>
-  /**
-  nonInput: elements we consider nonInput
-  dataMask: we mask data-mask elements by default
-  watchInputs: watch for dynamically added inputs by default
-  watchDataMask: by default we disabled the watcher for dynamically
-  added data-mask elements by default (performance reasons)
-  **/
+<pre><code class="javascript">/**
+nonInput: elements we consider nonInput
+dataMask: we mask data-mask elements by default
+watchInputs: watch for dynamically added inputs by default
+watchDataMask: by default we disabled the watcher for dynamically
+added data-mask elements by default (performance reasons)
+**/
 
-  $.jMaskGlobals = {
-    maskElements: 'input,td,span,div',
-    dataMaskAttr: '*[data-mask]',
-    dataMask: true,
-    watchInterval: 300,
-    watchInputs: true,
-    watchDataMask: false,
-    byPassKeys: [9, 16, 17, 18, 36, 37, 38, 39, 40, 91],
-    translation: {
-        '0': {pattern: /\d/},
-        '9': {pattern: /\d/, optional: true},
-        '#': {pattern: /\d/, recursive: true},
-        'A': {pattern: /[a-zA-Z0-9]/},
-        'S': {pattern: /[a-zA-Z]/}
-    }
-  };</pre>
+$.jMaskGlobals = {
+  maskElements: 'input,td,span,div',
+  dataMaskAttr: '*[data-mask]',
+  dataMask: true,
+  watchInterval: 300,
+  watchInputs: true,
+  watchDataMask: false,
+  byPassKeys: [9, 16, 17, 18, 36, 37, 38, 39, 40, 91],
+  translation: {
+    '0': {pattern: /\d/},
+    '9': {pattern: /\d/, optional: true},
+    '#': {pattern: /\d/, recursive: true},
+    'A': {pattern: /[a-zA-Z0-9]/},
+    'S': {pattern: /[a-zA-Z]/}
+  }
+};</code></pre>
           </div>
         </div>
       </div>
@@ -375,15 +368,19 @@ $('.cep_with_callback').mask('00000-000', options);</pre>
         <h3>Created by Igor Escobar</h3>
 
         <ol>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Github</a></li>
-          <li><a href="#">igorescobar.com</a></li>
+          <li><a href="https://twitter.com/igorescobar" target="_blank">Twitter</a></li>
+          <li><a href="https://github.com/igorescobar" target="_blank">Github</a></li>
+          <li><a href="https://about.me/igorescobar" target="_blank">igorescobar.com</a></li>
         </ol>
       </div>
     </footer>
   </body>
 
   <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/donation.js"></script>
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
 </html>

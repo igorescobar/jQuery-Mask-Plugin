@@ -31,3 +31,17 @@ $(window).scroll(function(){
     donationBar.classList.remove('top');
   }
 });
+
+var selectedClass = 'paypal-amount-selected',
+    paypalMeUrl = 'https://paypal.me/igorcescobar/';
+
+$('.paypal-amount').on('click', function(e) {
+  $('.donate a').removeClass(selectedClass).removeClass('active');
+  $(this).addClass(selectedClass).addClass('active');
+  e.preventDefault();
+});
+
+$('.paypal-donate').on('click', function() {
+  var amount = $('.' + selectedClass).data('amount') || '';
+  $(this).attr('href',  paypalMeUrl + amount);
+});

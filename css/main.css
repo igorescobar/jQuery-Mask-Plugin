@@ -263,6 +263,8 @@ label {
       margin-bottom: 16px; }
       .docs .code-nav ol li a {
         color: #A4ADB9; }
+      .docs .code-nav ol li a.active {
+        color: #401EDF; }
       .docs .code-nav ol li .section-divider {
         font-family: "Roboto Mono";
         font-weight: 700;
@@ -321,5 +323,8 @@ footer {
       height: 2px;
       background-color: #DDDDDD;
       margin: 0 14px 4px 14px; }
+
+.paypal-amount-selected {
+  color: #401EDF; }
 
 /*# sourceMappingURL=main.css.map */

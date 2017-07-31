@@ -1,32 +1,11 @@
-var elementPosition = $('.docs-nav').offset();
+var codeNavigationLinks = $('.code-nav a');
 
-var codeNavigationLinks = $('.code-nav a'),
-    codeTopic = document.getElementsByClassName('doc-point');
+$(codeNavigationLinks).on('click', function(e) {
+  codeNavigationLinks.removeClass('active');
+  $(this).addClass('active');
 
-for (var i = 0; i < codeNavigationLinks.length; i++) {
-  codeNavigationLinks[i].addEventListener('click', function(e) {
-    e.preventDefault();
+  var codeTopicId = $(this).attr('href');
+  var docPoint = $(codeTopicId).closest('.doc-point');
 
-    var codeTopicId = this.getAttribute('href');
-
-    removeActiveCodeNavItem();
-    $(this).addClass('active');
-
-    for (var i = 0; i < codeTopic.length; i++) {
-      if ( '#' + codeTopic[i].getElementsByTagName('h3')[0].getAttribute('id') == codeTopicId ) {
-        $('html, body')
-        .animate(
-          { scrollTop: $(codeTopic[i]).offset().top - 120 + 'px' },
-          500
-        );
-      }
-    }
-  });
-}
-
-var removeActiveCodeNavItem = function() {
-  for (var i = 0; i < codeNavigationLinks.length; i++) {
-    if ( $(codeNavigationLinks[i]).hasClass('active') )
-      $(codeNavigationLinks[i]).removeClass('active');
-  }
-}
+  $('html, body').animate({ scrollTop: $(docPoint).offset().top - 120 + 'px' }, 500);
+});

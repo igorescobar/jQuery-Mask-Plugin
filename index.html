@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css?family=Chivo:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700" rel="stylesheet">
 
-
     <link rel="stylesheet" href="css/main.css" type="text/css" media="screen">
     <link rel="stylesheet" href="https://yandex.st/highlightjs/7.3/styles/default.min.css">
 
@@ -18,14 +17,14 @@
   <body>
     <div class="donate">
       <div class="container">
-        <p>Help to keep this project alive</p>
+        <p>Help keep this project alive</p>
 
         <ul>
-          <li><a href="#" class="link-small">$5</a></li>
-          <li><a href="#" class="link-small">$10</a></li>
-          <li><a href="#" class="link-small">$20</a></li>
-          <li><a href="#" class="link-small">$50</a></li>
-          <li><a href="#" class="link-small">Donate</a></li>
+          <li><a href="#" class="link-small paypal-amount" data-amount="5">$5</a></li>
+          <li><a href="#" class="link-small paypal-amount" data-amount="10">$10</a></li>
+          <li><a href="#" class="link-small paypal-amount" data-amount="20">$20</a></li>
+          <li><a href="#" class="link-small paypal-amount" data-amount="50">$50</a></li>
+          <li><a href="#" target="_blank" class="link-small paypal-donate">Donate</a></li>
         </ul>
 
         <i class="hidden">Close</i>
@@ -38,7 +37,7 @@
           <nav>
             <a href="./" class="selected">Home</a>
             <a href="./docs.html">Docs</a>
-            <a href="./docs.html">On Github</a>
+            <a href="https://github.com/igorescobar/jQuery-Mask-Plugin">On Github</a>
             <a class="github-button" href="https://github.com/igorescobar/jQuery-Mask-Plugin" data-style="mega" data-count-href="/igorescobar/jQuery-Mask-Plugin/stargazers" data-count-api="/repos/igorescobar/jQuery-Mask-Plugin#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star igorescobar/jQuery-Mask-Plugin on GitHub">Star</a>
           </nav>
         </div>
@@ -46,7 +45,7 @@
         <h1>jQuery Mask Plugin</h1>
         <h3>A plugin to make masks on form fields</h3>
 
-        <a href="#" class="button-large">Download Now</a>
+        <a href="https://github.com/igorescobar/jQuery-Mask-Plugin/archive/master.zip" class="button-large">Download Now</a>
 
         <a href="#examples" class="arrow-down"></a>
       </div>
@@ -158,8 +157,8 @@
           </div>
         </div>
 
-        <!-- <label>Masks on div elements!</label>
-        <div class="mask-on-div">12345678909</div> <input type="button" class="bt-mask-it" value="Mask it!"/> -->
+        <label>Masks on div elements!</label>
+        <div class="mask-on-div">12345678909</div> <input type="button" class="bt-mask-it" value="Mask it!"/>
       </div>
     </section>
 
@@ -169,9 +168,9 @@
         <h3>Created by Igor Escobar</h3>
 
         <ol>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Github</a></li>
-          <li><a href="#">igorescobar.com</a></li>
+          <li><a href="https://twitter.com/igorescobar" target="_blank">Twitter</a></li>
+          <li><a href="https://github.com/igorescobar" target="_blank">Github</a></li>
+          <li><a href="https://about.me/igorescobar" target="_blank">igorescobar.com</a></li>
         </ol>
       </div>
     </footer>
@@ -181,73 +180,7 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.mask.min.js"></script>
 
-    <script type="text/javascript">
-      $(function() {
-        $('.date').mask('00/00/0000');
-        $('.time').mask('00:00:00');
-        $('.date_time').mask('00/00/0000 00:00:00');
-        $('.cep').mask('00000-000');
-        $('.phone').mask('0000-0000');
-        $('.phone_with_ddd').mask('(00) 0000-0000');
-        $('.phone_us').mask('(000) 000-0000');
-        $('.mixed').mask('AAA 000-S0S');
-        $('.ip_address').mask('099.099.099.099');
-        $('.percent').mask('##0,00%', {reverse: true});
-        $('.clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
-        $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
-        $('.fallback').mask("00r00r0000", {
-          translation: {
-            'r': {
-              pattern: /[\/]/,
-              fallback: '/'
-            },
-            placeholder: "__/__/____"
-          }
-        });
-
-        $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
-
-        $('.cep_with_callback').mask('00000-000', {onComplete: function(cep) {
-            console.log('Mask is done!:', cep);
-          },
-           onKeyPress: function(cep, event, currentField, options){
-            console.log('An key was pressed!:', cep, ' event: ', event, 'currentField: ', currentField.attr('class'), ' options: ', options);
-          },
-          onInvalid: function(val, e, field, invalid, options){
-            var error = invalid[0];
-            console.log ("Digit: ", error.v, " is invalid for the position: ", error.p, ". We expect something like: ", error.e);
-          }
-        });
-
-        $('.crazy_cep').mask('00000-000', {onKeyPress: function(cep, e, field, options){
-          var masks = ['00000-000', '0-00-00-00'];
-            mask = (cep.length>7) ? masks[1] : masks[0];
-          $('.crazy_cep').mask(mask, options);
-        }});
-
-        $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
-        $('.cpf').mask('000.000.000-00', {reverse: true});
-        $('.money').mask('#.##0,00', {reverse: true});
-
-        var SPMaskBehavior = function (val) {
-          return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
-        },
-        spOptions = {
-          onKeyPress: function(val, e, field, options) {
-              field.mask(SPMaskBehavior.apply({}, arguments), options);
-            }
-        };
-
-        $('.sp_celphones').mask(SPMaskBehavior, spOptions);
-
-        $(".bt-mask-it").click(function(){
-          $(".mask-on-div").mask("000.000.000-00");
-          $(".mask-on-div").fadeOut(500).fadeIn(500)
-        })
-
-        $('pre').each(function(i, e) {hljs.highlightBlock(e)});
-      });
-    </script>
+    <script src="js/examples.js"></script>
     <script src="js/donation.js"></script>
   </body>
 </html>
