@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>ic-close</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Documentation" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="documentation-copy" transform="translate(-1540.000000, -17.000000)" fill-rule="nonzero" fill="#DBDEE3">
+            <g id="Donate-Bar">
+                <g id="ic-close" transform="translate(1534.000000, 11.000000)">
+                    <path d="M10.9997215,11 L4.99609375,11 L4.99609375,13 L11.0002784,13 L11.0019494,19.0002785 L13.0019493,18.9997215 L13.0002785,13 L19,13 L19,11 L12.9997216,11 L12.9980506,4.99972153 L10.9980507,5.00027847 L10.9997215,11 Z" id="Combined-Shape" transform="translate(11.998047, 12.000000) rotate(45.000000) translate(-11.998047, -12.000000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

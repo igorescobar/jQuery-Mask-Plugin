@@ -1,3 +1,6 @@
 node_modules/
 libpeerconnection.log
 .ruby-version
+.sass-cache/
+
+*.map

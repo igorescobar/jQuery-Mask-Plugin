@@ -1,0 +1,403 @@
+$color-main: #401EDF
+$color-dark: #1A232E
+$color-light: #A4ADB9
+$color-borders: #EFF3F7
+
+*
+  box-sizing: border-box
+
+body
+  margin: 0
+  padding: 0
+  -webkit-box-sizing: border-box
+  font-family: Chivo, "Helvetica Neue", Helvetica, Arial, sans-serif
+  color: $color-dark
+  -webkit-font-smoothing: antialiased
+
+h1
+  font-size: 46px
+  line-height: 56px
+  font-weight: 700
+  letter-spacing: -0.48px
+  margin: 0
+
+h2
+  font-size: 40px
+  font-weight: 400
+  letter-spacing: -1.40px
+  margin: 0
+
+h3
+  font-size: 24px
+  font-weight: 700
+  letter-spacing: -0.08px
+  margin: 0
+
+p
+  margin: 0
+  letter-spacing: -0.19px
+
+  &.large
+    font-size: 18px
+    line-height: 28px
+    letter-spacing: -0.38px
+
+a
+  text-decoration: none
+  font-family: "Roboto Mono"
+  font-weight: 700
+  color: $color-dark
+
+  &:hover:not(.button-large):not(.active)
+    opacity: .5
+
+  &.button-large
+    display: block
+    font-size: 14px
+    padding: 13px 42px 16px
+    background: $color-main
+    color: #FFF
+    border-radius: 4px
+
+    &:hover
+      background: darken($color-main, 6%)
+
+  &.link-small
+    font-size: 14px
+
+ol,
+ul,
+li
+  list-style-type: none
+  padding: 0
+  margin: 0
+
+nav a
+  font-size: 14px
+
+pre
+  font-family: "Roboto Mono"
+  font-size: 14px
+  line-height: 22px
+  overflow-x: auto
+  white-space: pre-wrap
+  white-space: -moz-pre-wrap
+  white-space: -pre-wrap
+  white-space: -o-pre-wrap
+  word-wrap: normal
+  margin: 0
+
+.container
+  width: 100%
+  max-width: 1000px
+  margin: 0 auto
+  padding: 0 16px
+
+  &.container-narrow
+    max-width: 996px
+
+  &.container-small
+    max-width: 600px
+
+.navigation
+  margin: 60px 0 100px 0
+
+  nav
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+
+    a
+      padding: 2px 4px
+      color: #B1B1B1
+
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(3)
+        margin-right: 40px
+
+    .selected
+      color: #2E2E2E
+      border-bottom: 2px solid #2E2E2E
+
+input[type=text],
+input[type=email],
+  -moz-appearance: none
+  -webkit-appearance: none
+  outline: none
+  border: none
+  border-bottom: 1px solid $color-borders
+  font-family: "Roboto Mono"
+  font-size: 14px
+  padding: 12px 4px
+
+  &:focus
+    border-color: $color-dark
+
+
+label
+  font-family: "Roboto Mono"
+  font-weight: 500
+  color: $color-dark
+  font-size: 14px
+
+  &:hover
+    cursor: pointer
+
+.input-group
+  display: flex
+  align-items: center
+  justify-content: space-between
+  margin-bottom: 20px
+
+  label
+    width: 100%
+    max-width: 170px
+
+  input
+    width: 100%
+    max-width: 380px
+    margin-left: 32px
+
+.examples
+  margin-top: 20px
+  margin-bottom: 120px
+
+  .container
+    display: flex
+    flex-direction: column
+    align-items: center
+
+  p
+    margin-bottom: 100px
+
+  p,
+  h3
+    text-align: center
+
+  .inputs
+    margin-top: 80px
+    width: 100%
+    max-width: 600px
+
+.donate
+  width: 100%
+  height: 70px
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 100
+  transition: top 200ms ease-in-out
+  background: #FFFFFF
+
+  &.hidden
+    top: -50px
+
+  &.top
+    position: absolute
+
+  &.scrolled
+    box-shadow: 0 5px 26px 0 rgba(61,73,87,0.07)
+
+  .container
+    height: 98%
+    display: flex
+    align-items: center
+    justify-content: center
+    position: relative
+
+  i
+    display: block
+    font-size: 0
+    width: 24px
+    height: 24px
+    background: url(../img/ic-close.svg) center center no-repeat
+    position: absolute
+    right: 0
+    cursor: pointer
+
+    &.hidden
+      display: none
+
+  p
+    margin-right: 60px
+    font-size: 14px
+
+  ul
+    display: flex
+    align-items: center
+    justify-content: center
+
+    li:not(:last-child) a
+      display: inline-block
+      margin-right: 20px
+      opacity: .5
+
+      &:hover,
+      &.active
+        opacity: 1
+
+    li:nth-child(4)
+      position: relative
+      display: flex
+      align-items: center
+
+      &::after
+        content: ""
+        display: block
+        width: 20px
+        height: 2px
+        background-color: #DBDEE3
+        opacity: .4
+        margin-right: 20px
+
+
+
+    li:last-child a
+      color: $color-main
+
+.hero
+  margin-top: 90px
+
+  .container
+    display: flex
+    flex-direction: column
+
+  h1
+    max-width: 580px
+
+  h3
+    margin-top: 14px
+
+  .button-large
+    max-width: 185px
+
+.hero.home
+
+  .container
+    align-items: center
+
+  h3
+    margin-bottom: 60px
+
+  .arrow-down
+    display: block
+    width: 48px
+    height: 48px
+    box-shadow: 0 5px 31px 0 rgba(61,73,87,0.14)
+    border-radius: 100%
+    margin-top: 120px
+    margin-bottom: 50px
+    background: url(../img/arrow-down.svg) center center no-repeat
+
+.hero-docs
+  margin-bottom: 140px
+
+  .hero-column-content
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+.docs
+  margin-top: 100px
+  margin-bottom: 120px
+
+  .container
+    display: flex
+    justify-content: space-between
+
+  .code-nav
+    max-width: 278px
+    margin-top: 116px
+
+    ol
+      max-width: 278px
+
+    ol li
+      margin-bottom: 16px
+
+      a
+        color: $color-light
+
+      a.active
+        color: $color-main
+      .section-divider
+        font-family: "Roboto Mono"
+        font-weight: 700
+        font-size: 12px
+        color: #3D4957
+
+      &:nth-of-type(11)
+        margin-top: 30px
+
+  .docs-nav.fixed
+    ol
+      position: fixed
+      top: 120px
+
+  .docs-nav.fixed-bottom
+    ol
+      position: absolute
+      top: 7350px
+
+  .docs-content
+    max-width: 590px
+
+  h2
+    margin-bottom: 80px
+
+  h3
+    margin-bottom: 40px
+
+  .doc-point
+    margin-bottom: 55px
+    padding-bottom: 55px
+
+    h4
+      margin-bottom: 14px
+
+    p
+      font-size: 14px
+      line-height: 20px
+      letter-spacing: -0.13px
+      color: $color-light
+      margin-bottom: 10px
+
+    div:not(:last-child)
+      margin-bottom: 60px
+
+    pre + p
+      margin-top: 20px
+
+footer
+  padding: 80px 0
+  background-color: #FAFAFA
+
+  .container
+    display: flex
+    flex-direction: column
+    align-items: center
+
+  img
+    max-width: 120px
+    margin-bottom: 40px
+
+  a
+    font-size: 14px
+
+  ol
+    display: flex
+    margin-top: 30px
+
+    li:nth-child(2)::before,
+    li:nth-child(2)::after
+      content: ""
+      display: inline-block
+      width: 12px
+      height: 2px
+      background-color: #DDDDDD
+      margin: 0 14px 4px 14px
+
+.paypal-amount-selected
+  color: $color-main
