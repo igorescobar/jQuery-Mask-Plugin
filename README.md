@@ -28,6 +28,9 @@ https://igorescobar.github.io/jQuery-Mask-Plugin/
   * HTML5 placeholder support.
   * Clear the field if it not matches support.
 
+## Want to buy me a beer? :heart_eyes:
+http://paypal.me/igorcescobar
+
 ## Install it via Package Managers
 ### Bower
 `bower install jquery-mask-plugin`
@@ -129,23 +132,3 @@ grunt test
  * [Gabriel Schammah](https://github.com/gschammah)
  * [Marcelo Manzan](https://github.com/kawamanza)
  * [See the full list](https://github.com/igorescobar/jQuery-Mask-Plugin/graphs/contributors)
-
-## Help us!
-[![Click here to lend your support to: jQuery Mask Plugin and make a donation at pledgie.com !](https://pledgie.com/campaigns/22649.png?skin_name=chrome)](https://pledgie.com/campaigns/22649)
-
-[![Flattr this](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=igorescobar&url=https%3A%2F%2Fflattr.com%2Fprofile%2Figorescobar)
-
-## Donators (Thanks!)
- * Rinaldo Morato
- * [Marcelo Otowicz](http://www.ofen.com.br/)
- * Marcia Cristina Cava
- * [Igor Lima](https://github.com/igorlima)
- * Steve Binder
- * Douglas Patrocinio
- * Paulo Diogo Rodrigues Leão
- * Dorijan Covran
- * Amaro Mariño Malvido
- * Mark Guadagna
- * Serdar Selim Tulunoğlu
- * [Software Download](http://software-download.name)
- * [Full list](https://pledgie.com/campaigns/22649#donors)
