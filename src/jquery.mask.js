@@ -316,8 +316,9 @@
                                     m -= offset;
                                 }
                             }
-                            if( !translation.greedy )
+                            if( !translation.greedy ) {
                                 m += offset;
+                            }
                         } else if (valDigit === lastUntranslatedMaskChar) {
                             // matched the last untranslated (raw) mask character that we encountered
                             // likely an insert offset the mask character from the last entry; fall
