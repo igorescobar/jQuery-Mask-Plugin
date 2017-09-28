@@ -230,7 +230,7 @@
 
                     if (caretPosNew > oldValL) {
                       // if the cursor is at the end keep it there
-                      caretPosNew = newValL;
+                      caretPosNew = newValL * 10;
                     }
                     else if (caretPosOld >= caretPosNew && caretPosOld !== oldValL) {
                         if (!p.maskDigitPosMapOld[caretPosNew])  {
