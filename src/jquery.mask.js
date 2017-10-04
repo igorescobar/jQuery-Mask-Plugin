@@ -228,11 +228,10 @@
                         }
                     }
 
+                    // if the cursor is at the end keep it there
                     if (caretPosNew > oldValL) {
-                      // if the cursor is at the end keep it there
                       caretPosNew = newValL * 10;
-                    }
-                    else if (caretPosOld >= caretPosNew && caretPosOld !== oldValL) {
+                    } else if (caretPosOld >= caretPosNew && caretPosOld !== oldValL) {
                         if (!p.maskDigitPosMapOld[caretPosNew])  {
                           var caretPos = caretPosNew;
                           caretPosNew -= maskDigitsBeforeCaretAllOld - maskDigitsBeforeCaretAll;
@@ -259,6 +258,8 @@
                     var newVal   = p.getMasked(),
                         caretPos = p.getCaret();
 
+                    // this is a compensation to devices/browsers that don't compensate
+                    // caret positioning the right way
                     setTimeout(function() {
                       p.setCaret(p.calculateCaretPosition());
                     }, 10);
