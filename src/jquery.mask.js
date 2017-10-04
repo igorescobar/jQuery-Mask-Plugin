@@ -255,8 +255,7 @@
                 var keyCode = el.data('mask-keycode');
 
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
-                    var newVal   = p.getMasked(),
-                        caretPos = p.getCaret();
+                    var newVal   = p.getMasked();
 
                     // this is a compensation to devices/browsers that don't compensate
                     // caret positioning the right way
@@ -265,7 +264,7 @@
                     }, 10);
 
                     p.val(newVal);
-                    p.setCaret(caretPos);
+                    p.setCaret(newVal.length); //For cut/paste, you will return val+mask length
                     return p.callbacks(e);
                 }
             },
@@ -456,9 +455,8 @@
                 p.destroyEvents();
                 p.events();
 
-                var caret = p.getCaret();
                 p.val(p.getMasked());
-                p.setCaret(caret);
+                p.setCaret(p.getMasked().length);
             }
         };
 
