@@ -1,3 +1,9 @@
+== v1.14.12 (Oct/04 2017 09:57 +0100 by Igor Escobar) ==
+
+Bugfixes:
+
+* bug fixing on caret positioning on some devices
+
 == v1.14.11 (May/30 2017 21:53 +0100 by Igor Escobar) ==
 
 Bugfixes:
