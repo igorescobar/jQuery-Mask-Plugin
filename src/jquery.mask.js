@@ -49,7 +49,7 @@
 
 }(function ($) {
     'use strict';
-    
+
     var Mask = function (el, mask, options) {
 
         var p = {
