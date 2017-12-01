@@ -156,7 +156,10 @@
                         }
 
                     } else {
-                        maskChunks.push(mask.charAt(i).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+						if (mask.charAt(i) == " ")
+                            maskChunks.push("\\s?");
+						else
+							maskChunks.push(mask.charAt(i).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
                     }
                 }
 
