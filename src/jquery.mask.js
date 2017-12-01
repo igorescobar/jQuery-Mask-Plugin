@@ -549,6 +549,8 @@
         clearInterval($.maskWatchers[this.selector]);
         delete $.maskWatchers[this.selector];
         return this.each(function() {
+			$(this).removeAttr('placeholder');
+			$(this).removeAttr('maxlength');
             var dataMask = $(this).data('mask');
             if (dataMask) {
                 dataMask.remove().removeData('mask');
