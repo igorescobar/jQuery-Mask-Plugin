@@ -1,3 +1,10 @@
+== v1.14.13 (Dec/11 2017 18:59 +0000 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixes caret issue explained on #636
+* fixing use strict issue
+
 == v1.14.12 (Oct/04 2017 09:57 +0100 by Igor Escobar) ==
 
 Bugfixes:
