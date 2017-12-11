@@ -27,7 +27,7 @@
   "quotmark": "single",
   "regexp": true,
   "smarttabs": true,
-  "strict": true,
+  "strict": false,
   "trailing": true,
   "undef": true,
   "unused": true
