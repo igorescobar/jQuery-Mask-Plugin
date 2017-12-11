@@ -28,6 +28,7 @@
     "grunt-contrib-uglify": "*",
     "jshint-stylish": "^1.0.0",
     "load-grunt-tasks": "^3.1.0",
-    "time-grunt": "^1.0.0"
+    "time-grunt": "^1.0.0",
+    "request": "2.81.0"
   }
 }
