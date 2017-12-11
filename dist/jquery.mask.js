@@ -1,11 +1,11 @@
 /**
  * jquery.mask.js
- * @version: v1.14.12
+ * @version: v1.14.13
  * @author: Igor Escobar
  *
- * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
+ * Created by Igor Escobar on 2012-03-10. Please report any bug at github.com/igorescobar/jQuery-Mask-Plugin
  *
- * Copyright (c) 2012 Igor Escobar http://blog.igorescobar.com
+ * Copyright (c) 2012 Igor Escobar http://igorescobar.com
  *
  * The MIT License (http://www.opensource.org/licenses/mit-license.php)
  *
@@ -35,10 +35,8 @@
 /* jshint maxcomplexity:17 */
 /* global define */
 
-'use strict';
-
 // UMD (Universal Module Definition) patterns for JavaScript modules that work everywhere.
-// https://github.com/umdjs/umd/blob/master/jqueryPluginCommonjs.js
+// https://github.com/umdjs/umd/blob/master/templates/jqueryPlugin.js
 (function (factory, jQuery, Zepto) {
 
     if (typeof define === 'function' && define.amd) {
@@ -50,6 +48,7 @@
     }
 
 }(function ($) {
+    'use strict';
 
     var Mask = function (el, mask, options) {
 
@@ -309,7 +308,7 @@
                              if (translation.recursive) {
                                 if (resetPos === -1) {
                                     resetPos = m;
-                                } else if (m === lastMaskChar) {
+                                } else if (m === lastMaskChar && m !== resetPos) {
                                     m = resetPos - offset;
                                 }
 
