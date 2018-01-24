@@ -77,7 +77,7 @@ jQuery Mask Plugin has been tested with jQuery 1.7+ on all major browsers:
  * Android Default Browser v4+
 
 ## Typescript support
-Definition can be found [here](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/jquery-mask-plugin).
+Definition can be found [here](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/jquery-mask-plugin).
 
 To install, open terminal and navigate to your working directory.
 
