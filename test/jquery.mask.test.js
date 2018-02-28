@@ -336,10 +336,10 @@ $(document).ready(function(){
   module('Removing of maxlength attribute');
   test("when I unmask", function(){
     testfield.mask('0000');
-    equal("4", testfield.attr('maxlength'));
+    equal(testfield.attr('maxlength'), "4");
     
     testfield.unmask();
-    equal(undefined, testfield.attr('maxlength'));
+    equal(testfield.attr('maxlength'), undefined);
   });
 
   module('Getting Unmasked Value');
