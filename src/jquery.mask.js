@@ -549,6 +549,8 @@
             if (dataMask) {
                 dataMask.remove().removeData('mask');
             }
+            
+            $(this).removeAttr('maxlength');
         });
     };
 
