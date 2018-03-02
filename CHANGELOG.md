@@ -1,3 +1,11 @@
+== v1.14.14 (Mar/02 2018 16:55 +0000 by Igor Escobar) ==
+
+Bugfixes:
+
+* fixing mask positioning delays
+* unmask: also removing place holder if added on the first place.
+* unmask: unsetting maxlength if we set it in the first place
+
 == v1.14.13 (Dec/11 2017 18:59 +0000 by Igor Escobar) ==
 
 Bugfixes:
