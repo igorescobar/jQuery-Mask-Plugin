@@ -155,7 +155,10 @@
                         }
 
                     } else {
-                        maskChunks.push(mask.charAt(i).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+						if (mask.charAt(i) == " ")
+                            maskChunks.push("\\s?");
+						else
+							maskChunks.push(mask.charAt(i).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
                     }
                 }
 
@@ -549,6 +552,7 @@
         clearInterval($.maskWatchers[this.selector]);
         delete $.maskWatchers[this.selector];
         return this.each(function() {
+			$(this).removeAttr('placeholder');
             var dataMask = $(this).data('mask');
             if (dataMask) {
                 dataMask.remove().removeData('mask');
