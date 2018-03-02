@@ -396,6 +396,9 @@
             if (jMask.options.placeholder) {
                 el.removeAttr('placeholder');
             }
+            if (el.data('mask-maxlength')) {
+                el.removeAttr('maxlength');
+            }
             p.destroyEvents();
             p.val(jMask.getCleanVal());
             p.setCaret(caret);
@@ -450,7 +453,7 @@
                 }
 
                 if (maxlength) {
-                    el.attr('maxlength', mask.length);
+                    el.attr('maxlength', mask.length).data('mask-maxlength', true);
                 }
 
                 p.destroyEvents();

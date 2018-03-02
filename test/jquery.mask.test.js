@@ -332,6 +332,7 @@ $(document).ready(function(){
     testfield.unmask()
     equal(testfield.val(), "1299999999");
     equal(testfield.attr('placeholder'), undefined);
+    equal(testfield.attr('maxlength'), undefined);
   });
 
   module('Getting Unmasked Value');
