@@ -334,6 +334,15 @@ $(document).ready(function(){
     equal(testfield.attr('placeholder'), undefined);
     equal(testfield.attr('maxlength'), undefined);
   });
+    
+  module('Removing of maxlength attribute');
+  test("when I unmask", function(){
+    testfield.mask('0000');
+    equal(testfield.attr('maxlength'), "4");
+    
+    testfield.unmask();
+    equal(testfield.attr('maxlength'), undefined);
+  });
 
   module('Getting Unmasked Value');
 
