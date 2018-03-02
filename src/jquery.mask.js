@@ -393,6 +393,9 @@
         jMask.options = options;
         jMask.remove = function() {
             var caret = p.getCaret();
+            if (jMask.options.placeholder) {
+                el.removeAttr('placeholder');
+            }
             p.destroyEvents();
             p.val(jMask.getCleanVal());
             p.setCaret(caret);
