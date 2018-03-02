@@ -331,8 +331,14 @@ $(document).ready(function(){
     equal(typeTest("1299999999"), "(12) 9999-9999");
     testfield.unmask()
     equal(testfield.val(), "1299999999");
-    equal(testfield.attr('placeholder'), undefined);
-    equal(testfield.attr('maxlength'), undefined);
+
+    if (window.Zepto) {
+      equal(testfield.attr('placeholder'), '');
+      equal(testfield.attr('maxlength'), null);
+    } else {
+      equal(testfield.attr('placeholder'), undefined);
+      equal(testfield.attr('maxlength'), undefined);
+    }
   });
 
   module('Getting Unmasked Value');
