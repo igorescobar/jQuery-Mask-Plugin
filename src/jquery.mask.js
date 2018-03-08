@@ -254,7 +254,8 @@
                 var keyCode = el.data('mask-keycode');
 
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
-                    var newVal = p.getMasked();
+                    var newVal = p.getMasked(),
+                        caretPos = p.getCaret();
 
                     // this is a compensation to devices/browsers that don't compensate
                     // caret positioning the right way
@@ -263,6 +264,7 @@
                     }, $.jMaskGlobals.keyStrokeCompensation);
 
                     p.val(newVal);
+                    p.setCaret(caretPos);
                     return p.callbacks(e);
                 }
             },
