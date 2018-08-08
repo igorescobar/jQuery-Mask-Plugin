@@ -97,6 +97,7 @@ For configuration options and troubleshooting refer to these repositories:
 Before opening a new [issue](https://github.com/igorescobar/jQuery-Mask-Plugin/issues) take a look on those frequently asked questions:
 #### [How to integrate with React.js?](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/498)
 #### [How to integrate with Angular.js?](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/499)
+#### [How to integrate with Vue.js?](https://github.com/ankurk91/vue-jquery-mask)
 #### [Problems with old versions of Android keyboard](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/135)
 #### [Negative numbers, or currency related problems](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/436#issuecomment-253176511)
 #### [Prefix or sufix on the Mask](https://github.com/igorescobar/jQuery-Mask-Plugin/issues/166)
