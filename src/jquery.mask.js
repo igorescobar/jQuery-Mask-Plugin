@@ -489,6 +489,15 @@
            options.selectOnFocus = true;
         }
 
+        var trans = input.attr(prefix + 'translation');
+        if (trans) {
+            try {
+                options.translation = JSON.parse(trans);
+            } catch (e) {
+                // data was bad, ignore it
+            }
+        }
+
         if (notSameMaskObject(input, mask, options)) {
             return input.data('mask', new Mask(this, mask, options));
         }
