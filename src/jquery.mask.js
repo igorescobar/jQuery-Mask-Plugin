@@ -255,7 +255,7 @@
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
                     var newVal = p.getMasked(),
                         caretPos = p.getCaret(),
-                        oldVal = el.data('mask-previus-value');
+                        oldVal = el.data('mask-previus-value') || '';
 
                     // this is a compensation to devices/browsers that don't compensate
                     // caret positioning the right way
