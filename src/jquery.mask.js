@@ -187,7 +187,7 @@
 
                 return r;
             },
-            calculateCaretPosition: function(oldVal='') {
+            calculateCaretPosition: function(oldVal) {
                 var newVal = p.getMasked(),
                     caretPosNew = p.getCaret();
                 if (oldVal !== newVal) {
