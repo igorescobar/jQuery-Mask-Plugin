@@ -41,8 +41,7 @@
 
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], factory);
-    } else if (
-        (typeof exports === 'object' && typeof Meteor === 'undefined') {
+    } else if (typeof exports === 'object' && typeof Meteor === 'undefined') {
         module.exports = factory(require('jquery'));
     } else {
         factory(jQuery || Zepto);
