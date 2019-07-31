@@ -21,14 +21,14 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "grunt": "~0.4.1",
+    "grunt": "^1.0.4",
     "grunt-contrib-connect": "*",
-    "grunt-contrib-jshint": "^0.11.0",
-    "grunt-contrib-qunit": "*",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-qunit": "^3.1.0",
     "grunt-contrib-uglify": "*",
     "jshint-stylish": "^1.0.0",
     "load-grunt-tasks": "^3.1.0",
-    "time-grunt": "^1.0.0",
-    "request": "2.81.0"
+    "request": "2.88.0",
+    "time-grunt": "^1.0.0"
   }
 }

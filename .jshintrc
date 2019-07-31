@@ -17,7 +17,7 @@
   },
   "immed": true,
   "indent": 4,
-  "latedef": true,
+  "latedef": false,
   "maxcomplexity": 15,
   "newcap": true,
   "noarg": true,
