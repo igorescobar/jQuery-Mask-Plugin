@@ -1,0 +1,1 @@
+Fixed oldVal being updated prior to caret position calculation
