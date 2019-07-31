@@ -1,6 +1,6 @@
 /**
  * jquery.mask.js
- * @version: v1.14.15
+ * @version: v1.14.16
  * @author: Igor Escobar
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at github.com/igorescobar/jQuery-Mask-Plugin
@@ -41,7 +41,7 @@
 
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], factory);
-    } else if (typeof exports === 'object') {
+    } else if (typeof exports === 'object' && typeof Meteor === 'undefined') {
         module.exports = factory(require('jquery'));
     } else {
         factory(jQuery || Zepto);
@@ -187,9 +187,8 @@
 
                 return r;
             },
-            calculateCaretPosition: function() {
-                var oldVal = el.data('mask-previus-value') || '',
-                    newVal = p.getMasked(),
+            calculateCaretPosition: function(oldVal) {
+                var newVal = p.getMasked(),
                     caretPosNew = p.getCaret();
                 if (oldVal !== newVal) {
                     var caretPosOld = el.data('mask-previus-caret-pos') || 0,
@@ -255,12 +254,13 @@
 
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
                     var newVal = p.getMasked(),
-                        caretPos = p.getCaret();
+                        caretPos = p.getCaret(),
+                        oldVal = el.data('mask-previus-value') || '';
 
                     // this is a compensation to devices/browsers that don't compensate
                     // caret positioning the right way
                     setTimeout(function() {
-                      p.setCaret(p.calculateCaretPosition());
+                      p.setCaret(p.calculateCaretPosition(oldVal));
                     }, $.jMaskGlobals.keyStrokeCompensation);
 
                     p.val(newVal);
