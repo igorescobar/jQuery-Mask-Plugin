@@ -1,3 +1,10 @@
+== v1.14.16 (Jul/31 2019 16:32 +0100 by Igor Escobar) ==
+
+Bugfixes:
+
+* Fixed oldVal being updated prior to caret position calculation
+* Solve loading JQuery as module on Meteor
+
 == v1.14.15 (Mar/08 2018 22:59 +0000 by Igor Escobar) ==
 
 Bugfixes:
