@@ -305,7 +305,7 @@
                     if (translation) {
                         if (valDigit.match(translation.pattern)) {
                             buf[addMethod](valDigit);
-                             if (translation.recursive) {
+                            if (translation.recursive) {
                                 if (resetPos === -1) {
                                     resetPos = m;
                                 } else if (m === lastMaskChar && m !== resetPos) {
@@ -316,14 +316,16 @@
                                     m -= offset;
                                 }
                             }
-                            m += offset;
+                            if( !translation.greedy ) {
+                                m += offset;
+                            }
                         } else if (valDigit === lastUntranslatedMaskChar) {
                             // matched the last untranslated (raw) mask character that we encountered
                             // likely an insert offset the mask character from the last entry; fall
                             // through and only increment v
                             maskDigitCount--;
                             lastUntranslatedMaskChar = undefined;
-                        } else if (translation.optional) {
+                        } else if (translation.optional || translation.greedy ) {
                             m += offset;
                             v -= offset;
                         } else if (translation.fallback) {
