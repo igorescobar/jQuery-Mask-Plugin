@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  - "0.10"
+  - "8.9.3"
 before_script:
   - npm install -g grunt-cli
   - npm install
-script: grunt test -v -d
+script: grunt test

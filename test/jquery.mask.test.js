@@ -326,11 +326,19 @@ $(document).ready(function(){
   module('Removing mask');
 
   test("when I get the unmasked value", function(){
-    testfield.mask('(00) 0000-0000');
+    testfield.mask('(00) 0000-0000', { placeholder: '(__) ____-____' });
 
-    equal( typeTest("1299999999"), "(12) 9999-9999");
+    equal(typeTest("1299999999"), "(12) 9999-9999");
     testfield.unmask()
-    equal( testfield.val(), "1299999999");
+    equal(testfield.val(), "1299999999");
+
+    if (window.Zepto) {
+      equal(testfield.attr('placeholder'), '');
+      equal(testfield.attr('maxlength'), null);
+    } else {
+      equal(testfield.attr('placeholder'), undefined);
+      equal(testfield.attr('maxlength'), undefined);
+    }
   });
 
   module('Getting Unmasked Value');
