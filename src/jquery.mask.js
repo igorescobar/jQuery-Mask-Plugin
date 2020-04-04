@@ -422,8 +422,20 @@
             options = options || {};
 
             jMask.clearIfNotMatch  = $.jMaskGlobals.clearIfNotMatch;
-            jMask.byPassKeys       = $.jMaskGlobals.byPassKeys;
+
+            // Caso nenhuma definição foi feita nas Definições Globais pelo usuário, pega o padrão do plugin!
+            jMask.byPassKeys       = ('byPassKeys' in $.jMaskGlobals) ? $.jMaskGlobals.byPassKeys : globals.byPassKeys;
+
             jMask.translation      = $.extend({}, $.jMaskGlobals.translation, options.translation);
+
+            // Caso nenhuma definição foi feita nas Definições Globais pelo usuário, pega o padrão do plugin!
+            jMask.translation      = Object.keys(jMask.translation).length == 0 ? globals.translation : jMask.translation;
+
+            // addTranslation: Propriedade para Adicionar translation sem remover as definidas por padrão!
+            jMask.translation      = $.extend({}, jMask.translation, $.jMaskGlobals.addTranslation);
+
+            // Caso o usuário não tenha definido a propriedade, obtém o valor padrão do Plugin!
+            $.jMaskGlobals.useInput = ('useInput' in $.jMaskGlobals) ? $.jMaskGlobals.useInput : globals.useInput ;
 
             jMask = $.extend(true, {}, jMask, options);
 
