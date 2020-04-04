@@ -112,15 +112,15 @@
                     el.data('changed', true);
                 })
                 .on('blur.mask', function(){
-                    if (oldValue !== p.val() && !el.data('changed')) {
+                    if (focusValue !== p.val() && !el.data('changed')) {
                         el.trigger('change');
                     }
                     el.data('changed', false);
                 })
                 // it's very important that this callback remains in this position
-                // otherwhise oldValue it's going to work buggy
+                // otherwhise focusValue it's going to work buggy
                 .on('blur.mask', function() {
-                    oldValue = p.val();
+                    focusValue = p.val();
                 })
                 // select all text on focus
                 .on('focus.mask', function (e) {
@@ -377,6 +377,7 @@
                             options[name].apply(this, args);
                         }
                     };
+                oldValue = val;
 
                 callback('onChange', changed === true, defaultArgs);
                 callback('onKeyPress', changed === true, defaultArgs);
@@ -386,7 +387,7 @@
         };
 
         el = $(el);
-        var jMask = this, oldValue = p.val(), regexMask;
+        var jMask = this, focusValue = p.val(), oldValue = p.val(), regexMask;
 
         mask = typeof mask === 'function' ? mask(p.val(), undefined, el,  options) : mask;
 
