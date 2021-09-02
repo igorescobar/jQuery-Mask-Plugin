@@ -100,6 +100,7 @@
                     el.data('mask-keycode', e.keyCode || e.which);
                     el.data('mask-previus-value', el.val());
                     el.data('mask-previus-caret-pos', p.getCaret());
+                    el.data('mask-selected', window.getSelection ? window.getSelection().toString() : document.selection.createRange().text);
                     p.maskDigitPosMapOld = p.maskDigitPosMap;
                 })
                 .on($.jMaskGlobals.useInput ? 'input.mask' : 'keyup.mask', p.behaviour)
@@ -187,9 +188,7 @@
 
                 return r;
             },
-            calculateCaretPosition: function(oldVal) {
-                var newVal = p.getMasked(),
-                    caretPosNew = p.getCaret();
+            calculateCaretPosition: function(caretPosNew, newVal, oldVal) {
                 if (oldVal !== newVal) {
                     var caretPosOld = el.data('mask-previus-caret-pos') || 0,
                         newValL = newVal.length,
@@ -260,7 +259,7 @@
                     // this is a compensation to devices/browsers that don't compensate
                     // caret positioning the right way
                     setTimeout(function() {
-                      p.setCaret(p.calculateCaretPosition(oldVal));
+                      p.setCaret(p.calculateCaretPosition(caretPos, newVal, oldVal));
                     }, $.jMaskGlobals.keyStrokeCompensation);
 
                     p.val(newVal);
@@ -269,16 +268,34 @@
                 }
             },
             getMasked: function(skipMaskChars, val) {
-                var buf = [],
-                    value = val === undefined ? p.val() : val + '',
-                    m = 0, maskLen = mask.length,
+
+                var value = val === undefined ? p.val() : val + '';
+                var delPos = false;
+
+                // if press `del` key and the cursor is before the mask char - remove next not mask char
+                if(!el.data('mask-selected')) {
+                    if(el.data('mask-keycode') == 46) {
+                        var caretPos = p.getCaret() || 0;
+                        while(p.buf[caretPos] && p.buf[caretPos].mask) {
+                            delPos = caretPos;
+                            caretPos++;
+                        }
+                    }
+                }
+
+                if(options.intMax && parseInt(value.replace(/\D+/g, "")) > options.intMax) {
+                    value = el.data('mask-previus-value') || options.intMax.toString();
+                }
+
+                var m = 0, maskLen = mask.length,
                     v = 0, valLen = value.length,
                     offset = 1, addMethod = 'push',
                     resetPos = -1,
-                    maskDigitCount = 0,
-                    maskDigitPosArr = [],
                     lastMaskChar,
-                    check;
+                    check,
+                    chars = false;
+
+                p.buf = [];
 
                 if (options.reverse) {
                     addMethod = 'unshift';
@@ -296,16 +313,22 @@
                     };
                 }
 
-                var lastUntranslatedMaskChar;
                 while (check()) {
                     var maskDigit = mask.charAt(m),
                         valDigit = value.charAt(v),
                         translation = jMask.translation[maskDigit];
 
-                    if (translation) {
+                    if(delPos !== false && delPos == v) {
+                        v += offset;
+                    } else if (translation) {
                         if (valDigit.match(translation.pattern)) {
-                            buf[addMethod](valDigit);
-                             if (translation.recursive) {
+                            if (translation.fallback) {
+                                p.buf[addMethod]({char: valDigit, mask: true});
+                            } else {
+                                chars = true;
+                                p.buf[addMethod]({char: valDigit, mask: false});
+                            }
+                            if (translation.recursive) {
                                 if (resetPos === -1) {
                                     resetPos = m;
                                 } else if (m === lastMaskChar && m !== resetPos) {
@@ -317,56 +340,59 @@
                                 }
                             }
                             m += offset;
-                        } else if (valDigit === lastUntranslatedMaskChar) {
-                            // matched the last untranslated (raw) mask character that we encountered
-                            // likely an insert offset the mask character from the last entry; fall
-                            // through and only increment v
-                            maskDigitCount--;
-                            lastUntranslatedMaskChar = undefined;
+                            v += offset;
                         } else if (translation.optional) {
                             m += offset;
-                            v -= offset;
                         } else if (translation.fallback) {
-                            buf[addMethod](translation.fallback);
+                            p.buf[addMethod]({char: translation.fallback, mask: true});
                             m += offset;
-                            v -= offset;
                         } else {
-                          p.invalid.push({p: v, v: valDigit, e: translation.pattern});
+                            p.invalid.push({p: v, v: valDigit, e: translation.pattern});
+                            v += offset;
                         }
-                        v += offset;
                     } else {
                         if (!skipMaskChars) {
-                            buf[addMethod](maskDigit);
+                            p.buf[addMethod]({char: maskDigit, mask: true});
                         }
-
                         if (valDigit === maskDigit) {
-                            maskDigitPosArr.push(v);
                             v += offset;
-                        } else {
-                            lastUntranslatedMaskChar = maskDigit;
-                            maskDigitPosArr.push(v + maskDigitCount);
-                            maskDigitCount++;
                         }
-
                         m += offset;
                     }
                 }
 
-                var lastMaskCharDigit = mask.charAt(lastMaskChar);
-                if (maskLen === valLen + 1 && !jMask.translation[lastMaskCharDigit]) {
-                    buf.push(lastMaskCharDigit);
+                // if string consists only from masks - clear it
+                if(!chars) {
+                    p.buf = [];
                 }
 
-                var newVal = buf.join('');
-                p.mapMaskdigitPositions(newVal, maskDigitPosArr, valLen);
+                // append / prepend masks at the ends
+                var append = [];
+                while(m >= 0 && m < maskLen) {
+                    var t = mask.charAt(m);
+                    if(jMask.translation[t] && !jMask.translation[t].fallback) {
+                        append = [];
+                        break;
+                    }
+                    append.push({char: t, mask: true});
+                    m += offset;
+                }
+                for(var i = 0; i < append.length; i++) {
+                    p.buf[addMethod](append[i]);
+                }
+
+                var newVal = '';
+
+                p.maskDigitPosMap = {};
+
+                for(var i = 0; i < p.buf.length; i++) {
+                    newVal += p.buf[i].char;
+                    if(p.buf[i].mask) {
+                        p.maskDigitPosMap[i] = 1;
+                    }
+                }
+
                 return newVal;
-            },
-            mapMaskdigitPositions: function(newVal, maskDigitPosArr, valLen) {
-              var maskDiff = options.reverse ? newVal.length - valLen : 0;
-              p.maskDigitPosMap = {};
-              for (var i = 0; i < maskDigitPosArr.length; i++) {
-                p.maskDigitPosMap[maskDigitPosArr[i] + maskDiff] = 1;
-              }
             },
             callbacks: function (e) {
                 var val = p.val(),
