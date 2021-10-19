@@ -441,7 +441,7 @@
                 // and then press the "back" button, the autocomplete will erase
                 // the data. Works fine on IE9+, FF, Opera, Safari.
                 if (el.data('mask')) {
-                  el.attr('autocomplete', 'off');
+                  el.attr('autocomplete', 'nope');
                 }
 
                 // detect if is necessary let the user type freely.
