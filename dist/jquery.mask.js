@@ -98,11 +98,11 @@
                 el
                 .on('keydown.mask', function(e) {
                     el.data('mask-keycode', e.keyCode || e.which);
-                    el.data('mask-previus-value', el.val());
-                    el.data('mask-previus-caret-pos', p.getCaret());
+                    el.data('mask-previous-value', el.val());
+                    el.data('mask-previous-caret-pos', p.getCaret());
                     p.maskDigitPosMapOld = p.maskDigitPosMap;
                 })
-                .on($.jMaskGlobals.useInput ? 'input.mask' : 'keyup.mask', p.behaviour)
+                .on($.jMaskGlobals.useInput ? 'input.mask' : 'keyup.mask', p.behavior)
                 .on('paste.mask drop.mask', function() {
                     setTimeout(function() {
                         el.keydown().keyup();
@@ -118,7 +118,7 @@
                     el.data('changed', false);
                 })
                 // it's very important that this callback remains in this position
-                // otherwhise oldValue it's going to work buggy
+                // otherwise oldValue it's going to work buggy
                 .on('blur.mask', function() {
                     oldValue = p.val();
                 })
@@ -191,7 +191,7 @@
                 var newVal = p.getMasked(),
                     caretPosNew = p.getCaret();
                 if (oldVal !== newVal) {
-                    var caretPosOld = el.data('mask-previus-caret-pos') || 0,
+                    var caretPosOld = el.data('mask-previous-caret-pos') || 0,
                         newValL = newVal.length,
                         oldValL = oldVal.length,
                         maskDigitsBeforeCaret = 0,
@@ -246,7 +246,7 @@
                 }
                 return caretPosNew;
             },
-            behaviour: function(e) {
+            behavior: function(e) {
                 e = e || window.event;
                 p.invalid = [];
 
@@ -255,7 +255,7 @@
                 if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
                     var newVal = p.getMasked(),
                         caretPos = p.getCaret(),
-                        oldVal = el.data('mask-previus-value') || '';
+                        oldVal = el.data('mask-previous-value') || '';
 
                     // this is a compensation to devices/browsers that don't compensate
                     // caret positioning the right way
@@ -358,10 +358,10 @@
                 }
 
                 var newVal = buf.join('');
-                p.mapMaskdigitPositions(newVal, maskDigitPosArr, valLen);
+                p.mapMaskDigitPositions(newVal, maskDigitPosArr, valLen);
                 return newVal;
             },
-            mapMaskdigitPositions: function(newVal, maskDigitPosArr, valLen) {
+            mapMaskDigitPositions: function(newVal, maskDigitPosArr, valLen) {
               var maskDiff = options.reverse ? newVal.length - valLen : 0;
               p.maskDigitPosMap = {};
               for (var i = 0; i < maskDigitPosArr.length; i++) {
