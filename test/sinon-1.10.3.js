@@ -1685,7 +1685,7 @@ var sinon = (function (formatio) {
 
             var original = this;
             var fake = this._create();
-            fake.matchingAguments = args;
+            fake.matchingArguments = args;
             fake.parent = this;
             push.call(this.fakes, fake);
 
@@ -1709,7 +1709,7 @@ var sinon = (function (formatio) {
         },
 
         matches: function (args, strict) {
-            var margs = this.matchingAguments;
+            var margs = this.matchingArguments;
 
             if (margs.length <= args.length &&
                 sinon.deepEqual(margs, args.slice(0, margs.length))) {
@@ -2255,10 +2255,10 @@ var sinon = (function (formatio) {
     }
 
     function getDefaultBehavior(stub) {
-        return stub.defaultBehavior || getParentBehaviour(stub) || sinon.behavior.create(stub);
+        return stub.defaultBehavior || getParentBehavior(stub) || sinon.behavior.create(stub);
     }
 
-    function getParentBehaviour(stub) {
+    function getParentBehavior(stub) {
         return (stub.parent && getCurrentBehavior(stub.parent));
     }
 
@@ -4050,7 +4050,7 @@ if (typeof module !== 'undefined' && module.exports) {
 /**
  * The Sinon "server" mimics a web server that receives requests from
  * sinon.FakeXMLHttpRequest and provides an API to respond to those requests,
- * both synchronously and asynchronously. To respond synchronuously, canned
+ * both synchronously and asynchronously. To respond synchronously, canned
  * answers have to be provided upfront.
  *
  * @author Christian Johansen (christian@cjohansen.no)
