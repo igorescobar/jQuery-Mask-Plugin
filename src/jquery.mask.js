@@ -130,7 +130,7 @@
                 })
                 // clear the value if it not complete the mask
                 .on('focusout.mask', function() {
-                    if (options.clearIfNotMatch && !regexMask.test(p.val())) {
+                    if (options.clearIfNotMatch && !testMaskedVal()) {
                        p.val('');
                    }
                 });
@@ -416,6 +416,10 @@
         jMask.getMaskedVal = function(val) {
            return p.getMasked(false, val);
         };
+        
+        jMask.testMaskedVal = function() {
+            return regexMask.test(p.val());
+        };
 
        jMask.init = function(onlyMask) {
             onlyMask = onlyMask || false;
@@ -561,6 +565,10 @@
     $.fn.cleanVal = function() {
         return this.data('mask').getCleanVal();
     };
+    
+    $.fn.maskMatched = function() {
+        return this.data('mask').testMaskedVal();
+    }
 
     $.applyDataMask = function(selector) {
         selector = selector || $.jMaskGlobals.maskElements;
